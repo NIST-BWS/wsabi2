@@ -37,20 +37,20 @@
 		EAF0F97614BC7B8C00544416 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAF0F97814BC7B8C00544416 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		EAF0F97E14BC7B8C00544416 /* wsabi2-Info.plist */ = {isa = PBXFileReference; path = "wsabi2-Info.plist"; sourceTree = "<group>"; };
+		EAF0F97E14BC7B8C00544416 /* wsabi2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wsabi2-Info.plist"; sourceTree = "<group>"; };
 		EAF0F98014BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAF0F98214BC7B8C00544416 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */ = {isa = PBXFileReference; path = "wsabi2-Prefix.pch"; sourceTree = "<group>"; };
-		EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */ = {isa = PBXFileReference; path = WSAppDelegate.h; sourceTree = "<group>"; };
+		EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wsabi2-Prefix.pch"; sourceTree = "<group>"; };
+		EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSAppDelegate.h; sourceTree = "<group>"; };
 		EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSAppDelegate.m; sourceTree = "<group>"; };
-		EAF0F98814BC7B8C00544416 /* WSViewController.h */ = {isa = PBXFileReference; path = WSViewController.h; sourceTree = "<group>"; };
+		EAF0F98814BC7B8C00544416 /* WSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSViewController.h; sourceTree = "<group>"; };
 		EAF0F98914BC7B8C00544416 /* WSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSViewController.m; sourceTree = "<group>"; };
 		EAF0F98C14BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WSViewController.xib; sourceTree = "<group>"; };
 		EAF0F99314BC7B8C00544416 /* wsabi2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wsabi2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		EAF0F99C14BC7B8C00544416 /* wsabi2Tests-Info.plist */ = {isa = PBXFileReference; path = "wsabi2Tests-Info.plist"; sourceTree = "<group>"; };
+		EAF0F99C14BC7B8C00544416 /* wsabi2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wsabi2Tests-Info.plist"; sourceTree = "<group>"; };
 		EAF0F99E14BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; path = wsabi2Tests.h; sourceTree = "<group>"; };
+		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wsabi2Tests.h; sourceTree = "<group>"; };
 		EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wsabi2Tests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
