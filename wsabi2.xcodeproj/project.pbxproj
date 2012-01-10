@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
+		EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
+		EAF0F97B14BC7B8C00544416 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */; };
+		EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */; };
+		EAF0F98314BC7B8C00544416 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98214BC7B8C00544416 /* main.m */; };
+		EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */; };
+		EAF0F98A14BC7B8C00544416 /* WSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98914BC7B8C00544416 /* WSViewController.m */; };
+		EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F98B14BC7B8C00544416 /* WSViewController.xib */; };
+		EAF0F99514BC7B8C00544416 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */; };
+		EAF0F99614BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
+		EAF0F99714BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
+		EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */; };
+		EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EAF0F99814BC7B8C00544416 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF0F96914BC7B8C00544416 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAF0F97114BC7B8C00544416;
+			remoteInfo = wsabi2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EAF0F97214BC7B8C00544416 /* wsabi2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wsabi2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAF0F97614BC7B8C00544416 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EAF0F97814BC7B8C00544416 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EAF0F97E14BC7B8C00544416 /* wsabi2-Info.plist */ = {isa = PBXFileReference; path = "wsabi2-Info.plist"; sourceTree = "<group>"; };
+		EAF0F98014BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EAF0F98214BC7B8C00544416 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */ = {isa = PBXFileReference; path = "wsabi2-Prefix.pch"; sourceTree = "<group>"; };
+		EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */ = {isa = PBXFileReference; path = WSAppDelegate.h; sourceTree = "<group>"; };
+		EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSAppDelegate.m; sourceTree = "<group>"; };
+		EAF0F98814BC7B8C00544416 /* WSViewController.h */ = {isa = PBXFileReference; path = WSViewController.h; sourceTree = "<group>"; };
+		EAF0F98914BC7B8C00544416 /* WSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSViewController.m; sourceTree = "<group>"; };
+		EAF0F98C14BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WSViewController.xib; sourceTree = "<group>"; };
+		EAF0F99314BC7B8C00544416 /* wsabi2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wsabi2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		EAF0F99C14BC7B8C00544416 /* wsabi2Tests-Info.plist */ = {isa = PBXFileReference; path = "wsabi2Tests-Info.plist"; sourceTree = "<group>"; };
+		EAF0F99E14BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; path = wsabi2Tests.h; sourceTree = "<group>"; };
+		EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wsabi2Tests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EAF0F96F14BC7B8C00544416 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */,
+				EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */,
+				EAF0F97B14BC7B8C00544416 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAF0F98F14BC7B8C00544416 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F99514BC7B8C00544416 /* SenTestingKit.framework in Frameworks */,
+				EAF0F99614BC7B8C00544416 /* UIKit.framework in Frameworks */,
+				EAF0F99714BC7B8C00544416 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EAF0F96714BC7B8C00544416 = {
+			isa = PBXGroup;
+			children = (
+				EAF0F97C14BC7B8C00544416 /* wsabi2 */,
+				EAF0F99A14BC7B8C00544416 /* wsabi2Tests */,
+				EAF0F97514BC7B8C00544416 /* Frameworks */,
+				EAF0F97314BC7B8C00544416 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EAF0F97314BC7B8C00544416 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F97214BC7B8C00544416 /* wsabi2.app */,
+				EAF0F99314BC7B8C00544416 /* wsabi2Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EAF0F97514BC7B8C00544416 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F97614BC7B8C00544416 /* UIKit.framework */,
+				EAF0F97814BC7B8C00544416 /* Foundation.framework */,
+				EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */,
+				EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EAF0F97C14BC7B8C00544416 /* wsabi2 */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
+				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
+				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
+				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
+				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
+				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
+			);
+			path = wsabi2;
+			sourceTree = "<group>";
+		};
+		EAF0F97D14BC7B8C00544416 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F97E14BC7B8C00544416 /* wsabi2-Info.plist */,
+				EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */,
+				EAF0F98214BC7B8C00544416 /* main.m */,
+				EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EAF0F99A14BC7B8C00544416 /* wsabi2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */,
+				EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */,
+				EAF0F99B14BC7B8C00544416 /* Supporting Files */,
+			);
+			path = wsabi2Tests;
+			sourceTree = "<group>";
+		};
+		EAF0F99B14BC7B8C00544416 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EAF0F99C14BC7B8C00544416 /* wsabi2Tests-Info.plist */,
+				EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EAF0F97114BC7B8C00544416 /* wsabi2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAF0F9A514BC7B8C00544416 /* Build configuration list for PBXNativeTarget "wsabi2" */;
+			buildPhases = (
+				EAF0F96E14BC7B8C00544416 /* Sources */,
+				EAF0F96F14BC7B8C00544416 /* Frameworks */,
+				EAF0F97014BC7B8C00544416 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wsabi2;
+			productName = wsabi2;
+			productReference = EAF0F97214BC7B8C00544416 /* wsabi2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EAF0F99214BC7B8C00544416 /* wsabi2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAF0F9A814BC7B8C00544416 /* Build configuration list for PBXNativeTarget "wsabi2Tests" */;
+			buildPhases = (
+				EAF0F98E14BC7B8C00544416 /* Sources */,
+				EAF0F98F14BC7B8C00544416 /* Frameworks */,
+				EAF0F99014BC7B8C00544416 /* Resources */,
+				EAF0F99114BC7B8C00544416 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EAF0F99914BC7B8C00544416 /* PBXTargetDependency */,
+			);
+			name = wsabi2Tests;
+			productName = wsabi2Tests;
+			productReference = EAF0F99314BC7B8C00544416 /* wsabi2Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EAF0F96914BC7B8C00544416 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = EAF0F96C14BC7B8C00544416 /* Build configuration list for PBXProject "wsabi2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EAF0F96714BC7B8C00544416;
+			productRefGroup = EAF0F97314BC7B8C00544416 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EAF0F97114BC7B8C00544416 /* wsabi2 */,
+				EAF0F99214BC7B8C00544416 /* wsabi2Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EAF0F97014BC7B8C00544416 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */,
+				EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAF0F99014BC7B8C00544416 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAF0F99114BC7B8C00544416 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EAF0F96E14BC7B8C00544416 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F98314BC7B8C00544416 /* main.m in Sources */,
+				EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */,
+				EAF0F98A14BC7B8C00544416 /* WSViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAF0F98E14BC7B8C00544416 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EAF0F99914BC7B8C00544416 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAF0F97114BC7B8C00544416 /* wsabi2 */;
+			targetProxy = EAF0F99814BC7B8C00544416 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAF0F98014BC7B8C00544416 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EAF0F98B14BC7B8C00544416 /* WSViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAF0F98C14BC7B8C00544416 /* en */,
+			);
+			name = WSViewController.xib;
+			sourceTree = "<group>";
+		};
+		EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAF0F99E14BC7B8C00544416 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EAF0F9A314BC7B8C00544416 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		EAF0F9A414BC7B8C00544416 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EAF0F9A614BC7B8C00544416 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wsabi2/wsabi2-Prefix.pch";
+				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EAF0F9A714BC7B8C00544416 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wsabi2/wsabi2-Prefix.pch";
+				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EAF0F9A914BC7B8C00544416 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/wsabi2.app/wsabi2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wsabi2/wsabi2-Prefix.pch";
+				INFOPLIST_FILE = "wsabi2Tests/wsabi2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		EAF0F9AA14BC7B8C00544416 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/wsabi2.app/wsabi2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wsabi2/wsabi2-Prefix.pch";
+				INFOPLIST_FILE = "wsabi2Tests/wsabi2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EAF0F96C14BC7B8C00544416 /* Build configuration list for PBXProject "wsabi2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAF0F9A314BC7B8C00544416 /* Debug */,
+				EAF0F9A414BC7B8C00544416 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAF0F9A514BC7B8C00544416 /* Build configuration list for PBXNativeTarget "wsabi2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAF0F9A614BC7B8C00544416 /* Debug */,
+				EAF0F9A714BC7B8C00544416 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EAF0F9A814BC7B8C00544416 /* Build configuration list for PBXNativeTarget "wsabi2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAF0F9A914BC7B8C00544416 /* Debug */,
+				EAF0F9AA14BC7B8C00544416 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EAF0F96914BC7B8C00544416 /* Project object */;
+}
