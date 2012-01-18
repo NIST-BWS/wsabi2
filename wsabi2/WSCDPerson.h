@@ -1,0 +1,40 @@
+//
+//  WSCDPerson.h
+//  wsabi2
+//
+//  Created by Matt Aronoff on 1/18/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+
+@interface WSCDPerson : NSManagedObject
+
+@property (nonatomic, retain) NSData * aliases;
+@property (nonatomic, retain) NSData * datesOfBirth;
+@property (nonatomic, retain) NSString * eyeColor;
+@property (nonatomic, retain) NSString * firstName;
+@property (nonatomic, retain) NSString * gender;
+@property (nonatomic, retain) NSString * hairColor;
+@property (nonatomic, retain) NSString * height;
+@property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * middleName;
+@property (nonatomic, retain) NSString * otherName;
+@property (nonatomic, retain) NSString * placesOfBirth;
+@property (nonatomic, retain) NSString * race;
+@property (nonatomic, retain) NSDate * timeStampCreated;
+@property (nonatomic, retain) NSDate * timeStampLastModified;
+@property (nonatomic, retain) NSString * weight;
+@property (nonatomic, retain) NSSet *items;
+@end
+
+@interface WSCDPerson (CoreDataGeneratedAccessors)
+
+- (void)addItemsObject:(NSManagedObject *)value;
+- (void)removeItemsObject:(NSManagedObject *)value;
+- (void)addItems:(NSSet *)values;
+- (void)removeItems:(NSSet *)values;
+
+@end

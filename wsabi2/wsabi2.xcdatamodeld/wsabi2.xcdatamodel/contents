@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="WSCDDeviceDefinition" representedClassName="WSCDDeviceDefinition" syncable="YES">
+        <attribute name="mostRecentSessionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parameterDictionary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WSCDItem" inverseName="deviceConfig" inverseEntity="WSCDItem" syncable="YES"/>
+    </entity>
+    <entity name="WSCDItem" representedClassName="WSCDItem" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="deviceConfig" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WSCDDeviceDefinition" inverseName="item" inverseEntity="WSCDDeviceDefinition" syncable="YES"/>
+        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WSCDPerson" inverseName="items" inverseEntity="WSCDPerson" syncable="YES"/>
+    </entity>
+    <entity name="WSCDPerson" representedClassName="WSCDPerson" syncable="YES">
+        <attribute name="aliases" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="datesOfBirth" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="eyeColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hairColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="otherName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placesOfBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="race" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="timeStampLastModified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WSCDItem" inverseName="person" inverseEntity="WSCDItem" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="WSCDDeviceDefinition" positionX="405" positionY="117" width="128" height="120"/>
+        <element name="WSCDItem" positionX="189" positionY="99" width="128" height="165"/>
+        <element name="WSCDPerson" positionX="-54" positionY="-18" width="128" height="285"/>
+    </elements>
+</model>
