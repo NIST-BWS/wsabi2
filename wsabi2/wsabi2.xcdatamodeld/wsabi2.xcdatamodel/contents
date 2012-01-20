@@ -14,6 +14,7 @@
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="deviceConfig" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WSCDDeviceDefinition" inverseName="item" inverseEntity="WSCDDeviceDefinition" syncable="YES"/>
         <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WSCDPerson" inverseName="items" inverseEntity="WSCDPerson" syncable="YES"/>
     </entity>
@@ -37,7 +38,7 @@
     </entity>
     <elements>
         <element name="WSCDDeviceDefinition" positionX="405" positionY="117" width="128" height="120"/>
-        <element name="WSCDItem" positionX="189" positionY="99" width="128" height="165"/>
+        <element name="WSCDItem" positionX="189" positionY="99" width="128" height="180"/>
         <element name="WSCDPerson" positionX="-54" positionY="-18" width="128" height="285"/>
     </elements>
 </model>

@@ -8,10 +8,14 @@
 
 #import "WSViewController.h"
 
+#import "WSAppDelegate.h"
+#import "NSManagedObject+DeepCopy.h"
+
 @implementation WSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize tableView;
+@synthesize addFirstButton;
 
 - (void)didReceiveMemoryWarning
 {
@@ -25,6 +29,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.fetchedResultsController.delegate = self;
+
+    self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
 }
 
 - (void)viewDidUnload
@@ -60,34 +68,73 @@
     return YES;
 }
 
+#pragma mark - Button Action methods
+
+-(IBAction)addFirstButtonPressed:(id)sender
+{
+    //Unlike the usual duplicate-style add, this time we need to start from scratch.
+    
+    WSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
+    newPerson.timeStampCreated = [NSDate date];
+     
+    //Save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    //scroll to the new position.
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
+    [self.tableView selectRowAtIndexPath:newPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    [self tableView:self.tableView didSelectRowAtIndexPath:newPath]; //fire this manually, as the previous call doesn't do it.
+    
+    //fade the button out
+    [UIView animateWithDuration:0.3 animations:^{
+        ((UIButton*)sender).alpha = 0;
+    }];
+}
+
+
 #pragma mark - TableView data source/delegate
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return [self.fetchedResultsController.fetchedObjects count];
 }
 
 // Customize the appearance of table view cells.
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+    NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
+    if ([indexPath compare:selectedIndex] == NSOrderedSame) {
+        return 388;
+    }
+    else return 160;
+}
 
+- (void)configureCell:(WSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //cell.textLabel.text = [person.timeStampCreated description];
+    //cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.person = person;
+    [cell.cellGridView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"WSPersonTableViewCell"; //this is also set in WSPersonTableViewCell's XIB file
     
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell*)[aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"WSPersonTableViewCell" owner:self
+                                                        options:nil];
+        
+        cell = [nibViews objectAtIndex: 0];
+        cell.delegate = self;
     }
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -103,26 +150,28 @@
  }
  */
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the managed object for the given index path
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        // Save the context.
-        NSError *error = nil;
-        if (![context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }   
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        // Delete the managed object for the given index path
+//        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+//        
+//        // Save the context.
+//        NSError *error = nil;
+//        if (![context save:&error]) {
+//            /*
+//             Replace this implementation with code to handle the error appropriately.
+//             
+//             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+//             */
+//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+//
+//
+//    }   
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -130,10 +179,15 @@
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *selectedObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //self.detailViewController.detailItem = selectedObject;    
+   
+    selectedIndex = indexPath;
+    
+    [aTableView beginUpdates];
+    [aTableView endUpdates];
+       
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
 
@@ -149,14 +203,14 @@
     // Create the fetch request for the entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStampCreated" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -208,15 +262,17 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            //Show or hide the big plus button
+            self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[aTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(WSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -224,6 +280,7 @@
             [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
+    
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
@@ -265,5 +322,30 @@
     }
 }
 
+#pragma mark - WSPersonTableViewCell delegate
+-(void) didRequestDuplicatePerson:(WSCDPerson*)oldPerson
+{
+    if(oldPerson) {
+        //if we have something to duplicate, do it.
+        WSCDPerson *newPerson = (WSCDPerson*)[oldPerson cloneInContext:self.managedObjectContext exludeEntities:nil];
+        newPerson.timeStampCreated = [NSDate date];
+        
+        //Save the context
+        [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+        
+        //select and scroll to the new position.
+        NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
+        [self tableView:self.tableView didSelectRowAtIndexPath:newPath]; //fire this manually, as the previous call doesn't do it.
+        [self.tableView selectRowAtIndexPath:newPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+
+    }
+}
+
+-(void) didRequestDeletePerson:(WSCDPerson*)oldPerson
+{
+    if (oldPerson) {
+        [self.managedObjectContext deleteObject:oldPerson];
+    }
+}
 
 @end

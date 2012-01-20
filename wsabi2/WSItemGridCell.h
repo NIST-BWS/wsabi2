@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WSItemGridCell : UIView
+@interface WSItemGridCell : KKGridViewCell
+{
+    BOOL initialLayoutComplete;
+}
+
+@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 
 @end

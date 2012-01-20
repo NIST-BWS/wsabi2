@@ -2,13 +2,14 @@
 //  WSCDPerson.h
 //  wsabi2
 //
-//  Created by Matt Aronoff on 1/18/12.
+//  Created by Matt Aronoff on 1/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class WSCDItem;
 
 @interface WSCDPerson : NSManagedObject
 
@@ -32,8 +33,8 @@
 
 @interface WSCDPerson (CoreDataGeneratedAccessors)
 
-- (void)addItemsObject:(NSManagedObject *)value;
-- (void)removeItemsObject:(NSManagedObject *)value;
+- (void)addItemsObject:(WSCDItem *)value;
+- (void)removeItemsObject:(WSCDItem *)value;
 - (void)addItems:(NSSet *)values;
 - (void)removeItems:(NSSet *)values;
 

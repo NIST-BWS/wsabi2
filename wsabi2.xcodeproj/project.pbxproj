@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
+		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
+		EA8A047414C861F600199FF8 /* personcell-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A047314C861F600199FF8 /* personcell-bg-selected.png */; };
+		EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */; };
+		EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */; };
+		EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */; };
+		EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */; };
+		EA8A052414C9C0B900199FF8 /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052314C9C0B900199FF8 /* WSCDPerson.m */; };
+		EA8A052714C9C0BA00199FF8 /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */; };
+		EA8A052A14C9C0BA00199FF8 /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052914C9C0BA00199FF8 /* WSCDItem.m */; };
+		EA8A053914C9CC0E00199FF8 /* libKKGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A053814C9CC0E00199FF8 /* libKKGridView.a */; };
 		EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */; };
 		EAA6FF8F14C7176500006BCB /* Developer_README.md in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF8E14C7176500006BCB /* Developer_README.md */; };
 		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
 		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
 		EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */; };
-		EAA6FFA214C729B200006BCB /* WSItemGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FFA114C729B200006BCB /* WSItemGridCell.xib */; };
-		EAA6FFA514C7442A00006BCB /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FFA414C7442A00006BCB /* WSCDDeviceDefinition.m */; };
-		EAA6FFA814C7442A00006BCB /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FFA714C7442A00006BCB /* WSCDPerson.m */; };
-		EAA6FFAB14C7442A00006BCB /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FFAA14C7442A00006BCB /* WSCDItem.m */; };
 		EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
 		EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
 		EAF0F97B14BC7B8C00544416 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */; };
@@ -33,20 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EAA6FF7C14C7142F00006BCB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EAA6FF7514C7142F00006BCB /* AQGridView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = AQGridView;
-		};
-		EAA6FF7E14C7146F00006BCB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EAA6FF7514C7142F00006BCB /* AQGridView.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = AQGridView;
-		};
 		EAF0F99814BC7B8C00544416 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EAF0F96914BC7B8C00544416 /* Project object */;
@@ -57,34 +50,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
+		EA8A047314C861F600199FF8 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected.png"; sourceTree = "<group>"; };
+		EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-disabled.png"; sourceTree = "<group>"; };
+		EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-highlighted.png"; sourceTree = "<group>"; };
+		EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-normal.png"; sourceTree = "<group>"; };
+		EA8A051614C8938A00199FF8 /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
+		EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DeepCopy.m"; sourceTree = "<group>"; };
+		EA8A052214C9C0B900199FF8 /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EA8A052314C9C0B900199FF8 /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
+		EA8A052514C9C0BA00199FF8 /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA8A052814C9C0BA00199FF8 /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EA8A052914C9C0BA00199FF8 /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EA8A053814C9CC0E00199FF8 /* libKKGridView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKKGridView.a; path = "../../shared_libs/KKGridView/build/Release-iphoneos/libKKGridView.a"; sourceTree = "<group>"; };
 		EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi2.xcdatamodel; sourceTree = "<group>"; };
-		EAA6FF7514C7142F00006BCB /* AQGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AQGridView.xcodeproj; path = ../../../shared_libs/AQGridView/AQGridView.xcodeproj; sourceTree = "<group>"; };
-		EAA6FF8114C7171A00006BCB /* AQGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ../../../shared_libs/AQGridView/Classes/AQGridView.h; sourceTree = "<group>"; };
-		EAA6FF8214C7171A00006BCB /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "../../../shared_libs/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = "<group>"; };
-		EAA6FF8314C7171A00006BCB /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLocationDelegation.h"; path = "../../../shared_libs/AQGridView/Classes/AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
-		EAA6FF8414C7171A00006BCB /* AQGridViewAnimatorItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewAnimatorItem.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewAnimatorItem.h; sourceTree = "<group>"; };
-		EAA6FF8514C7171A00006BCB /* AQGridViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewCell.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewCell.h; sourceTree = "<group>"; };
-		EAA6FF8614C7171A00006BCB /* AQGridViewCell+AQGridViewCellPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AQGridViewCell+AQGridViewCellPrivate.h"; path = "../../../shared_libs/AQGridView/Classes/AQGridViewCell+AQGridViewCellPrivate.h"; sourceTree = "<group>"; };
-		EAA6FF8714C7171A00006BCB /* AQGridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewController.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewController.h; sourceTree = "<group>"; };
-		EAA6FF8814C7171A00006BCB /* AQGridViewData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewData.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewData.h; sourceTree = "<group>"; };
-		EAA6FF8914C7171A00006BCB /* AQGridViewUpdateInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewUpdateInfo.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewUpdateInfo.h; sourceTree = "<group>"; };
-		EAA6FF8A14C7171A00006BCB /* AQGridViewUpdateItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AQGridViewUpdateItem.h; path = ../../../shared_libs/AQGridView/Classes/AQGridViewUpdateItem.h; sourceTree = "<group>"; };
-		EAA6FF8B14C7171A00006BCB /* NSIndexSet+AQIndexesOutsideSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+AQIndexesOutsideSet.h"; path = "../../../shared_libs/AQGridView/Classes/NSIndexSet+AQIndexesOutsideSet.h"; sourceTree = "<group>"; };
-		EAA6FF8C14C7171A00006BCB /* NSIndexSet+AQIsSetContiguous.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+AQIsSetContiguous.h"; path = "../../../shared_libs/AQGridView/Classes/NSIndexSet+AQIsSetContiguous.h"; sourceTree = "<group>"; };
-		EAA6FF8D14C7171A00006BCB /* UIColor+AQGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIColor+AQGridView.h"; path = "../../../shared_libs/AQGridView/Classes/UIColor+AQGridView.h"; sourceTree = "<group>"; };
 		EAA6FF8E14C7176500006BCB /* Developer_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Developer_README.md; sourceTree = "<group>"; };
 		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSPersonTableViewCell.xib; sourceTree = "<group>"; };
 		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPersonTableViewCell.h; sourceTree = "<group>"; };
 		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPersonTableViewCell.m; sourceTree = "<group>"; };
 		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSItemGridCell.h; sourceTree = "<group>"; };
 		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSItemGridCell.m; sourceTree = "<group>"; };
-		EAA6FFA114C729B200006BCB /* WSItemGridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSItemGridCell.xib; sourceTree = "<group>"; };
-		EAA6FFA314C7442A00006BCB /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EAA6FFA414C7442A00006BCB /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
-		EAA6FFA614C7442A00006BCB /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EAA6FFA714C7442A00006BCB /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EAA6FFA914C7442A00006BCB /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EAA6FFAA14C7442A00006BCB /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
 		EAF0F97214BC7B8C00544416 /* wsabi2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wsabi2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF0F97614BC7B8C00544416 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAF0F97814BC7B8C00544416 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,6 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA8A053914C9CC0E00199FF8 /* libKKGridView.a in Frameworks */,
+				EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */,
 				EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */,
 				EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */,
 				EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */,
@@ -132,6 +122,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA8A046814C7583A00199FF8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */,
+				EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */,
+				EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */,
+				EA8A047314C861F600199FF8 /* personcell-bg-selected.png */,
+				EA8A046B14C7599A00199FF8 /* plus-button.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		EA8A051514C8936900199FF8 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EA8A051614C8938A00199FF8 /* NSManagedObject+DeepCopy.h */,
+				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		EA8E447014BC9C05007D9B43 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +151,6 @@
 				EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */,
 				EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */,
 				EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */,
-				EAA6FFA114C729B200006BCB /* WSItemGridCell.xib */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -149,12 +159,12 @@
 			isa = PBXGroup;
 			children = (
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EAA6FFA914C7442A00006BCB /* WSCDItem.h */,
-				EAA6FFAA14C7442A00006BCB /* WSCDItem.m */,
-				EAA6FFA614C7442A00006BCB /* WSCDPerson.h */,
-				EAA6FFA714C7442A00006BCB /* WSCDPerson.m */,
-				EAA6FFA314C7442A00006BCB /* WSCDDeviceDefinition.h */,
-				EAA6FFA414C7442A00006BCB /* WSCDDeviceDefinition.m */,
+				EA8A052814C9C0BA00199FF8 /* WSCDItem.h */,
+				EA8A052914C9C0BA00199FF8 /* WSCDItem.m */,
+				EA8A052514C9C0BA00199FF8 /* WSCDDeviceDefinition.h */,
+				EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */,
+				EA8A052214C9C0B900199FF8 /* WSCDPerson.h */,
+				EA8A052314C9C0B900199FF8 /* WSCDPerson.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -162,38 +172,8 @@
 		EAA6FF7314C7137D00006BCB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				EAA6FF8014C716EB00006BCB /* Indexing Headers */,
-				EAA6FF7514C7142F00006BCB /* AQGridView.xcodeproj */,
 			);
 			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		EAA6FF7614C7142F00006BCB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EAA6FF7D14C7142F00006BCB /* libAQGridView.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		EAA6FF8014C716EB00006BCB /* Indexing Headers */ = {
-			isa = PBXGroup;
-			children = (
-				EAA6FF8114C7171A00006BCB /* AQGridView.h */,
-				EAA6FF8214C7171A00006BCB /* AQGridView+CellLayout.h */,
-				EAA6FF8314C7171A00006BCB /* AQGridView+CellLocationDelegation.h */,
-				EAA6FF8414C7171A00006BCB /* AQGridViewAnimatorItem.h */,
-				EAA6FF8514C7171A00006BCB /* AQGridViewCell.h */,
-				EAA6FF8614C7171A00006BCB /* AQGridViewCell+AQGridViewCellPrivate.h */,
-				EAA6FF8714C7171A00006BCB /* AQGridViewController.h */,
-				EAA6FF8814C7171A00006BCB /* AQGridViewData.h */,
-				EAA6FF8914C7171A00006BCB /* AQGridViewUpdateInfo.h */,
-				EAA6FF8A14C7171A00006BCB /* AQGridViewUpdateItem.h */,
-				EAA6FF8B14C7171A00006BCB /* NSIndexSet+AQIndexesOutsideSet.h */,
-				EAA6FF8C14C7171A00006BCB /* NSIndexSet+AQIsSetContiguous.h */,
-				EAA6FF8D14C7171A00006BCB /* UIColor+AQGridView.h */,
-			);
-			name = "Indexing Headers";
 			sourceTree = "<group>";
 		};
 		EAF0F96714BC7B8C00544416 = {
@@ -218,6 +198,8 @@
 		EAF0F97514BC7B8C00544416 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA8A053814C9CC0E00199FF8 /* libKKGridView.a */,
+				EA8A046614C752B000199FF8 /* QuartzCore.framework */,
 				EAF0F9FF14BC812900544416 /* CoreData.framework */,
 				EAF0F97614BC7B8C00544416 /* UIKit.framework */,
 				EAF0F97814BC7B8C00544416 /* Foundation.framework */,
@@ -231,6 +213,9 @@
 			isa = PBXGroup;
 			children = (
 				EAA6FF8E14C7176500006BCB /* Developer_README.md */,
+				EA8A051514C8936900199FF8 /* Categories */,
+				EA8A046814C7583A00199FF8 /* Images */,
+				EA202D7314C74F6600776BF3 /* constants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
@@ -288,7 +273,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				EAA6FF7F14C7146F00006BCB /* PBXTargetDependency */,
 			);
 			name = wsabi2;
 			productName = wsabi2;
@@ -332,12 +316,6 @@
 			mainGroup = EAF0F96714BC7B8C00544416;
 			productRefGroup = EAF0F97314BC7B8C00544416 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = EAA6FF7614C7142F00006BCB /* Products */;
-					ProjectRef = EAA6FF7514C7142F00006BCB /* AQGridView.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				EAF0F97114BC7B8C00544416 /* wsabi2 */,
@@ -345,16 +323,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		EAA6FF7D14C7142F00006BCB /* libAQGridView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAQGridView.a;
-			remoteRef = EAA6FF7C14C7142F00006BCB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EAF0F97014BC7B8C00544416 /* Resources */ = {
@@ -365,7 +333,11 @@
 				EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */,
 				EAA6FF8F14C7176500006BCB /* Developer_README.md in Resources */,
 				EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */,
-				EAA6FFA214C729B200006BCB /* WSItemGridCell.xib in Resources */,
+				EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */,
+				EA8A047414C861F600199FF8 /* personcell-bg-selected.png in Resources */,
+				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
+				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
+				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,9 +378,10 @@
 				EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */,
 				EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */,
 				EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */,
-				EAA6FFA514C7442A00006BCB /* WSCDDeviceDefinition.m in Sources */,
-				EAA6FFA814C7442A00006BCB /* WSCDPerson.m in Sources */,
-				EAA6FFAB14C7442A00006BCB /* WSCDItem.m in Sources */,
+				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
+				EA8A052414C9C0B900199FF8 /* WSCDPerson.m in Sources */,
+				EA8A052714C9C0BA00199FF8 /* WSCDDeviceDefinition.m in Sources */,
+				EA8A052A14C9C0BA00199FF8 /* WSCDItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,11 +396,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EAA6FF7F14C7146F00006BCB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AQGridView;
-			targetProxy = EAA6FF7E14C7146F00006BCB /* PBXContainerItemProxy */;
-		};
 		EAF0F99914BC7B8C00544416 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EAF0F97114BC7B8C00544416 /* wsabi2 */;
@@ -519,7 +487,7 @@
 				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/AQGridView/Classes/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -533,7 +501,7 @@
 				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/AQGridView/Classes/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
