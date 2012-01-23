@@ -19,7 +19,7 @@
 
 @end
 
-@interface WSPersonTableViewCell : UITableViewCell <KKGridViewDataSource, KKGridViewDelegate, UIActionSheetDelegate>
+@interface WSPersonTableViewCell : UITableViewCell <KKGridViewDataSource, KKGridViewDelegate, WSItemGridCellDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSArray *orderedItems;

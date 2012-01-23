@@ -56,6 +56,13 @@
 
         initialLayoutComplete = YES;
     }
+    
+    //if this isn't the selected cell, make sure it's not in edit mode.
+    if (!self.selected) {
+        self.editing = NO;
+    }
+    
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -117,6 +124,22 @@
     [self updateData];
 }
 
+-(void) setEditing:(BOOL)newEditingStatus
+{
+    [super setEditing:newEditingStatus];
+
+    //make sure the edit button's in the right state.
+    self.editButton.selected = newEditingStatus;
+    
+    //propogate this down to the contained grid cells
+    for (UIView *v in self.cellGridView.subviews) {
+        if ([v isKindOfClass:[WSItemGridCell class]]) {
+            //mark this cell with the same editing properties as the parent.
+            ((WSItemGridCell*)v).editing = newEditingStatus;
+        }
+    }
+}
+
 -(void) updateData
 {
 
@@ -162,9 +185,8 @@
 
 -(IBAction)editButtonPressed:(id)sender
 {
-    self.editing = !self.editing;
-    ((UIButton*)sender).selected = !((UIButton*)sender).selected;
-    [self.cellGridView reloadData];
+    [self setEditing:!self.editing];
+
 }
 
 -(IBAction)deleteButtonPressed:(id)sender
@@ -198,8 +220,34 @@
 - (KKGridViewCell *)gridView:(KKGridView *)gridView cellForItemAtIndexPath:(KKIndexPath *)indexPath
 {
     WSItemGridCell *cell = [WSItemGridCell cellForGridView:gridView];
-    
+    cell.item = [orderedItems objectAtIndex:indexPath.index];
+    cell.delegate = self; //make sure we get deletion requests.
     return cell;
 }
+
+#pragma mark Grid Cell delegate
+
+-(void) didRequestItemDeletion:(WSCDItem *)item
+{
+    //if we have a valid item, delete it and reload the grid.
+    int foundIndex = [orderedItems containsObject:item];
+    if (foundIndex != NSNotFound) {
+        [self.person removeItemsObject:item];
+        [self updateData]; //rebuild the ordered collection.
+        [self.cellGridView deleteItemsAtIndexPaths:[NSArray arrayWithObject:[KKIndexPath indexPathForIndex:foundIndex inSection:0]]
+                                     withAnimation:KKGridViewAnimationImplode];
+        //Save the context
+        [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+
+        //FIXME: make sure we remain in edit mode. This shouldn't be required.
+        //Figure out why we bounce back out of edit mode after a delete.
+        self.editing = YES;
+    }
+    else
+    {
+        NSLog(@"Tried to remove a nonexistent item: %@",item);
+    }
+}
+
 
 @end

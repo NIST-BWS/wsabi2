@@ -107,7 +107,7 @@
 // Customize the appearance of table view cells.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
+    //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
     if ([indexPath compare:selectedIndex] == NSOrderedSame) {
         return 388;
     }
@@ -120,6 +120,7 @@
     //cell.textLabel.text = [person.timeStampCreated description];
     //cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.person = person;
     [cell.cellGridView reloadData];
 }

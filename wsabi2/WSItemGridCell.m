@@ -10,7 +10,9 @@
 
 @implementation WSItemGridCell
 
+@synthesize item;
 @synthesize deleteButton;
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -33,22 +35,76 @@
         self.contentView.layer.borderWidth = 4.0;
         self.contentView.layer.cornerRadius = 12;
 
+        self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.deleteButton.bounds = CGRectMake(0, 0, 44, 44);
+        [self.deleteButton setBackgroundImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
+        self.deleteButton.center = CGPointMake(self.contentView.bounds.size.width/2.0, self.contentView.bounds.size.height/2.0);
+        self.deleteButton.hidden = YES;
+        [self.contentView addSubview:self.deleteButton];
+        
+        //add an action to the delete button
+        [self.deleteButton addTarget:self action:@selector(deleteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
         initialLayoutComplete = YES;
     }
 }
 
--(void) setEditing:(BOOL)editing animated:(BOOL)animated
+//NOTE: Always animate the delete button.
+-(void) setEditing:(BOOL)editing
 {
-    [super setEditing:editing animated:animated];
-    
-    if (self.editing) {
-        //add the delete button
-    }
-    else {
-        //remove the delete button
-    }
+    [super setEditing:editing];
+        
+     if (self.editing) {
+         //add the delete button
+         NSLog(@"Editing cell %@ now",self);
+         self.deleteButton.alpha = 0.0;
+         self.deleteButton.hidden = NO;
+         [UIView animateWithDuration:kMediumFadeAnimationDuration
+                          animations:^{
+                              self.deleteButton.alpha = 1.0;
+                          } 
+                          completion:^(BOOL completed) {
+                              
+                          }];
+
+     }
+     else {
+         //remove the delete button
+         NSLog(@"No longer editing cell %@",self);
+          [UIView animateWithDuration:kMediumFadeAnimationDuration
+                          animations:^{
+                              self.deleteButton.alpha = 0.0;
+                          } 
+                          completion:^(BOOL completed) {
+                              self.deleteButton.hidden = YES;
+
+                          }];
+
+     }
+
 
 }
+
+-(void) deleteButtonPressed:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Delete Item"
+                                                    otherButtonTitles:nil];
+    [actionSheet showFromRect:self.bounds inView:self animated:YES];
+}
+
+#pragma mark - Action Sheet Delegate
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.cancelButtonIndex) {
+        //just fire the delegate
+        [delegate didRequestItemDeletion:self.item];
+        
+    }
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

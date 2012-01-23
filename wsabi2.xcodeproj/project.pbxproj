@@ -37,6 +37,7 @@
 		EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */; };
 		EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */; };
 		EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F9FF14BC812900544416 /* CoreData.framework */; };
+		EAFB96D914CDE7E00088F1E8 /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = EAFB96D814CDE7E00088F1E8 /* Delete.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wsabi2Tests.h; sourceTree = "<group>"; };
 		EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wsabi2Tests.m; sourceTree = "<group>"; };
 		EAF0F9FF14BC812900544416 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EAFB96D814CDE7E00088F1E8 /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */,
 				EA8A047314C861F600199FF8 /* personcell-bg-selected.png */,
 				EA8A046B14C7599A00199FF8 /* plus-button.png */,
+				EAFB96D814CDE7E00088F1E8 /* Delete.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
+				EAFB96D914CDE7E00088F1E8 /* Delete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
