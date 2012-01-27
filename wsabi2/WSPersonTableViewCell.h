@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GMGridView.h"
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
+#import "WSCaptureController.h"
 #import "WSItemGridCell.h"
 #import "constants.h"
 
@@ -19,23 +21,31 @@
 
 @end
 
-@interface WSPersonTableViewCell : UITableViewCell <KKGridViewDataSource, KKGridViewDelegate, WSItemGridCellDelegate, UIActionSheetDelegate>
+@interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate,
+                                                    UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
-    NSArray *orderedItems;
+    NSMutableArray *orderedItems;
+    int deletableItem;
     
     UIActionSheet *deletePersonSheet;
+    UIActionSheet *deleteItemSheet;
+    
+    UIPopoverController *popoverController;
 }
 
 -(void) updateData;
+-(void) reloadItemGridAnimated:(BOOL)inOrOut;
 
 -(IBAction)addItemButtonPressed:(id)sender;
 -(IBAction)duplicateRowButtonPressed:(id)sender;
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
 
+-(void) performItemDeletionAtIndex:(int) index;
+
 @property (nonatomic, strong) WSCDPerson *person;
-@property (nonatomic, strong) IBOutlet KKGridView *cellGridView;
+@property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
 @property (nonatomic, strong) IBOutlet UIButton *editButton;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton *addButton;

@@ -10,6 +10,7 @@
     <entity name="WSCDItem" representedClassName="WSCDItem" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,8 +38,8 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WSCDItem" inverseName="person" inverseEntity="WSCDItem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WSCDDeviceDefinition" positionX="405" positionY="117" width="128" height="120"/>
-        <element name="WSCDItem" positionX="189" positionY="99" width="128" height="180"/>
-        <element name="WSCDPerson" positionX="-54" positionY="-18" width="128" height="285"/>
+        <element name="WSCDDeviceDefinition" positionX="520" positionY="-57" width="128" height="120"/>
+        <element name="WSCDItem" positionX="216" positionY="-153" width="128" height="180"/>
+        <element name="WSCDPerson" positionX="-20" positionY="-189" width="128" height="285"/>
     </elements>
 </model>

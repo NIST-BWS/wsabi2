@@ -105,13 +105,21 @@
 }
 
 // Customize the appearance of table view cells.
+//FIXME: This should be more flexible about different cell arrangements!
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
+    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
+    int numRows = MAX(1, ceil([person.items count] / 5.0)); 
+    
+    NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
+    
     if ([indexPath compare:selectedIndex] == NSOrderedSame) {
-        return 388;
+        return 264 + (124.0 * numRows);
     }
-    else return 160;
+    else return 40.0 + (124.0 * numRows);
 }
 
 - (void)configureCell:(WSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -122,7 +130,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.person = person;
-    [cell.cellGridView reloadData];
+    [cell.itemGridView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,7 +196,7 @@
     [aTableView beginUpdates];
     [aTableView endUpdates];
        
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 

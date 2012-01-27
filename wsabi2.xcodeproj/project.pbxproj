@@ -14,11 +14,18 @@
 		EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */; };
 		EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */; };
 		EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */; };
-		EA8A052414C9C0B900199FF8 /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052314C9C0B900199FF8 /* WSCDPerson.m */; };
-		EA8A052714C9C0BA00199FF8 /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */; };
-		EA8A052A14C9C0BA00199FF8 /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A052914C9C0BA00199FF8 /* WSCDItem.m */; };
-		EA8A053914C9CC0E00199FF8 /* libKKGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A053814C9CC0E00199FF8 /* libKKGridView.a */; };
 		EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */; };
+		EA8F483314D1A1BE00503E9C /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482914D1A1BE00503E9C /* GMGridView.m */; };
+		EA8F483414D1A1BE00503E9C /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482C14D1A1BE00503E9C /* GMGridViewCell.m */; };
+		EA8F483514D1A1BE00503E9C /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482E14D1A1BE00503E9C /* GMGridViewLayoutStrategies.m */; };
+		EA8F483614D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483014D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m */; };
+		EA8F483714D1A1BE00503E9C /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483214D1A1BE00503E9C /* UIView+GMGridViewAdditions.m */; };
+		EA8F483914D1A1D500503E9C /* close_x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8F483814D1A1D500503E9C /* close_x.png */; };
+		EA8F484014D1B5CE00503E9C /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */; };
+		EA8F484314D1B5CF00503E9C /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */; };
+		EA8F484614D1B5CF00503E9C /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F484514D1B5CF00503E9C /* WSCDItem.m */; };
+		EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */; };
+		EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */; };
 		EAA6FF8F14C7176500006BCB /* Developer_README.md in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF8E14C7176500006BCB /* Developer_README.md */; };
 		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
 		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
@@ -60,14 +67,30 @@
 		EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-normal.png"; sourceTree = "<group>"; };
 		EA8A051614C8938A00199FF8 /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DeepCopy.m"; sourceTree = "<group>"; };
-		EA8A052214C9C0B900199FF8 /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EA8A052314C9C0B900199FF8 /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EA8A052514C9C0BA00199FF8 /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
-		EA8A052814C9C0BA00199FF8 /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EA8A052914C9C0BA00199FF8 /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
 		EA8A053814C9CC0E00199FF8 /* libKKGridView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKKGridView.a; path = "../../shared_libs/KKGridView/build/Release-iphoneos/libKKGridView.a"; sourceTree = "<group>"; };
 		EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi2.xcdatamodel; sourceTree = "<group>"; };
+		EA8F482714D1A1BE00503E9C /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
+		EA8F482814D1A1BE00503E9C /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
+		EA8F482914D1A1BE00503E9C /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
+		EA8F482A14D1A1BE00503E9C /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
+		EA8F482B14D1A1BE00503E9C /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
+		EA8F482C14D1A1BE00503E9C /* GMGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewCell.m; sourceTree = "<group>"; };
+		EA8F482D14D1A1BE00503E9C /* GMGridViewLayoutStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewLayoutStrategies.h; sourceTree = "<group>"; };
+		EA8F482E14D1A1BE00503E9C /* GMGridViewLayoutStrategies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewLayoutStrategies.m; sourceTree = "<group>"; };
+		EA8F482F14D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+GMGridViewAdditions.h"; sourceTree = "<group>"; };
+		EA8F483014D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+GMGridViewAdditions.m"; sourceTree = "<group>"; };
+		EA8F483114D1A1BE00503E9C /* UIView+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GMGridViewAdditions.h"; sourceTree = "<group>"; };
+		EA8F483214D1A1BE00503E9C /* UIView+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GMGridViewAdditions.m"; sourceTree = "<group>"; };
+		EA8F483814D1A1D500503E9C /* close_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_x.png; sourceTree = "<group>"; };
+		EA8F483E14D1B5CE00503E9C /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
+		EA8F484114D1B5CF00503E9C /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA8F484414D1B5CF00503E9C /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EA8F484514D1B5CF00503E9C /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureController.h; sourceTree = "<group>"; };
+		EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureController.m; sourceTree = "<group>"; };
+		EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSCaptureController.xib; sourceTree = "<group>"; };
 		EAA6FF8E14C7176500006BCB /* Developer_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Developer_README.md; sourceTree = "<group>"; };
 		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSPersonTableViewCell.xib; sourceTree = "<group>"; };
 		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPersonTableViewCell.h; sourceTree = "<group>"; };
@@ -102,7 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA8A053914C9CC0E00199FF8 /* libKKGridView.a in Frameworks */,
 				EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */,
 				EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */,
 				EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */,
@@ -162,19 +184,41 @@
 			isa = PBXGroup;
 			children = (
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EA8A052814C9C0BA00199FF8 /* WSCDItem.h */,
-				EA8A052914C9C0BA00199FF8 /* WSCDItem.m */,
-				EA8A052514C9C0BA00199FF8 /* WSCDDeviceDefinition.h */,
-				EA8A052614C9C0BA00199FF8 /* WSCDDeviceDefinition.m */,
-				EA8A052214C9C0B900199FF8 /* WSCDPerson.h */,
-				EA8A052314C9C0B900199FF8 /* WSCDPerson.m */,
+				EA8F484414D1B5CF00503E9C /* WSCDItem.h */,
+				EA8F484514D1B5CF00503E9C /* WSCDItem.m */,
+				EA8F484114D1B5CF00503E9C /* WSCDDeviceDefinition.h */,
+				EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */,
+				EA8F483E14D1B5CE00503E9C /* WSCDPerson.h */,
+				EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */,
 			);
 			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		EA8F482614D1A1BE00503E9C /* GMGridView */ = {
+			isa = PBXGroup;
+			children = (
+				EA8F483814D1A1D500503E9C /* close_x.png */,
+				EA8F482714D1A1BE00503E9C /* GMGridView-Constants.h */,
+				EA8F482814D1A1BE00503E9C /* GMGridView.h */,
+				EA8F482914D1A1BE00503E9C /* GMGridView.m */,
+				EA8F482A14D1A1BE00503E9C /* GMGridViewCell+Extended.h */,
+				EA8F482B14D1A1BE00503E9C /* GMGridViewCell.h */,
+				EA8F482C14D1A1BE00503E9C /* GMGridViewCell.m */,
+				EA8F482D14D1A1BE00503E9C /* GMGridViewLayoutStrategies.h */,
+				EA8F482E14D1A1BE00503E9C /* GMGridViewLayoutStrategies.m */,
+				EA8F482F14D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.h */,
+				EA8F483014D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m */,
+				EA8F483114D1A1BE00503E9C /* UIView+GMGridViewAdditions.h */,
+				EA8F483214D1A1BE00503E9C /* UIView+GMGridViewAdditions.m */,
+			);
+			name = GMGridView;
+			path = API;
 			sourceTree = "<group>";
 		};
 		EAA6FF7314C7137D00006BCB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				EA8F482614D1A1BE00503E9C /* GMGridView */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -223,6 +267,9 @@
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
+				EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */,
+				EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */,
+				EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */,
 				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
 				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
 				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
@@ -342,6 +389,8 @@
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
 				EAFB96D914CDE7E00088F1E8 /* Delete.png in Resources */,
+				EA8F483914D1A1D500503E9C /* close_x.png in Resources */,
+				EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,9 +432,15 @@
 				EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */,
 				EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */,
 				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
-				EA8A052414C9C0B900199FF8 /* WSCDPerson.m in Sources */,
-				EA8A052714C9C0BA00199FF8 /* WSCDDeviceDefinition.m in Sources */,
-				EA8A052A14C9C0BA00199FF8 /* WSCDItem.m in Sources */,
+				EA8F483314D1A1BE00503E9C /* GMGridView.m in Sources */,
+				EA8F483414D1A1BE00503E9C /* GMGridViewCell.m in Sources */,
+				EA8F483514D1A1BE00503E9C /* GMGridViewLayoutStrategies.m in Sources */,
+				EA8F483614D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
+				EA8F483714D1A1BE00503E9C /* UIView+GMGridViewAdditions.m in Sources */,
+				EA8F484014D1B5CE00503E9C /* WSCDPerson.m in Sources */,
+				EA8F484314D1B5CF00503E9C /* WSCDDeviceDefinition.m in Sources */,
+				EA8F484614D1B5CF00503E9C /* WSCDItem.m in Sources */,
+				EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +546,7 @@
 				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/AQGridView/Classes/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/GMGridView/GMGridView/API/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -505,7 +560,7 @@
 				INFOPLIST_FILE = "wsabi2/wsabi2-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/AQGridView/Classes/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/maronoff/Dev/shared_libs/GMGridView/GMGridView/API/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

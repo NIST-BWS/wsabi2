@@ -4,7 +4,4 @@
    <FileRef
       location = "group:wsabi2.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../../shared_libs/KKGridView/KKGridView.xcodeproj">
-   </FileRef>
 </Workspace>

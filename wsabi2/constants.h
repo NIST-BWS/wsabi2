@@ -9,7 +9,7 @@
 #ifndef wsabi2_constants_h
 #define wsabi2_constants_h
 
-#define kItemCellSize 124
+#define kItemCellSize 112
 
 #define kFastFadeAnimationDuration 0.1
 #define kMediumFadeAnimationDuration 0.3

@@ -2,7 +2,7 @@
 //  WSCDItem.h
 //  wsabi2
 //
-//  Created by Matt Aronoff on 1/20/12.
+//  Created by Matt Aronoff on 1/26/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * submodality;
 @property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) NSDate * timeStampCreated;
+@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) WSCDDeviceDefinition *deviceConfig;
 @property (nonatomic, retain) WSCDPerson *person;
 

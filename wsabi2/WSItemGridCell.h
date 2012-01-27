@@ -7,25 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GMGridViewCell.h"
+#import "GMGridViewCell+Extended.h"
 #import "WSCDItem.h"
 #import "constants.h"
 
-@protocol WSItemGridCellDelegate <NSObject>
+//@protocol WSItemGridCellDelegate <NSObject>
+//
+//-(void) didRequestItemDeletion:(WSCDItem*)item;
+//
+//@end
 
--(void) didRequestItemDeletion:(WSCDItem*)item;
-
-@end
-
-@interface WSItemGridCell : KKGridViewCell <UIActionSheetDelegate>
+@interface WSItemGridCell : GMGridViewCell <UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
 }
 
--(void) deleteButtonPressed:(id)sender;
+//-(void) deleteButtonPressed:(id)sender;
 
-@property (nonatomic, unsafe_unretained) id<WSItemGridCellDelegate> delegate;
+//@property (nonatomic, unsafe_unretained) id<WSItemGridCellDelegate> delegate;
 
 @property (nonatomic, strong) WSCDItem *item;
-@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
+@property (nonatomic, strong) UILabel *tempLabel;
+//@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 
 @end
