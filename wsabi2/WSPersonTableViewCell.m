@@ -210,6 +210,9 @@
         return;
     }
     
+    //leave edit mode if we're in it.
+    [self setEditing:NO];
+    
     WSCDItem *newCaptureItem = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
 
     //insert this item at the beginning of the list.
@@ -372,8 +375,8 @@
         }
         
         popoverController.popoverContentSize = cap.view.bounds.size;
-        [popoverController presentPopoverFromRect:activeCell.bounds 
-                                           inView:activeCell 
+        [popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
+                                           inView:self.superview 
                          permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
                                          animated:YES];
     }
