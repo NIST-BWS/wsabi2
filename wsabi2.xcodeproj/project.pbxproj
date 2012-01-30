@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
+		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
 		EA8A047414C861F600199FF8 /* personcell-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A047314C861F600199FF8 /* personcell-bg-selected.png */; };
@@ -59,6 +61,9 @@
 
 /* Begin PBXFileReference section */
 		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		EA2D105214D7344300C23365 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBiographicalDataController.h; sourceTree = "<group>"; };
+		EA2D105314D7344300C23365 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBiographicalDataController.m; sourceTree = "<group>"; };
+		EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSBiographicalDataController.xib; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
 		EA8A047314C861F600199FF8 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected.png"; sourceTree = "<group>"; };
@@ -267,6 +272,9 @@
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
+				EA2D105214D7344300C23365 /* WSBiographicalDataController.h */,
+				EA2D105314D7344300C23365 /* WSBiographicalDataController.m */,
+				EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */,
 				EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */,
 				EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */,
 				EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */,
@@ -391,6 +399,7 @@
 				EAFB96D914CDE7E00088F1E8 /* Delete.png in Resources */,
 				EA8F483914D1A1D500503E9C /* close_x.png in Resources */,
 				EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */,
+				EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +450,7 @@
 				EA8F484314D1B5CF00503E9C /* WSCDDeviceDefinition.m in Sources */,
 				EA8F484614D1B5CF00503E9C /* WSCDItem.m in Sources */,
 				EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */,
+				EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

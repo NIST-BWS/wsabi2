@@ -10,6 +10,7 @@
 #import "GMGridView.h"
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
+#import "WSBiographicalDataController.h"
 #import "WSCaptureController.h"
 #import "WSItemGridCell.h"
 #import "constants.h"
@@ -37,6 +38,7 @@
 -(void) updateData;
 -(void) reloadItemGridAnimated:(BOOL)inOrOut;
 
+-(IBAction)biographicalDataButtonPressed:(id)sender;
 -(IBAction)addItemButtonPressed:(id)sender;
 -(IBAction)duplicateRowButtonPressed:(id)sender;
 -(IBAction)editButtonPressed:(id)sender;
@@ -46,6 +48,7 @@
 
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
+@property (nonatomic, strong) IBOutlet UIButton *biographicalDataButton;
 @property (nonatomic, strong) IBOutlet UIButton *editButton;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton *addButton;

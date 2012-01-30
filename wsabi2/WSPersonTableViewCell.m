@@ -13,6 +13,7 @@
 @implementation WSPersonTableViewCell
 @synthesize person;
 @synthesize itemGridView;
+@synthesize biographicalDataButton;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize customSelectedBackgroundView;
 @synthesize delegate;
@@ -33,6 +34,10 @@
         deletableItem = -1;
         
         //configure UI elements
+        self.biographicalDataButton.layer.cornerRadius = 8;
+        self.biographicalDataButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.biographicalDataButton.layer.borderWidth = 2;
+        
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-normal"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateHighlighted];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateDisabled];
@@ -45,6 +50,7 @@
         
         //new rows that start selected need to have the active controls' highlights turned off.
         self.duplicateRowButton.highlighted = !self.selected;
+        self.biographicalDataButton.highlighted = !self.selected;
         self.addButton.highlighted = !self.selected;
         self.editButton.highlighted = !self.selected;
         self.deleteButton.highlighted = !self.selected;
@@ -101,6 +107,7 @@
 
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
             self.customSelectedBackgroundView.alpha = 1.0;
+            self.biographicalDataButton.alpha = 1.0;
             self.duplicateRowButton.alpha = 1.0;
             self.addButton.alpha = 1.0;
             self.editButton.alpha = 1.0;
@@ -118,6 +125,7 @@
 //        }
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
                             self.customSelectedBackgroundView.alpha = 0.0;
+                            self.biographicalDataButton.alpha = 0.0;
                             self.duplicateRowButton.alpha = 0.0;
                             self.addButton.alpha = 0.0;
                             self.editButton.alpha = 0.0;
@@ -202,6 +210,27 @@
 }
 
 #pragma mark - Button Action Methods
+-(IBAction)biographicalDataButtonPressed:(id)sender
+{
+    WSBiographicalDataController *cap = [[WSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
+    cap.person = self.person;
+    
+    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:cap];
+
+    if (popoverController) {
+        popoverController.contentViewController = tempNav;
+    }
+    else {
+        popoverController = [[UIPopoverController alloc] initWithContentViewController:tempNav];
+    }
+    
+    popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
+    [popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
+                                       inView:self.superview 
+                     permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
+                                     animated:YES];
+
+}
 
 -(IBAction)addItemButtonPressed:(id)sender
 {
