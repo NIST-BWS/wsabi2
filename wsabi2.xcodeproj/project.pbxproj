@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */; };
+		EA26F70814D972A200BC54F5 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA26F70714D972A200BC54F5 /* README */; };
+		EA26F72814D9983E00BC54F5 /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72714D9983E00BC54F5 /* WSCDPerson.m */; };
+		EA26F72B14D9983E00BC54F5 /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72A14D9983E00BC54F5 /* WSCDItem.m */; };
+		EA26F72E14D9983E00BC54F5 /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */; };
+		EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C514DACD44002484CF /* ActionSheetDatePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C714DACD44002484CF /* ActionSheetDistancePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2779CF14DACD44002484CF /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C914DACD44002484CF /* ActionSheetStringPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2779D014DACD44002484CF /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779CB14DACD44002484CF /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2779D314DACD5B002484CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2779D214DACD5B002484CF /* README.md */; };
 		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
 		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
@@ -23,9 +34,6 @@
 		EA8F483614D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483014D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m */; };
 		EA8F483714D1A1BE00503E9C /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483214D1A1BE00503E9C /* UIView+GMGridViewAdditions.m */; };
 		EA8F483914D1A1D500503E9C /* close_x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8F483814D1A1D500503E9C /* close_x.png */; };
-		EA8F484014D1B5CE00503E9C /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */; };
-		EA8F484314D1B5CF00503E9C /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */; };
-		EA8F484614D1B5CF00503E9C /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F484514D1B5CF00503E9C /* WSCDItem.m */; };
 		EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */; };
 		EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */; };
 		EAA6FF8F14C7176500006BCB /* Developer_README.md in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF8E14C7176500006BCB /* Developer_README.md */; };
@@ -61,6 +69,27 @@
 
 /* Begin PBXFileReference section */
 		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		EA26F70114D9728000BC54F5 /* ELCTextfieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCell.h; sourceTree = "<group>"; };
+		EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCell.m; sourceTree = "<group>"; };
+		EA26F70714D972A200BC54F5 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		EA26F72614D9983E00BC54F5 /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EA26F72714D9983E00BC54F5 /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
+		EA26F72914D9983E00BC54F5 /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EA26F72A14D9983E00BC54F5 /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EA26F72C14D9983E00BC54F5 /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA2779C214DACD44002484CF /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		EA2779C414DACD44002484CF /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		EA2779C514DACD44002484CF /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		EA2779C614DACD44002484CF /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		EA2779C714DACD44002484CF /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		EA2779C814DACD44002484CF /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		EA2779C914DACD44002484CF /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		EA2779CA14DACD44002484CF /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
+		EA2779CB14DACD44002484CF /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		EA2779D114DACD50002484CF /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
+		EA2779D214DACD5B002484CF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		EA2D105214D7344300C23365 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBiographicalDataController.h; sourceTree = "<group>"; };
 		EA2D105314D7344300C23365 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBiographicalDataController.m; sourceTree = "<group>"; };
 		EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSBiographicalDataController.xib; sourceTree = "<group>"; };
@@ -87,12 +116,6 @@
 		EA8F483114D1A1BE00503E9C /* UIView+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GMGridViewAdditions.h"; sourceTree = "<group>"; };
 		EA8F483214D1A1BE00503E9C /* UIView+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GMGridViewAdditions.m"; sourceTree = "<group>"; };
 		EA8F483814D1A1D500503E9C /* close_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_x.png; sourceTree = "<group>"; };
-		EA8F483E14D1B5CE00503E9C /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EA8F484114D1B5CF00503E9C /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
-		EA8F484414D1B5CF00503E9C /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EA8F484514D1B5CF00503E9C /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
 		EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureController.h; sourceTree = "<group>"; };
 		EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureController.m; sourceTree = "<group>"; };
 		EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSCaptureController.xib; sourceTree = "<group>"; };
@@ -151,6 +174,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
+			isa = PBXGroup;
+			children = (
+				EA26F70714D972A200BC54F5 /* README */,
+				EA26F70114D9728000BC54F5 /* ELCTextfieldCell.h */,
+				EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */,
+			);
+			name = ELCTextFieldCell;
+			sourceTree = "<group>";
+		};
+		EA2779C014DACD32002484CF /* ActionSheetPicker */ = {
+			isa = PBXGroup;
+			children = (
+				EA2779D214DACD5B002484CF /* README.md */,
+				EA2779D114DACD50002484CF /* ActionSheetPicker.h */,
+				EA2779C214DACD44002484CF /* AbstractActionSheetPicker.h */,
+				EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */,
+				EA2779C414DACD44002484CF /* ActionSheetDatePicker.h */,
+				EA2779C514DACD44002484CF /* ActionSheetDatePicker.m */,
+				EA2779C614DACD44002484CF /* ActionSheetDistancePicker.h */,
+				EA2779C714DACD44002484CF /* ActionSheetDistancePicker.m */,
+				EA2779C814DACD44002484CF /* ActionSheetStringPicker.h */,
+				EA2779C914DACD44002484CF /* ActionSheetStringPicker.m */,
+				EA2779CA14DACD44002484CF /* DistancePickerView.h */,
+				EA2779CB14DACD44002484CF /* DistancePickerView.m */,
+			);
+			name = ActionSheetPicker;
+			sourceTree = "<group>";
+		};
 		EA8A046814C7583A00199FF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,12 +241,12 @@
 			isa = PBXGroup;
 			children = (
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EA8F484414D1B5CF00503E9C /* WSCDItem.h */,
-				EA8F484514D1B5CF00503E9C /* WSCDItem.m */,
-				EA8F484114D1B5CF00503E9C /* WSCDDeviceDefinition.h */,
-				EA8F484214D1B5CF00503E9C /* WSCDDeviceDefinition.m */,
-				EA8F483E14D1B5CE00503E9C /* WSCDPerson.h */,
-				EA8F483F14D1B5CE00503E9C /* WSCDPerson.m */,
+				EA26F72C14D9983E00BC54F5 /* WSCDDeviceDefinition.h */,
+				EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */,
+				EA26F72914D9983E00BC54F5 /* WSCDItem.h */,
+				EA26F72A14D9983E00BC54F5 /* WSCDItem.m */,
+				EA26F72614D9983E00BC54F5 /* WSCDPerson.h */,
+				EA26F72714D9983E00BC54F5 /* WSCDPerson.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -223,6 +275,8 @@
 		EAA6FF7314C7137D00006BCB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				EA2779C014DACD32002484CF /* ActionSheetPicker */,
+				EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */,
 				EA8F482614D1A1BE00503E9C /* GMGridView */,
 			);
 			name = Dependencies;
@@ -400,6 +454,8 @@
 				EA8F483914D1A1D500503E9C /* close_x.png in Resources */,
 				EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */,
 				EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */,
+				EA26F70814D972A200BC54F5 /* README in Resources */,
+				EA2779D314DACD5B002484CF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,11 +502,17 @@
 				EA8F483514D1A1BE00503E9C /* GMGridViewLayoutStrategies.m in Sources */,
 				EA8F483614D1A1BE00503E9C /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA8F483714D1A1BE00503E9C /* UIView+GMGridViewAdditions.m in Sources */,
-				EA8F484014D1B5CE00503E9C /* WSCDPerson.m in Sources */,
-				EA8F484314D1B5CF00503E9C /* WSCDDeviceDefinition.m in Sources */,
-				EA8F484614D1B5CF00503E9C /* WSCDItem.m in Sources */,
 				EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */,
 				EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */,
+				EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */,
+				EA26F72814D9983E00BC54F5 /* WSCDPerson.m in Sources */,
+				EA26F72B14D9983E00BC54F5 /* WSCDItem.m in Sources */,
+				EA26F72E14D9983E00BC54F5 /* WSCDDeviceDefinition.m in Sources */,
+				EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */,
+				EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */,
+				EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */,
+				EA2779CF14DACD44002484CF /* ActionSheetStringPicker.m in Sources */,
+				EA2779D014DACD44002484CF /* DistancePickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

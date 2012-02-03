@@ -10,7 +10,7 @@
     <entity name="WSCDItem" representedClassName="WSCDItem" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,7 +30,7 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="otherName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="placesOfBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placesOfBirth" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="race" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="timeStampLastModified" optional="YES" attributeType="Date" syncable="YES"/>

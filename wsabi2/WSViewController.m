@@ -76,7 +76,10 @@
     
     WSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
     newPerson.timeStampCreated = [NSDate date];
-     
+    newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+    newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+    newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+    
     //Save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
@@ -338,6 +341,18 @@
         //if we have something to duplicate, do it.
         WSCDPerson *newPerson = (WSCDPerson*)[oldPerson cloneInContext:self.managedObjectContext exludeEntities:nil];
         newPerson.timeStampCreated = [NSDate date];
+        
+        //clear out any biographical data present in the old row.
+        newPerson.firstName = nil;
+        newPerson.middleName = nil;
+        newPerson.lastName = nil;
+        newPerson.otherName = nil;
+        newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+        newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+        newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+        newPerson.gender = nil;
+        newPerson.height = nil;
+        newPerson.weight = nil;
         
         //Save the context
         [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
