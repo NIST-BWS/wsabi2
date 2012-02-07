@@ -17,4 +17,102 @@
 
 #define kTableViewContentsAnimationDuration 0.2
 
+//Modality types
+typedef enum {
+	kModalityFace = 0,
+    kModalityIris,
+	kModalityFinger,
+    kModalityEar,
+    kModalityVein,
+    kModalityRetina,
+    kModalityFoot,
+	kModalityOther,
+    kModality_COUNT
+} WSSensorModalityType;
+
+//Capture types
+typedef enum {
+    kCaptureTypeNotSet = 0,
+    
+    //Finger
+	kCaptureTypeRightThumbRolled,
+	kCaptureTypeRightIndexRolled,
+	kCaptureTypeRightMiddleRolled,
+	kCaptureTypeRightRingRolled,
+	kCaptureTypeRightLittleRolled,
+	
+    kCaptureTypeRightThumbFlat,
+	kCaptureTypeRightIndexFlat,
+	kCaptureTypeRightMiddleFlat,
+	kCaptureTypeRightRingFlat,
+	kCaptureTypeRightLittleFlat,
+    
+	kCaptureTypeLeftThumbRolled,
+	kCaptureTypeLeftIndexRolled,
+	kCaptureTypeLeftMiddleRolled,
+	kCaptureTypeLeftRingRolled,
+	kCaptureTypeLeftLittleRolled,
+    
+    kCaptureTypeLeftThumbFlat,
+	kCaptureTypeLeftIndexFlat,
+	kCaptureTypeLeftMiddleFlat,
+	kCaptureTypeLeftRingFlat,
+	kCaptureTypeLeftLittleFlat,
+	
+	kCaptureTypeLeftSlap,
+	kCaptureTypeRightSlap,
+    kCaptureTypeThumbsSlap,
+    
+    //Iris
+	kCaptureTypeLeftIris,
+	kCaptureTypeRightIris, 
+	kCaptureTypeBothIrises, 
+    
+    //Face
+    kCaptureTypeFace2d,
+    kCaptureTypeFace3d,
+    
+    //Ear
+    kCaptureTypeLeftEar,
+	kCaptureTypeRightEar, 
+	kCaptureTypeBothEars, 
+    
+    //Vein
+    kCaptureTypeLeftVein,
+	kCaptureTypeRightVein, 
+	kCaptureTypePalm, 
+    kCaptureTypeBackOfHand,
+    kCaptureTypeWrist,
+    
+    //Retina
+    kCaptureTypeLeftRetina,
+    kCaptureTypeRightRetina,
+    kCaptureTypeBothRetinas,
+    
+    //Foot
+    kCaptureTypeLeftFoot,
+    kCaptureTypeRightFoot,
+    kCaptureTypeBothFeet,
+    
+    //Single items
+    kCaptureTypeScent,
+    kCaptureTypeDNA,
+    kCaptureTypeHandGeometry,
+    kCaptureTypeVoice,
+    kCaptureTypeGait,
+    kCaptureTypeKeystroke,
+    kCaptureTypeLipMovement,
+    kCaptureTypeSignatureSign,
+    
+    kCaptureType_COUNT
+} WSSensorCaptureType;
+
+//Annotation types -- this is defined in section 19.1.18 of ANSI/NIST-ITL 1-2007
+typedef enum {
+    kAnnotationNone = 0,
+    kAnnotationUnprintable,
+    kAnnotationAmputated,
+    kAnnotation_COUNT
+} WSAnnotationType;
+
 #endif

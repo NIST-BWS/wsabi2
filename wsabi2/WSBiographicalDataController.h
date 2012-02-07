@@ -33,6 +33,12 @@
 #define kRowHeight 3
 #define kRowWeight 4
 
+@protocol WSBiographicalDataDelegate <NSObject>
+
+-(void) didUpdateDisplayName;
+
+@end
+
 @interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, ELCTextFieldDelegate>
 {
     NSMutableArray *aliases;
@@ -54,5 +60,7 @@
 
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet UITableView *bioDataTable;
+
+@property (nonatomic, unsafe_unretained) id<WSBiographicalDataDelegate> delegate;
 
 @end

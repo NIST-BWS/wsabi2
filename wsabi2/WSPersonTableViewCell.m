@@ -13,7 +13,7 @@
 @implementation WSPersonTableViewCell
 @synthesize person;
 @synthesize itemGridView;
-@synthesize biographicalDataButton;
+@synthesize biographicalDataButton, biographicalDataInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize customSelectedBackgroundView;
 @synthesize delegate;
@@ -37,6 +37,8 @@
         self.biographicalDataButton.layer.cornerRadius = 8;
         self.biographicalDataButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.biographicalDataButton.layer.borderWidth = 2;
+
+        self.biographicalDataInactiveLabel.alpha = self.selected ? 0.0 : 1.0;
         
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-normal"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateHighlighted];
@@ -67,7 +69,7 @@
         self.itemGridView.backgroundColor = [UIColor clearColor]; //[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.3]; 
         self.itemGridView.style = GMGridViewStylePush;
         self.itemGridView.itemSpacing = spacing;
-        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(spacing, 92, spacing, spacing);
+        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*spacing, 92, spacing, spacing);
         self.itemGridView.centerGrid = NO;
         self.itemGridView.actionDelegate = self;
         self.itemGridView.sortingDelegate = self;
@@ -86,6 +88,9 @@
         self.editing = NO;
     }
     
+    //Make sure the labels are right.
+    self.biographicalDataInactiveLabel.text = [self biographicalShortName];
+    [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
 }
 
@@ -108,6 +113,7 @@
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
             self.customSelectedBackgroundView.alpha = 1.0;
             self.biographicalDataButton.alpha = 1.0;
+            self.biographicalDataInactiveLabel.alpha = 0.0;
             self.duplicateRowButton.alpha = 1.0;
             self.addButton.alpha = 1.0;
             self.editButton.alpha = 1.0;
@@ -126,6 +132,7 @@
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
                             self.customSelectedBackgroundView.alpha = 0.0;
                             self.biographicalDataButton.alpha = 0.0;
+            self.biographicalDataInactiveLabel.alpha = 1.0;
                             self.duplicateRowButton.alpha = 0.0;
                             self.addButton.alpha = 0.0;
                             self.editButton.alpha = 0.0;
@@ -140,6 +147,9 @@
 //                        }
          
         ];
+        
+        //make sure we're not in edit mode
+        [self setEditing:NO];
     }
     self.itemGridView.userInteractionEnabled = selected;
 }
@@ -166,6 +176,36 @@
 //            ((WSItemGridCell*)v).editing = newEditingStatus;
 //        }
 //    }
+}
+
+-(NSString*)biographicalShortName
+{
+    NSString *placeholder = @"no name";
+    BOOL foundSomething = NO;
+    NSMutableString *result = [[NSMutableString alloc] init];
+    
+    if (!self.person) {
+        return placeholder; //nothing to add.
+    }
+    
+    if (self.person.firstName && self.person.firstName.length > 0) {
+        [result appendFormat:@"%@ ", self.person.firstName];
+        foundSomething = YES;
+    }
+    if (self.person.middleName && self.person.middleName.length > 0) {
+        [result appendFormat:@"%@ ", self.person.middleName];
+        foundSomething = YES;
+    }
+    if (self.person.lastName && self.person.lastName.length > 0) {
+        [result appendFormat:@"%@", self.person.lastName];
+        foundSomething = YES;
+    }
+
+    if (foundSomething) {
+        return result;
+    }
+    else
+        return placeholder; 
 }
 
 -(void) updateData
@@ -214,6 +254,7 @@
 {
     WSBiographicalDataController *cap = [[WSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
     cap.person = self.person;
+    cap.delegate = self;
     
     UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:cap];
 
@@ -299,6 +340,12 @@
         deletableItem = -1;
     }
 
+}
+
+#pragma mark - Biographical Data delegate
+-(void) didUpdateDisplayName
+{
+    [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 }
 
 #pragma mark -

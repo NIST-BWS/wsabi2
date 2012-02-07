@@ -69,6 +69,23 @@
 }
 
 #pragma mark - Button Action methods
+-(void) presentSensorWalkthroughForItem:(WSCDItem *)item
+{
+//    QRootElement *root = [[QRootElement alloc] init];
+//    root.title = @"Hello World";
+//    root.grouped = YES;
+//    QSection *section = [[QSection alloc] init];
+//    QLabelElement *label = [[QLabelElement alloc] initWithTitle:@"Hello" Value:@"world!"];
+//    
+//    [root addSection:section];
+//    [section addElement:label];
+//    
+    WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
+    
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
+    navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentModalViewController:navigation animated:YES];    
+}
 
 -(IBAction)addFirstButtonPressed:(id)sender
 {
@@ -92,6 +109,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         ((UIButton*)sender).alpha = 0;
     }];
+    
+    //display the sensor walkthrough
+    [self presentSensorWalkthroughForItem:nil];
 }
 
 
@@ -117,7 +137,7 @@
     //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
     int numRows = MAX(1, ceil([person.items count] / 5.0)); 
     
-    NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
+    //NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
     
     if ([indexPath compare:selectedIndex] == NSOrderedSame) {
         return 264 + (124.0 * numRows);
@@ -350,7 +370,12 @@
         newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
         newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
         newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+        
         newPerson.gender = nil;
+        
+        newPerson.hairColor = nil;
+        newPerson.race = nil;
+        newPerson.eyeColor = nil;
         newPerson.height = nil;
         newPerson.weight = nil;
         

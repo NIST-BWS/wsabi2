@@ -14,11 +14,16 @@
 #import "WSCDDeviceDefinition.h"
 
 #import "WSPersonTableViewCell.h"
+#import "WSModalityChooserController.h"
 
-@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, WSPersonTableViewCellDelegate, NSFetchedResultsControllerDelegate>
+@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
+                                                WSPersonTableViewCellDelegate, 
+                                                NSFetchedResultsControllerDelegate>
 {
     NSIndexPath *selectedIndex;
 }
+
+-(void) presentSensorWalkthroughForItem:(WSCDItem*)item;
 -(IBAction)addFirstButtonPressed:(id)sender;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

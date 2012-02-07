@@ -37,6 +37,7 @@
 @implementation ActionSheetDatePicker
 @synthesize selectedDate = _selectedDate;
 @synthesize datePickerMode = _datePickerMode;
+@synthesize datePicker;
 
 + (id)showPickerWithTitle:(NSString *)title 
            datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate                                                                             
@@ -63,13 +64,13 @@
 
 - (UIView *)configuredPickerView {
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
-    UIDatePicker *datePicker = [[[UIDatePicker alloc] initWithFrame:datePickerFrame] autorelease];
-    datePicker.datePickerMode = self.datePickerMode;
-    [datePicker setDate:self.selectedDate animated:NO];
-    [datePicker addTarget:self action:@selector(eventForDatePicker:) forControlEvents:UIControlEventValueChanged];
+    self.datePicker = [[[UIDatePicker alloc] initWithFrame:datePickerFrame] autorelease];
+    self.datePicker.datePickerMode = self.datePickerMode;
+    [self.datePicker setDate:self.selectedDate animated:NO];
+    [self.datePicker addTarget:self action:@selector(eventForDatePicker:) forControlEvents:UIControlEventValueChanged];
     
     //need to keep a reference to the picker so we can clear the DataSource / Delegate when dismissing (not used in this picker, but just in case somebody uses this as a template for another picker)
-    self.pickerView = datePicker;
+    self.pickerView = self.datePicker;
     
     return datePicker;
 }
@@ -85,7 +86,7 @@
     if (!sender || ![sender isKindOfClass:[UIDatePicker class]])
         return;
     UIDatePicker *datePicker = (UIDatePicker *)sender;
-    self.selectedDate = datePicker.date;
+    self.selectedDate = self.datePicker.date;
 }
 
 - (void)customButtonPressed:(id)sender {

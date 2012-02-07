@@ -70,8 +70,8 @@
         //add an action to the delete button
 //        [self.deleteButton addTarget:self action:@selector(deleteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   
-        self.deleteButtonIcon = [UIImage imageNamed:@"Delete"];
-        self.deleteButtonOffset = CGPointMake(30, 30);
+        self.deleteButtonIcon = [UIImage imageNamed:@"DeleteRed"];
+        self.deleteButtonOffset = CGPointMake(37, 37);
 
         initialLayoutComplete = YES;
     }

@@ -11,6 +11,7 @@
 @implementation WSBiographicalDataController
 @synthesize bioDataTable;
 @synthesize person;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,10 +40,11 @@
     self.title = @"Biographical Info";
     
     //Initialize the arrays to hold picker string values.
-    genderStrings = [NSArray arrayWithObjects:@"Male",@"Female",@"Unknown", nil];
-    hairColorStrings = [NSArray arrayWithObjects:@"Black",@"Brown",@"Blonde",@"Red",nil];
-    raceStrings = [NSArray arrayWithObjects:@"Unknown",@"Asian",@"Black",@"Native American",@"Caucasian",@"Latino",nil];
-    eyeColorStrings = [NSArray arrayWithObjects:@"Brown",@"Blue",@"Green",nil];
+    genderStrings = [NSArray arrayWithObjects:@"",@"Male",@"Female",@"Unknown", nil];
+    hairColorStrings = [NSArray arrayWithObjects:@"",@"Black",@"Brown",@"Blonde",@"Red",nil];
+    raceStrings = [NSArray arrayWithObjects:@"",@"Unknown",@"Asian",@"Black",@"Native American",@"Caucasian",@"Latino",nil];
+    eyeColorStrings = [NSArray arrayWithObjects:@"",@"Brown",@"Blue",@"Green",nil];
+    
 }
 
 - (void)viewDidUnload
@@ -144,9 +146,11 @@
             cell.indexPath = indexPath;
             cell.delegate = self;
             
-            //start with an empty cell
+            //start with an empty cell with no accessory
+            cell.leftLabel.font = [UIFont systemFontOfSize:14];
             cell.rightTextField.text = nil;
             cell.rightTextField.placeholder = @"";
+            cell.accessoryType = UITableViewCellAccessoryNone;
             
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -156,28 +160,34 @@
                 case kRowFirstName:
                     cell.leftLabel.text = @"First Name";
                     cell.rightTextField.text = self.person.firstName;
+                    cell.rightTextField.returnKeyType = UIReturnKeyNext;
                     break;
                 case kRowMiddleName:
                     cell.leftLabel.text = @"Middle Name";
                     cell.rightTextField.text = self.person.middleName;
+                    cell.rightTextField.returnKeyType = UIReturnKeyNext;
                     break;
                 case kRowLastName:
                     cell.leftLabel.text = @"Last Name";
                     cell.rightTextField.text = self.person.lastName;
+                    cell.rightTextField.returnKeyType = UIReturnKeyNext;
                     break;
                 case kRowOtherName:
                     cell.leftLabel.text = @"Other Name";
                     cell.rightTextField.text = self.person.otherName;
+                    cell.rightTextField.returnKeyType = UIReturnKeyNext;                    
                     break;
                 case kRowAlias:
                     //For now, we're only allowing one alias.
                     cell.leftLabel.text = @"Alias";
                     if([aliases count] > 0) cell.rightTextField.text = [aliases objectAtIndex:0];
+                    cell.rightTextField.returnKeyType = UIReturnKeyNext;
                     break;
                 case kRowPOB:
                     //For now, we're only allowing one place of birth
                     cell.leftLabel.text = @"Place of Birth";
                     if([placesOfBirth count] > 0) cell.rightTextField.text = [placesOfBirth objectAtIndex:0];
+                    cell.rightTextField.returnKeyType = UIReturnKeyDone;
                     break;
 
                 default:
@@ -195,13 +205,14 @@
             }
             
             //set up font sizes to match the ELCTextFieldCells
-            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
-            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
             cell.textLabel.text = @"DOB";
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateStyle = NSDateFormatterMediumStyle;
-            cell.detailTextLabel.text = ([datesOfBirth count] > 0) ? [formatter stringFromDate:[datesOfBirth objectAtIndex:0]] : @"Tap to enter";
+            cell.detailTextLabel.text = ([datesOfBirth count] > 0) ? [formatter stringFromDate:[datesOfBirth objectAtIndex:0]] : nil;
             return cell;
         }
         
@@ -212,11 +223,12 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
         }
         //set up font sizes to match the ELCTextFieldCells
-        cell.textLabel.font = [UIFont systemFontOfSize:12];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         cell.textLabel.text = @"Gender";
-        cell.detailTextLabel.text = self.person.gender ? self.person.gender : @"Tap to choose";
+        cell.detailTextLabel.text = self.person.gender;
         return cell;
     }
     
@@ -227,11 +239,12 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
-            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
             cell.textLabel.text = @"Hair color";
-            cell.detailTextLabel.text = self.person.hairColor ? self.person.hairColor : @"Tap to choose";
+            cell.detailTextLabel.text = self.person.hairColor;
             return cell;
         }
         else if (indexPath.row == kRowRace) {
@@ -240,11 +253,12 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
-            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
             cell.textLabel.text = @"Race";
-            cell.detailTextLabel.text = self.person.race ? self.person.race : @"Tap to choose";
+            cell.detailTextLabel.text = self.person.race;
             return cell;
         }
         else if (indexPath.row == kRowEyes) {
@@ -253,11 +267,12 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
-            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
             cell.textLabel.text = @"Eye color";
-            cell.detailTextLabel.text = self.person.eyeColor ? self.person.eyeColor : @"Tap to choose";
+            cell.detailTextLabel.text = self.person.eyeColor;
             return cell;
         }
         else if (indexPath.row == kRowHeight) {
@@ -267,11 +282,16 @@
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
+            cell.leftLabel.font = [UIFont systemFontOfSize:14];
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             cell.leftLabel.text = @"Height";
             cell.rightTextField.text = self.person.height;
             cell.rightTextField.placeholder = @"";
+            cell.rightTextField.returnKeyType = UIReturnKeyNext;                    
+            cell.accessoryType = UITableViewCellAccessoryNone;
+
             return cell;
         }
         else if (indexPath.row == kRowWeight) {
@@ -281,11 +301,15 @@
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
+            cell.leftLabel.font = [UIFont systemFontOfSize:14];
             cell.leftLabel.text = @"Weight";
             cell.rightTextField.text = self.person.weight;
             cell.rightTextField.placeholder = @"";
+            cell.rightTextField.returnKeyType = UIReturnKeyDone;                    
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
             return cell;
         }
 
@@ -342,14 +366,17 @@
                                                                       datePickerMode:UIDatePickerModeDate 
                                                                         selectedDate:[NSDate date] 
                                                                               target:self action:@selector(dobSelected:element:) origin:self.view];
+        
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
+        picker.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-3153600000]; //about 100 years ago.
+        picker.datePicker.maximumDate = [NSDate date]; //we're unlikely to get prints from someone born in the future.
     }
     else if (indexPath.section == kSectionGender) {
         //FIXME: Get the correct initial index from the person record.
         ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Gender"
                                                                                     rows:genderStrings 
-                                                                        initialSelection:0
+                                                                        initialSelection:[genderStrings indexOfObject:self.person.gender]
                                                                                   target:self
                                                                             sucessAction:@selector(genderSelected:element:) 
                                                                             cancelAction:nil 
@@ -363,7 +390,7 @@
             //FIXME: Get the correct initial index from the person record.
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Hair Color"
                                                                                         rows:hairColorStrings 
-                                                                            initialSelection:0
+                                                                            initialSelection:[hairColorStrings indexOfObject:self.person.hairColor]
                                                                                       target:self
                                                                                 sucessAction:@selector(hairColorSelected:element:) 
                                                                                 cancelAction:nil 
@@ -375,7 +402,7 @@
             //FIXME: Get the correct initial index from the person record.
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Race"
                                                                                         rows:raceStrings 
-                                                                            initialSelection:0
+                                                                            initialSelection:[raceStrings indexOfObject:self.person.race]
                                                                                       target:self
                                                                                 sucessAction:@selector(raceSelected:element:) 
                                                                                 cancelAction:nil 
@@ -387,7 +414,7 @@
             //FIXME: Get the correct initial index from the person record.
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Eye Color"
                                                                                         rows:eyeColorStrings 
-                                                                            initialSelection:0
+                                                                            initialSelection:[eyeColorStrings indexOfObject:self.person.eyeColor]
                                                                                       target:self
                                                                                 sucessAction:@selector(eyeColorSelected:element:) 
                                                                                 cancelAction:nil 
@@ -406,16 +433,21 @@
 
 -(void)textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
     
-//	if(indexPath.row < [labels count]-1) {
-//		NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-//		[[(ELCTextfieldCell*)[self.tableView cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder];
-//		[self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//	}
-//	
-//	else {
-//        
-//		[[(ELCTextfieldCell*)[self.tableView cellForRowAtIndexPath:indexPath] rightTextField] resignFirstResponder];
-//	}
+    int rowIndex = indexPath.row;
+	while(rowIndex < [self tableView:self.bioDataTable numberOfRowsInSection:indexPath.section] - 1) {
+		NSIndexPath *path = [NSIndexPath indexPathForRow:rowIndex+1 inSection:indexPath.section];
+        //If there's another text field in this section, choose it.
+        if([[self.bioDataTable cellForRowAtIndexPath:path] isKindOfClass:[ELCTextfieldCell class]])
+        {    
+            [[(ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder]; 
+            [self.bioDataTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            return; //don't resign first responder.
+        }
+        rowIndex++; //if we didn't find anything, keep going until we hit the end of the section.
+	}
+	//otherwise, just resign first responder.
+	[[(ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath] rightTextField] resignFirstResponder];
+        
 }
 
 - (void)updateTextLabelAtIndexPath:(NSIndexPath*)indexPath string:(NSString*)string {
@@ -429,12 +461,15 @@
             switch (indexPath.row) {
                 case kRowFirstName:
                     self.person.firstName = string;
+                    [delegate didUpdateDisplayName]; //update the UI
                     break;
                 case kRowMiddleName:
                     self.person.middleName = string;
+                    [delegate didUpdateDisplayName]; //update the UI
                     break;
                 case kRowLastName:
                     self.person.lastName = string;
+                    [delegate didUpdateDisplayName]; //update the UI
                     break;
                 case kRowOtherName:
                     self.person.otherName = string;

@@ -35,4 +35,6 @@
 
 - (void)eventForDatePicker:(id)sender;
 
+@property (nonatomic, strong) UIDatePicker *datePicker;
+
 @end

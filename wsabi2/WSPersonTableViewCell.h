@@ -23,7 +23,7 @@
 @end
 
 @interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate,
-                                                    UIActionSheetDelegate>
+                                                    WSBiographicalDataDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSMutableArray *orderedItems;
@@ -37,6 +37,7 @@
 
 -(void) updateData;
 -(void) reloadItemGridAnimated:(BOOL)inOrOut;
+-(NSString*)biographicalShortName;
 
 -(IBAction)biographicalDataButtonPressed:(id)sender;
 -(IBAction)addItemButtonPressed:(id)sender;
@@ -49,6 +50,7 @@
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
 @property (nonatomic, strong) IBOutlet UIButton *biographicalDataButton;
+@property (nonatomic, strong) IBOutlet UILabel *biographicalDataInactiveLabel;
 @property (nonatomic, strong) IBOutlet UIButton *editButton;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton *addButton;
