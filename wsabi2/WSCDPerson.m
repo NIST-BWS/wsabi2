@@ -2,7 +2,7 @@
 //  WSCDPerson.m
 //  wsabi2
 //
-//  Created by Matt Aronoff on 2/1/12.
+//  Created by Matt Aronoff on 2/24/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -21,6 +21,7 @@
 @dynamic height;
 @dynamic lastName;
 @dynamic middleName;
+@dynamic notes;
 @dynamic otherName;
 @dynamic placesOfBirth;
 @dynamic race;

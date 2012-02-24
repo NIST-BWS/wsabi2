@@ -12,18 +12,20 @@
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
-
+#import "WSDeviceConfigDelegate.h"
 #import "WSPersonTableViewCell.h"
 #import "WSModalityChooserController.h"
 
 @interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
-                                                WSPersonTableViewCellDelegate, 
+                                                WSPersonTableViewCellDelegate, WSDeviceConfigDelegate, 
                                                 NSFetchedResultsControllerDelegate>
 {
     NSIndexPath *selectedIndex;
 }
 
--(void) presentSensorWalkthroughForItem:(WSCDItem*)item;
+-(void) presentSensorWalkthrough:(NSNotification*)notification;
+-(void) didHideSensorWalkthrough:(NSNotification*)notification;
+
 -(IBAction)addFirstButtonPressed:(id)sender;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

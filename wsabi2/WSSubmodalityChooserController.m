@@ -163,7 +163,10 @@
     WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.modality = self.modality;
     subChooser.submodality = [[submodalities objectAtIndex:indexPath.row] intValue];
-    subChooser.item = self.item; //pass the data object
+//    //set the item's submodality
+//    self.item.submodality = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
+    
+    subChooser.item = self.item; //pass the data object to the next step in the walkthrough
     
     [self.navigationController pushViewController:subChooser animated:YES];
 }

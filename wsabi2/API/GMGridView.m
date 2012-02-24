@@ -899,7 +899,10 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
     {        
         _inFullSizeMode = NO;
                
-        CGPoint center = _transformingItem.fullSizeView.center;
+        //M. Aronoff change: Since we're centering the full-size view differently,
+        //don't use its center to position the smaller item when pinching back out.
+        //Use the item's original position.
+        CGPoint center = _transformingItem.center;
         
         [_transformingItem switchToFullSizeMode:NO];
         CGAffineTransform newTransform = CGAffineTransformMakeScale(2.5, 2.5);

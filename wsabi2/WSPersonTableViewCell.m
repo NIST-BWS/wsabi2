@@ -39,7 +39,7 @@
         self.biographicalDataButton.layer.borderWidth = 2;
 
         self.biographicalDataInactiveLabel.alpha = self.selected ? 0.0 : 1.0;
-        
+
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-normal"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateHighlighted];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateDisabled];
@@ -92,6 +92,8 @@
     self.biographicalDataInactiveLabel.text = [self biographicalShortName];
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
+    //Finally, make sure our alpha is set correctly based on the selectedness of this row.
+    self.alpha = self.selected ? 1.0 : 0.6;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -105,11 +107,6 @@
     self.deleteButton.highlighted = !selected;
     
     if (selected) {
-//        if (self.customSelectedBackgroundView.hidden) {
-//            self.customSelectedBackgroundView.hidden = NO;
-//            self.customSelectedBackgroundView.alpha = 0;
-//        }
-
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
             self.customSelectedBackgroundView.alpha = 1.0;
             self.biographicalDataButton.alpha = 1.0;
@@ -122,29 +119,27 @@
                                                  128, 
                                                  self.itemGridView.frame.size.width,
                                                  self.bounds.size.height - 128 - 30); //subtract extra space from the height because of the New Person button visible at the bottom.
+            //Finally, make sure we're fully visible.
+            self.alpha = 1.0;
         }];
     }
     else {
-//        //If anything is selected in the grid, deselect it.
-//        if ([self.itemGridView indexPathForSelectedCell]) {
-//            [self.itemGridView deselectItemsAtIndexPaths:[NSArray arrayWithObject:[self.itemGridView indexPathForSelectedCell]] animated:YES];
-//        }
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-                            self.customSelectedBackgroundView.alpha = 0.0;
-                            self.biographicalDataButton.alpha = 0.0;
+            self.customSelectedBackgroundView.alpha = 0.0;
+            self.biographicalDataButton.alpha = 0.0;
             self.biographicalDataInactiveLabel.alpha = 1.0;
-                            self.duplicateRowButton.alpha = 0.0;
-                            self.addButton.alpha = 0.0;
-                            self.editButton.alpha = 0.0;
-                            self.deleteButton.alpha = 0.0;
-                            self.itemGridView.frame = CGRectMake(self.itemGridView.frame.origin.x, 
-                                                 12, 
-                                                 self.itemGridView.frame.size.width,
-                                                 self.bounds.size.height - 24); //Leave a 12-pixel border above and below
-                        } 
-//                         completion:^(BOOL completed) {
-//                            self.customSelectedBackgroundView.hidden = YES;
-//                        }
+            self.duplicateRowButton.alpha = 0.0;
+            self.addButton.alpha = 0.0;
+            self.editButton.alpha = 0.0;
+            self.deleteButton.alpha = 0.0;
+            self.itemGridView.frame = CGRectMake(self.itemGridView.frame.origin.x, 
+                                 12, 
+                                 self.itemGridView.frame.size.width,
+                                 self.bounds.size.height - 24); //Leave a 12-pixel border above and below
+
+            //Finally, fade everything partially out.
+            self.alpha = 0.6;
+        } 
          
         ];
         
@@ -152,6 +147,8 @@
         [self setEditing:NO];
     }
     self.itemGridView.userInteractionEnabled = selected;
+    [self.itemGridView reloadData];
+
 }
 
 -(void) setPerson:(WSCDPerson *)newPerson
@@ -287,7 +284,8 @@
 
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:0]; 
-    
+    newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
+
     //Update the indices of everything in the existing array to make room for the new item.
     for (int i = 0; i < [orderedItems count]; i++) {
         WSCDItem *tempItem = [orderedItems objectAtIndex:i];
@@ -304,6 +302,13 @@
     
     //animate a reload of the data
     [self reloadItemGridAnimated:NO];
+    
+    //launch the sensor walkthrough for this item.
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+
  }
 
 -(IBAction)duplicateRowButtonPressed:(id)sender
@@ -348,6 +353,9 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 }
 
+#pragma mark - Capture delegate
+
+
 #pragma mark -
 #pragma mark GridView Data Source
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
@@ -374,6 +382,7 @@
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
     }
     cell.item = [orderedItems objectAtIndex:index];
+    cell.active = self.selected;
     cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
     return cell;
 }
@@ -431,17 +440,15 @@
     }
 }
 
-#pragma mark - GMGridViewActionDelegate
-
-- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
+-(void) showCapturePopoverAtIndex:(int) index
 {
-    NSLog(@"Did tap at index %d", position);
+    WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
     
-    WSItemGridCell *activeCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
-                                  
     //If we found a valid item, launch the capture popover from it.
     if (activeCell) {
         WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
+        cap.delegate = self;
+        cap.item = [orderedItems objectAtIndex:index];
         
         if (popoverController) {
             popoverController.contentViewController = cap;
@@ -450,12 +457,32 @@
             popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
         }
         
+        //give the capture controller a reference to its containing popover.
+        cap.popoverController = popoverController;
+        
         popoverController.popoverContentSize = cap.view.bounds.size;
         [popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
                                            inView:self.superview 
                          permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
                                          animated:YES];
     }
+    else
+    {
+        NSLog(@"Tried to show capture popover for an invalid item index: %d",index);
+    }
+}
+
+-(void) showCapturePopoverForItem:(WSCDItem*) targetItem
+{
+    [self showCapturePopoverAtIndex:[orderedItems indexOfObject:targetItem]];
+}
+
+#pragma mark - GMGridViewActionDelegate
+
+- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
+{
+    NSLog(@"Did tap at index %d", position);
+    [self showCapturePopoverAtIndex:position];
 }
 
 
@@ -545,7 +572,6 @@
     
     CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index];
     fullView.bounds = CGRectMake(0, 0, size.width, size.height);
-//    fullView.center = [[UIApplication sharedApplication] win
     
     UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];
     label.text = [NSString stringWithFormat:@"Fullscreen View for cell at index %d", index];

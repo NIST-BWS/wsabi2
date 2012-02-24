@@ -59,6 +59,8 @@
 @synthesize deleteButtonIcon = _deleteButtonIcon;
 @synthesize deleteButtonOffset;
 
+@synthesize addFullSizeViewToWindow;
+
 //////////////////////////////////////////////////////////////
 #pragma mark Constructors
 //////////////////////////////////////////////////////////////
@@ -151,7 +153,13 @@
     
     [_fullSizeView removeFromSuperview];
     _fullSizeView = fullSizeView;
-    [self addSubview:_fullSizeView];
+
+    //M. Aronoff change: Add the full-size view to the root view controller's view, not the current item.
+    //This gets around problems with multiple grids, or buttons above the grid.
+
+    UIView *rootView = [(UIWindow*)[[UIApplication sharedApplication].windows objectAtIndex:0] rootViewController].view;
+    _fullSizeView.center = rootView.center;
+    [rootView addSubview:_fullSizeView];
     
     [self bringSubviewToFront:self.deleteButton];
 }

@@ -13,6 +13,7 @@
 @synthesize modality;
 @synthesize item;
 @synthesize autodiscoveryEnabled;
+@synthesize walkthroughDelegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,7 +45,42 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    //If this is the root view controller, we're launching the config workflow partway through.
+    //We need a way to leave this controller in that case.
+    if (self == [self.navigationController.viewControllers objectAtIndex:0]) {
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
+        
+        self.navigationItem.leftBarButtonItem = cancelButton;
+    }
     
+
+    //Fetch a list of recent sensors from Core Data
+    
+    //Taken directly from Apple's "Fetching Managed Objects" docs
+    NSManagedObjectContext *moc = self.item.managedObjectContext;
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    //FIXME: This is currently disabled, because we'll need to get data from the sensors before
+    //being able to filter
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @"modality contains[cd] %@", [WSModalityMap stringForModality:self.modality]];
+//    [request setPredicate:predicate];
+    
+    //get a sorted list of the recent sensors
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStampLastEdit" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    [request setSortDescriptors:sortDescriptors];
+    
+    NSError *error = nil;
+    recentSensors = [moc executeFetchRequest:request error:&error];
+    if (recentSensors == nil)
+    {
+        NSLog(@"Couldn't get a list of recent sensors, error was: %@",[error description]);
+    }
 }
 
 - (void)viewDidUnload
@@ -80,6 +116,13 @@
 	return YES;
 }
 
+#pragma mark - Button action methods
+-(IBAction) cancelButtonPressed:(id)sender
+{
+    [walkthroughDelegate didCancelDeviceConfigWalkthrough:self.item];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -107,7 +150,8 @@
         if (recentSensors && [recentSensors count] > 0) {
             switch (section) {
                 case 0:
-                    //return the number of recent sensors stored for this modality.
+                    //return the number of recent sensors stored for this modality, capped at our maximum
+                    return MIN([recentSensors count], NUM_RECENT_SENSORS);
                     break;
                 case 1:
                     //return the number of autodiscovered sensors found for this modality.
@@ -139,7 +183,8 @@
         if (recentSensors && [recentSensors count] > 0) {
             switch (section) {
                 case 0:
-                    //return the number of recent sensors stored for this modality.
+                    //return the number of recent sensors stored for this modality, capped at our maximum
+                    return MIN([recentSensors count], NUM_RECENT_SENSORS);
                     break;
                 case 1:
                     return 1; //only one row for the add button
@@ -217,18 +262,20 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     
     NSString *titleString = nil;
+    NSString *subtitleString = nil;
     // Configure the cell...
     if (self.autodiscoveryEnabled) {
         //Everything
         if (recentSensors && [recentSensors count] > 0) {
             switch (indexPath.section) {
                 case 0:
-                    //return the number of recent sensors stored for this modality.
+                    titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
                     break;
                 case 1:
                     //return the number of autodiscovered sensors found for this modality.
@@ -260,7 +307,8 @@
         if (recentSensors && [recentSensors count] > 0) {
             switch (indexPath.section) {
                 case 0:
-                    //return the number of recent sensors stored for this modality.
+                    titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
                     break;
                 case 1:
                     titleString = @"Add a new sensor";
@@ -284,6 +332,7 @@
     }
     
     cell.textLabel.text = titleString;
+    cell.detailTextLabel.text = subtitleString;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
@@ -336,7 +385,92 @@
     WSDeviceSetupController *subChooser = [[WSDeviceSetupController alloc] initWithNibName:@"WSDeviceSetupController" bundle:nil];
     
     subChooser.item = self.item; //pass the data object
-    subChooser.deviceDefinition = nil; //FIXME: Either choose an existing def and copy it, or start with a new def here.
+    subChooser.modality = self.modality;
+    subChooser.submodality = self.submodality;
+    
+    //Configure the device definition
+    //FIXME: Either choose an existing def and copy it, or start with a new def here.
+
+    WSCDDeviceDefinition *def = nil;
+    BOOL createNewDef = NO;
+    if (self.autodiscoveryEnabled) {
+        //Everything
+        if (recentSensors && [recentSensors count] > 0) {
+            switch (indexPath.section) {
+                case 0:
+                    //duplicate this sensor
+                    def = [recentSensors objectAtIndex:indexPath.row];
+                    break;
+                case 1:
+                    //return the number of autodiscovered sensors found for this modality.
+                    break;
+                case 2:
+                    createNewDef = YES;
+                    break;
+                default:
+                    break;
+            }
+        }
+        //No recents
+        else {
+            switch (indexPath.section) {
+                case 0:
+                    //return the number of autodiscovered sensors found for this modality.
+                    break;
+                case 1:
+                    createNewDef = YES;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
+    else {
+        //No autodiscovered
+        if (recentSensors && [recentSensors count] > 0) {
+            switch (indexPath.section) {
+                case 0:
+                    //duplicate this sensor
+                    def = [recentSensors objectAtIndex:indexPath.row];
+                    break;
+                case 1:
+                    createNewDef = YES;
+                    break;
+                default:
+                    break;
+            }
+        }
+        //Just the "add new" section
+        else {
+            switch (indexPath.section) {
+                case 0:
+                    createNewDef = YES;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        
+    }
+    
+    //NOTE: We're not actually connecting the device definition with the item yet;
+    //that happens when the user clicks the DONE button in the device setup controller.
+    
+    //If we need to create a new device def, do so.
+    if (!def && createNewDef) {
+        def = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDDeviceDefinition" inManagedObjectContext:self.item.managedObjectContext];
+        def.timeStampLastEdit = [NSDate date];
+        subChooser.deviceDefinition = def; 
+    }
+    else if (def) {
+        //duplicate this sensor, making sure to avoid cloning the entire graph by blocking our parent from being cloned.
+        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[def cloneInContext:def.managedObjectContext exludeEntities:[NSArray arrayWithObject:@"WSCDItem"]];
+        newDef.timeStampLastEdit = [NSDate date];
+        subChooser.deviceDefinition = newDef;
+    }
+
     
     [self.navigationController pushViewController:subChooser animated:YES];
 }

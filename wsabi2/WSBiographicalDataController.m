@@ -90,7 +90,7 @@
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -105,6 +105,9 @@
         case kSectionDescriptive: //hair, race, eyes, height, weight
             return 5;
             break;
+        case kSectionNotes:
+            return 1;
+            break;
         default:
             return 0;
             break;
@@ -112,28 +115,29 @@
 }
 
 // Customize the appearance of table view cells.
-////FIXME: This should be more flexible about different cell arrangements!
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
-//    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    
-//    //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
-//    int numRows = MAX(1, ceil([person.items count] / 5.0)); 
-//    
-//    NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
-//    
-//    if ([indexPath compare:selectedIndex] == NSOrderedSame) {
-//        return 264 + (124.0 * numRows);
-//    }
-//    else return 40.0 + (124.0 * numRows);
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == kSectionNotes && indexPath.row == kRowNotes) {
+        return 200;
+    }
+    else return self.bioDataTable.rowHeight;
+}
+
+-(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == kSectionNotes) {
+        return @"Notes";
+    }
+    else return nil;
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *StringCell = @"StringCell"; 
     static NSString *DatePickerCell = @"DateCell"; 
     static NSString *SimplePickerCell = @"SimplePickerCell"; 
+    static NSString *TextViewCell = @"TextViewCell";
         
     if (indexPath.section == kSectionBasic) {
         //These are all string cells
@@ -220,7 +224,7 @@
     else if (indexPath.section == kSectionGender) {
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -236,7 +240,7 @@
         if (indexPath.row == kRowHair) {
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -250,7 +254,7 @@
         else if (indexPath.row == kRowRace) {
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -264,7 +268,7 @@
         else if (indexPath.row == kRowEyes) {
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -313,6 +317,37 @@
             return cell;
         }
 
+    }
+    else if (indexPath.section == kSectionNotes) {
+        if (indexPath.row == kRowNotes) {
+            UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:TextViewCell];
+            UITextView *textView;
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:TextViewCell];
+                textView = [[UITextView alloc] initWithFrame:CGRectInset(cell.contentView.bounds, 4, 2)];
+                textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+                textView.delegate = self;
+                textView.font = [UIFont systemFontOfSize:17];
+                textView.backgroundColor = [UIColor clearColor];
+                
+                [cell.contentView addSubview:textView];
+            }
+            else {
+                for (int i = 0; i < [cell.contentView.subviews count]; i++) {
+                    UIView *v = [cell.contentView.subviews objectAtIndex:i];
+                    if ([v isKindOfClass:[UITextView class]]) {
+                        textView = (UITextView*)v;
+                        break; //stop looking
+                    }
+                } 
+            }
+            textView.text = self.person.notes;  
+
+            //Disables UITableViewCell from accidentally becoming selected.
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            return cell;
+        }
     }
     
     return nil;
@@ -564,6 +599,12 @@
     [self.bioDataTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:kRowEyes inSection:kSectionDescriptive]]
                              withRowAnimation:UITableViewRowAnimationFade];
 
+}
+
+#pragma mark - UITextView delegate
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.person.notes = textView.text;
 }
 
 

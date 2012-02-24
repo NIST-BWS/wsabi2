@@ -15,6 +15,7 @@
 #define kSectionBasic 0 //first, middle, last, other, alias, DOB, POB
 #define kSectionGender 1
 #define kSectionDescriptive 2 //hair, race, eyes, height, weight
+#define kSectionNotes 3
 
 //These control within-section ordering
 #define kRowFirstName 0
@@ -33,13 +34,15 @@
 #define kRowHeight 3
 #define kRowWeight 4
 
+#define kRowNotes 0
+
 @protocol WSBiographicalDataDelegate <NSObject>
 
 -(void) didUpdateDisplayName;
 
 @end
 
-@interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, ELCTextFieldDelegate>
+@interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, ELCTextFieldDelegate, UITextViewDelegate>
 {
     NSMutableArray *aliases;
     NSMutableArray *datesOfBirth;

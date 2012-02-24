@@ -29,6 +29,7 @@
 
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) UILabel *tempLabel;
-//@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
+
+@property (nonatomic) BOOL active;
 
 @end

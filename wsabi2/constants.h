@@ -17,6 +17,14 @@
 
 #define kTableViewContentsAnimationDuration 0.2
 
+#define kShowWalkthroughNotification @"showWalkthrough"
+#define kHideWalkthroughNotification @"hideWalkthrough"
+
+#define kDictKeyTargetItem @"targetItem"
+#define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"
+
+#define kStringDelimiter @"|"
+
 //Modality types
 typedef enum {
 	kModalityFace = 0,

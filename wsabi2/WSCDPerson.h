@@ -2,7 +2,7 @@
 //  WSCDPerson.h
 //  wsabi2
 //
-//  Created by Matt Aronoff on 2/1/12.
+//  Created by Matt Aronoff on 2/24/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * height;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * middleName;
+@property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSString * otherName;
 @property (nonatomic, retain) NSData * placesOfBirth;
 @property (nonatomic, retain) NSString * race;

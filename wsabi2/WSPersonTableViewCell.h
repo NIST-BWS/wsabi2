@@ -13,6 +13,7 @@
 #import "WSBiographicalDataController.h"
 #import "WSCaptureController.h"
 #import "WSItemGridCell.h"
+#import "WSModalityChooserController.h"
 #import "constants.h"
 
 @protocol WSPersonTableViewCellDelegate <NSObject>
@@ -23,7 +24,7 @@
 @end
 
 @interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate,
-                                                    WSBiographicalDataDelegate, UIActionSheetDelegate>
+                                                    WSBiographicalDataDelegate, WSCaptureDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSMutableArray *orderedItems;
@@ -46,6 +47,8 @@
 -(IBAction)deleteButtonPressed:(id)sender;
 
 -(void) performItemDeletionAtIndex:(int) index;
+-(void) showCapturePopoverAtIndex:(int) index;
+-(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;

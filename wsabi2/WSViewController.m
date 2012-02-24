@@ -33,6 +33,16 @@
     self.fetchedResultsController.delegate = self;
 
     self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
+    
+    //Add notification listeners for global actions we want to catch
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(presentSensorWalkthrough:)
+                                                 name:kShowWalkthroughNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didHideSensorWalkthrough:)
+                                                 name:kHideWalkthroughNotification
+                                               object:nil];
 }
 
 - (void)viewDidUnload
@@ -69,33 +79,64 @@
 }
 
 #pragma mark - Button Action methods
--(void) presentSensorWalkthroughForItem:(WSCDItem *)item
+-(void) presentSensorWalkthrough:(NSNotification*)notification
 {
-//    QRootElement *root = [[QRootElement alloc] init];
-//    root.title = @"Hello World";
-//    root.grouped = YES;
-//    QSection *section = [[QSection alloc] init];
-//    QLabelElement *label = [[QLabelElement alloc] initWithTitle:@"Hello" Value:@"world!"];
-//    
-//    [root addSection:section];
-//    [section addElement:label];
-//    
-    WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
-    
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
-    navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentModalViewController:navigation animated:YES];    
+    BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
+    if (shouldStartFromDevice) {
+        //only show the walkthrough from device selection onwards.
+        WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+        chooser.item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+
+        //FIXME: Set the modality/submodality either here or in the chooser automatically
+        
+        chooser.walkthroughDelegate = self;
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:navigation animated:YES];    
+    }
+    else {
+        //show the full selection walkthrough
+        WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
+        chooser.item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+        chooser.walkthroughDelegate = self;
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:navigation animated:YES];    
+    }
 }
+
+-(void) didHideSensorWalkthrough:(NSNotification*)notification
+{
+    //launch the popover for the correct item.
+    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [activeCell showCapturePopoverForItem:[notification.userInfo objectForKey:kDictKeyTargetItem]];
+}
+
 
 -(IBAction)addFirstButtonPressed:(id)sender
 {
-    //Unlike the usual duplicate-style add, this time we need to start from scratch.
+    NSDate *now = [NSDate date];
     
+    //Unlike the usual duplicate-style add, this time we need to start from scratch.
     WSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
-    newPerson.timeStampCreated = [NSDate date];
+    newPerson.timeStampCreated = now;
     newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
+    
+    //create a new capture item
+    WSCDItem *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDItem" inManagedObjectContext:self.managedObjectContext];
+    newItem.index = [NSNumber numberWithInt:0]; //this is the first item in the record
+    newItem.timeStampCreated = now;
+    newItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
+    
+    //add a device config to that item.
+    WSCDDeviceDefinition *deviceDef = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDDeviceDefinition" inManagedObjectContext:self.managedObjectContext];
+    deviceDef.timeStampLastEdit = now;
+    newItem.deviceConfig = deviceDef;
+    
+    //add that item to the person's record.
+    [newPerson addItemsObject:newItem];
     
     //Save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
@@ -110,8 +151,11 @@
         ((UIButton*)sender).alpha = 0;
     }];
     
-    //display the sensor walkthrough
-    [self presentSensorWalkthroughForItem:nil];
+    //display the sensor walkthrough (by posting a notification)
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newItem forKey:kDictKeyTargetItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 
@@ -395,6 +439,19 @@
     if (oldPerson) {
         [self.managedObjectContext deleteObject:oldPerson];
     }
+}
+
+#pragma mark - Device Config walkthrough delegate
+-(void) didCancelDeviceConfigWalkthrough:(WSCDItem*)sourceItem
+{
+    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [activeCell showCapturePopoverForItem:sourceItem];
+}
+
+-(void) didCompleteDeviceConfigWalkthrough:(WSCDItem*)sourceItem
+{
+    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [activeCell showCapturePopoverForItem:sourceItem];
 }
 
 @end

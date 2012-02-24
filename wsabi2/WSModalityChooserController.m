@@ -10,6 +10,7 @@
 
 @implementation WSModalityChooserController
 @synthesize item;
+@synthesize walkthroughDelegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -84,6 +85,7 @@
 -(IBAction) cancelButtonPressed:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES];
+    [walkthroughDelegate didCancelDeviceConfigWalkthrough:self.item];
 }
 
 
@@ -163,6 +165,10 @@
     //Push a new controller to choose the submodality.
     WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
     subChooser.modality = indexPath.row;
+    
+//    //set the item's modality string to match the chosen object
+//    self.item.modality = [WSModalityMap stringForModality:indexPath.row];
+    
     subChooser.item = self.item; //pass the data object
     
     [self.navigationController pushViewController:subChooser animated:YES];

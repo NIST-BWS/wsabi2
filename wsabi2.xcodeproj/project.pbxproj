@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */; };
 		EA26F70814D972A200BC54F5 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA26F70714D972A200BC54F5 /* README */; };
-		EA26F72814D9983E00BC54F5 /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72714D9983E00BC54F5 /* WSCDPerson.m */; };
-		EA26F72B14D9983E00BC54F5 /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72A14D9983E00BC54F5 /* WSCDItem.m */; };
-		EA26F72E14D9983E00BC54F5 /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */; };
 		EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C514DACD44002484CF /* ActionSheetDatePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C714DACD44002484CF /* ActionSheetDistancePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -27,14 +24,20 @@
 		EA277AB814DC5787002484CF /* WSSubmodalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277AB614DC5787002484CF /* WSSubmodalityChooserController.xib */; };
 		EA277ABD14DC5CD1002484CF /* WSDeviceChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */; };
 		EA277ABE14DC5CD1002484CF /* WSDeviceChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */; };
-		EA277AC214DC6DDA002484CF /* WSDeviceSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC014DC6DDA002484CF /* WSDeviceSetupController.m */; };
-		EA277AC314DC6DDA002484CF /* WSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC114DC6DDA002484CF /* WSDeviceSetupController.xib */; };
 		EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC414DC72C9002484CF /* checkmark-green.png */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
 		EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */; };
 		EA277ACF14E187FA002484CF /* DeleteRed.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277ACE14E187FA002484CF /* DeleteRed.png */; };
+		EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */; };
+		EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */; };
+		EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */; };
+		EA277B0C14EAD9C9002484CF /* warning-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0B14EAD9C9002484CF /* warning-yellow.png */; };
+		EA277B0E14EADA59002484CF /* Blank.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0D14EADA59002484CF /* Blank.png */; };
+		EA277B1214EBDFBA002484CF /* WSDeviceSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */; };
+		EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */; };
 		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
 		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
+		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
 		EA8A047414C861F600199FF8 /* personcell-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A047314C861F600199FF8 /* personcell-bg-selected.png */; };
@@ -55,6 +58,9 @@
 		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
 		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
 		EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */; };
+		EACA8C2014F7D50200A3975A /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C1F14F7D50200A3975A /* WSCDPerson.m */; };
+		EACA8C2314F7D50200A3975A /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C2214F7D50200A3975A /* WSCDItem.m */; };
+		EACA8C2614F7D50200A3975A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */; };
 		EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
 		EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
 		EAF0F97B14BC7B8C00544416 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */; };
@@ -87,12 +93,6 @@
 		EA26F70114D9728000BC54F5 /* ELCTextfieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCell.h; sourceTree = "<group>"; };
 		EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCell.m; sourceTree = "<group>"; };
 		EA26F70714D972A200BC54F5 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		EA26F72614D9983E00BC54F5 /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EA26F72714D9983E00BC54F5 /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EA26F72914D9983E00BC54F5 /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EA26F72A14D9983E00BC54F5 /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
-		EA26F72C14D9983E00BC54F5 /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
 		EA2779C214DACD44002484CF /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
 		EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
 		EA2779C414DACD44002484CF /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
@@ -118,18 +118,25 @@
 		EA277ABA14DC5CD1002484CF /* WSDeviceChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceChooserController.h; sourceTree = "<group>"; };
 		EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDeviceChooserController.m; sourceTree = "<group>"; };
 		EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDeviceChooserController.xib; sourceTree = "<group>"; };
-		EA277ABF14DC6DDA002484CF /* WSDeviceSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceSetupController.h; sourceTree = "<group>"; };
-		EA277AC014DC6DDA002484CF /* WSDeviceSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDeviceSetupController.m; sourceTree = "<group>"; };
-		EA277AC114DC6DDA002484CF /* WSDeviceSetupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDeviceSetupController.xib; sourceTree = "<group>"; };
 		EA277AC414DC72C9002484CF /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark-green.png"; sourceTree = "<group>"; };
 		EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FirstResponder.h"; sourceTree = "<group>"; };
 		EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FirstResponder.m"; sourceTree = "<group>"; };
 		EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCellWide.h; sourceTree = "<group>"; };
 		EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCellWide.m; sourceTree = "<group>"; };
 		EA277ACE14E187FA002484CF /* DeleteRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteRed.png; sourceTree = "<group>"; };
+		EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BreadcrumbButton.png; sourceTree = "<group>"; };
+		EA277AD214E2B09E002484CF /* WSDeviceConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceConfigDelegate.h; sourceTree = "<group>"; };
+		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBlue.png; sourceTree = "<group>"; };
+		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
+		EA277B0B14EAD9C9002484CF /* warning-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning-yellow.png"; sourceTree = "<group>"; };
+		EA277B0D14EADA59002484CF /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blank.png; sourceTree = "<group>"; };
+		EA277B0F14EBDFB8002484CF /* WSDeviceSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceSetupController.h; sourceTree = "<group>"; };
+		EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDeviceSetupController.m; sourceTree = "<group>"; };
+		EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDeviceSetupController.xib; sourceTree = "<group>"; };
 		EA2D105214D7344300C23365 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBiographicalDataController.h; sourceTree = "<group>"; };
 		EA2D105314D7344300C23365 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBiographicalDataController.m; sourceTree = "<group>"; };
 		EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSBiographicalDataController.xib; sourceTree = "<group>"; };
+		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
 		EA8A047314C861F600199FF8 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected.png"; sourceTree = "<group>"; };
@@ -161,6 +168,12 @@
 		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPersonTableViewCell.m; sourceTree = "<group>"; };
 		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSItemGridCell.h; sourceTree = "<group>"; };
 		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSItemGridCell.m; sourceTree = "<group>"; };
+		EACA8C1E14F7D50200A3975A /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EACA8C1F14F7D50200A3975A /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
+		EACA8C2114F7D50200A3975A /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EACA8C2214F7D50200A3975A /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EACA8C2414F7D50200A3975A /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
 		EAF0F97214BC7B8C00544416 /* wsabi2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wsabi2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF0F97614BC7B8C00544416 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAF0F97814BC7B8C00544416 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -244,6 +257,7 @@
 		EA277AB914DC5C72002484CF /* Device Config Process */ = {
 			isa = PBXGroup;
 			children = (
+				EA277AD214E2B09E002484CF /* WSDeviceConfigDelegate.h */,
 				EA277AAC14DC3EE5002484CF /* WSModalityChooserController.h */,
 				EA277AAD14DC3EE5002484CF /* WSModalityChooserController.m */,
 				EA277AAE14DC3EE5002484CF /* WSModalityChooserController.xib */,
@@ -253,24 +267,38 @@
 				EA277ABA14DC5CD1002484CF /* WSDeviceChooserController.h */,
 				EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */,
 				EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */,
-				EA277ABF14DC6DDA002484CF /* WSDeviceSetupController.h */,
-				EA277AC014DC6DDA002484CF /* WSDeviceSetupController.m */,
-				EA277AC114DC6DDA002484CF /* WSDeviceSetupController.xib */,
+				EA277B0F14EBDFB8002484CF /* WSDeviceSetupController.h */,
+				EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */,
+				EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */,
 			);
 			name = "Device Config Process";
+			sourceTree = "<group>";
+		};
+		EA277B0114EABF2E002484CF /* from iOS SDK */ = {
+			isa = PBXGroup;
+			children = (
+				EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */,
+				EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */,
+			);
+			name = "from iOS SDK";
 			sourceTree = "<group>";
 		};
 		EA8A046814C7583A00199FF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EA277B0D14EADA59002484CF /* Blank.png */,
+				EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */,
 				EA277AC414DC72C9002484CF /* checkmark-green.png */,
 				EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */,
 				EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */,
 				EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */,
+				EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */,
 				EA8A047314C861F600199FF8 /* personcell-bg-selected.png */,
 				EA8A046B14C7599A00199FF8 /* plus-button.png */,
 				EAFB96D814CDE7E00088F1E8 /* Delete.png */,
 				EA277ACE14E187FA002484CF /* DeleteRed.png */,
+				EA277B0B14EAD9C9002484CF /* warning-yellow.png */,
+				EA277B0114EABF2E002484CF /* from iOS SDK */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -302,12 +330,12 @@
 			isa = PBXGroup;
 			children = (
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EA26F72C14D9983E00BC54F5 /* WSCDDeviceDefinition.h */,
-				EA26F72D14D9983E00BC54F5 /* WSCDDeviceDefinition.m */,
-				EA26F72914D9983E00BC54F5 /* WSCDItem.h */,
-				EA26F72A14D9983E00BC54F5 /* WSCDItem.m */,
-				EA26F72614D9983E00BC54F5 /* WSCDPerson.h */,
-				EA26F72714D9983E00BC54F5 /* WSCDPerson.m */,
+				EACA8C2414F7D50200A3975A /* WSCDDeviceDefinition.h */,
+				EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */,
+				EACA8C2114F7D50200A3975A /* WSCDItem.h */,
+				EACA8C2214F7D50200A3975A /* WSCDItem.m */,
+				EACA8C1E14F7D50200A3975A /* WSCDPerson.h */,
+				EACA8C1F14F7D50200A3975A /* WSCDPerson.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -526,9 +554,15 @@
 				EA277AB014DC3EE5002484CF /* WSModalityChooserController.xib in Resources */,
 				EA277AB814DC5787002484CF /* WSSubmodalityChooserController.xib in Resources */,
 				EA277ABE14DC5CD1002484CF /* WSDeviceChooserController.xib in Resources */,
-				EA277AC314DC6DDA002484CF /* WSDeviceSetupController.xib in Resources */,
 				EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */,
 				EA277ACF14E187FA002484CF /* DeleteRed.png in Resources */,
+				EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */,
+				EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */,
+				EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */,
+				EA277B0C14EAD9C9002484CF /* warning-yellow.png in Resources */,
+				EA277B0E14EADA59002484CF /* Blank.png in Resources */,
+				EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */,
+				EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,9 +612,6 @@
 				EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */,
 				EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */,
 				EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */,
-				EA26F72814D9983E00BC54F5 /* WSCDPerson.m in Sources */,
-				EA26F72B14D9983E00BC54F5 /* WSCDItem.m in Sources */,
-				EA26F72E14D9983E00BC54F5 /* WSCDDeviceDefinition.m in Sources */,
 				EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */,
 				EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */,
 				EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */,
@@ -590,9 +621,12 @@
 				EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */,
 				EA277AB714DC5787002484CF /* WSSubmodalityChooserController.m in Sources */,
 				EA277ABD14DC5CD1002484CF /* WSDeviceChooserController.m in Sources */,
-				EA277AC214DC6DDA002484CF /* WSDeviceSetupController.m in Sources */,
 				EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */,
 				EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */,
+				EA277B1214EBDFBA002484CF /* WSDeviceSetupController.m in Sources */,
+				EACA8C2014F7D50200A3975A /* WSCDPerson.m in Sources */,
+				EACA8C2314F7D50200A3975A /* WSCDItem.m in Sources */,
+				EACA8C2614F7D50200A3975A /* WSCDDeviceDefinition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

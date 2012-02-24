@@ -85,8 +85,8 @@
 - (void)eventForDatePicker:(id)sender {
     if (!sender || ![sender isKindOfClass:[UIDatePicker class]])
         return;
-    UIDatePicker *datePicker = (UIDatePicker *)sender;
-    self.selectedDate = self.datePicker.date;
+    UIDatePicker *thePicker = (UIDatePicker *)sender;
+    self.selectedDate = thePicker.date;
 }
 
 - (void)customButtonPressed:(id)sender {

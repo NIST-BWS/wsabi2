@@ -11,11 +11,13 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
 #import "WSSubmodalityChooserController.h"
+#import "WSDeviceConfigDelegate.h"
 
 @interface WSModalityChooserController : UITableViewController
 
 -(IBAction) cancelButtonPressed:(id)sender;
 
 @property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, unsafe_unretained) id<WSDeviceConfigDelegate> walkthroughDelegate;
 
 @end

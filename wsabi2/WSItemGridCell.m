@@ -12,7 +12,7 @@
 
 @synthesize item;
 @synthesize tempLabel;
-//@synthesize delegate;
+@synthesize active;
 
 - (id) init
 {
@@ -46,7 +46,6 @@
         view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         view.opaque = NO;
         view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        view.layer.borderWidth = 4.0;
         view.layer.cornerRadius = 12;
         view.layer.shouldRasterize = YES;
 
@@ -75,6 +74,9 @@
 
         initialLayoutComplete = YES;
     }
+
+    self.contentView.layer.borderWidth = self.active ? 4.0 : 1.0;
+
 }
 
 
