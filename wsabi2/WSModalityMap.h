@@ -22,4 +22,10 @@
 
 +(NSArray*) captureTypesForModality:(WSSensorModalityType)modality;
 
+//returns the matching modality number for this string.
++(WSSensorModalityType) modalityForString:(NSString*)modalityName;
+
+//returns the matching capture type number for this string.
++(WSSensorCaptureType) captureTypeForString:(NSString*)captureTypeName;
+
 @end

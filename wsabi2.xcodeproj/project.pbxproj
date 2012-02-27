@@ -37,6 +37,44 @@
 		EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */; };
 		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
 		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
+		EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4014FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; };
+		EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4214FBD526007CB41F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */; };
+		EA2D1D4314FBD526007CB41F /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3114FBD526007CB41F /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4414FBD526007CB41F /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3114FBD526007CB41F /* ASIDataDecompressor.m */; };
+		EA2D1D4514FBD526007CB41F /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3314FBD526007CB41F /* ASIDownloadCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4614FBD526007CB41F /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3314FBD526007CB41F /* ASIDownloadCache.m */; };
+		EA2D1D4714FBD526007CB41F /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3514FBD526007CB41F /* ASIFormDataRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4814FBD526007CB41F /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3514FBD526007CB41F /* ASIFormDataRequest.m */; };
+		EA2D1D4914FBD526007CB41F /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3714FBD526007CB41F /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4A14FBD526007CB41F /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3714FBD526007CB41F /* ASIHTTPRequest.m */; };
+		EA2D1D4B14FBD526007CB41F /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3B14FBD526007CB41F /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4C14FBD526007CB41F /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3B14FBD526007CB41F /* ASIInputStream.m */; };
+		EA2D1D4D14FBD526007CB41F /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3D14FBD526007CB41F /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D4E14FBD526007CB41F /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D3D14FBD526007CB41F /* ASINetworkQueue.m */; };
+		EA2D1D5114FBDE58007CB41F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5014FBDE58007CB41F /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D5214FBDE58007CB41F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5014FBDE58007CB41F /* Reachability.m */; };
+		EA2D1D5414FBF93F007CB41F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */; };
+		EA2D1D5614FBF948007CB41F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */; };
+		EA2D1D5814FBF954007CB41F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */; };
+		EA2D1D5A14FBF970007CB41F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D5914FBF970007CB41F /* libz.dylib */; };
+		EA2D1D6314FC18E1007CB41F /* Base64Coder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */; };
+		EA2D1D6414FC18E1007CB41F /* Base64Coder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */; };
+		EA2D1D6514FC18E1007CB41F /* NBCLSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */; };
+		EA2D1D6614FC18E1007CB41F /* NBCLSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */; };
+		EA2D1D6714FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */; };
+		EA2D1D6814FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */; };
+		EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6A14FC190C007CB41F /* WSBDResult.m */; };
+		EA2D1D6C14FC190C007CB41F /* WSBDResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6A14FC190C007CB41F /* WSBDResult.m */; };
+		EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */; };
+		EA2D1D7614FC1FB5007CB41F /* UIView+UserTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+UserTesting.m */; };
+		EA2D1D7714FC1FB5007CB41F /* UIView+UserTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+UserTesting.m */; };
+		EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */; };
+		EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */; };
+		EA2D1D7B14FC20BC007CB41F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */; };
+		EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
@@ -136,6 +174,49 @@
 		EA2D105214D7344300C23365 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBiographicalDataController.h; sourceTree = "<group>"; };
 		EA2D105314D7344300C23365 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBiographicalDataController.m; sourceTree = "<group>"; };
 		EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSBiographicalDataController.xib; sourceTree = "<group>"; };
+		EA2D1D2B14FBD526007CB41F /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
+		EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
+		EA2D1D2D14FBD526007CB41F /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
+		EA2D1D2E14FBD526007CB41F /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
+		EA2D1D3014FBD526007CB41F /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		EA2D1D3114FBD526007CB41F /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
+		EA2D1D3214FBD526007CB41F /* ASIDownloadCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDownloadCache.h; sourceTree = "<group>"; };
+		EA2D1D3314FBD526007CB41F /* ASIDownloadCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDownloadCache.m; sourceTree = "<group>"; };
+		EA2D1D3414FBD526007CB41F /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
+		EA2D1D3514FBD526007CB41F /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
+		EA2D1D3614FBD526007CB41F /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
+		EA2D1D3714FBD526007CB41F /* ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIHTTPRequest.m; sourceTree = "<group>"; };
+		EA2D1D3814FBD526007CB41F /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
+		EA2D1D3914FBD526007CB41F /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
+		EA2D1D3A14FBD526007CB41F /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIInputStream.h; sourceTree = "<group>"; };
+		EA2D1D3B14FBD526007CB41F /* ASIInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIInputStream.m; sourceTree = "<group>"; };
+		EA2D1D3C14FBD526007CB41F /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
+		EA2D1D3D14FBD526007CB41F /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
+		EA2D1D3E14FBD526007CB41F /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		EA2D1D4F14FBDE58007CB41F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		EA2D1D5014FBDE58007CB41F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EA2D1D5914FBF970007CB41F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Coder.h; sourceTree = "<group>"; };
+		EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Coder.m; sourceTree = "<group>"; };
+		EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLSensorLinkConstants.h; sourceTree = "<group>"; };
+		EA2D1D5F14FC18E1007CB41F /* NBCLSensorLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLSensorLink.h; sourceTree = "<group>"; };
+		EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLSensorLink.m; sourceTree = "<group>"; };
+		EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLInternalCameraSensorLink.h; sourceTree = "<group>"; };
+		EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLInternalCameraSensorLink.m; sourceTree = "<group>"; };
+		EA2D1D6914FC190C007CB41F /* WSBDResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBDResult.h; sourceTree = "<group>"; };
+		EA2D1D6A14FC190C007CB41F /* WSBDResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBDResult.m; sourceTree = "<group>"; };
+		EA2D1D6D14FC1E1F007CB41F /* AVCamDemoCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamDemoCaptureManager.h; sourceTree = "<group>"; };
+		EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamDemoCaptureManager.m; sourceTree = "<group>"; };
+		EA2D1D7214FC1FB5007CB41F /* UIView+UserTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UserTesting.h"; sourceTree = "<group>"; };
+		EA2D1D7314FC1FB5007CB41F /* UIView+UserTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UserTesting.m"; sourceTree = "<group>"; };
+		EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NBCLExtras.h"; sourceTree = "<group>"; };
+		EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NBCLExtras.m"; sourceTree = "<group>"; };
+		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
@@ -202,6 +283,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */,
+				EA2D1D7B14FC20BC007CB41F /* AVFoundation.framework in Frameworks */,
+				EA2D1D5A14FBF970007CB41F /* libz.dylib in Frameworks */,
+				EA2D1D5814FBF954007CB41F /* MobileCoreServices.framework in Frameworks */,
+				EA2D1D5614FBF948007CB41F /* SystemConfiguration.framework in Frameworks */,
+				EA2D1D5414FBF93F007CB41F /* CFNetwork.framework in Frameworks */,
 				EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */,
 				EA277AA414DC37FE002484CF /* MapKit.framework in Frameworks */,
 				EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */,
@@ -283,6 +370,61 @@
 			name = "from iOS SDK";
 			sourceTree = "<group>";
 		};
+		EA2D1D2914FBD4CD007CB41F /* asi-http-request (no ARC yet) */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D1D2B14FBD526007CB41F /* ASIAuthenticationDialog.h */,
+				EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */,
+				EA2D1D2D14FBD526007CB41F /* ASICacheDelegate.h */,
+				EA2D1D2E14FBD526007CB41F /* ASIDataCompressor.h */,
+				EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */,
+				EA2D1D3014FBD526007CB41F /* ASIDataDecompressor.h */,
+				EA2D1D3114FBD526007CB41F /* ASIDataDecompressor.m */,
+				EA2D1D3214FBD526007CB41F /* ASIDownloadCache.h */,
+				EA2D1D3314FBD526007CB41F /* ASIDownloadCache.m */,
+				EA2D1D3414FBD526007CB41F /* ASIFormDataRequest.h */,
+				EA2D1D3514FBD526007CB41F /* ASIFormDataRequest.m */,
+				EA2D1D3614FBD526007CB41F /* ASIHTTPRequest.h */,
+				EA2D1D3714FBD526007CB41F /* ASIHTTPRequest.m */,
+				EA2D1D3814FBD526007CB41F /* ASIHTTPRequestConfig.h */,
+				EA2D1D3914FBD526007CB41F /* ASIHTTPRequestDelegate.h */,
+				EA2D1D3A14FBD526007CB41F /* ASIInputStream.h */,
+				EA2D1D3B14FBD526007CB41F /* ASIInputStream.m */,
+				EA2D1D3C14FBD526007CB41F /* ASINetworkQueue.h */,
+				EA2D1D3D14FBD526007CB41F /* ASINetworkQueue.m */,
+				EA2D1D3E14FBD526007CB41F /* ASIProgressDelegate.h */,
+				EA2D1D4F14FBDE58007CB41F /* Reachability.h */,
+				EA2D1D5014FBDE58007CB41F /* Reachability.m */,
+			);
+			name = "asi-http-request (no ARC yet)";
+			sourceTree = "<group>";
+		};
+		EA2D1D5B14FC17D4007CB41F /* Network communication */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
+				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
+				EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */,
+				EA2D1D5F14FC18E1007CB41F /* NBCLSensorLink.h */,
+				EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */,
+				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
+				EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */,
+				EA2D1D7114FC1E24007CB41F /* AVCam Demo */,
+				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
+				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
+			);
+			name = "Network communication";
+			sourceTree = "<group>";
+		};
+		EA2D1D7114FC1E24007CB41F /* AVCam Demo */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D1D6D14FC1E1F007CB41F /* AVCamDemoCaptureManager.h */,
+				EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */,
+			);
+			name = "AVCam Demo";
+			sourceTree = "<group>";
+		};
 		EA8A046814C7583A00199FF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +452,10 @@
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
+				EA2D1D7214FC1FB5007CB41F /* UIView+UserTesting.h */,
+				EA2D1D7314FC1FB5007CB41F /* UIView+UserTesting.m */,
+				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
+				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -364,6 +510,7 @@
 		EAA6FF7314C7137D00006BCB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D2914FBD4CD007CB41F /* asi-http-request (no ARC yet) */,
 				EA2779C014DACD32002484CF /* ActionSheetPicker */,
 				EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */,
 				EA8F482614D1A1BE00503E9C /* GMGridView */,
@@ -374,6 +521,8 @@
 		EAF0F96714BC7B8C00544416 = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */,
+				EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */,
 				EAF0F97C14BC7B8C00544416 /* wsabi2 */,
 				EAF0F99A14BC7B8C00544416 /* wsabi2Tests */,
 				EAF0F97514BC7B8C00544416 /* Frameworks */,
@@ -393,6 +542,10 @@
 		EAF0F97514BC7B8C00544416 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D5914FBF970007CB41F /* libz.dylib */,
+				EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */,
+				EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */,
+				EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */,
 				EA277AA514DC3807002484CF /* CoreLocation.framework */,
 				EA277AA314DC37FE002484CF /* MapKit.framework */,
 				EA8A046614C752B000199FF8 /* QuartzCore.framework */,
@@ -414,6 +567,7 @@
 				EA202D7314C74F6600776BF3 /* constants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
 				EA8E447214BC9C18007D9B43 /* Data Model */,
+				EA2D1D5B14FC17D4007CB41F /* Network communication */,
 				EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */,
 				EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
@@ -627,6 +781,22 @@
 				EACA8C2014F7D50200A3975A /* WSCDPerson.m in Sources */,
 				EACA8C2314F7D50200A3975A /* WSCDItem.m in Sources */,
 				EACA8C2614F7D50200A3975A /* WSCDDeviceDefinition.m in Sources */,
+				EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */,
+				EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */,
+				EA2D1D4314FBD526007CB41F /* ASIDataDecompressor.m in Sources */,
+				EA2D1D4514FBD526007CB41F /* ASIDownloadCache.m in Sources */,
+				EA2D1D4714FBD526007CB41F /* ASIFormDataRequest.m in Sources */,
+				EA2D1D4914FBD526007CB41F /* ASIHTTPRequest.m in Sources */,
+				EA2D1D4B14FBD526007CB41F /* ASIInputStream.m in Sources */,
+				EA2D1D4D14FBD526007CB41F /* ASINetworkQueue.m in Sources */,
+				EA2D1D5114FBDE58007CB41F /* Reachability.m in Sources */,
+				EA2D1D6314FC18E1007CB41F /* Base64Coder.m in Sources */,
+				EA2D1D6514FC18E1007CB41F /* NBCLSensorLink.m in Sources */,
+				EA2D1D6714FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
+				EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */,
+				EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
+				EA2D1D7614FC1FB5007CB41F /* UIView+UserTesting.m in Sources */,
+				EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +805,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */,
+				EA2D1D4014FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */,
+				EA2D1D4214FBD526007CB41F /* ASIDataCompressor.m in Sources */,
+				EA2D1D4414FBD526007CB41F /* ASIDataDecompressor.m in Sources */,
+				EA2D1D4614FBD526007CB41F /* ASIDownloadCache.m in Sources */,
+				EA2D1D4814FBD526007CB41F /* ASIFormDataRequest.m in Sources */,
+				EA2D1D4A14FBD526007CB41F /* ASIHTTPRequest.m in Sources */,
+				EA2D1D4C14FBD526007CB41F /* ASIInputStream.m in Sources */,
+				EA2D1D4E14FBD526007CB41F /* ASINetworkQueue.m in Sources */,
+				EA2D1D5214FBDE58007CB41F /* Reachability.m in Sources */,
+				EA2D1D6414FC18E1007CB41F /* Base64Coder.m in Sources */,
+				EA2D1D6614FC18E1007CB41F /* NBCLSensorLink.m in Sources */,
+				EA2D1D6814FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
+				EA2D1D6C14FC190C007CB41F /* WSBDResult.m in Sources */,
+				EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
+				EA2D1D7714FC1FB5007CB41F /* UIView+UserTesting.m in Sources */,
+				EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

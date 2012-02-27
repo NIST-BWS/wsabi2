@@ -1,0 +1,32 @@
+GET http://wsbd-face.mbark.local:8000/Service/download/c2e5c1d9-d1c4-44cc-8fae-cd5d4ffb905f/info HTTP/1.1
+Content-Type: application/xml
+Host: wsbd-face.mbark.local:8000
+
+
+HTTP/1.1 200 OK
+Content-Length: 612
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 27 Feb 2012 19:40:53 GMT
+
+<result xmlns="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <status>success</status>
+  <metadata>
+    <item>
+      <key>width</key>
+      <value i:type="xs:int">640</value>
+    </item>
+    <item>
+      <key>height</key>
+      <value i:type="xs:int">480</value>
+    </item>
+    <item>
+      <key>captureTime</key>
+      <value i:type="xs:dateTime">2012-02-27T14:40:53.7813727-05:00</value>
+    </item>
+    <item>
+      <key>contentType</key>
+      <value i:type="xs:string">image/bmp</value>
+    </item>
+  </metadata>
+</result>

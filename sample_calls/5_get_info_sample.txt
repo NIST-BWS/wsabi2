@@ -1,0 +1,85 @@
+GET http://wsbd-face.mbark.local:8000/Service/info HTTP/1.1
+Content-Type: application/xml
+Host: wsbd-face.mbark.local:8000
+
+
+HTTP/1.1 200 OK
+Content-Length: 3196
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 27 Feb 2012 19:40:52 GMT
+
+<result xmlns="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <status>success</status>
+  <metadata>
+    <item>
+      <key>width</key>
+      <value i:type="Parameter">
+        <name>width</name>
+        <q:type xmlns:q="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:a="http://www.w3.org/2001/XMLSchema">a:unsignedInt</q:type>
+        <defaultValue i:type="xs:int">800</defaultValue>
+        <allowedValues>
+          <allowedValue i:type="xs:int">1280</allowedValue>
+          <allowedValue i:type="xs:int">960</allowedValue>
+          <allowedValue i:type="xs:int">800</allowedValue>
+          <allowedValue i:type="xs:int">640</allowedValue>
+          <allowedValue i:type="xs:int">424</allowedValue>
+          <allowedValue i:type="xs:int">416</allowedValue>
+          <allowedValue i:type="xs:int">352</allowedValue>
+          <allowedValue i:type="xs:int">320</allowedValue>
+        </allowedValues>
+      </value>
+    </item>
+    <item>
+      <key>height</key>
+      <value i:type="Parameter">
+        <name>height</name>
+        <q:type xmlns:q="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:a="http://www.w3.org/2001/XMLSchema">a:unsignedInt</q:type>
+        <defaultValue i:type="xs:int">600</defaultValue>
+        <allowedValues>
+          <allowedValue i:type="xs:int">720</allowedValue>
+          <allowedValue i:type="xs:int">600</allowedValue>
+          <allowedValue i:type="xs:int">544</allowedValue>
+          <allowedValue i:type="xs:int">480</allowedValue>
+          <allowedValue i:type="xs:int">448</allowedValue>
+          <allowedValue i:type="xs:int">360</allowedValue>
+          <allowedValue i:type="xs:int">288</allowedValue>
+          <allowedValue i:type="xs:int">240</allowedValue>
+          <allowedValue i:type="xs:int">144</allowedValue>
+          <allowedValue i:type="xs:int">120</allowedValue>
+        </allowedValues>
+      </value>
+    </item>
+    <item>
+      <key>frameRate</key>
+      <value i:type="Parameter">
+        <name>frameRate</name>
+        <q:type xmlns:q="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:a="http://www.w3.org/2001/XMLSchema">a:unsignedInt</q:type>
+        <defaultValue i:type="xs:int">30</defaultValue>
+        <allowedValues>
+          <allowedValue i:type="xs:int">30</allowedValue>
+          <allowedValue i:type="xs:int">15</allowedValue>
+          <allowedValue i:type="xs:int">10</allowedValue>
+        </allowedValues>
+      </value>
+    </item>
+    <item>
+      <key>modality</key>
+      <value i:type="Parameter">
+        <name>modality</name>
+        <q:type xmlns:q="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:a="http://www.w3.org/2001/XMLSchema">a:string</q:type>
+        <readOnly>true</readOnly>
+        <defaultValue i:type="xs:string">face</defaultValue>
+      </value>
+    </item>
+    <item>
+      <key>submodality</key>
+      <value i:type="Parameter">
+        <name>submodality</name>
+        <q:type xmlns:q="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:a="http://www.w3.org/2001/XMLSchema">a:string</q:type>
+        <readOnly>true</readOnly>
+        <defaultValue i:type="xs:string">frontalFace</defaultValue>
+      </value>
+    </item>
+  </metadata>
+</result>

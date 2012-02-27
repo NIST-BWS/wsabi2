@@ -1,0 +1,18 @@
+POST http://wsbd-face.mbark.local:8000/Service/capture/fb6d2497-221f-4154-813d-3a6aded4f98e HTTP/1.1
+Content-Type: application/xml
+Host: wsbd-face.mbark.local:8000
+Content-Length: 0
+
+
+HTTP/1.1 200 OK
+Content-Length: 227
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 27 Feb 2012 19:40:53 GMT
+
+<result xmlns="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <status>success</status>
+  <captureIds>
+    <element>c2e5c1d9-d1c4-44cc-8fae-cd5d4ffb905f</element>
+  </captureIds>
+</result>

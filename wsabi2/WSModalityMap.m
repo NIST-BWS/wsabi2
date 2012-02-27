@@ -203,6 +203,40 @@
     return @"";
 }
 
++(NSString*) stringForModality:(WSSensorModalityType)modalityType
+{
+    switch (modalityType) {
+        case kModalityFace:
+            return @"Face";
+            break;
+        case kModalityIris:
+            return @"Iris";
+            break;       
+        case kModalityFinger:
+            return @"Finger";
+            break;
+        case kModalityEar:
+            return @"Ear";
+            break;
+        case kModalityVein:
+            return @"Vein";
+            break;
+        case kModalityRetina:
+            return @"Retina";
+            break;
+        case kModalityFoot:
+            return @"Foot";
+            break;
+        case kModalityOther:
+            return @"Other";
+            break;
+            
+        default:
+            break;
+    }
+    return @"";
+}
+
 +(NSString*) parameterNameForCaptureType:(WSSensorCaptureType)captureType
 {
     switch (captureType) {
@@ -388,39 +422,6 @@
 }
 
 
-+(NSString*) stringForModality:(WSSensorModalityType)modalityType
-{
-    switch (modalityType) {
-        case kModalityFace:
-            return @"Face";
-            break;
-         case kModalityIris:
-            return @"Iris";
-            break;       
-        case kModalityFinger:
-            return @"Finger";
-            break;
-        case kModalityEar:
-            return @"Ear";
-            break;
-        case kModalityVein:
-            return @"Vein";
-            break;
-        case kModalityRetina:
-            return @"Retina";
-            break;
-        case kModalityFoot:
-            return @"Foot";
-            break;
-         case kModalityOther:
-            return @"Other";
-            break;
-    
-        default:
-            break;
-    }
-    return @"";
-}
 
 +(NSArray*) captureTypesForModality:(WSSensorModalityType)modality
 {
@@ -524,6 +525,216 @@
             break;
     }
     return nil;
+}
+
+//returns the matching modality number for this string.
++(WSSensorModalityType) modalityForString:(NSString*)modalityName
+{
+    if ([modalityName isEqualToString:@"Face"]) {
+        return kModalityFace;
+    }
+    else if ([modalityName isEqualToString:@"Iris"]) {
+        return kModalityIris;
+    }
+    else if ([modalityName isEqualToString:@"Finger"]) {
+        return kModalityFinger;
+    }
+    else if ([modalityName isEqualToString:@"Ear"]) {
+        return kModalityEar;
+    }
+    else if ([modalityName isEqualToString:@"Vein"]) {
+        return kModalityVein;
+    }
+    else if ([modalityName isEqualToString:@"Retina"]) {
+        return kModalityRetina;
+    }
+    else if ([modalityName isEqualToString:@"Foot"]) {
+        return kModalityFoot;
+    }
+    else if ([modalityName isEqualToString:@"Other"]) {
+        return kModalityOther;
+    }
+    else
+        return 0;
+
+}
+
+//returns the matching capture type number for this string.
++(WSSensorCaptureType) captureTypeForString:(NSString*)captureTypeName
+{
+    
+    if ([captureTypeName isEqualToString:@"Right Thumb (Rolled)"]) {
+        return kCaptureTypeRightThumbRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Index (Rolled)"]) {
+        return kCaptureTypeRightIndexRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Middle (Rolled)"]) {
+        return kCaptureTypeRightMiddleRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Ring (Rolled)"]) {
+        return kCaptureTypeRightRingRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Little (Rolled)"]) {
+        return kCaptureTypeRightLittleRolled;
+    }
+ 
+    else if ([captureTypeName isEqualToString:@"Right Thumb"]) {
+        return kCaptureTypeRightThumbFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Index"]) {
+        return kCaptureTypeRightIndexFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Middle"]) {
+        return kCaptureTypeRightMiddleFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Ring"]) {
+        return kCaptureTypeRightRingFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Little"]) {
+        return kCaptureTypeRightLittleFlat;
+    }
+
+    else if ([captureTypeName isEqualToString:@"Left Thumb (Rolled)"]) {
+        return kCaptureTypeLeftThumbRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Index (Rolled)"]) {
+        return kCaptureTypeLeftIndexRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Middle (Rolled)"]) {
+        return kCaptureTypeLeftMiddleRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Ring (Rolled)"]) {
+        return kCaptureTypeLeftRingRolled;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Little (Rolled)"]) {
+        return kCaptureTypeLeftLittleRolled;
+    }
+    
+    else if ([captureTypeName isEqualToString:@"Left Thumb"]) {
+        return kCaptureTypeLeftThumbFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Index"]) {
+        return kCaptureTypeLeftIndexFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Middle"]) {
+        return kCaptureTypeLeftMiddleFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Ring"]) {
+        return kCaptureTypeLeftRingFlat;
+    }
+    else if ([captureTypeName isEqualToString:@"Left Little"]) {
+        return kCaptureTypeLeftLittleFlat;
+    }
+
+                
+    else if ([captureTypeName isEqualToString:@"Left Slap"]) {
+        return kCaptureTypeLeftSlap;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Slap"]) {
+        return kCaptureTypeRightSlap;
+    }
+    else if ([captureTypeName isEqualToString:@"Thumbs Slap"]) {
+        return kCaptureTypeThumbsSlap;
+    }
+                
+    //Iris
+    else if ([captureTypeName isEqualToString:@"Left Iris"]) {
+        return kCaptureTypeLeftIris;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Iris"]) {
+        return kCaptureTypeRightIris;
+    }
+    else if ([captureTypeName isEqualToString:@"Both Irises"]) {
+        return kCaptureTypeBothIrises;
+    }
+             
+    //Face
+    else if ([captureTypeName isEqualToString:@"Face"]) {
+        return kCaptureTypeFace2d;
+    }
+    else if ([captureTypeName isEqualToString:@"Face (3D)"]) {
+        return kCaptureTypeFace3d;
+    }
+
+    //Ear
+    else if ([captureTypeName isEqualToString:@"leftEar"]) {
+        return kCaptureTypeLeftEar;
+    }
+    else if ([captureTypeName isEqualToString:@"rightEar"]) {
+        return kCaptureTypeRightEar;
+    }
+    else if ([captureTypeName isEqualToString:@"bothEars"]) {
+        return kCaptureTypeBothEars;
+    }
+            
+    //Vein
+    else if ([captureTypeName isEqualToString:@"Left Vein"]) {
+        return kCaptureTypeLeftVein;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Vein"]) {
+        return kCaptureTypeRightVein;
+    }
+    else if ([captureTypeName isEqualToString:@"Palm"]) {
+        return kCaptureTypePalm;
+    }
+    else if ([captureTypeName isEqualToString:@"Back of Hand"]) {
+        return kCaptureTypeBackOfHand;
+    }
+    else if ([captureTypeName isEqualToString:@"Wrist"]) {
+        return kCaptureTypeWrist;
+    }
+
+                    
+    //Retina
+    else if ([captureTypeName isEqualToString:@"Left Retina"]) {
+        return kCaptureTypeLeftRetina;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Retina"]) {
+        return kCaptureTypeRightRetina;
+    }
+    else if ([captureTypeName isEqualToString:@"Both Retinas"]) {
+        return kCaptureTypeBothRetinas;
+    }
+
+    //Foot
+    else if ([captureTypeName isEqualToString:@"Left Foot"]) {
+        return kCaptureTypeLeftFoot;
+    }
+    else if ([captureTypeName isEqualToString:@"Right Foot"]) {
+        return kCaptureTypeRightFoot;
+    }
+    else if ([captureTypeName isEqualToString:@"Both Feet"]) {
+        return kCaptureTypeBothFeet;
+    }
+
+                //Single items
+    else if ([captureTypeName isEqualToString:@"Scent"]) {
+        return kCaptureTypeScent;
+    }
+    else if ([captureTypeName isEqualToString:@"DNA"]) {
+        return kCaptureTypeDNA;
+    }
+    else if ([captureTypeName isEqualToString:@"Hand Geometry"]) {
+        return kCaptureTypeHandGeometry;
+    }
+    else if ([captureTypeName isEqualToString:@"Voice"]) {
+        return kCaptureTypeVoice;
+    }
+    else if ([captureTypeName isEqualToString:@"Gait"]) {
+        return kCaptureTypeGait;
+    } 
+    else if ([captureTypeName isEqualToString:@"Keystroke"]) {
+        return kCaptureTypeKeystroke;
+    }
+    else if ([captureTypeName isEqualToString:@"Lip Movement"]) {
+        return kCaptureTypeLipMovement;
+    }
+    else if ([captureTypeName isEqualToString:@"Signature"]) {
+        return kCaptureTypeSignatureSign;
+    }
+
+    else return kCaptureTypeNotSet;
 }
 
 

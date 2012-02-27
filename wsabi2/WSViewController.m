@@ -85,9 +85,12 @@
     if (shouldStartFromDevice) {
         //only show the walkthrough from device selection onwards.
         WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
-        chooser.item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+        WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+        chooser.item = item;
 
         //FIXME: Set the modality/submodality either here or in the chooser automatically
+        chooser.modality = [WSModalityMap modalityForString:item.modality];
+        chooser.submodality = [WSModalityMap captureTypeForString:item.submodality];
         
         chooser.walkthroughDelegate = self;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
@@ -422,6 +425,8 @@
         newPerson.eyeColor = nil;
         newPerson.height = nil;
         newPerson.weight = nil;
+
+        newPerson.notes = nil;
         
         //Save the context
         [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];

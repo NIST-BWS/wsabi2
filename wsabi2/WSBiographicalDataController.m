@@ -156,6 +156,8 @@
             cell.rightTextField.placeholder = @"";
             cell.accessoryType = UITableViewCellAccessoryNone;
             
+            cell.rightTextField.keyboardType = UIKeyboardTypeDefault;
+            
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -295,7 +297,9 @@
             cell.rightTextField.placeholder = @"";
             cell.rightTextField.returnKeyType = UIReturnKeyNext;                    
             cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 
+            
             return cell;
         }
         else if (indexPath.row == kRowWeight) {
@@ -314,6 +318,8 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+
             return cell;
         }
 
@@ -487,7 +493,7 @@
 
 - (void)updateTextLabelAtIndexPath:(NSIndexPath*)indexPath string:(NSString*)string {
     
-	NSLog(@"See input: %@ from section: %d row: %d, should update models appropriately", string, indexPath.section, indexPath.row);
+	//NSLog(@"See input: %@ from section: %d row: %d, should update models appropriately", string, indexPath.section, indexPath.row);
     
     if (indexPath.section == kSectionBasic) {
         //These are all string cells

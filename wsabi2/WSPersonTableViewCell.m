@@ -461,6 +461,7 @@
         cap.popoverController = popoverController;
         
         popoverController.popoverContentSize = cap.view.bounds.size;
+        
         [popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
                                            inView:self.superview 
                          permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 

@@ -1,0 +1,16 @@
+POST http://wsbd-face.mbark.local:8000/Service/configure/fb6d2497-221f-4154-813d-3a6aded4f98e HTTP/1.1
+Content-Type: application/xml
+Host: wsbd-face.mbark.local:8000
+Content-Length: 459
+Expect: 100-continue
+
+<configuration xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:oid:2.16.840.1.101.3.9.3.0"><item><key>width</key><value xmlns:d3p1="http://www.w3.org/2001/XMLSchema" i:type="d3p1:int">800</value></item><item><key>height</key><value xmlns:d3p1="http://www.w3.org/2001/XMLSchema" i:type="d3p1:int">600</value></item><item><key>frameRate</key><value xmlns:d3p1="http://www.w3.org/2001/XMLSchema" i:type="d3p1:int">15</value></item></configuration>
+HTTP/1.1 200 OK
+Content-Length: 136
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 27 Feb 2012 19:40:52 GMT
+
+<result xmlns="urn:oid:2.16.840.1.101.3.9.3.0" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <status>success</status>
+</result>
