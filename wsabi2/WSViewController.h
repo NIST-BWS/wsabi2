@@ -16,20 +16,28 @@
 #import "WSPersonTableViewCell.h"
 #import "WSModalityChooserController.h"
 
+#import "NBCLSensorLink.h"
+#import "NBCLSensorLinkConstants.h"
+
 @interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
                                                 WSPersonTableViewCellDelegate, WSDeviceConfigDelegate, 
                                                 NSFetchedResultsControllerDelegate>
 {
     NSIndexPath *selectedIndex;
+    NSMutableDictionary *sensorLinks;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;
 -(void) didHideSensorWalkthrough:(NSNotification*)notification;
+-(void) startItemCapture:(NSNotification*)notification;
+-(void) stopItemCapture:(NSNotification*)notification;
 
 -(IBAction)addFirstButtonPressed:(id)sender;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) UIPopoverController *popoverController;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *addFirstButton;

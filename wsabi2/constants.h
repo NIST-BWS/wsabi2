@@ -10,6 +10,7 @@
 #define wsabi2_constants_h
 
 #define kItemCellSize 112
+#define kItemCellSpacing 10
 
 #define kFastFadeAnimationDuration 0.1
 #define kMediumFadeAnimationDuration 0.3
@@ -19,6 +20,8 @@
 
 #define kShowWalkthroughNotification @"showWalkthrough"
 #define kHideWalkthroughNotification @"hideWalkthrough"
+#define kStartCaptureNotification @"startCapture"
+#define kStopCaptureNotification @"stopCapture"
 
 #define kDictKeyTargetItem @"targetItem"
 #define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"

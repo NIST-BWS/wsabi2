@@ -75,6 +75,12 @@
 		EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */; };
 		EA2D1D7B14FC20BC007CB41F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */; };
 		EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */; };
+		EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
+		EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
+		EA2D1D8614FD1F99007CB41F /* stop-sign.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8514FD1F99007CB41F /* stop-sign.png */; };
+		EA2D1D8714FD1F99007CB41F /* stop-sign.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8514FD1F99007CB41F /* stop-sign.png */; };
+		EA2D1D8914FD1FA9007CB41F /* stop-sign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8814FD1FA9007CB41F /* stop-sign@2x.png */; };
+		EA2D1D8A14FD1FA9007CB41F /* stop-sign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8814FD1FA9007CB41F /* stop-sign@2x.png */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
@@ -217,6 +223,9 @@
 		EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NBCLExtras.m"; sourceTree = "<group>"; };
 		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture-single-tap.png"; sourceTree = "<group>"; };
+		EA2D1D8514FD1F99007CB41F /* stop-sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop-sign.png"; sourceTree = "<group>"; };
+		EA2D1D8814FD1FA9007CB41F /* stop-sign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop-sign@2x.png"; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
@@ -425,12 +434,23 @@
 			name = "AVCam Demo";
 			sourceTree = "<group>";
 		};
+		EA2D1D8414FD1F8D007CB41F /* Symbolicons */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D1D8514FD1F99007CB41F /* stop-sign.png */,
+				EA2D1D8814FD1FA9007CB41F /* stop-sign@2x.png */,
+			);
+			name = Symbolicons;
+			sourceTree = "<group>";
+		};
 		EA8A046814C7583A00199FF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D8414FD1F8D007CB41F /* Symbolicons */,
 				EA277B0D14EADA59002484CF /* Blank.png */,
 				EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */,
 				EA277AC414DC72C9002484CF /* checkmark-green.png */,
+				EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */,
 				EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */,
 				EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */,
 				EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */,
@@ -717,6 +737,9 @@
 				EA277B0E14EADA59002484CF /* Blank.png in Resources */,
 				EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */,
 				EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */,
+				EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */,
+				EA2D1D8614FD1F99007CB41F /* stop-sign.png in Resources */,
+				EA2D1D8914FD1FA9007CB41F /* stop-sign@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,6 +748,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */,
+				EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */,
+				EA2D1D8714FD1F99007CB41F /* stop-sign.png in Resources */,
+				EA2D1D8A14FD1FA9007CB41F /* stop-sign@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

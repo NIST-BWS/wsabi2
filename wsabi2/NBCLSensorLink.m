@@ -19,10 +19,12 @@
 
 @implementation NBCLSensorLink
 @synthesize delegate;
-@synthesize delegateSelector;
 @synthesize registered, hasLock, initialized, sequenceInProgress;
 @synthesize shouldRetryDownloadIfPending;
 @synthesize uri, currentSessionId, networkTimeout;
+
+@synthesize mainNamespace, schemaInstanceNamespace, schemaNamespace;
+
 @synthesize exponentialIntervalMax;
 @synthesize currentParseResult, currentElementName, currentElementValue, currentContainerArray, currentContainerDictionary, currentDictionaryKey, currentDictionaryValue;
 @synthesize captureIds;
@@ -36,6 +38,10 @@
 		responseData = [NSMutableData data];
         
         cancelResponseData = [NSMutableData data];
+        
+        self.mainNamespace = @"xmlns=\"urn:oid:2.16.840.1.101.3.9.3.1\"";
+        self.schemaInstanceNamespace = @"xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"";
+        self.schemaNamespace = @"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
         
         operationInProgress = -1; //nothing currently in progress.
 		operationPendingCancellation = -1; //nothing currently in the process of being cancelled.

@@ -14,6 +14,7 @@
 @implementation WSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
+@synthesize popoverController;
 @synthesize tableView;
 @synthesize addFirstButton;
 
@@ -30,9 +31,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
+    
     self.fetchedResultsController.delegate = self;
 
     self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
+
+    //initialize the sensor link dictionary, which will connect WSCDItems to sensor link objects.
+    sensorLinks = [[NSMutableDictionary alloc] init];
     
     //Add notification listeners for global actions we want to catch
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -43,6 +50,15 @@
                                              selector:@selector(didHideSensorWalkthrough:)
                                                  name:kHideWalkthroughNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startItemCapture:)
+                                                 name:kStartCaptureNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopItemCapture:)
+                                                 name:kStopCaptureNotification
+                                               object:nil];
+
 }
 
 - (void)viewDidUnload
@@ -78,7 +94,13 @@
     return YES;
 }
 
-#pragma mark - Button Action methods
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    //dismiss any popover controller that's visible.
+    [self.popoverController dismissPopoverAnimated:YES];
+}
+
+#pragma mark - Notification action methods
 -(void) presentSensorWalkthrough:(NSNotification*)notification
 {
     BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
@@ -115,6 +137,29 @@
     [activeCell showCapturePopoverForItem:[notification.userInfo objectForKey:kDictKeyTargetItem]];
 }
 
+-(void) startItemCapture:(NSNotification *)notification
+{
+    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    
+    if (!item) {
+        NSLog(@"Requested capture for a nonexistant item. Ignoring...");
+        return;
+    }
+    
+    NSLog(@"Requested capture to start for item %@",item.description);
+    
+    if ([sensorLinks objectForKey:item]) {
+        //Reuse the existing link
+    }
+}
+
+-(void) stopItemCapture:(NSNotification *)notification
+{
+    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    NSLog(@"Requested capture to stop for item %@",item.description);
+}
+
+#pragma mark - Button Action methods
 
 -(IBAction)addFirstButtonPressed:(id)sender
 {
@@ -176,13 +221,16 @@
 
 // Customize the appearance of table view cells.
 //FIXME: This should be more flexible about different cell arrangements!
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
-    int numRows = MAX(1, ceil([person.items count] / 5.0)); 
+    //FIXME: Figure out a way to query the cell's grid view to dynamically determine how many items 
+    //are in a row.
+    float itemsPerRow = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 5 : 7;
+    int numRows = MAX(1, ceil([person.items count] / itemsPerRow)); 
     
     //NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
     
@@ -195,10 +243,8 @@
 - (void)configureCell:(WSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    //cell.textLabel.text = [person.timeStampCreated description];
-    //cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.popoverController = self.popoverController;
     cell.person = person;
     [cell.itemGridView reloadData];
 }

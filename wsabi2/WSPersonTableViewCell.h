@@ -32,8 +32,6 @@
     
     UIActionSheet *deletePersonSheet;
     UIActionSheet *deleteItemSheet;
-    
-    UIPopoverController *popoverController;
 }
 
 -(void) updateData;
@@ -49,6 +47,8 @@
 -(void) performItemDeletionAtIndex:(int) index;
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
+
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;

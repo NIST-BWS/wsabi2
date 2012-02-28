@@ -11,6 +11,7 @@
 #import "WSAppDelegate.h"
 
 @implementation WSPersonTableViewCell
+@synthesize popoverController;
 @synthesize person;
 @synthesize itemGridView;
 @synthesize biographicalDataButton, biographicalDataInactiveLabel;
@@ -65,11 +66,10 @@
         self.itemGridView = [[GMGridView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height)];
         self.itemGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
-        float spacing = 12;
         self.itemGridView.backgroundColor = [UIColor clearColor]; //[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.3]; 
         self.itemGridView.style = GMGridViewStylePush;
-        self.itemGridView.itemSpacing = spacing;
-        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*spacing, 92, spacing, spacing);
+        self.itemGridView.itemSpacing = kItemCellSpacing;
+        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*kItemCellSpacing, 92, kItemCellSpacing, kItemCellSpacing);
         self.itemGridView.centerGrid = NO;
         self.itemGridView.actionDelegate = self;
         self.itemGridView.sortingDelegate = self;
@@ -371,7 +371,6 @@
     return CGSizeMake(kItemCellSize, kItemCellSize);
 }
 
-
 - (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
     WSItemGridCell *cell =(WSItemGridCell*) [gridView dequeueReusableCell];
@@ -450,21 +449,25 @@
         cap.delegate = self;
         cap.item = [orderedItems objectAtIndex:index];
         
-        if (popoverController) {
-            popoverController.contentViewController = cap;
+        if (self.popoverController) {
+            self.popoverController.contentViewController = cap;
         }
         else {
-            popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
+            self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
         }
         
         //give the capture controller a reference to its containing popover.
-        cap.popoverController = popoverController;
+        cap.popoverController = self.popoverController;
         
-        popoverController.popoverContentSize = cap.view.bounds.size;
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait(cap.interfaceOrientation) ? 
+        (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
+        UIPopoverArrowDirectionAny;
         
-        [popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
+        self.popoverController.popoverContentSize = cap.view.bounds.size;
+        
+        [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
                                            inView:self.superview 
-                         permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
+                         permittedArrowDirections:direction 
                                          animated:YES];
     }
     else
@@ -485,7 +488,6 @@
     NSLog(@"Did tap at index %d", position);
     [self showCapturePopoverAtIndex:position];
 }
-
 
 
 #pragma mark - GMGridViewSortingDelegate

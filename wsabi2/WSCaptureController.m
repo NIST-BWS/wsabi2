@@ -13,6 +13,8 @@
 @synthesize popoverController;
 @synthesize modalityButton;
 @synthesize deviceButton;
+@synthesize itemDataView;
+@synthesize captureButton;
 @synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -88,5 +90,19 @@
     [self.popoverController dismissPopoverAnimated:YES];
 }
 
+-(IBAction)captureButtonPressed:(id)sender
+{    
+    //Start or stop capture based on our current state.
+    //Pass the current item as the target to be filled.
+    NSString *notificationName = self.captureButton.selected ? kStopCaptureNotification : kStartCaptureNotification;
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+                                                        object:self
+                                                      userInfo:userInfo];
+
+    //Update our state.
+    self.captureButton.selected = !self.captureButton.selected;
+
+}
 
 @end

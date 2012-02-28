@@ -175,7 +175,6 @@
 
 #pragma mark -
 #pragma mark Properties
-@property (nonatomic) SEL delegateSelector;
 @property (nonatomic) BOOL registered;
 @property (nonatomic) BOOL hasLock;
 @property (nonatomic) BOOL initialized;
@@ -187,6 +186,11 @@
 @property (nonatomic, strong) NSMutableArray *captureIds;
 @property (nonatomic) NSTimeInterval networkTimeout;
 @property (nonatomic) NSTimeInterval exponentialIntervalMax;
+
+//WS-BD Variables
+@property (nonatomic, strong) NSString *mainNamespace;
+@property (nonatomic, strong) NSString *schemaInstanceNamespace;
+@property (nonatomic, strong) NSString *schemaNamespace;
 
 //NSXMLParser variables
 @property (nonatomic, strong) WSBDResult *currentParseResult;
