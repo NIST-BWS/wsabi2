@@ -21,6 +21,7 @@ wsabi has references to the following external libraries
  
 ##Logging
 The touch log files contain data in the following format:  
+	
 	Timestamp,Class,FrameX,FrameY,FrameW,FrameH,TouchX,TouchY,TouchType
 
 
