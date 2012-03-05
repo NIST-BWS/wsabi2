@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+#import "DDFileLogger.h"
+
 @class WSViewController;
 
 @interface WSAppDelegate : UIResponder <UIApplicationDelegate>
@@ -19,6 +24,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+//Logging
+@property (nonatomic, strong) DDFileLogger *fileLogger;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

@@ -20,6 +20,8 @@
 
 @synthesize viewController = _viewController;
 
+@synthesize fileLogger;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -28,6 +30,36 @@
     self.viewController.managedObjectContext = self.managedObjectContext;
     
     self.window.rootViewController = self.viewController;
+
+    //Set up logging
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    // Based on Lumberjack's WebServerIPhone example.
+
+    // We also want to direct our log messages to a file.
+	// So we're going to setup file logging.
+	// 
+	// We start by creating a file logger.
+	
+	fileLogger = [[DDFileLogger alloc] init];
+	
+	// Configure some sensible defaults for an iPhone application.
+	// 
+	// Roll the file when it gets to be 512 KB or 24 Hours old (whichever comes first).
+	// 
+	// Also, only keep up to 4 archived log files around at any given time.
+	// We don't want to take up too much disk space.
+	
+	fileLogger.maximumFileSize = 1024 * 512;    // 512 KB
+	fileLogger.rollingFrequency = 60 * 60 * 24; //  24 Hours
+	
+	fileLogger.logFileManager.maximumNumberOfLogFiles = 4;
+	
+	// Add our file logger to the logging system.
+	
+	[DDLog addLogger:fileLogger];
+    
 
     [self.window makeKeyAndVisible];
     return YES;

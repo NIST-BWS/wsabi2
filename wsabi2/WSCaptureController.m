@@ -46,6 +46,38 @@
     
     [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
     self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
+    
+    //Configure the capture button.
+    /*	WSCaptureButtonStateInactive,
+     WSCaptureButtonStateCapture,
+     WSCaptureButtonStateStop,
+     WSCaptureButtonStateWarning,
+     WSCaptureButtonStateWaiting,
+     WSCaptureButtonStateWaitingRestartCapture,
+     */
+
+    self.captureButton.inactiveImage = [UIImage imageNamed:@"Blank"];
+
+    self.captureButton.captureImage = [UIImage imageNamed:@"gesture-single-tap"];
+    
+    self.captureButton.stopImage = [UIImage imageNamed:@"stop-sign"];
+    self.captureButton.stopMessage = @"Stop capture";
+    
+    self.captureButton.warningImage = [UIImage imageNamed:@"warning-alert"];
+    self.captureButton.warningMessage = @"Hmmmm... something's up.";
+    
+    self.captureButton.waitingMessage = @"Waiting for sensor";
+    
+    self.captureButton.waitingRestartCaptureMessage = @"Reconnecting to the sensor";
+
+    //put the button in the first state.
+    self.captureButton.state = WSCaptureButtonStateInactive;
+    
+    //put a shadow behind the button
+    self.captureButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.captureButton.layer.shadowOpacity = 0.5;
+    self.captureButton.layer.shadowRadius = 6;
+    self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
 }
 
 - (void)viewDidUnload
@@ -92,16 +124,16 @@
 
 -(IBAction)captureButtonPressed:(id)sender
 {    
-    //Start or stop capture based on our current state.
-    //Pass the current item as the target to be filled.
-    NSString *notificationName = self.captureButton.selected ? kStopCaptureNotification : kStartCaptureNotification;
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
-                                                        object:self
-                                                      userInfo:userInfo];
+//    //Start or stop capture based on our current state.
+//    //Pass the current item as the target to be filled.
+//    NSString *notificationName = self.captureButton.selected ? kStopCaptureNotification : kStartCaptureNotification;
+//    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+//                                                        object:self
+//                                                      userInfo:userInfo];
 
-    //Update our state.
-    self.captureButton.selected = !self.captureButton.selected;
+    //Update our state (temporarily, just cycle states).
+    self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
 
 }
 

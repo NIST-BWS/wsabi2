@@ -6,11 +6,15 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIView+UserTesting.h"
+#import "UIView+LumberjackLogging.h"
+#import <objc/runtime.h>
 
 #define USER_TESTING_PREF @"user-testing-file"
 
-@implementation UIView (UserTesting)
+@implementation UIView (LumberjackLogging)
+
+@dynamic touchLoggingEnabled;
+static char const * const TouchLoggingKey = "TouchLogging";
 
 +(BOOL) startNewUserTestingFile
 {    
@@ -185,5 +189,21 @@
     return image;
 }
 
+#pragma mark - Logging setup (configure on/off variable via associate references, etc.)
+-(BOOL) touchLoggingEnabled
+{
+    NSNumber *loggingVal = (NSNumber*) objc_getAssociatedObject(self, TouchLoggingKey);
+    return [loggingVal boolValue];
+}
+
+-(void) setTouchLoggingEnabled:(BOOL)enabled
+{
+    NSNumber *loggingVal = [NSNumber numberWithBool:enabled];
+    objc_setAssociatedObject(self, TouchLoggingKey, loggingVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+- (void)setObjectTag:(id)newObjectTag {
+}
 
 @end

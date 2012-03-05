@@ -148,9 +148,13 @@
     
     NSLog(@"Requested capture to start for item %@",item.description);
     
-    if ([sensorLinks objectForKey:item]) {
-        //Reuse the existing link
-    }
+    //Configure and store a new link in the dictionary
+    NBCLSensorLink *link = [[NBCLSensorLink alloc] init];
+    
+    link.uri = item.deviceConfig.uri;
+    [link beginConnectSequence:YES withSenderTag:-1];
+    
+    [sensorLinks setObject:link forKey:item];
 }
 
 -(void) stopItemCapture:(NSNotification *)notification

@@ -10,6 +10,7 @@
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
+#import "WSCaptureButton.h"
 #import "constants.h"
 
 @protocol WSCaptureDelegate <NSObject>
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *modalityButton;
 @property (nonatomic, strong) IBOutlet UIButton *deviceButton;
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
-@property (nonatomic, strong) IBOutlet UIButton *captureButton;
+@property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
 
 @property (nonatomic, unsafe_unretained) id<WSCaptureDelegate> delegate;
 

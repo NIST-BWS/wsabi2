@@ -397,14 +397,14 @@
 {
 	NSLog(@"Calling beginConfigure");
 	//build the body of the message from our stored parameters
-	NSMutableString *messageBody = [NSMutableString stringWithString:@"<WsbdDictionary xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://itl.nist.gov/wsbd/L1\">"];
+	NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration xmlns:i=\"%@\" xmlns=\"%@\">", self.schemaInstanceNamespace, self.mainNamespace];
 	if (params) {
         for(NSString* key in params)
         {
             [messageBody appendFormat:@"<item><key>%@</key><value xmlns:d3p1=\"http://www.w3.org/2001/XMLSchema\" i:type=\"d3p1:string\">%@</value></item>", key, [params objectForKey:key]];
         }
     }
-	[messageBody appendString:@"</WsbdDictionary>"];
+	[messageBody appendString:@"</configuration>"];
 
 //    NSString *messageBody = @"<WsbdDictionary xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://itl.nist.gov/wsbd/L1\"><item><key>submodality</key><value xmlns:d3p1=\"http://www.w3.org/2001/XMLSchema\" i:type=\"d3p1:string\">rightThumb</value></item></WsbdDictionary>";
   
@@ -1180,17 +1180,13 @@
 	self.currentElementValue=@""; //clear this so that we can fill it with data from this element.
 	self.currentElementName = elementName;
 	
-	if ([elementName localizedCaseInsensitiveCompare:@"WsbdResult"] == NSOrderedSame)
+	if ([elementName localizedCaseInsensitiveCompare:@"result"] == NSOrderedSame)
 	{
 		self.currentParseResult = [[WSBDResult alloc] init];
 	}
-	else if ([elementName localizedCaseInsensitiveCompare:@"commonInfo"] == NSOrderedSame) {
-		self.currentParseResult.infoCommon = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentParseResult.infoCommon;
-	}
-	else if ([elementName localizedCaseInsensitiveCompare:@"detailedInfo"] == NSOrderedSame) {
-		self.currentParseResult.infoDetailed = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentParseResult.infoDetailed;
+	else if ([elementName localizedCaseInsensitiveCompare:@"metadata"] == NSOrderedSame) {
+		self.currentParseResult.metadata = [[NSMutableDictionary alloc] init];
+		self.currentContainerDictionary = self.currentParseResult.metadata;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"configuration"] == NSOrderedSame) {
 		self.currentParseResult.config = [[NSMutableDictionary alloc] init];
@@ -1218,7 +1214,7 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {     
 	
-	if ([elementName localizedCaseInsensitiveCompare:@"WsbdResult"] == NSOrderedSame)
+	if ([elementName localizedCaseInsensitiveCompare:@"result"] == NSOrderedSame)
 	{
 		//we're done. Nothing to do here.
 	}

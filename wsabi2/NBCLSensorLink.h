@@ -175,12 +175,6 @@
 
 #pragma mark -
 #pragma mark Properties
-@property (nonatomic) BOOL registered;
-@property (nonatomic) BOOL hasLock;
-@property (nonatomic) BOOL initialized;
-@property (nonatomic) BOOL sequenceInProgress;
-@property (nonatomic) BOOL shouldRetryDownloadIfPending;
-
 @property (nonatomic, strong) NSString *uri;
 @property (nonatomic, strong) NSString *currentSessionId;
 @property (nonatomic, strong) NSMutableArray *captureIds;
@@ -191,6 +185,11 @@
 @property (nonatomic, strong) NSString *mainNamespace;
 @property (nonatomic, strong) NSString *schemaInstanceNamespace;
 @property (nonatomic, strong) NSString *schemaNamespace;
+@property (nonatomic) BOOL registered;
+@property (nonatomic) BOOL hasLock;
+@property (nonatomic) BOOL initialized;
+@property (nonatomic) BOOL sequenceInProgress;
+@property (nonatomic) BOOL shouldRetryDownloadIfPending;
 
 //NSXMLParser variables
 @property (nonatomic, strong) WSBDResult *currentParseResult;
@@ -198,8 +197,8 @@
 @property (nonatomic, strong) NSString *currentElementValue;	
 @property (nonatomic, strong) NSMutableArray *currentContainerArray;
 @property (nonatomic, strong) NSMutableDictionary *currentContainerDictionary;
-@property (nonatomic, strong) NSString *currentDictionaryKey;
-@property (nonatomic, strong) NSString *currentDictionaryValue;
+@property (nonatomic, strong) id currentDictionaryKey;
+@property (nonatomic, strong) id currentDictionaryValue;
 //@property (nonatomic) int maxImageSize;
 
 @property (nonatomic, strong) NSDictionary *acceptableContentTypes;

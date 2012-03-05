@@ -1,4 +1,4 @@
-POST http://wsbd-face.mbark.local:8000/Service/configure/fb6d2497-221f-4154-813d-3a6aded4f98e HTTP/1.1
+ POST http://wsbd-face.mbark.local:8000/Service/configure/fb6d2497-221f-4154-813d-3a6aded4f98e HTTP/1.1
 Content-Type: application/xml
 Host: wsbd-face.mbark.local:8000
 Content-Length: 459

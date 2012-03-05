@@ -126,4 +126,16 @@ typedef enum {
     kAnnotation_COUNT
 } WSAnnotationType;
 
+//Possible capture states for the capture UI
+typedef enum {
+	WSCaptureButtonStateInactive = 0,
+    WSCaptureButtonStateCapture,
+    WSCaptureButtonStateStop,
+    WSCaptureButtonStateWarning,
+    WSCaptureButtonStateWaiting,
+    WSCaptureButtonStateWaitingRestartCapture,
+    WSCaptureButtonStateWaiting_COUNT
+} WSCaptureButtonState;
+
+
 #endif
