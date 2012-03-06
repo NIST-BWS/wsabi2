@@ -79,7 +79,15 @@
         
         [self.contentView insertSubview:self.itemGridView aboveSubview:self.customSelectedBackgroundView];
 
-
+        //configure logging
+//        self.touchLoggingEnabled = YES;
+//        self.itemGridView.touchLoggingEnabled = YES;
+//        self.biographicalDataButton.touchLoggingEnabled = YES;
+        
+//        [self startGestureLogging];
+//        [self.itemGridView startGestureLogging];
+//        [self.biographicalDataButton startGestureLogging];
+        
         initialLayoutComplete = YES;
     }
     
@@ -379,6 +387,8 @@
         cell = [[WSItemGridCell alloc] init];
         CGSize theSize = [self sizeForItemsInGMGridView:gridView];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
+        //turn on gesture logging for new cells
+        [cell startGestureLogging:YES];
     }
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;

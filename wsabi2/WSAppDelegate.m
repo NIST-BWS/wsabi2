@@ -22,6 +22,8 @@
 
 @synthesize fileLogger;
 
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -61,6 +63,13 @@
 	[DDLog addLogger:fileLogger];
     
 
+    //Add gesture recognizers for logging.
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(windowTapped:)];
+//    tap.cancelsTouchesInView = NO;
+//    [self.viewController.view addGestureRecognizer:tap];
+    
+    [self.window.rootViewController.view startGestureLogging:YES];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -214,6 +223,33 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Logging methods
+-(void) windowTapped:(UITapGestureRecognizer*)recog
+{
+    NSString *typeString = @"other touch";
+    if (recog.state == UIGestureRecognizerStateBegan) {
+        typeString = @"touch down";
+    }
+    else if (recog.state == UIGestureRecognizerStateEnded | recog.state == UIGestureRecognizerStateCancelled)
+    {
+        typeString = @"touch up";
+    }
+    
+    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%@\n", 
+                           [self class], 
+                           [recog locationInView:recog.view].x, 
+                           [recog locationInView:recog.view].y,
+                           typeString];
+    
+    DDLogError(logString);
+
+}
+
+-(void) windowDragged:(UIPanGestureRecognizer*)recog
+{
+    
 }
 
 

@@ -90,8 +90,8 @@
 		EA2D1D6C14FC190C007CB41F /* WSBDResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6A14FC190C007CB41F /* WSBDResult.m */; };
 		EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */; };
-		EA2D1D7614FC1FB5007CB41F /* UIView+LumberjackLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+LumberjackLogging.m */; };
-		EA2D1D7714FC1FB5007CB41F /* UIView+LumberjackLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+LumberjackLogging.m */; };
+		EA2D1D7614FC1FB5007CB41F /* UIView+Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */; };
+		EA2D1D7714FC1FB5007CB41F /* UIView+Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */; };
 		EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */; };
 		EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */; };
 		EA2D1D7B14FC20BC007CB41F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */; };
@@ -257,8 +257,8 @@
 		EA2D1D6A14FC190C007CB41F /* WSBDResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBDResult.m; sourceTree = "<group>"; };
 		EA2D1D6D14FC1E1F007CB41F /* AVCamDemoCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamDemoCaptureManager.h; sourceTree = "<group>"; };
 		EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamDemoCaptureManager.m; sourceTree = "<group>"; };
-		EA2D1D7214FC1FB5007CB41F /* UIView+LumberjackLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LumberjackLogging.h"; sourceTree = "<group>"; };
-		EA2D1D7314FC1FB5007CB41F /* UIView+LumberjackLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LumberjackLogging.m"; sourceTree = "<group>"; };
+		EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Logging.h"; sourceTree = "<group>"; };
+		EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Logging.m"; sourceTree = "<group>"; };
 		EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NBCLExtras.h"; sourceTree = "<group>"; };
 		EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NBCLExtras.m"; sourceTree = "<group>"; };
 		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -545,8 +545,8 @@
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
-				EA2D1D7214FC1FB5007CB41F /* UIView+LumberjackLogging.h */,
-				EA2D1D7314FC1FB5007CB41F /* UIView+LumberjackLogging.m */,
+				EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */,
+				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
 				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
 			);
@@ -899,7 +899,7 @@
 				EA2D1D6714FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
 				EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */,
 				EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
-				EA2D1D7614FC1FB5007CB41F /* UIView+LumberjackLogging.m in Sources */,
+				EA2D1D7614FC1FB5007CB41F /* UIView+Logging.m in Sources */,
 				EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */,
 				EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */,
@@ -932,7 +932,7 @@
 				EA2D1D6814FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
 				EA2D1D6C14FC190C007CB41F /* WSBDResult.m in Sources */,
 				EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
-				EA2D1D7714FC1FB5007CB41F /* UIView+LumberjackLogging.m in Sources */,
+				EA2D1D7714FC1FB5007CB41F /* UIView+Logging.m in Sources */,
 				EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */,
 				EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */,

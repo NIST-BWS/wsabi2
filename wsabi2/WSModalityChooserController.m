@@ -110,6 +110,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        //enable touch logging for new cells
+        [cell startGestureLogging:YES];
     }
     
     // Configure the cell...

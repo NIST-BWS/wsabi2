@@ -118,6 +118,10 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
+        
+        //once they're presented, add logging capabilities.
+        [navigation.navigationBar startGestureLogging:YES];
+        [chooser.view startGestureLogging:YES];
     }
     else {
         //show the full selection walkthrough
@@ -127,6 +131,11 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
+
+        //once they're presented, add logging capabilities.
+        [navigation.navigationBar startGestureLogging:YES];
+        [chooser.view startGestureLogging:YES];
+
     }
 }
 
@@ -264,6 +273,8 @@
         
         cell = [nibViews objectAtIndex: 0];
         cell.delegate = self;
+        //turn on gesture logging for new cells
+        [cell startGestureLogging:YES];
     }
     
     [self configureCell:cell atIndexPath:indexPath];

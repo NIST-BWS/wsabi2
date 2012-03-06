@@ -78,6 +78,10 @@
     self.captureButton.layer.shadowOpacity = 0.5;
     self.captureButton.layer.shadowRadius = 6;
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
+    
+    //enable touch logging
+    [self.view startGestureLogging:YES];
+
 }
 
 - (void)viewDidUnload

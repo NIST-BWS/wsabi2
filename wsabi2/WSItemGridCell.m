@@ -38,9 +38,6 @@
 {
     if (!initialLayoutComplete) {
         
-//        self.deleteButtonIcon = [UIImage imageNamed:@"close_x.png"];
-//        self.deleteButtonOffset = CGPointMake(-15, -15);
-        
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         
         view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
@@ -58,20 +55,13 @@
         self.tempLabel.font = [UIFont systemFontOfSize:14];
         self.tempLabel.numberOfLines = 0;
         [self.contentView addSubview:self.tempLabel];
-        
-//        self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        self.deleteButton.bounds = CGRectMake(0, 0, 44, 44);
-//        [self.deleteButton setBackgroundImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
-//        self.deleteButton.center = CGPointMake(self.contentView.bounds.size.width/2.0, self.contentView.bounds.size.height/2.0);
-//        self.deleteButton.hidden = YES;
-//        [self.contentView addSubview:self.deleteButton];
-        
-        //add an action to the delete button
-//        [self.deleteButton addTarget:self action:@selector(deleteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  
+          
         self.deleteButtonIcon = [UIImage imageNamed:@"DeleteRed"];
         self.deleteButtonOffset = CGPointMake(37, 37);
-
+        
+        //enable logging for this object.
+        //self.touchLoggingEnabled = YES;
+        
         initialLayoutComplete = YES;
     }
 

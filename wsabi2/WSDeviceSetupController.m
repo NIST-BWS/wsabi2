@@ -325,6 +325,8 @@
         ELCTextfieldCellWide *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
         if (cell == nil) {
             cell = [[ELCTextfieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+            //enable touch logging for new cells
+            [cell startGestureLogging:YES];
         }
         cell.indexPath = indexPath;
         cell.delegate = self;
@@ -356,6 +358,8 @@
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:OtherCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:OtherCell];
+            //enable touch logging for new cells
+            [cell startGestureLogging:YES];
         }
         
         // Configure the cell...

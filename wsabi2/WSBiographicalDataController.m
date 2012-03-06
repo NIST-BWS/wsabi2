@@ -45,6 +45,9 @@
     raceStrings = [NSArray arrayWithObjects:@"",@"Unknown",@"Asian",@"Black",@"Native American",@"Caucasian",@"Latino",nil];
     eyeColorStrings = [NSArray arrayWithObjects:@"",@"Brown",@"Blue",@"Green",nil];
     
+    //enable touch logging
+    [self.view startGestureLogging:YES];
+
 }
 
 - (void)viewDidUnload
@@ -145,6 +148,8 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             //Common setup for all text cells
             cell.indexPath = indexPath;
@@ -208,6 +213,8 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:DatePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             
             //set up font sizes to match the ELCTextFieldCells
@@ -227,6 +234,8 @@
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
+            //enable touch logging for new cells
+            [cell startGestureLogging:YES];
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -243,6 +252,8 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -257,6 +268,8 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -271,6 +284,8 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -285,6 +300,8 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -306,6 +323,8 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -337,6 +356,9 @@
                 textView.backgroundColor = [UIColor clearColor];
                 
                 [cell.contentView addSubview:textView];
+                //enable touch logging for new cells
+                [cell startGestureLogging:YES];
+
             }
             else {
                 for (int i = 0; i < [cell.contentView.subviews count]; i++) {
@@ -613,5 +635,20 @@
     self.person.notes = textView.text;
 }
 
+#pragma mark - UIScrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [scrollView logScrollStarted:scrollView];
+}
+
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [scrollView logScrollChanged:scrollView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [scrollView logScrollEnded:scrollView];
+}
 
 @end
