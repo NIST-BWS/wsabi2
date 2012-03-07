@@ -14,83 +14,6 @@
 static char const * const TouchLoggingKey = "TouchLogging";
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
-//Implement a logging listener to every touch event passed through this window
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
-//{
-//
-//    //if (self.touchLoggingEnabled) {
-//        UITouch *aTouch = [touches anyObject];
-//        
-//        CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
-//        
-//        NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
-//                               [self class], 
-//                               convertedFrame.origin.x,
-//                               convertedFrame.origin.y,
-//                               convertedFrame.size.width,
-//                               convertedFrame.size.height,
-//                               [aTouch locationInView:self.window].x, 
-//                               [aTouch locationInView:self.window].y,
-//                               @"touch down"];
-//        
-//        DDLogError(logString);
-//    //}
-//    
-//    [super touchesBegan:touches withEvent:event];
-//
-//}
-//
-//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//
-//    //if (self.touchLoggingEnabled) {
-//        UITouch *aTouch = [touches anyObject];
-//        
-//        CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
-//        
-//        NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
-//                               [self class], 
-//                               convertedFrame.origin.x,
-//                               convertedFrame.origin.y,
-//                               convertedFrame.size.width,
-//                               convertedFrame.size.height,
-//                               [aTouch locationInView:self.window].x, 
-//                               [aTouch locationInView:self.window].y,
-//                               @"touch moved"];
-//        
-//        DDLogError(logString);
-//
-//    //}
-//
-//    [super touchesMoved:touches withEvent:event];
-//
-//}
-//
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//
-//    //if (self.touchLoggingEnabled) {
-//        UITouch *aTouch = [touches anyObject];
-//        
-//        CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
-//        
-//        NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
-//                               [self class], 
-//                               convertedFrame.origin.x,
-//                               convertedFrame.origin.y,
-//                               convertedFrame.size.width,
-//                               convertedFrame.size.height,
-//                               [aTouch locationInView:self.window].x, 
-//                               [aTouch locationInView:self.window].y,
-//                               @"touch ended"];
-//        
-//        DDLogError(logString);
-//    //}
-//    
-//    [super touchesEnded:touches withEvent:event];
-//
-//}
 
 - (UIImage*)screenshot 
 {
@@ -141,7 +64,41 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return image;
 }
 
--(void) startGestureLogging:(BOOL)recursive
+-(CGPoint) dummyPoint
+{
+    return CGPointMake(-1,-1);
+}
+
+-(NSString*) baseLogString:(NSString*)eventType withLocalPoint:(CGPoint)localPoint withWindowPoint:(CGPoint)globalPoint
+{
+    CGRect convertedFrame = [self.superview convertRect:self.frame toView:nil]; //converts to window base coordinates
+        
+    UIViewController *vc = [self firstAvailableUIViewController];
+
+    NSMutableString *vcIdentifier = [[NSString stringWithFormat:@"%@",[vc class]] mutableCopy];
+    if(vc.title)
+    {
+        [vcIdentifier appendFormat:@"(\"%@\")",vc.title];
+    }
+    
+    NSString *logString = [NSString stringWithFormat:@"%@::%@,%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f", 
+                           vcIdentifier,
+                           [self class], 
+                           eventType,
+                           convertedFrame.origin.x,
+                           convertedFrame.origin.y,
+                           convertedFrame.size.width,
+                           convertedFrame.size.height,
+                           localPoint.x, 
+                           localPoint.y,
+                           globalPoint.x,
+                           globalPoint.y
+                          ];
+    
+    return logString;
+}
+
+-(void) startAutomaticGestureLogging:(BOOL)recursive
 {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
     tap.cancelsTouchesInView = NO;
@@ -153,35 +110,27 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     if (recursive) {
         for (UIView *v in self.subviews) {
-            [v startGestureLogging:YES];
+            if (![v isKindOfClass:[UITextField class]] && 
+                ![v isKindOfClass:[UITextView class]]) {
+                [v startAutomaticGestureLogging:YES];
+            }
         }
     }
     
 }
 
 -(void) tapDetected:(UITapGestureRecognizer*)recog
-{
-    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
-    
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
-                           [self class], 
-                           convertedFrame.origin.x,
-                           convertedFrame.origin.y,
-                           convertedFrame.size.width,
-                           convertedFrame.size.height,
-                           [recog locationInView:self].x, 
-                           [recog locationInView:self].y,
-                           @"recog touch"];
-        
-    DDLogError(logString);
-    
+{        
+    NSString *resultString = [self baseLogString:@"tap" 
+                                  withLocalPoint:[recog locationInView:self]
+                                 withWindowPoint:[recog locationInView:nil]];
+
+    DDLogError(resultString);
 }
 
 
 -(void) pinchDetected:(UIPanGestureRecognizer*)recog
-{
-    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
-    
+{    
     NSString *typeString = @"";
     if (recog.state == UIGestureRecognizerStateBegan) {
         typeString = @"Pinch started";
@@ -193,71 +142,155 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         typeString = @"Pinch ended";
     }
     
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
-                           [self class], 
-                           convertedFrame.origin.x,
-                           convertedFrame.origin.y,
-                           convertedFrame.size.width,
-                           convertedFrame.size.height,
-                           [recog locationInView:self].x, 
-                           [recog locationInView:self].y,
-                           typeString];
+    NSString *resultString = [self baseLogString:typeString 
+                             withLocalPoint:[recog locationInView:self]
+                            withWindowPoint:[recog locationInView:nil]];
     
-    DDLogError(logString);
+    DDLogError(resultString);
     
 }
 
 #pragma mark Scroll logging helper methods
--(void) scrollLogHelper:(UIScrollView*)scrollView typeString:(NSString*)tString
+-(void) scrollLogHelper:(NSString*)eventType
 {
-    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
+    if ([self isKindOfClass:[UIScrollView class]]) {
+
+        NSString *resultString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f",
+                                  [self baseLogString:eventType 
+                                      withLocalPoint:[self dummyPoint]
+                                     withWindowPoint:[self dummyPoint]],
+                                  ((UIScrollView*)self).contentOffset.x,
+                                  ((UIScrollView*)self).contentOffset.y
+                                  ];
+        
+        DDLogError(resultString);
+    }
+    else {
+        DDLogError(@"Tried to log something that wasn't a scroll view as a scroll view. Ignoring.");
+    }
     
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@,%1.0f,%1.0f\n", 
-                           [self class], 
-                           convertedFrame.origin.x,
-                           convertedFrame.origin.y,
-                           convertedFrame.size.width,
-                           convertedFrame.size.height,
-                           -1.0, 
-                           -1.0,
-                           tString,
-                           scrollView.contentOffset.x,
-                           scrollView.contentOffset.y
-                           ];
+
+}
+
+-(void) logScrollStarted
+{
+    [self scrollLogHelper:@"scroll started"];
+}
+
+-(void) logScrollChanged
+{
+    [self scrollLogHelper:@"scroll moved"];
+
+}
+
+-(void) logScrollEnded
+{
+    [self scrollLogHelper:@"scroll ended"];
+
+}
+
+#pragma mark Text Field & Text View logging
+-(void) logTextFieldStarted:(NSIndexPath*)position
+{
+    NSMutableString *resultString = [[self baseLogString:@"text field started editing" 
+                                          withLocalPoint:[self dummyPoint]
+                                         withWindowPoint:[self dummyPoint]] mutableCopy];
     
-    DDLogError(logString);
-
+    if (position) {
+        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
+    }
+    DDLogError(resultString);
 }
 
--(void) logScrollStarted:(UIScrollView*)scrollView
+-(void) logTextFieldEnded:(NSIndexPath*)position
 {
-    [self scrollLogHelper:scrollView typeString:@"scroll started"];
+    NSMutableString *resultString = [[self baseLogString:@"text field finished editing" 
+                                    withLocalPoint:[self dummyPoint]
+                                  withWindowPoint:[self dummyPoint]] mutableCopy];
+    
+    if (position) {
+        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
+    }
+    DDLogError(resultString);
 }
 
--(void) logScrollChanged:(UIScrollView*)scrollView
+-(void) logTextViewStarted:(NSIndexPath*)position
 {
-    [self scrollLogHelper:scrollView typeString:@"scroll moved"];
-
+    NSMutableString *resultString = [[self baseLogString:@"text view started editing" 
+                                          withLocalPoint:[self dummyPoint]
+                                         withWindowPoint:[self dummyPoint]] mutableCopy];
+    
+    if (position) {
+        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
+    }
+    DDLogError(resultString);
 }
 
--(void) logScrollEnded:(UIScrollView*)scrollView
+-(void) logTextViewEnded:(NSIndexPath*)position
 {
-    [self scrollLogHelper:scrollView typeString:@"scroll ended"];
-
+    NSMutableString *resultString = [[self baseLogString:@"text view finished editing" 
+                                          withLocalPoint:[self dummyPoint]
+                                         withWindowPoint:[self dummyPoint]] mutableCopy];
+    
+    if (position) {
+        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
+    }
+    DDLogError(resultString);
 }
 
-//#pragma mark - Logging setup (configure on/off variable via associate references, etc.)
-//-(BOOL) touchLoggingEnabled
-//{
-//    NSNumber *loggingVal = (NSNumber*) objc_getAssociatedObject(self, TouchLoggingKey);
-//    return [loggingVal boolValue];
-//}
+#pragma mark Popover logging
+-(void) logPopoverShownFrom:(UIView*)source
+{
+//    //FIXME: Make this more useful!
+//    NSMutableString *resultString = [@"Displaying a popover" mutableCopy];
+//    if (source) {
+//        [resultString appendFormat:@" from %@",[source class]];
+//    }
+    
+    //FIXME: Should we use the source info for something, or does it always
+    //duplicate the calling object?
+    NSString *resultString;
+//    if (source) {
+//        resultString = [self baseLogString:@"popover opened" 
+//                            withLocalPoint:[self dummyPoint]
+//                           withWindowPoint:[self dummyPoint]];
 //
-//-(void) setTouchLoggingEnabled:(BOOL)enabled
-//{
-//    NSNumber *loggingVal = [NSNumber numberWithBool:enabled];
-//    objc_setAssociatedObject(self, TouchLoggingKey, loggingVal, OBJC_ASSOCIATION_RETAIN);
-//}
+//    }
+//    else
+//    {
+        resultString = [self baseLogString:@"popover opened" 
+                            withLocalPoint:[self dummyPoint]
+                           withWindowPoint:[self dummyPoint]];
+//    }
+    
+    DDLogError(resultString);
+}
 
+-(void) logPopoverHidden
+{
+    NSString *resultString = [self baseLogString:@"popover closed" 
+                        withLocalPoint:[self dummyPoint]
+                       withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+#pragma mark Action Sheet logging
+-(void) logActionSheetShown:(BOOL)shownInPopover
+{
+    NSString *sheetType = shownInPopover ? @"action sheet opened in popover" : @"action sheet opened";
+    NSString *resultString = [self baseLogString:sheetType 
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+
+}
+
+-(void) logActionSheetHidden
+{
+    NSString *resultString = [self baseLogString:@"action sheet closed" 
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
 
 @end

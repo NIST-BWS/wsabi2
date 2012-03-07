@@ -263,19 +263,17 @@
     
     UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:cap];
 
-    if (popoverController) {
-        popoverController.contentViewController = tempNav;
-    }
-    else {
-        popoverController = [[UIPopoverController alloc] initWithContentViewController:tempNav];
-    }
-    
-    popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
-    [popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
+    //This is intentionally naïve; if there's no controller here,
+    //we have a problem.
+    self.popoverController.contentViewController = tempNav;
+     
+    self.popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
+    [self.popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
                                        inView:self.superview 
                      permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
                                      animated:YES];
-
+    //log this
+    [self logPopoverShownFrom:self.biographicalDataButton];
 }
 
 -(IBAction)addItemButtonPressed:(id)sender
@@ -337,6 +335,8 @@
                                                     cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete this person"
                                                     otherButtonTitles:nil];
     [deletePersonSheet showFromRect:self.deleteButton.frame inView:self animated:YES];
+    //Log the action sheet
+    [((UIView*)sender) logActionSheetShown:YES];
 }
 
 #pragma mark - Action Sheet delegate
@@ -353,6 +353,8 @@
         deletableItem = -1;
     }
 
+    //Log the action sheet's closing
+    [self logActionSheetHidden];
 }
 
 #pragma mark - Biographical Data delegate
@@ -388,7 +390,7 @@
         CGSize theSize = [self sizeForItemsInGMGridView:gridView];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
         //turn on gesture logging for new cells
-        [cell startGestureLogging:YES];
+        [cell startAutomaticGestureLogging:YES];
     }
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
@@ -411,12 +413,18 @@
     // Might return nil if cell not loaded for the specific index
     if ((activeCell = [self.itemGridView cellForItemAtIndex:index])) { 
         [deleteItemSheet showFromRect:activeCell.bounds inView:activeCell animated:YES];
+        //Log the action sheet
+        [activeCell logActionSheetShown:YES];
     }
     else {
         //default to showing this from the entire view.
         [deleteItemSheet showFromRect:self.bounds inView:self animated:YES];
+        //Log the action sheet
+        [self logActionSheetShown:YES];
+
     }
-}
+    
+ }
 
 
 -(void) performItemDeletionAtIndex:(int) index
@@ -459,12 +467,9 @@
         cap.delegate = self;
         cap.item = [orderedItems objectAtIndex:index];
         
-        if (self.popoverController) {
-            self.popoverController.contentViewController = cap;
-        }
-        else {
-            self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
-        }
+        //This is intentionally naïve; if there's no controller here,
+        //we have a problem.
+        self.popoverController.contentViewController = cap;
         
         //give the capture controller a reference to its containing popover.
         cap.popoverController = self.popoverController;
@@ -479,6 +484,9 @@
                                            inView:self.superview 
                          permittedArrowDirections:direction 
                                          animated:YES];
+        //log this
+        [self logPopoverShownFrom:activeCell];
+
     }
     else
     {

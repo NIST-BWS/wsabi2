@@ -19,7 +19,8 @@
 #import "NBCLSensorLink.h"
 #import "NBCLSensorLinkConstants.h"
 
-@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
+@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
+                                                UIPopoverControllerDelegate,
                                                 WSPersonTableViewCellDelegate, WSDeviceConfigDelegate, 
                                                 NSFetchedResultsControllerDelegate>
 {

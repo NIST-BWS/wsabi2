@@ -46,7 +46,7 @@
     eyeColorStrings = [NSArray arrayWithObjects:@"",@"Brown",@"Blue",@"Green",nil];
     
     //enable touch logging
-    [self.view startGestureLogging:YES];
+    [self.view startAutomaticGestureLogging:YES];
 
 }
 
@@ -149,7 +149,9 @@
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
+                //connect the text field delegate so we can log the text field itself.
+                //cell.rightTextField.delegate = self;
             }
             //Common setup for all text cells
             cell.indexPath = indexPath;
@@ -214,7 +216,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
             }
             
             //set up font sizes to match the ELCTextFieldCells
@@ -235,7 +237,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
             //enable touch logging for new cells
-            [cell startGestureLogging:YES];
+            [cell startAutomaticGestureLogging:YES];
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -253,7 +255,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -269,7 +271,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -285,7 +287,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -301,7 +303,9 @@
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
+                //connect the text field delegate so we can log the text field itself.
+                //cell.rightTextField.delegate = self;
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -324,7 +328,9 @@
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
+                //connect the text field delegate so we can log the text field itself.
+                //cell.rightTextField.delegate = self;
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -357,7 +363,7 @@
                 
                 [cell.contentView addSubview:textView];
                 //enable touch logging for new cells
-                [cell startGestureLogging:YES];
+                [cell startAutomaticGestureLogging:YES];
 
             }
             else {
@@ -422,18 +428,22 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BOOL didShowActionSheet = NO;
     //Certain cells need to respond to selection by displaying an additional chooser, etc.
     if (indexPath.section == kSectionBasic && indexPath.row == kRowDOB) {
         //For now, we're only allowing one date of birth.
         ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:@"Date of Birth" 
                                                                       datePickerMode:UIDatePickerModeDate 
                                                                         selectedDate:[NSDate date] 
-                                                                              target:self action:@selector(dobSelected:element:) origin:self.view];
+                                                                              target:self 
+                                                                              action:@selector(dobSelected:element:) 
+                                                                              origin:self.view];
         
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
         picker.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-3153600000]; //about 100 years ago.
         picker.datePicker.maximumDate = [NSDate date]; //we're unlikely to get prints from someone born in the future.
+        didShowActionSheet = YES;
     }
     else if (indexPath.section == kSectionGender) {
         //FIXME: Get the correct initial index from the person record.
@@ -446,6 +456,7 @@
                                                                                   origin:self.view];
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
+        didShowActionSheet = YES;
     }
     
     else if (indexPath.section == kSectionDescriptive) {
@@ -460,6 +471,7 @@
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
+            didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowRace) {
             //FIXME: Get the correct initial index from the person record.
@@ -472,6 +484,7 @@
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
+            didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowEyes) {
             //FIXME: Get the correct initial index from the person record.
@@ -484,17 +497,44 @@
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
+            didShowActionSheet = YES;
         }
         
+    }
+
+    //Log the action sheet (not shown in a popover)
+    if (didShowActionSheet) {
+        [[aTableView cellForRowAtIndexPath:indexPath] logActionSheetShown:NO];
     }
 
     //deselect the row afterwards
     [aTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark ELCTextFieldCellDelegate Methods
+#pragma mark - ELCTextFieldCellDelegate Methods
+-(void) textFieldDidBeginEditingWithIndexPath:(NSIndexPath *)indexPath
+{
+    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    
+    //Log this.
+    [[textCell rightTextField] logTextFieldStarted:indexPath];
+}
 
--(void)textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
+-(void) textFieldDidEndEditingWithIndexPath:(NSIndexPath *)indexPath
+{
+    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    
+    //Log this.
+    [[textCell rightTextField] logTextFieldEnded:indexPath];
+}
+
+
+-(void) textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
+    
+    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    
+//    //Log this.
+//    [[textCell rightTextField] logTextFieldEnded:indexPath];
     
     int rowIndex = indexPath.row;
 	while(rowIndex < [self tableView:self.bioDataTable numberOfRowsInSection:indexPath.section] - 1) {
@@ -509,7 +549,7 @@
         rowIndex++; //if we didn't find anything, keep going until we hit the end of the section.
 	}
 	//otherwise, just resign first responder.
-	[[(ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath] rightTextField] resignFirstResponder];
+	[[textCell rightTextField] resignFirstResponder];
         
 }
 
@@ -629,26 +669,52 @@
 
 }
 
+-(void) pickerDidCancel
+{
+    
+}
+
+#pragma mark - UITextField delegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [textField logTextFieldStarted:nil];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField logTextFieldEnded:nil];
+}
+
 #pragma mark - UITextView delegate
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [textView logTextViewStarted:nil];
+}
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     self.person.notes = textView.text;
 }
 
+-(void) textViewDidEndEditing:(UITextView *)textView
+{
+    [textView logTextViewEnded:nil];
+}
+
 #pragma mark - UIScrollView delegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [scrollView logScrollStarted:scrollView];
+    [scrollView logScrollStarted];
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [scrollView logScrollChanged:scrollView];
+    [scrollView logScrollChanged];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [scrollView logScrollEnded:scrollView];
+    [scrollView logScrollEnded];
 }
 
 @end

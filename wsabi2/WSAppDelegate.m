@@ -43,9 +43,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// So we're going to setup file logging.
 	// 
 	// We start by creating a file logger.
-	
+#if TARGET_OS_IPHONE
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *baseDir = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+	NSString *logsDirectory = baseDir;//[baseDir stringByAppendingPathComponent:@"Logs"];
+    fileLogger = [[DDFileLogger alloc] initWithLogFileManager:[[DDLogFileManagerDefault alloc] initWithLogsDirectory:logsDirectory]];
+#else
+    
 	fileLogger = [[DDFileLogger alloc] init];
-	
+#endif
+    
 	// Configure some sensible defaults for an iPhone application.
 	// 
 	// Roll the file when it gets to be 512 KB or 24 Hours old (whichever comes first).
@@ -68,7 +75,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    tap.cancelsTouchesInView = NO;
 //    [self.viewController.view addGestureRecognizer:tap];
     
-    [self.window.rootViewController.view startGestureLogging:YES];
+    [self.window.rootViewController.view startAutomaticGestureLogging:YES];
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -223,33 +230,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
-#pragma mark - Logging methods
--(void) windowTapped:(UITapGestureRecognizer*)recog
-{
-    NSString *typeString = @"other touch";
-    if (recog.state == UIGestureRecognizerStateBegan) {
-        typeString = @"touch down";
-    }
-    else if (recog.state == UIGestureRecognizerStateEnded | recog.state == UIGestureRecognizerStateCancelled)
-    {
-        typeString = @"touch up";
-    }
-    
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%@\n", 
-                           [self class], 
-                           [recog locationInView:recog.view].x, 
-                           [recog locationInView:recog.view].y,
-                           typeString];
-    
-    DDLogError(logString);
-
-}
-
--(void) windowDragged:(UIPanGestureRecognizer*)recog
-{
-    
 }
 
 

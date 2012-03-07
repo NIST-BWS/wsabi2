@@ -65,6 +65,25 @@
     [super setSelected:selected animated:animated];
 }
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    if([delegate respondsToSelector:@selector(textFieldDidBeginEditingWithIndexPath:)]) {
+		
+		[delegate performSelector:@selector(textFieldDidBeginEditingWithIndexPath:) withObject:indexPath];
+	}
+
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    if([delegate respondsToSelector:@selector(textFieldDidEndEditingWithIndexPath:)]) {
+		
+		[delegate performSelector:@selector(textFieldDidEndEditingWithIndexPath:) withObject:indexPath];
+	}
+    
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
 	if([delegate respondsToSelector:@selector(textFieldDidReturnWithIndexPath:)]) {

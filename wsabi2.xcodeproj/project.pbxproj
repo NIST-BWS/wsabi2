@@ -111,6 +111,8 @@
 		EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */; };
 		EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */; };
 		EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */; };
+		EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
+		EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
 		EA8F483314D1A1BE00503E9C /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482914D1A1BE00503E9C /* GMGridView.m */; };
 		EA8F483414D1A1BE00503E9C /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482C14D1A1BE00503E9C /* GMGridViewCell.m */; };
 		EA8F483514D1A1BE00503E9C /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F482E14D1A1BE00503E9C /* GMGridViewLayoutStrategies.m */; };
@@ -277,6 +279,8 @@
 		EA8A051614C8938A00199FF8 /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DeepCopy.m"; sourceTree = "<group>"; };
 		EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi2.xcdatamodel; sourceTree = "<group>"; };
+		EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindUIViewController.h"; sourceTree = "<group>"; };
+		EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindUIViewController.m"; sourceTree = "<group>"; };
 		EA8F482714D1A1BE00503E9C /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		EA8F482814D1A1BE00503E9C /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		EA8F482914D1A1BE00503E9C /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -545,6 +549,8 @@
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
+				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
+				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
 				EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */,
 				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
@@ -761,7 +767,7 @@
 		EAF0F96914BC7B8C00544416 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = EAF0F96C14BC7B8C00544416 /* Build configuration list for PBXProject "wsabi2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -910,6 +916,7 @@
 				EA2A89791504F32C0056E02C /* DDTTYLogger.m in Sources */,
 				EA2A897B1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
 				EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
+				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,6 +950,7 @@
 				EA2A897A1504F32C0056E02C /* DDTTYLogger.m in Sources */,
 				EA2A897C1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
 				EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
+				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

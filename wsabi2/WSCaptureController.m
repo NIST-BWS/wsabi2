@@ -80,7 +80,7 @@
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
     
     //enable touch logging
-    [self.view startGestureLogging:YES];
+    [self.view startAutomaticGestureLogging:YES];
 
 }
 

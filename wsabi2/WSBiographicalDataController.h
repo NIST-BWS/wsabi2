@@ -42,7 +42,9 @@
 
 @end
 
-@interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, ELCTextFieldDelegate, UITextViewDelegate, UIScrollViewDelegate>
+@interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, 
+                                                            ELCTextFieldDelegate, UITextFieldDelegate, 
+                                                            UITextViewDelegate, UIScrollViewDelegate>
 {
     NSMutableArray *aliases;
     NSMutableArray *datesOfBirth;

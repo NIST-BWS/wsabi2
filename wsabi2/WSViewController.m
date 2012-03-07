@@ -33,6 +33,7 @@
     
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
+    self.popoverController.delegate = self;
     
     self.fetchedResultsController.delegate = self;
 
@@ -120,8 +121,8 @@
         [self presentModalViewController:navigation animated:YES];    
         
         //once they're presented, add logging capabilities.
-        [navigation.navigationBar startGestureLogging:YES];
-        [chooser.view startGestureLogging:YES];
+        [navigation.navigationBar startAutomaticGestureLogging:YES];
+        [chooser.view startAutomaticGestureLogging:YES];
     }
     else {
         //show the full selection walkthrough
@@ -133,8 +134,8 @@
         [self presentModalViewController:navigation animated:YES];    
 
         //once they're presented, add logging capabilities.
-        [navigation.navigationBar startGestureLogging:YES];
-        [chooser.view startGestureLogging:YES];
+        [navigation.navigationBar startAutomaticGestureLogging:YES];
+        [chooser.view startAutomaticGestureLogging:YES];
 
     }
 }
@@ -274,7 +275,7 @@
         cell = [nibViews objectAtIndex: 0];
         cell.delegate = self;
         //turn on gesture logging for new cells
-        [cell startGestureLogging:YES];
+        [cell startAutomaticGestureLogging:YES];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -518,6 +519,28 @@
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell showCapturePopoverForItem:sourceItem];
+}
+
+#pragma mark - UIPopoverController delegate (currently just for logging)
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    [self.view logPopoverHidden];
+}
+
+#pragma mark - UIScrollView delegate (for logging)
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.tableView logScrollStarted];
+}
+
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.tableView logScrollChanged];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.tableView logScrollEnded];
 }
 
 @end

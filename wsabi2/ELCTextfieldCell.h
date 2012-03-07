@@ -25,6 +25,8 @@
 
 @protocol ELCTextFieldDelegate
 
+-(void)textFieldDidBeginEditingWithIndexPath:(NSIndexPath*)_indexPath;
+-(void)textFieldDidEndEditingWithIndexPath:(NSIndexPath*)_indexPath;
 -(void)textFieldDidReturnWithIndexPath:(NSIndexPath*)_indexPath;
 -(void)updateTextLabelAtIndexPath:(NSIndexPath*)_indexPath string:(NSString*)_string;
 

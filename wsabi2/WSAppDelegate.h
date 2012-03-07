@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "UIView+Logging.h"
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
@@ -34,9 +33,5 @@
 
 //The main view controller
 @property (strong, nonatomic) WSViewController *viewController;
-
-//Logging methods
--(void) windowTapped:(UITapGestureRecognizer*)recog;
--(void) windowDragged:(UIPanGestureRecognizer*)recog;
 
 @end

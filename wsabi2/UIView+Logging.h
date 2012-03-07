@@ -12,18 +12,32 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "DDLog.h"
+#import "UIView+FindUIViewController.h"
 
 @interface UIView (Logging)
 
 -(UIImage*) screenshot;
 
--(void) startGestureLogging:(BOOL)recursive;
+-(void) startAutomaticGestureLogging:(BOOL)recursive;
+
+-(NSString*) baseLogString:(NSString*)eventType withLocalPoint:(CGPoint)localPoint withWindowPoint:(CGPoint)globalPoint;
 
 -(void) tapDetected:(UITapGestureRecognizer*)recog;
 -(void) pinchDetected:(UIPinchGestureRecognizer*)recog;
 
--(void) logScrollStarted:(UIScrollView*)scrollView;
--(void) logScrollChanged:(UIScrollView*)scrollView;
--(void) logScrollEnded:(UIScrollView*)scrollView;
+-(void) logTextFieldStarted:(NSIndexPath*)position;
+-(void) logTextFieldEnded:(NSIndexPath*)position;
+-(void) logTextViewStarted:(NSIndexPath*)position;
+-(void) logTextViewEnded:(NSIndexPath*)position;
+
+-(void) logScrollStarted;
+-(void) logScrollChanged;
+-(void) logScrollEnded;
+
+-(void) logPopoverShownFrom:(UIView*)source;
+-(void) logPopoverHidden;
+
+-(void) logActionSheetShown:(BOOL)shownInPopover;
+-(void) logActionSheetHidden;
 
 @end

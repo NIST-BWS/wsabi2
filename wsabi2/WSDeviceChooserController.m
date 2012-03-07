@@ -264,7 +264,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         //enable touch logging for new cells
-        [cell startGestureLogging:YES];
+        [cell startAutomaticGestureLogging:YES];
     }
     
     
