@@ -97,6 +97,9 @@
     //Add a gesture recognizer to dismiss the keyboard when tapping the table background
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
+    
+    //enable touch logging for this controller
+    [self.view startAutomaticGestureLogging:YES];
 }
 
 - (void)viewDidUnload

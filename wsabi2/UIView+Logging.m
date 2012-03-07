@@ -119,6 +119,27 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 }
 
+-(void) addLongPressGestureLogging:(BOOL)recursive withThreshold:(float)seconds
+{
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressDetected:)];
+    longPress.cancelsTouchesInView = NO;
+    if (seconds > 0) {
+        longPress.minimumPressDuration = seconds;
+    }
+ 
+    [self addGestureRecognizer:longPress];
+    
+    if (recursive) {
+        for (UIView *v in self.subviews) {
+            if (![v isKindOfClass:[UITextField class]] && 
+                ![v isKindOfClass:[UITextView class]]) {
+                [v addLongPressGestureLogging:YES withThreshold:seconds];
+            }
+        }
+    }
+
+}
+
 -(void) tapDetected:(UITapGestureRecognizer*)recog
 {        
     NSString *resultString = [self baseLogString:@"tap" 
@@ -149,6 +170,28 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogError(resultString);
     
 }
+
+-(void) longPressDetected:(UILongPressGestureRecognizer*)recog
+{
+    NSString *typeString = @"";
+    if (recog.state == UIGestureRecognizerStateBegan) {
+        typeString = @"Long press started";
+    }
+    else if (recog.state == UIGestureRecognizerStateChanged) {
+        typeString = @"Long press moved";
+    }
+    else if (recog.state == UIGestureRecognizerStateEnded || recog.state == UIGestureRecognizerStateCancelled) {
+        typeString = @"Long press ended";
+    }
+    
+    NSString *resultString = [self baseLogString:typeString 
+                                  withLocalPoint:[recog locationInView:self]
+                                 withWindowPoint:[recog locationInView:nil]];
+    
+    DDLogError(resultString);
+
+}
+
 
 #pragma mark Scroll logging helper methods
 -(void) scrollLogHelper:(NSString*)eventType
@@ -288,6 +331,24 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) logActionSheetHidden
 {
     NSString *resultString = [self baseLogString:@"action sheet closed" 
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+#pragma mark System event logging
+
+-(void) logEnterBackground
+{
+    NSString *resultString = [self baseLogString:@"app entered background" 
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+-(void) logEnterForeground
+{
+    NSString *resultString = [self baseLogString:@"app entered foreground" 
                                   withLocalPoint:[self dummyPoint]
                                  withWindowPoint:[self dummyPoint]];
     DDLogError(resultString);

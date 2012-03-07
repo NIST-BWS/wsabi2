@@ -55,26 +55,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 	// Configure some sensible defaults for an iPhone application.
 	// 
-	// Roll the file when it gets to be 512 KB or 24 Hours old (whichever comes first).
+	// Roll the file when it gets to be 1024 KB or 24 Hours old (whichever comes first).
 	// 
-	// Also, only keep up to 4 archived log files around at any given time.
+	// Also, only keep up to 8 archived log files around at any given time.
 	// We don't want to take up too much disk space.
 	
-	fileLogger.maximumFileSize = 1024 * 512;    // 512 KB
+	fileLogger.maximumFileSize = 1024 * 1024;    // 512 KB
 	fileLogger.rollingFrequency = 60 * 60 * 24; //  24 Hours
 	
-	fileLogger.logFileManager.maximumNumberOfLogFiles = 4;
+	fileLogger.logFileManager.maximumNumberOfLogFiles = 8;
 	
 	// Add our file logger to the logging system.
 	
 	[DDLog addLogger:fileLogger];
-    
-
-    //Add gesture recognizers for logging.
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(windowTapped:)];
-//    tap.cancelsTouchesInView = NO;
-//    [self.viewController.view addGestureRecognizer:tap];
-    
+        
     [self.window.rootViewController.view startAutomaticGestureLogging:YES];
     
     [self.window makeKeyAndVisible];
@@ -97,6 +91,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     [self saveContext];
+    
+    //Log this
+    [self.viewController.view logEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -104,6 +101,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    //Log this
+    [self.viewController.view logEnterForeground];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

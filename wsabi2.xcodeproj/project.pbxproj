@@ -621,8 +621,6 @@
 		EAF0F96714BC7B8C00544416 = {
 			isa = PBXGroup;
 			children = (
-				EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */,
-				EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */,
 				EAF0F97C14BC7B8C00544416 /* wsabi2 */,
 				EAF0F99A14BC7B8C00544416 /* wsabi2Tests */,
 				EAF0F97514BC7B8C00544416 /* Frameworks */,
@@ -642,6 +640,8 @@
 		EAF0F97514BC7B8C00544416 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */,
+				EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */,
 				EA2D1D5914FBF970007CB41F /* libz.dylib */,
 				EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */,
 				EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */,

@@ -19,11 +19,13 @@
 -(UIImage*) screenshot;
 
 -(void) startAutomaticGestureLogging:(BOOL)recursive;
+-(void) addLongPressGestureLogging:(BOOL)recursive withThreshold:(float)seconds;
 
 -(NSString*) baseLogString:(NSString*)eventType withLocalPoint:(CGPoint)localPoint withWindowPoint:(CGPoint)globalPoint;
 
 -(void) tapDetected:(UITapGestureRecognizer*)recog;
 -(void) pinchDetected:(UIPinchGestureRecognizer*)recog;
+-(void) longPressDetected:(UILongPressGestureRecognizer*)recog;
 
 -(void) logTextFieldStarted:(NSIndexPath*)position;
 -(void) logTextFieldEnded:(NSIndexPath*)position;
@@ -40,4 +42,6 @@
 -(void) logActionSheetShown:(BOOL)shownInPopover;
 -(void) logActionSheetHidden;
 
+-(void) logEnterBackground;
+-(void) logEnterForeground;
 @end

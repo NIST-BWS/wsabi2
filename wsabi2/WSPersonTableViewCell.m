@@ -80,13 +80,7 @@
         [self.contentView insertSubview:self.itemGridView aboveSubview:self.customSelectedBackgroundView];
 
         //configure logging
-//        self.touchLoggingEnabled = YES;
-//        self.itemGridView.touchLoggingEnabled = YES;
-//        self.biographicalDataButton.touchLoggingEnabled = YES;
-        
-//        [self startGestureLogging];
-//        [self.itemGridView startGestureLogging];
-//        [self.biographicalDataButton startGestureLogging];
+        [self.itemGridView addLongPressGestureLogging:YES withThreshold:0.3];
         
         initialLayoutComplete = YES;
     }
