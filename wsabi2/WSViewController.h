@@ -26,6 +26,7 @@
 {
     NSIndexPath *selectedIndex;
     NSMutableDictionary *sensorLinks;
+    NSIndexPath *previousSelectedIndex;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;

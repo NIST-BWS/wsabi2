@@ -328,7 +328,11 @@
     [aTableView beginUpdates];
     [aTableView endUpdates];
        
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //If this is a currently deselected row, scroll to it.
+    if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+    previousSelectedIndex = selectedIndex;
 }
 
 
