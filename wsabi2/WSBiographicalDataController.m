@@ -446,10 +446,10 @@
         didShowActionSheet = YES;
     }
     else if (indexPath.section == kSectionGender) {
-        //FIXME: Get the correct initial index from the person record.
+        int initialPosition = self.person.gender ? [genderStrings indexOfObject:self.person.gender] : 0;
         ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Gender"
                                                                                     rows:genderStrings 
-                                                                        initialSelection:[genderStrings indexOfObject:self.person.gender]
+                                                                        initialSelection:initialPosition
                                                                                   target:self
                                                                             sucessAction:@selector(genderSelected:element:) 
                                                                             cancelAction:nil 
@@ -461,10 +461,10 @@
     
     else if (indexPath.section == kSectionDescriptive) {
         if (indexPath.row == kRowHair) {
-            //FIXME: Get the correct initial index from the person record.
+            int initialPosition = self.person.hairColor ? [hairColorStrings indexOfObject:self.person.hairColor] : 0;
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Hair Color"
                                                                                         rows:hairColorStrings 
-                                                                            initialSelection:[hairColorStrings indexOfObject:self.person.hairColor]
+                                                                            initialSelection:initialPosition
                                                                                       target:self
                                                                                 sucessAction:@selector(hairColorSelected:element:) 
                                                                                 cancelAction:nil 
@@ -474,10 +474,10 @@
             didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowRace) {
-            //FIXME: Get the correct initial index from the person record.
+            int initialPosition = self.person.race ? [raceStrings indexOfObject:self.person.race] : 0;
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Race"
                                                                                         rows:raceStrings 
-                                                                            initialSelection:[raceStrings indexOfObject:self.person.race]
+                                                                            initialSelection:initialPosition
                                                                                       target:self
                                                                                 sucessAction:@selector(raceSelected:element:) 
                                                                                 cancelAction:nil 
@@ -487,10 +487,10 @@
             didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowEyes) {
-            //FIXME: Get the correct initial index from the person record.
+            int initialPosition = self.person.eyeColor ? [eyeColorStrings indexOfObject:self.person.eyeColor] : 0;
             ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Eye Color"
                                                                                         rows:eyeColorStrings 
-                                                                            initialSelection:[eyeColorStrings indexOfObject:self.person.eyeColor]
+                                                                            initialSelection:initialPosition
                                                                                       target:self
                                                                                 sucessAction:@selector(eyeColorSelected:element:) 
                                                                                 cancelAction:nil 
