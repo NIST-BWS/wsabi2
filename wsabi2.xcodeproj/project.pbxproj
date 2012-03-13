@@ -485,6 +485,7 @@
 		EA2D1D5B14FC17D4007CB41F /* Network communication */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D1D7114FC1E24007CB41F /* AVCam Demo */,
 				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
 				EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */,
@@ -492,7 +493,6 @@
 				EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */,
 				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
 				EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */,
-				EA2D1D7114FC1E24007CB41F /* AVCam Demo */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
 				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
 				EA2A895B1501563C0056E02C /* WSBDParameter.h */,

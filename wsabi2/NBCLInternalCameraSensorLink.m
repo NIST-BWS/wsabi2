@@ -384,7 +384,7 @@
     NSLog(@"Completed get capture info request successfully.");
     
    [self.delegate sensorOperationCompleted:kOpTypeGetContentType 
-                             fromLink:self withResult:self.currentParseResult];
+                             fromLink:self withResult:self.currentWSBDResult];
     
     operationInProgress = -1;
 

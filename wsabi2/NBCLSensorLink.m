@@ -26,7 +26,9 @@
 @synthesize mainNamespace, schemaInstanceNamespace, schemaNamespace;
 
 @synthesize exponentialIntervalMax;
-@synthesize currentParseResult, currentElementName, currentElementValue, currentContainerArray, currentContainerDictionary, currentDictionaryKey, currentDictionaryValue;
+@synthesize currentWSBDResult, currentWSBDParameter;
+@synthesize currentElementName, currentElementValue, currentElementAttributes;
+@synthesize currentContainerArray, currentContainerDictionary, currentDictionaryKey, currentDictionaryValue;
 @synthesize captureIds;
 @synthesize downloadSequenceResults;
 @synthesize acceptableContentTypes;
@@ -543,7 +545,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -554,11 +556,11 @@
         return;
     }
  
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the registered convenience variable.
         self.registered = YES;
         //store the current session id.
-        self.currentSessionId = self.currentParseResult.sessionId;
+        self.currentSessionId = self.currentWSBDResult.sessionId;
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
             [self beginLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
@@ -566,7 +568,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentParseResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
     }
     operationInProgress = -1;
 
@@ -581,7 +583,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -593,7 +595,7 @@
 
     }
     
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the registered convenience variable.
         self.registered = NO;
 
@@ -608,7 +610,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentParseResult shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult shouldReleaseIfSuccessful:releaseIfSuccessful];
         //reset the releaseIfSuccessful variable
         releaseIfSuccessful = NO;
     }
@@ -627,7 +629,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -638,7 +640,7 @@
         return;
     }
 
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the lock convenience variable.
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
@@ -654,7 +656,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentParseResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
     }
     operationInProgress = -1;
 
@@ -670,7 +672,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -681,7 +683,7 @@
         return;
 
     }
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the lock convenience variable.
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
@@ -692,7 +694,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentParseResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
     }
     operationInProgress = -1;
 
@@ -707,7 +709,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -719,7 +721,7 @@
 
     }
 
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the lock convenience variable.
         self.hasLock = NO;
    
@@ -735,7 +737,7 @@
 
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentParseResult shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult shouldReleaseIfSuccessful:releaseIfSuccessful];
     }
     operationInProgress = -1;
 
@@ -751,7 +753,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -771,7 +773,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -792,7 +794,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -804,7 +806,7 @@
 
     }
     
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //set the lock convenience variable.
         self.initialized = YES;
         //notify the delegate that our status is now "connected and ready"
@@ -814,7 +816,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentParseResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
     }
     operationInProgress = -1;
 
@@ -831,7 +833,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -851,7 +853,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -863,7 +865,7 @@
 
     }
 
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
             //begin capture
@@ -889,7 +891,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -901,7 +903,7 @@
 
     }
 
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
             //reset any existind download sequence variables.
@@ -911,8 +913,8 @@
             }
 
             //download each result.
-            numCaptureIdsAwaitingDownload = [self.currentParseResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
-            for (NSString *capId in self.currentParseResult.captureIds) {
+            numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
+            for (NSString *capId in self.currentWSBDResult.captureIds) {
                 [self beginDownload:capId withMaxSize:downloadMaxSize withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
             }
         }
@@ -935,7 +937,7 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -958,7 +960,7 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -973,9 +975,9 @@
         self.downloadSequenceResults = [[NSMutableArray alloc] init];
     }
 
-    if (self.currentParseResult.status == StatusSuccess) {
+    if (self.currentWSBDResult.status == StatusSuccess) {
         //add the current download result to the list.
-        [self.downloadSequenceResults addObject:self.currentParseResult];
+        [self.downloadSequenceResults addObject:self.currentWSBDResult];
         numCaptureIdsAwaitingDownload--;
         if (numCaptureIdsAwaitingDownload <= 0) {
             self.sequenceInProgress = NO;
@@ -989,7 +991,7 @@
     }
     
     //Otherwise, if we're configured to retry automatically, do it.
-    else if (self.currentParseResult.status == StatusPreparingDownload && self.shouldRetryDownloadIfPending)
+    else if (self.currentWSBDResult.status == StatusPreparingDownload && self.shouldRetryDownloadIfPending)
     {
         //do an exponential back-off
         int currentCaptureRetryCount = [[downloadRetryCount objectForKey:currentId] intValue];
@@ -1023,7 +1025,7 @@
     BOOL parseSuccess = [self parseResultData:cancelResponseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentParseResult];
+                                  fromLink:self withResult:self.currentWSBDResult];
         
         //stop any sequence that was in progress.
         self.sequenceInProgress = NO;
@@ -1103,8 +1105,8 @@
 	[parser parse];
     
     //TESTING ONLY: Print the status and message.
-    NSLog(@"Resulting status is %@",[WSBDResult stringForStatusValue:self.currentParseResult.status]);
-    NSLog(@"Resulting message is %@",self.currentParseResult.message);
+    NSLog(@"Resulting status is %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
+    NSLog(@"Resulting message is %@",self.currentWSBDResult.message);
         
     return YES;
 }
@@ -1165,13 +1167,12 @@
 #pragma mark NSXMLParserDelegate methods -- based on http://www.iphonedevsdk.com/forum/iphone-sdk-development/2841-resolved-how-call-soap-service-3.html
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
-	self.currentParseResult = nil;
+	self.currentWSBDResult = nil;
 	self.currentContainerArray = nil;
 	self.currentContainerDictionary = nil;
 	self.currentDictionaryKey = nil;
 	self.currentDictionaryValue = nil;
-	//	parentArray=[[NSMutableArray alloc] init];
-//	[parentArray addObject:self.parseResult];
+
 	self.currentElementName=@"";
 }
 
@@ -1179,31 +1180,39 @@
 {
 	self.currentElementValue=@""; //clear this so that we can fill it with data from this element.
 	self.currentElementName = elementName;
+    self.currentElementAttributes = attributeDict;
 	
 	if ([elementName localizedCaseInsensitiveCompare:@"result"] == NSOrderedSame)
 	{
-		self.currentParseResult = [[WSBDResult alloc] init];
+		self.currentWSBDResult = [[WSBDResult alloc] init];
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"metadata"] == NSOrderedSame) {
-		self.currentParseResult.metadata = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentParseResult.metadata;
+		self.currentWSBDResult.metadata = [[NSMutableDictionary alloc] init];
+		self.currentContainerDictionary = self.currentWSBDResult.metadata;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"configuration"] == NSOrderedSame) {
-		self.currentParseResult.config = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentParseResult.config;
+		self.currentWSBDResult.config = [[NSMutableDictionary alloc] init];
+		self.currentContainerDictionary = self.currentWSBDResult.config;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"captureIds"] == NSOrderedSame) {
-		self.currentParseResult.captureIds = [[NSMutableArray alloc] init];
-		self.currentContainerArray = self.currentParseResult.captureIds;
+		self.currentWSBDResult.captureIds = [[NSMutableArray alloc] init];
+		self.currentContainerArray = self.currentWSBDResult.captureIds;
 	}
 	
-	//set up a new dictionary key
+	//set up a new dictionary item, and flush any existing related placeholders
 	else if ([elementName localizedCaseInsensitiveCompare:@"item"] == NSOrderedSame) {
 		self.currentDictionaryKey = nil;
 		self.currentDictionaryValue = nil;
+        self.currentWSBDParameter = nil;
 	}
-	
-	
+    
+	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
+	{
+        //If we're inside a metadata element, this is a WSBDParameter
+        if (self.currentContainerDictionary == self.currentWSBDResult.metadata) {
+            self.currentWSBDParameter = [[WSBDParameter alloc] init];
+        }
+    }	
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -1222,7 +1231,7 @@
 	else if ([elementName localizedCaseInsensitiveCompare:@"sensorData"] == NSOrderedSame) {
 		//decode and store the results
 		[Base64Coder initialize];
-		self.currentParseResult.downloadData = [Base64Coder decode:self.currentElementValue];
+		self.currentWSBDResult.downloadData = [Base64Coder decode:self.currentElementValue];
 
 	}
 	//Dictionary elements
@@ -1232,7 +1241,10 @@
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
 	{
-		self.currentDictionaryValue = self.currentElementValue;
+  		self.currentDictionaryValue = self.currentElementValue;
+
+        //We also need to clear the current WSBDParameter value here.
+        self.currentWSBDParameter = nil;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"item"] == NSOrderedSame)
 	{
@@ -1298,21 +1310,51 @@
 		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"PreparingDownload"] == NSOrderedSame) {
 			tempValue = StatusPreparingDownload;
 		}
-		self.currentParseResult.status = tempValue;
+		self.currentWSBDResult.status = tempValue;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"sessionId"] == NSOrderedSame)
 	{
-		self.currentParseResult.sessionId = self.currentElementValue;
+		self.currentWSBDResult.sessionId = self.currentElementValue;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"message"] == NSOrderedSame)
 	{
-		self.currentParseResult.message = self.currentElementValue;
+		self.currentWSBDResult.message = self.currentElementValue;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"contentType"] == NSOrderedSame)
 	{
-		self.currentParseResult.contentType = self.currentElementValue;
+		self.currentWSBDResult.contentType = self.currentElementValue;
 	}
+    
+    /****Parameter values****/
+    else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"name"] == NSOrderedSame)
+    {
+        self.currentWSBDParameter.name = self.currentElementValue;
+    }
+    else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"type"] == NSOrderedSame)
+    {
+        self.currentWSBDParameter.type = self.currentElementValue;
+    }
+    else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"defaultValue"] == NSOrderedSame)
+    {
+        NSString *typeString = nil;
+        for (NSString *key in self.currentElementAttributes.allKeys) {
+            if ([key localizedCaseInsensitiveCompare:@"type"]) {
+                typeString = [self.currentElementAttributes objectForKey:key];
+            }
+        }
+        
+        if ([typeString isEqualToString:@"xs:int"]) {
+            self.currentWSBDParameter.defaultValue = [NSNumber numberWithInt:[currentElementValue intValue]];
+        }
+        else {
+            //fall back to storing this as a string
+        }
+        
+    }
+
+
 	self.currentElementName=@"";
+    self.currentElementAttributes = nil;
 }
 
 @end

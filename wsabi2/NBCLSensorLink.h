@@ -18,6 +18,7 @@
 #import "Base64Coder.h" //to decode the images
 #import "WSModalityMap.h"
 #import "WSBDResult.h"
+#import "WSBDParameter.h"
 #import "NBCLSensorLinkConstants.h"
 #import "constants.h"
 
@@ -192,9 +193,11 @@
 @property (nonatomic) BOOL shouldRetryDownloadIfPending;
 
 //NSXMLParser variables
-@property (nonatomic, strong) WSBDResult *currentParseResult;
+@property (nonatomic, strong) WSBDResult *currentWSBDResult;
+@property (nonatomic, strong) WSBDParameter *currentWSBDParameter;
 @property (nonatomic, strong) NSString *currentElementName;
-@property (nonatomic, strong) NSString *currentElementValue;	
+@property (nonatomic, strong) NSString *currentElementValue;
+@property (nonatomic, strong) NSDictionary *currentElementAttributes;
 @property (nonatomic, strong) NSMutableArray *currentContainerArray;
 @property (nonatomic, strong) NSMutableDictionary *currentContainerDictionary;
 @property (nonatomic, strong) id currentDictionaryKey;

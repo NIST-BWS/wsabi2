@@ -13,6 +13,9 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) id defaultValue; //either an NSNumber or a string
+@property (nonatomic) BOOL readOnly;
+@property (nonatomic) BOOL supportsMultiple;
 @property (nonatomic, strong) NSMutableArray *allowedValues;
+
 
 @end
