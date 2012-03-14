@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Base64Coder.h" //to decode the images
+#import "NBCLXMLMap.h" //to convert from XML data to Objective-C objects
 #import "WSModalityMap.h"
 #import "WSBDResult.h"
 #import "WSBDParameter.h"

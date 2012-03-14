@@ -1334,24 +1334,42 @@
     {
         self.currentWSBDParameter.type = self.currentElementValue;
     }
+    else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"readOnly"] == NSOrderedSame)
+    {
+        self.currentWSBDParameter.readOnly = ([self.currentElementValue localizedCaseInsensitiveCompare:@"true"] == NSOrderedSame);
+    }
+
     else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"defaultValue"] == NSOrderedSame)
     {
         NSString *typeString = nil;
         for (NSString *key in self.currentElementAttributes.allKeys) {
-            if ([key localizedCaseInsensitiveCompare:@"type"]) {
+            if ([key localizedCaseInsensitiveCompare:@"type"] == NSOrderedSame) {
                 typeString = [self.currentElementAttributes objectForKey:key];
             }
         }
         
-        if ([typeString isEqualToString:@"xs:int"]) {
-            self.currentWSBDParameter.defaultValue = [NSNumber numberWithInt:[currentElementValue intValue]];
-        }
-        else {
-            //fall back to storing this as a string
-        }
-        
+        //Get the converted object and store it.
+        self.currentWSBDParameter.defaultValue = [NBCLXMLMap objcObjectForXML:currentElementValue ofType:typeString];
+                
     }
 
+    else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"allowedValue"] == NSOrderedSame)
+    {
+        NSString *typeString = nil;
+        for (NSString *key in self.currentElementAttributes.allKeys) {
+            if ([key localizedCaseInsensitiveCompare:@"type"] == NSOrderedSame) {
+                typeString = [self.currentElementAttributes objectForKey:key];
+            }
+        }
+        
+        //if necessary, create the array we're about to add to.
+        if (!self.currentWSBDParameter.allowedValues) {
+            self.currentWSBDParameter.allowedValues = [[NSMutableArray alloc] init];
+        }
+        //Get the converted object and store it.
+        [self.currentWSBDParameter.allowedValues addObject:[NBCLXMLMap objcObjectForXML:currentElementValue ofType:typeString]];
+
+    }
 
 	self.currentElementName=@"";
     self.currentElementAttributes = nil;

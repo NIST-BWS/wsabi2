@@ -103,6 +103,8 @@
 		EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
+		EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
+		EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
 		EA8A047414C861F600199FF8 /* personcell-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A047314C861F600199FF8 /* personcell-bg-selected.png */; };
@@ -270,6 +272,8 @@
 		EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureButton.h; sourceTree = "<group>"; };
 		EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureButton.m; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
+		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLXMLMap.h; sourceTree = "<group>"; };
+		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLXMLMap.m; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
 		EA8A047314C861F600199FF8 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected.png"; sourceTree = "<group>"; };
@@ -488,11 +492,13 @@
 				EA2D1D7114FC1E24007CB41F /* AVCam Demo */,
 				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
+				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
+				EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */,
 				EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */,
 				EA2D1D5F14FC18E1007CB41F /* NBCLSensorLink.h */,
 				EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */,
-				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
-				EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */,
+				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
+				EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
 				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
 				EA2A895B1501563C0056E02C /* WSBDParameter.h */,
@@ -917,6 +923,7 @@
 				EA2A897B1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
 				EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
+				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,6 +958,7 @@
 				EA2A897C1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
 				EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
+				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
