@@ -28,6 +28,8 @@
 
 #define kStringDelimiter @"|"
 
+#define kLocalCameraURLPrefix @"cam://"
+
 //Modality types
 typedef enum {
 	kModalityFace = 0,

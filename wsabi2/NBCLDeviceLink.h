@@ -20,13 +20,13 @@
 #import "WSModalityMap.h"
 #import "WSBDResult.h"
 #import "WSBDParameter.h"
-#import "NBCLSensorLinkConstants.h"
+#import "NBCLDeviceLinkConstants.h"
 #import "constants.h"
 
 #import "ASIHTTPRequest.h"
 #import "ASINetworkQueue.h"
 
-@protocol NBCLSensorLinkDelegate <NSObject>
+@protocol NBCLDeviceLinkDelegate <NSObject>
 
 @optional
 -(void) sensorOperationDidFail:(int)opType fromLink:(id)link withError:(NSError*)error;
@@ -48,7 +48,7 @@
 @end
 
 
-@interface NBCLSensorLink : NSObject <NSXMLParserDelegate> {
+@interface NBCLDeviceLink : NSObject <NSXMLParserDelegate> {
 
 	//int maxImageSize;
 	NSMutableArray *captureIds;
@@ -210,6 +210,6 @@
 @property (nonatomic, strong) NSMutableArray *downloadSequenceResults;
 
 //Delegate
-@property (nonatomic, unsafe_unretained) IBOutlet id<NBCLSensorLinkDelegate> delegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id<NBCLDeviceLinkDelegate> delegate;
 
 @end

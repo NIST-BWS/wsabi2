@@ -82,8 +82,8 @@
 		EA2D1D5A14FBF970007CB41F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D5914FBF970007CB41F /* libz.dylib */; };
 		EA2D1D6314FC18E1007CB41F /* Base64Coder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */; };
 		EA2D1D6414FC18E1007CB41F /* Base64Coder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */; };
-		EA2D1D6514FC18E1007CB41F /* NBCLSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */; };
-		EA2D1D6614FC18E1007CB41F /* NBCLSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */; };
+		EA2D1D6514FC18E1007CB41F /* NBCLDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLDeviceLink.m */; };
+		EA2D1D6614FC18E1007CB41F /* NBCLDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6014FC18E1007CB41F /* NBCLDeviceLink.m */; };
 		EA2D1D6714FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */; };
 		EA2D1D6814FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */; };
 		EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D6A14FC190C007CB41F /* WSBDResult.m */; };
@@ -143,6 +143,8 @@
 		EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */; };
 		EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */; };
 		EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F9FF14BC812900544416 /* CoreData.framework */; };
+		EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */; };
+		EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */; };
 		EAFB96D914CDE7E00088F1E8 /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = EAFB96D814CDE7E00088F1E8 /* Delete.png */; };
 /* End PBXBuildFile section */
 
@@ -252,9 +254,9 @@
 		EA2D1D5914FBF970007CB41F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Coder.h; sourceTree = "<group>"; };
 		EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Coder.m; sourceTree = "<group>"; };
-		EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLSensorLinkConstants.h; sourceTree = "<group>"; };
-		EA2D1D5F14FC18E1007CB41F /* NBCLSensorLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLSensorLink.h; sourceTree = "<group>"; };
-		EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLSensorLink.m; sourceTree = "<group>"; };
+		EA2D1D5E14FC18E1007CB41F /* NBCLDeviceLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLDeviceLinkConstants.h; sourceTree = "<group>"; };
+		EA2D1D5F14FC18E1007CB41F /* NBCLDeviceLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLDeviceLink.h; sourceTree = "<group>"; };
+		EA2D1D6014FC18E1007CB41F /* NBCLDeviceLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLDeviceLink.m; sourceTree = "<group>"; };
 		EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLInternalCameraSensorLink.h; sourceTree = "<group>"; };
 		EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLInternalCameraSensorLink.m; sourceTree = "<group>"; };
 		EA2D1D6914FC190C007CB41F /* WSBDResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBDResult.h; sourceTree = "<group>"; };
@@ -332,6 +334,8 @@
 		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wsabi2Tests.h; sourceTree = "<group>"; };
 		EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wsabi2Tests.m; sourceTree = "<group>"; };
 		EAF0F9FF14BC812900544416 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EAF981DF1517AF5A00024A84 /* NBCLDeviceLinkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLDeviceLinkManager.h; sourceTree = "<group>"; };
+		EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLDeviceLinkManager.m; sourceTree = "<group>"; };
 		EAFB96D814CDE7E00088F1E8 /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -494,9 +498,11 @@
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
 				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
 				EA2D1D6214FC18E1007CB41F /* NBCLInternalCameraSensorLink.m */,
-				EA2D1D5E14FC18E1007CB41F /* NBCLSensorLinkConstants.h */,
-				EA2D1D5F14FC18E1007CB41F /* NBCLSensorLink.h */,
-				EA2D1D6014FC18E1007CB41F /* NBCLSensorLink.m */,
+				EA2D1D5E14FC18E1007CB41F /* NBCLDeviceLinkConstants.h */,
+				EA2D1D5F14FC18E1007CB41F /* NBCLDeviceLink.h */,
+				EA2D1D6014FC18E1007CB41F /* NBCLDeviceLink.m */,
+				EAF981DF1517AF5A00024A84 /* NBCLDeviceLinkManager.h */,
+				EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */,
 				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
 				EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
@@ -907,7 +913,7 @@
 				EA2D1D4D14FBD526007CB41F /* ASINetworkQueue.m in Sources */,
 				EA2D1D5114FBDE58007CB41F /* Reachability.m in Sources */,
 				EA2D1D6314FC18E1007CB41F /* Base64Coder.m in Sources */,
-				EA2D1D6514FC18E1007CB41F /* NBCLSensorLink.m in Sources */,
+				EA2D1D6514FC18E1007CB41F /* NBCLDeviceLink.m in Sources */,
 				EA2D1D6714FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
 				EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */,
 				EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
@@ -924,6 +930,7 @@
 				EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
+				EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -942,7 +949,7 @@
 				EA2D1D4E14FBD526007CB41F /* ASINetworkQueue.m in Sources */,
 				EA2D1D5214FBDE58007CB41F /* Reachability.m in Sources */,
 				EA2D1D6414FC18E1007CB41F /* Base64Coder.m in Sources */,
-				EA2D1D6614FC18E1007CB41F /* NBCLSensorLink.m in Sources */,
+				EA2D1D6614FC18E1007CB41F /* NBCLDeviceLink.m in Sources */,
 				EA2D1D6814FC18E1007CB41F /* NBCLInternalCameraSensorLink.m in Sources */,
 				EA2D1D6C14FC190C007CB41F /* WSBDResult.m in Sources */,
 				EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
@@ -959,6 +966,7 @@
 				EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
+				EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

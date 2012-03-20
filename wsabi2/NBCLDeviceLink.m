@@ -14,10 +14,10 @@
 
 // Updated Feb 2012 for ARC support
 
-#import "NBCLSensorLink.h"
+#import "NBCLDeviceLink.h"
 
 
-@implementation NBCLSensorLink
+@implementation NBCLDeviceLink
 @synthesize delegate;
 @synthesize registered, hasLock, initialized, sequenceInProgress;
 @synthesize shouldRetryDownloadIfPending;

@@ -16,8 +16,8 @@
 #import "WSPersonTableViewCell.h"
 #import "WSModalityChooserController.h"
 
-#import "NBCLSensorLink.h"
-#import "NBCLSensorLinkConstants.h"
+#import "NBCLDeviceLink.h"
+#import "NBCLDeviceLinkConstants.h"
 
 @interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
                                                 UIPopoverControllerDelegate,

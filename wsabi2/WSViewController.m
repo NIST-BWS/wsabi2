@@ -159,7 +159,7 @@
     NSLog(@"Requested capture to start for item %@",item.description);
     
     //Configure and store a new link in the dictionary
-    NBCLSensorLink *link = [[NBCLSensorLink alloc] init];
+    NBCLDeviceLink *link = [[NBCLDeviceLink alloc] init];
     
     link.uri = item.deviceConfig.uri;
     [link beginConnectSequence:YES withSenderTag:-1];

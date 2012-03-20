@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NBCLDeviceLink.h"
+#import "NBCLInternalCameraSensorLink.h"
+#import "NBCLDeviceLinkConstants.h"
+#import "constants.h"
 
-@interface NBCLDeviceLinkManager : NSObject
+@interface NBCLDeviceLinkManager : NSObject <NBCLDeviceLinkDelegate>
+{
+    NSMutableDictionary *devices;
+}
+
++ (NBCLDeviceLinkManager *) defaultManager;
+
+- (NBCLDeviceLink *) deviceForUri:(NSString*)uri;
+
+//Returns YES if creation was successful.
+//Otherwise, returns NO if that uri already contains a device link.
+- (BOOL) createDeviceForUri:(NSString*)uri;
 
 @end

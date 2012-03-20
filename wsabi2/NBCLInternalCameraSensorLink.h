@@ -17,13 +17,13 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "NBCLSensorLink.h"
+#import "NBCLDeviceLink.h"
 #import "AVCamDemoCaptureManager.h"
 #import "UIImage+NBCLExtras.h"
 
 @class AVCamDemoCaptureManager;
 
-@interface NBCLInternalCameraSensorLink : NBCLSensorLink {
+@interface NBCLInternalCameraSensorLink : NBCLDeviceLink {
     AVCaptureVideoPreviewLayer *previewLayer;
     
     WSBDResult *pseudoResult;

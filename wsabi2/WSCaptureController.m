@@ -41,6 +41,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+//    //Start connecting to this sensor link
+//    //attempt to connect this sensor, stealing the lock if necessary.
+//    BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
+//    if (!sequenceStarted) {
+//        NSLog(@"Couldn't start sensor connect sequence for sensor at %@",currentDevice.capturer.sensor.uri);
+//    }
+
+    
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
     
