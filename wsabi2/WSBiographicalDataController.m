@@ -221,6 +221,7 @@
             
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.textAlignment = UITextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -241,6 +242,7 @@
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.textLabel.textAlignment = UITextAlignmentLeft;
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -259,6 +261,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.textAlignment = UITextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -275,6 +278,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.textAlignment = UITextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -291,6 +295,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.textAlignment = UITextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 

@@ -37,3 +37,12 @@ typedef enum {
     kOpTypeAll
 
 } SensorOperationType;
+
+//Notification names
+#define kSensorLinkOperationFailed @"Operation Failed"
+#define kSensorLinkOperationCompleted @"Operation Completed"
+#define kSensorLinkConnectedStatusChanged @"Connected Status Changed"
+#define kSensorLinkConnectSequenceCompleted @"Connect Sequence Completed"
+#define kSensorLinkOperationCompleted @"Operation Completed"
+#define kSensorLinkDownloadPosted @"Download Posted"
+#define kSensorLinkDisconnectSequenceCompleted @"Disconnect Sequence Completed"

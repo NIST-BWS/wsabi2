@@ -26,24 +26,26 @@
 #import "ASIHTTPRequest.h"
 #import "ASINetworkQueue.h"
 
+@class NBCLDeviceLink;
+
 @protocol NBCLDeviceLinkDelegate <NSObject>
 
 @optional
--(void) sensorOperationDidFail:(int)opType fromLink:(id)link withError:(NSError*)error;
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(id)link withResult:(WSBDResult*)result;
--(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(id)link;
--(void) sensorOperationCompleted:(int)opType fromLink:(id)link withResult:(WSBDResult*)result;
+-(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withError:(NSError*)error;
+-(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withResult:(WSBDResult*)result;
+-(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
+-(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withResult:(WSBDResult*)result;
 
--(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(id)link;
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
 
 //NOTE: The result object will be the result from the last performed step;
 //so if the sequence succeeds, it'll be the last step in the sequence; otherwise
 //it'll be the step that failed, so that the status will indicate what the problem was.
--(void) sensorConnectSequenceCompletedFromLink:(id)link withResult:(WSBDResult*)result;
+-(void) sensorConnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag;
 //The array of results contains WSBDResults for each captureId.
 //The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
--(void) sensorCaptureSequenceCompletedFromLink:(id)link withResults:(NSMutableArray*)results withSenderTag:(int)tag;
--(void) sensorDisconnectSequenceCompletedFromLink:(id)link withResult:(WSBDResult*)result shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+-(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)tag;
+-(void) sensorDisconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
 
 @end
 

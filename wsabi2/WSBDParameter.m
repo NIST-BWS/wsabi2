@@ -14,5 +14,7 @@
 @synthesize type;
 @synthesize defaultValue;
 @synthesize allowedValues;
+@synthesize readOnly;
+@synthesize supportsMultiple;
 
 @end

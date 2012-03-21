@@ -531,6 +531,7 @@
 	NSLog(@"Sensor operation failed with message %@", request.responseStatusMessage);
 	[delegate sensorOperationDidFail:[[request.userInfo objectForKey:@"opType"] intValue] 
 							fromLink:self 
+                       withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
 						   withError:request.error];
     operationInProgress = -1;
 }
@@ -545,13 +546,17 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self
+                                 withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil];
+            [delegate sensorConnectSequenceCompletedFromLink:self
+                                                  withResult:nil
+                                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
         return;
     }
@@ -568,7 +573,9 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self 
+                                              withResult:self.currentWSBDResult
+                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     operationInProgress = -1;
 
@@ -583,13 +590,18 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:nil shouldReleaseIfSuccessful:releaseIfSuccessful];
+            [delegate sensorDisconnectSequenceCompletedFromLink:self 
+                                                     withResult:nil
+                                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                      shouldReleaseIfSuccessful:releaseIfSuccessful];
         }
         return;
 
@@ -600,8 +612,10 @@
         self.registered = NO;
 
         //notify the delegate that we're no longer "connected and ready"
-        //NOTE: This may also be done in the unlock method, but there's no guarantee that unlock will be called.
-        [delegate sensorConnectionStatusChanged:NO fromLink:self];
+        [delegate sensorConnectionStatusChanged:NO 
+                                       fromLink:self
+                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
 
         //clear the current session id.
         self.currentSessionId = nil;
@@ -610,7 +624,10 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [delegate sensorDisconnectSequenceCompletedFromLink:self 
+                                                 withResult:self.currentWSBDResult 
+                                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                  shouldReleaseIfSuccessful:releaseIfSuccessful];
         //reset the releaseIfSuccessful variable
         releaseIfSuccessful = NO;
     }
@@ -629,13 +646,19 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult
+         ];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil];
+            [delegate sensorConnectSequenceCompletedFromLink:self 
+                                                  withResult:nil
+                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
     }
@@ -656,7 +679,9 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self 
+                                              withResult:self.currentWSBDResult
+                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     operationInProgress = -1;
 
@@ -672,13 +697,17 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil];
+            [delegate sensorConnectSequenceCompletedFromLink:self 
+                                                  withResult:nil
+                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
         return;
 
@@ -694,7 +723,9 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self 
+                                              withResult:self.currentWSBDResult
+                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     operationInProgress = -1;
 
@@ -709,13 +740,18 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:nil shouldReleaseIfSuccessful:releaseIfSuccessful];
+            [delegate sensorDisconnectSequenceCompletedFromLink:self 
+                                                     withResult:nil
+                                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                      shouldReleaseIfSuccessful:releaseIfSuccessful];
         }
         return;
 
@@ -726,8 +762,7 @@
         self.hasLock = NO;
    
         //notify the delegate that we're no longer "connected and ready"
-        //NOTE: This will also be called in the unregister method, as there's no guarantee that the unlock method will be called.
-        [delegate sensorConnectionStatusChanged:NO fromLink:self];
+        [delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
          
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
@@ -737,7 +772,10 @@
 
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [delegate sensorDisconnectSequenceCompletedFromLink:self 
+                                                 withResult:self.currentWSBDResult
+                                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                  shouldReleaseIfSuccessful:releaseIfSuccessful];
     }
     operationInProgress = -1;
 
@@ -753,7 +791,9 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -773,7 +813,9 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -794,13 +836,15 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil];
+            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
         return;
 
@@ -810,13 +854,13 @@
         //set the lock convenience variable.
         self.initialized = YES;
         //notify the delegate that our status is now "connected and ready"
-        [delegate sensorConnectionStatusChanged:YES fromLink:self];
+        [delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult];
+        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     operationInProgress = -1;
 
@@ -833,7 +877,9 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -853,7 +899,9 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -891,7 +939,9 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -937,7 +987,9 @@
 	BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -960,7 +1012,9 @@
     BOOL parseSuccess = [self parseResultData:responseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self
+                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
     }
     else {
         [self sensorOperationFailed:request];
@@ -1025,7 +1079,9 @@
     BOOL parseSuccess = [self parseResultData:cancelResponseData];
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self withResult:self.currentWSBDResult];
+                                  fromLink:self 
+                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                withResult:self.currentWSBDResult];
         
         //stop any sequence that was in progress.
         self.sequenceInProgress = NO;
@@ -1033,7 +1089,7 @@
         //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
         //of the CANCELLED operation. 
         if (operationPendingCancellation >= 0) {
-            [delegate sensorOperationWasCancelledByClient:operationPendingCancellation fromLink:self];
+            [delegate sensorOperationWasCancelledByClient:operationPendingCancellation fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
 
     }
@@ -1057,7 +1113,7 @@
 {
 	NSLog(@"Cancelling all queued operations.");
 	[networkQueue cancelAllOperations];
-	[delegate sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self];
+	[delegate sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self withSenderTag:-1];
 }
 
 //This will generally be called after retrieving the matching request from the
@@ -1066,7 +1122,7 @@
 {
 	NSLog(@"Cancelling operation %@",request);
 	[request cancel];
-	[delegate sensorOperationWasCancelledByClient:[[request.userInfo objectForKey:@"opType"] intValue] fromLink:self];
+	[delegate sensorOperationWasCancelledByClient:[[request.userInfo objectForKey:@"opType"] intValue] fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
 }
 
 #pragma mark -

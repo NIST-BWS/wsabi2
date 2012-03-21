@@ -10,6 +10,7 @@
 #import "NBCLDeviceLink.h"
 #import "NBCLInternalCameraSensorLink.h"
 #import "NBCLDeviceLinkConstants.h"
+#import "WSCDItem.h"
 #import "constants.h"
 
 @interface NBCLDeviceLinkManager : NSObject <NBCLDeviceLinkDelegate>

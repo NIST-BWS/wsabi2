@@ -122,7 +122,7 @@
     
  	NSLog(@"Completed registration request successfully.");
     [self.delegate sensorOperationCompleted:kOpTypeRegister 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self  withSenderTag:senderTag withResult:self.pseudoResult];
     //set the registered convenience variable.
     self.registered = YES;
     //store the current session id.
@@ -146,14 +146,14 @@
     self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
     
     [self.delegate sensorOperationCompleted:kOpTypeUnregister 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
     
     //set the registered convenience variable.
     self.registered = NO;
     
     //notify the delegate that we're no longer "connected and ready"
     //NOTE: This may also be done in the unlock method, but there's no guarantee that unlock will be called.
-    [self.delegate sensorConnectionStatusChanged:NO fromLink:self];
+    [self.delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:senderTag];
     
     //clear the current session id.
     self.currentSessionId = nil;
@@ -161,7 +161,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.pseudoResult shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [self.delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.pseudoResult  withSenderTag:senderTag shouldReleaseIfSuccessful:releaseIfSuccessful];
         //reset the releaseIfSuccessful variable
         releaseIfSuccessful = NO;
     }
@@ -182,7 +182,7 @@
 	NSLog(@"Completed lock request successfully.");
     
     [self.delegate sensorOperationCompleted:kOpTypeLock 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
     
     //set the lock convenience variable.
     self.hasLock = YES;
@@ -227,7 +227,7 @@
     
     //notify the delegate that we're no longer "connected and ready"
     //NOTE: This will also be called in the unregister method, as there's no guarantee that the unlock method will be called.
-    [self.delegate sensorConnectionStatusChanged:NO fromLink:self];
+    [self.delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:senderTag];
     
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
@@ -247,7 +247,7 @@
  	NSLog(@"Completed common info request successfully.");
     
     [self.delegate sensorOperationCompleted:kOpTypeGetCommonInfo 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
  
     operationInProgress = -1;
     
@@ -262,7 +262,7 @@
  	NSLog(@"Completed detailed info request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeGetDetailedInfo
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
  
     operationInProgress = -1;
     
@@ -282,12 +282,12 @@
     self.initialized = YES;
     
     //notify the delegate that our status is now "connected and ready"
-    [self.delegate sensorConnectionStatusChanged:YES fromLink:self];
+    [self.delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:senderTag];
    
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorConnectSequenceCompletedFromLink:self withResult:self.pseudoResult];
+        [self.delegate sensorConnectSequenceCompletedFromLink:self withResult:self.pseudoResult withSenderTag:senderTag];
     }
     operationInProgress = -1;
 
@@ -303,7 +303,7 @@
     NSLog(@"Completed get config request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeGetConfiguration 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
     operationInProgress = -1;
     
 }
@@ -317,7 +317,7 @@
 	NSLog(@"Completed set config request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeConfigure 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
 
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
@@ -353,7 +353,7 @@
                                                                                 //ONE capture result at a time.
                                                                                 //This is really only useful for testing.
                                                                                 [self.delegate sensorOperationCompleted:kOpTypeCapture 
-                                                                                                          fromLink:self withResult:self.pseudoResult];
+                                                                                                          fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
                                                                                 
                                                                                 //if this call is part of a sequence, call the next step.
                                                                                 if (self.sequenceInProgress) {
@@ -384,7 +384,7 @@
     NSLog(@"Completed get capture info request successfully.");
     
    [self.delegate sensorOperationCompleted:kOpTypeGetContentType 
-                             fromLink:self withResult:self.currentWSBDResult];
+                             fromLink:self withSenderTag:senderTag withResult:self.currentWSBDResult];
     
     operationInProgress = -1;
 
@@ -411,7 +411,7 @@
     }
     
     [self.delegate sensorOperationCompleted:kOpTypeDownload 
-                              fromLink:self withResult:result];
+                              fromLink:self withSenderTag:senderTag withResult:result];
 
     //remove the indicator that a picture is being taken.
     for (CALayer *layer in self.previewLayer.sublayers) {
@@ -448,7 +448,7 @@
     }
     
     [self.delegate sensorOperationCompleted:kOpTypeThriftyDownload 
-                              fromLink:self withResult:result];
+                              fromLink:self withSenderTag:senderTag withResult:result];
     
     //remove the indicator that a picture is being taken.
     for (CALayer *layer in self.previewLayer.sublayers) {
@@ -472,14 +472,14 @@
 
     //NOTE: We're completely faking this method, as there's no service running operations to cancel.
     [self.delegate sensorOperationCompleted:kOpTypeCancel 
-                              fromLink:self withResult:self.pseudoResult];
+                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
     
     //stop any sequence that was in progress.
     self.sequenceInProgress = NO;
     
     //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
     //of the CANCELLED operation. 
-    [self.delegate sensorOperationWasCancelledByClient:operationInProgress fromLink:self];
+    [self.delegate sensorOperationWasCancelledByClient:operationInProgress fromLink:self withSenderTag:senderTag];
 
     operationInProgress = -1;
 

@@ -24,7 +24,7 @@
 		[leftLabel setBackgroundColor:[UIColor clearColor]];
 		[leftLabel setTextColor:[UIColor colorWithRed:.285 green:.376 blue:.541 alpha:1]];
 		[leftLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
-		[leftLabel setTextAlignment:UITextAlignmentRight];
+		[leftLabel setTextAlignment:UITextAlignmentLeft];
 		[leftLabel setText:@"Left Field"];
 		[self addSubview:leftLabel];
 		
@@ -48,7 +48,7 @@
 	[super layoutSubviews];
 	CGRect origFrame = self.contentView.frame;
 	if (leftLabel.text != nil) {
-		leftLabel.frame = CGRectMake(origFrame.origin.x, origFrame.origin.y, 90, origFrame.size.height-1);
+		leftLabel.frame = CGRectMake(origFrame.origin.x+10, origFrame.origin.y, 90, origFrame.size.height-1);
 		rightTextField.frame = CGRectMake(origFrame.origin.x+105, origFrame.origin.y, origFrame.size.width-120, origFrame.size.height-1);
 	} else {
 		leftLabel.hidden = YES;
