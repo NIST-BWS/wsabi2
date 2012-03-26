@@ -72,7 +72,7 @@
         self.hasLock = NO;
         self.initialized = NO;
         
-        self.sequenceInProgress = NO;
+        self.sequenceInProgress = kSensorSequenceNone;
         shouldTryStealLock = NO;
         releaseIfSuccessful = NO;
 	}
@@ -208,14 +208,18 @@
     }
   
     //kick off the connection sequence
-    self.sequenceInProgress = YES;
+    self.sequenceInProgress = kSensorSequenceConnect;
     shouldTryStealLock = tryStealLock;
     [self beginRegisterClient:senderTag];
     return YES;
         
 }
 
--(BOOL) beginCaptureSequence:(NSString *)sessionId captureType:(int)captureType withMaxSize:(float)maxSize withSenderTag:(int)senderTag
+-(BOOL) beginCaptureSequence:(NSString *)sessionId 
+                 captureType:(int)captureType 
+                 configurationParams:(NSMutableDictionary*)params
+                 withMaxSize:(float)maxSize
+               withSenderTag:(int)senderTag
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -223,8 +227,9 @@
     }
     
     //kick off the capture sequence
-    self.sequenceInProgress = YES;
+    self.sequenceInProgress = kSensorSequenceCapture;
     downloadMaxSize = maxSize;
+    pendingConfiguration = params;
     [self beginConfigure:self.currentSessionId 
           withParameters:[NSDictionary dictionaryWithObjectsAndKeys:[WSModalityMap parameterNameForCaptureType:captureType],@"submodality",nil] 
            withSenderTag:senderTag];
@@ -240,7 +245,7 @@
     }
     
     //kick off the disconnect sequence
-    self.sequenceInProgress = YES;
+    self.sequenceInProgress = kSensorSequenceDisconnect;
     [self beginUnlock:self.currentSessionId withSenderTag:senderTag];
     return YES;
     
@@ -553,10 +558,13 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self
-                                                  withResult:nil
-                                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
+
         }
         return;
     }
@@ -572,7 +580,7 @@
         }
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate sensorConnectSequenceCompletedFromLink:self 
                                               withResult:self.currentWSBDResult
                                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
@@ -597,11 +605,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorDisconnectSequenceCompletedFromLink:self 
-                                                     withResult:nil
-                                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
-                                      shouldReleaseIfSuccessful:releaseIfSuccessful];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
 
@@ -623,7 +632,7 @@
 
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO;
+        self.sequenceInProgress = kSensorSequenceNone;
         [delegate sensorDisconnectSequenceCompletedFromLink:self 
                                                  withResult:self.currentWSBDResult 
                                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -654,12 +663,14 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self 
-                                                  withResult:nil
-                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
              ];
         }
+
         return;
     }
 
@@ -667,8 +678,12 @@
         //set the lock convenience variable.
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress) {
+        if (self.sequenceInProgress == kSensorSequenceConnect) {
             [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+        else if (self.sequenceInProgress == kSensorSequenceCapture) {
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
+                   withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
     }
     else if (self.sequenceInProgress && shouldTryStealLock)
@@ -678,11 +693,14 @@
         [self beginStealLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self 
-                                              withResult:self.currentWSBDResult
-                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sensorSequenceDidFail:self.sequenceInProgress
+                               fromLink:self
+                             withResult:self.currentWSBDResult
+                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
     }
+
     operationInProgress = -1;
 
 }
@@ -704,11 +722,14 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self 
-                                                  withResult:nil
-                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
+        
         return;
 
     }
@@ -716,17 +737,25 @@
         //set the lock convenience variable.
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress) {
+        if (self.sequenceInProgress == kSensorSequenceConnect) {
             [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
+        else if (self.sequenceInProgress == kSensorSequenceCapture) {
+            [self beginConfigure:self.currentSessionId 
+                  withParameters:pendingConfiguration
+                   withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        } 
 
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self 
-                                              withResult:self.currentWSBDResult
-                                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sensorSequenceDidFail:self.sequenceInProgress
+                               fromLink:self
+                             withResult:self.currentWSBDResult
+                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
     }
+
     operationInProgress = -1;
 
 }
@@ -747,11 +776,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorDisconnectSequenceCompletedFromLink:self 
-                                                     withResult:nil
-                                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
-                                      shouldReleaseIfSuccessful:releaseIfSuccessful];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
 
@@ -771,12 +801,14 @@
     }
 
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorDisconnectSequenceCompletedFromLink:self 
-                                                 withResult:self.currentWSBDResult
-                                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
-                                  shouldReleaseIfSuccessful:releaseIfSuccessful];
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sensorSequenceDidFail:self.sequenceInProgress
+                               fromLink:self
+                             withResult:self.currentWSBDResult
+                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
     }
+
     operationInProgress = -1;
 
 }
@@ -843,8 +875,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorConnectSequenceCompletedFromLink:self withResult:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
 
@@ -857,10 +893,10 @@
         [delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
     
-    //if this call is part of a sequence, notify our delegate that the sequence is complete.
+    //if this call is part of a sequence, we need to release the lock now.
     if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO;
-        [delegate sensorConnectSequenceCompletedFromLink:self withResult:self.currentWSBDResult withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        [self beginUnlock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+
     }
     operationInProgress = -1;
 
@@ -906,8 +942,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorCaptureSequenceCompletedFromLink:self withResults:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
 
@@ -921,8 +961,12 @@
         }
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorCaptureSequenceCompletedFromLink:self withResults:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]]; //pass nil as the results array because we didn't capture successfully.
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sensorSequenceDidFail:self.sequenceInProgress
+                               fromLink:self
+                             withResult:self.currentWSBDResult
+                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
     }
     operationInProgress = -1;
 
@@ -946,8 +990,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-            [delegate sensorCaptureSequenceCompletedFromLink:self withResults:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sensorSequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
         }
         return;
 
@@ -970,8 +1018,12 @@
         }
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
-        [delegate sensorCaptureSequenceCompletedFromLink:self withResults:nil withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]]; //pass nil as the results array because we didn't capture successfully.
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sensorSequenceDidFail:self.sequenceInProgress
+                               fromLink:self
+                             withResult:self.currentWSBDResult
+                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
     }
     operationInProgress = -1;
 
@@ -1034,7 +1086,7 @@
         [self.downloadSequenceResults addObject:self.currentWSBDResult];
         numCaptureIdsAwaitingDownload--;
         if (numCaptureIdsAwaitingDownload <= 0) {
-            self.sequenceInProgress = NO;
+            self.sequenceInProgress = kSensorSequenceNone;
             [delegate sensorCaptureSequenceCompletedFromLink:self withResults:self.downloadSequenceResults withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
             numCaptureIdsAwaitingDownload = 0;
         }
@@ -1084,7 +1136,7 @@
                                 withResult:self.currentWSBDResult];
         
         //stop any sequence that was in progress.
-        self.sequenceInProgress = NO;
+        self.sequenceInProgress = kSensorSequenceNone;
         
         //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
         //of the CANCELLED operation. 
@@ -1189,7 +1241,7 @@
 	[self sensorOperationFailed:request];
     
     //if we were in a sequence, stop it.
-    self.sequenceInProgress = NO;
+    self.sequenceInProgress = kSensorSequenceNone;
 	
 }
  
@@ -1243,8 +1295,8 @@
 		self.currentWSBDResult = [[WSBDResult alloc] init];
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"metadata"] == NSOrderedSame) {
-		self.currentWSBDResult.metadata = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentWSBDResult.metadata;
+		self.currentWSBDResult.downloadMetadata = [[NSMutableDictionary alloc] init];
+		self.currentContainerDictionary = self.currentWSBDResult.downloadMetadata;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"configuration"] == NSOrderedSame) {
 		self.currentWSBDResult.config = [[NSMutableDictionary alloc] init];
@@ -1265,7 +1317,7 @@
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
 	{
         //If we're inside a metadata element, this is a WSBDParameter
-        if (self.currentContainerDictionary == self.currentWSBDResult.metadata) {
+        if (self.currentContainerDictionary == self.currentWSBDResult.downloadMetadata) {
             self.currentWSBDParameter = [[WSBDParameter alloc] init];
         }
     }	

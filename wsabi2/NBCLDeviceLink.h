@@ -47,6 +47,11 @@
 -(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)tag;
 -(void) sensorDisconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
 
+-(void) sensorSequenceDidFail:(SensorSequenceType)sequenceType
+                     fromLink:(NBCLDeviceLink*)link 
+                   withResult:(WSBDResult*)result 
+                withSenderTag:(int)senderTag;
+
 @end
 
 
@@ -57,6 +62,10 @@
 	
 	SEL delegateSelector;
 	
+    //The configuration to be used in case we're running a capture sequence rather than
+    //individual operations (in which case we need a place to put the config while we're progressing).
+    NSMutableDictionary *pendingConfiguration;
+    
 	//The data being processed for the current request. 
 	NSMutableData *responseData;
     //The data being processed for any pending cancel request.
@@ -87,7 +96,11 @@
 
 #pragma mark - Convenience methods to combine multiple steps
 -(BOOL) beginConnectSequence:(BOOL)tryStealLock withSenderTag:(int)senderTag;
--(BOOL) beginCaptureSequence:(NSString*)sessionId captureType:(int)captureType withMaxSize:(float)maxSize withSenderTag:(int)senderTag;
+-(BOOL) beginCaptureSequence:(NSString*)sessionId
+                 captureType:(int)captureType 
+         configurationParams:(NSMutableDictionary*)params
+                 withMaxSize:(float)maxSize 
+               withSenderTag:(int)senderTag;
 -(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag;
 
 #pragma mark -
@@ -192,7 +205,8 @@
 @property (nonatomic) BOOL registered;
 @property (nonatomic) BOOL hasLock;
 @property (nonatomic) BOOL initialized;
-@property (nonatomic) BOOL sequenceInProgress;
+
+@property (nonatomic) SensorSequenceType sequenceInProgress;
 @property (nonatomic) BOOL shouldRetryDownloadIfPending;
 
 //NSXMLParser variables

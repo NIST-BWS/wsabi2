@@ -38,37 +38,41 @@
         devices = [[NSMutableDictionary alloc] init];
     }
     
-    if ([devices objectForKey:uri]) {
-        //something's already here. Return NO.
-        return NO;
-    }
-    else {
+    BOOL isNewSensor = NO;
+    NBCLDeviceLink *link = [devices objectForKey:uri];
+
+    if (!link) {
         //If this is one of our special local URIs, create a local sensor link.
         //If this is a sensor at a normal URI, create a normal sensor link.
-        NBCLDeviceLink *newLink = nil;
         
         if ([uri hasPrefix:kLocalCameraURLPrefix]) {
-            newLink = [[NBCLInternalCameraSensorLink alloc] init];
+            link = [[NBCLInternalCameraSensorLink alloc] init];
         }
         else {
-            newLink = [[NBCLDeviceLink alloc] init];
+            link = [[NBCLDeviceLink alloc] init];
         }
         
-        newLink.uri = uri;
+        link.uri = uri;
         
         //set the link delegate so we get messages when stuff happens.
-        newLink.delegate = self;
+        link.delegate = self;
         
         //add the link to the array.
-        [devices setObject:newLink forKey:uri];
+        [devices setObject:link forKey:uri];
         
         //attempt to connect this sensor, stealing the lock if necessary.
-        BOOL sequenceStarted = [newLink beginConnectSequence:YES withSenderTag:-1];
+        BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
         if (!sequenceStarted) {
-            NSLog(@"Couldn't start sensor connect sequence for sensor at %@",uri);
+            NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
         }
-        return YES;
+        else {
+            NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
+        }
+        
+        isNewSensor = YES;
     }
+    
+    return isNewSensor;
 }
 
 #pragma mark - Sensor Link Delegate methods
@@ -98,7 +102,19 @@
 
 -(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag
 {
+    //Post a notification about the failed operation, containing the error, so we can do something with it.
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:senderTag], @"tag",
+                                     nil];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkOperationCancelledByClient
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    
+    //add this result to the WS-BD Result cache (at the top)
+    NSLog(@"Link at %@ cancelled operation: %@", link.uri, [NBCLDeviceLink stringForOpType:opType]);
+
 }
 
 -(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withResult:(WSBDResult*)result
@@ -154,16 +170,12 @@
     NSLog(@"Link at %@ completed its connect sequence", link.uri);
 }
 
--(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)tag
+-(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
 {
-//    //Get the data objects for the current collection so we can modify them as necessary.
-//    NSSortDescriptor *orderSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"positionInCollection" ascending:YES selector:@selector(compare:)] autorelease];
-//    NSArray *sortDescriptors = [NSArray arrayWithObject:orderSortDescriptor];
-//    NSArray *sortedDataObjects = [self.activeCollection.items sortedArrayUsingDescriptors:sortDescriptors];
+    if (!results) {
+        NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.uri);
+    }
     
-//    BiometricData *theData = [sortedDataObjects objectAtIndex:(tag - CAPTURER_TAG_OFFSET)];
-//    WsabiDeviceView_iPad *theCapturer = (WsabiDeviceView_iPad*)[self.capturerScroll viewWithTag:tag];
-//    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH_mm_ss"];
 
@@ -171,21 +183,39 @@
     for (int i = 0; i < [results count]; i++) {
         WSBDResult *currentResult = [results objectAtIndex:i];
         
+        if (currentResult.status != StatusSuccess) {
+            NSLog(@"Link at %@ had a failure: %@ %@", currentResult.message);
+        }
         //FIXME: Post a notification containing this WSBDResult as attached data.
+        //Post a notification about the status change containing the new value
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithInt:senderTag], @"tag",
+                                         currentResult.downloadMetadata, @"metadata",
+                                         currentResult.downloadData, @"data",
+                                         nil];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDownloadPosted
+                                                            object:self
+                                                          userInfo:userInfo];
+
+        //add this result to the WS-BD Result cache (at the top)
+        NSLog(@"Link at %@ completed downloading one capture result", link.uri);
     }
 }
 
 -(void) sensorDisconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
 {
-//    NBCLSensorLink *sensorLink = link;
-//    if (result.status == StatusSuccess) {
-//        NSLog(@"Successfully disconnected from sensor at URI %@",sensorLink.uri);
-//        
-//        if (shouldRelease) {
-//            [link release]; //release the link object
-//        }
-//    }
+    //Post a notification about the completed sequence!
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:senderTag], @"tag",
+                                     nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDisconnectSequenceCompleted
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    //add this result to the WS-BD Result cache (at the top)
+    NSLog(@"Link at %@ completed its disconnect sequence", link.uri);
     
 }
 

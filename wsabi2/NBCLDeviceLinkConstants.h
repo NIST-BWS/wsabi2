@@ -38,8 +38,18 @@ typedef enum {
 
 } SensorOperationType;
 
+//Sequence types
+typedef enum {
+    kSensorSequenceNone = 0,
+    kSensorSequenceConnect,
+    kSensorSequenceCapture,
+    kSensorSequenceDisconnect
+    
+} SensorSequenceType;
+
 //Notification names
 #define kSensorLinkOperationFailed @"Operation Failed"
+#define kSensorLinkOperationCancelledByClient @"Operation Cancelled By Client"
 #define kSensorLinkOperationCompleted @"Operation Completed"
 #define kSensorLinkConnectedStatusChanged @"Connected Status Changed"
 #define kSensorLinkConnectSequenceCompleted @"Connect Sequence Completed"
