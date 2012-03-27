@@ -20,6 +20,7 @@
 @implementation NBCLDeviceLink
 @synthesize delegate;
 @synthesize registered, hasLock, initialized, sequenceInProgress;
+@synthesize connectedAndReady;
 @synthesize shouldRetryDownloadIfPending;
 @synthesize uri, currentSessionId, networkTimeout;
 
@@ -227,7 +228,7 @@
     }
     
     //kick off the capture sequence
-    self.sequenceInProgress = kSensorSequenceCapture;
+    self.sequenceInProgress = kSensorSequenceConfigCaptureDownload;
     downloadMaxSize = maxSize;
     pendingConfiguration = params;
     [self beginConfigure:self.currentSessionId 
@@ -559,7 +560,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -581,7 +582,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorConnectSequenceCompletedFromLink:self 
+        [delegate connectSequenceCompletedFromLink:self 
                                               withResult:self.currentWSBDResult
                                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
     }
@@ -606,7 +607,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -633,7 +634,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone;
-        [delegate sensorDisconnectSequenceCompletedFromLink:self 
+        [delegate disconnectSequenceCompletedFromLink:self 
                                                  withResult:self.currentWSBDResult 
                                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
                                   shouldReleaseIfSuccessful:releaseIfSuccessful];
@@ -664,7 +665,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -681,9 +682,15 @@
         if (self.sequenceInProgress == kSensorSequenceConnect) {
             [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceCapture) {
+        else if (self.sequenceInProgress == kSensorSequenceConfigure ||
+                 self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
+            
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
                    withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+        else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
+        {
+            [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
     }
     else if (self.sequenceInProgress && shouldTryStealLock)
@@ -694,7 +701,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorSequenceDidFail:self.sequenceInProgress
+        [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -723,7 +730,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -740,16 +747,21 @@
         if (self.sequenceInProgress == kSensorSequenceConnect) {
             [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceCapture) {
-            [self beginConfigure:self.currentSessionId 
-                  withParameters:pendingConfiguration
+        else if (self.sequenceInProgress == kSensorSequenceConfigure ||
+                 self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
+            
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
                    withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
-        } 
+        }
+        else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
+        {
+            [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
 
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorSequenceDidFail:self.sequenceInProgress
+        [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -777,7 +789,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -802,7 +814,7 @@
 
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorSequenceDidFail:self.sequenceInProgress
+        [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -876,7 +888,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -943,7 +955,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -955,14 +967,23 @@
 
     if (self.currentWSBDResult.status == StatusSuccess) {
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress) {
+        if (self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
             //begin capture
             [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+        else if (self.sequenceInProgress == kSensorSequenceConfigure)
+        {
+            //In this case, this is the last step, so unset the sequence variable and
+            //notify our delegate.
+            self.sequenceInProgress = kSensorSequenceNone;
+            [delegate configureSequenceCompletedFromLink:self
+                                              withResult:self.currentWSBDResult
+                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorSequenceDidFail:self.sequenceInProgress
+        [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -991,7 +1012,7 @@
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
             self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-            [delegate sensorSequenceDidFail:self.sequenceInProgress
+            [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -1019,7 +1040,7 @@
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sensorSequenceDidFail:self.sequenceInProgress
+        [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
@@ -1087,7 +1108,7 @@
         numCaptureIdsAwaitingDownload--;
         if (numCaptureIdsAwaitingDownload <= 0) {
             self.sequenceInProgress = kSensorSequenceNone;
-            [delegate sensorCaptureSequenceCompletedFromLink:self withResults:self.downloadSequenceResults withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
             numCaptureIdsAwaitingDownload = 0;
         }
         //remove any retry counter attached to this request.
@@ -1130,16 +1151,25 @@
 
     BOOL parseSuccess = [self parseResultData:cancelResponseData];
 	if (parseSuccess) {
+        //The *cancel* operation succeeded, so fire the delegate for that operation's completion.
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
                                 withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
                                 withResult:self.currentWSBDResult];
         
-        //stop any sequence that was in progress.
-        self.sequenceInProgress = kSensorSequenceNone;
+        //cancel any sequence that was in progress.
+        if (self.sequenceInProgress) {
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sequenceDidFail:self.sequenceInProgress
+                             fromLink:self
+                           withResult:self.currentWSBDResult
+                        withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
+        }
+
         
         //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
-        //of the CANCELLED operation. 
+        //of the *cancelled* operation. 
         if (operationPendingCancellation >= 0) {
             [delegate sensorOperationWasCancelledByClient:operationPendingCancellation fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
@@ -1148,6 +1178,15 @@
     else {
         [self sensorOperationFailed:request];
         
+        if (self.sequenceInProgress) {
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sequenceDidFail:self.sequenceInProgress
+                             fromLink:self
+                           withResult:self.currentWSBDResult
+                        withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+             ];
+        }
+
     }
     operationInProgress = -1;
     operationPendingCancellation = -1; //we've finished our attempt to cancel the specified operation.

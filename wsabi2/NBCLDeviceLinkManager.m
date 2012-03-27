@@ -24,23 +24,11 @@
 - (NBCLDeviceLink *) deviceForUri:(NSString*)uri
 {
     if (!devices) {
-        return nil;
-    }
-    
-    return [devices objectForKey:uri];
-}
-
-//Returns YES if creation was successful.
-//Otherwise, returns NO if that uri already contains a device link.
-- (BOOL) createDeviceForUri:(NSString*)uri;
-{
-    if (!devices) {
         devices = [[NSMutableDictionary alloc] init];
     }
     
-    BOOL isNewSensor = NO;
     NBCLDeviceLink *link = [devices objectForKey:uri];
-
+    
     if (!link) {
         //If this is one of our special local URIs, create a local sensor link.
         //If this is a sensor at a normal URI, create a normal sensor link.
@@ -69,10 +57,24 @@
             NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
         }
         
-        isNewSensor = YES;
     }
-    
-    return isNewSensor;
+    else {
+        //if the sensor isn't initialized (well, if we don't think it is), re-initialize it.
+        if (!link.initialized) {
+            //if we're supposed to reinitialize any links we find, do so
+            //attempt to connect this sensor, stealing the lock if necessary.
+            BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
+            if (!sequenceStarted) {
+                NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
+            }
+            else {
+                NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
+            }
+
+        }
+    }
+
+    return link;
 }
 
 #pragma mark - Sensor Link Delegate methods
@@ -155,7 +157,7 @@
 //NOTE: The result object will be the result from the last performed step;
 //so if the sequence succeeds, it'll be the last step in the sequence; otherwise
 //it'll be the step that failed, so that the status will indicate what the problem was.
--(void) sensorConnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag
+-(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -170,7 +172,7 @@
     NSLog(@"Link at %@ completed its connect sequence", link.uri);
 }
 
--(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
+-(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
 {
     if (!results) {
         NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.uri);
@@ -184,7 +186,7 @@
         WSBDResult *currentResult = [results objectAtIndex:i];
         
         if (currentResult.status != StatusSuccess) {
-            NSLog(@"Link at %@ had a failure: %@ %@", currentResult.message);
+            NSLog(@"Link at %@ had a failure: %@ %@",link.uri, [WSBDResult stringForStatusValue:currentResult.status], currentResult.message);
         }
         //FIXME: Post a notification containing this WSBDResult as attached data.
         //Post a notification about the status change containing the new value
@@ -203,7 +205,7 @@
     }
 }
 
--(void) sensorDisconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+-(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -217,6 +219,28 @@
     //add this result to the WS-BD Result cache (at the top)
     NSLog(@"Link at %@ completed its disconnect sequence", link.uri);
     
+}
+
+//Called whenever a sequence doesn't complete 
+//(because, for example, one included step returned a non-success result.
+-(void) sequenceDidFail:(SensorSequenceType)sequenceType
+                     fromLink:(NBCLDeviceLink*)link 
+                   withResult:(WSBDResult*)result 
+                withSenderTag:(int)senderTag
+{
+    
+    //Post a notification about the completed sequence!
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:senderTag], @"tag",
+                                     nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkSequenceFailed
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    //add this result to the WS-BD Result cache (at the top)
+    NSLog(@"Link at %@ failed to complete a series of operations", link.uri);
+
 }
 
 @end

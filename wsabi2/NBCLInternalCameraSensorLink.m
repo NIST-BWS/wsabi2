@@ -161,7 +161,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorDisconnectSequenceCompletedFromLink:self withResult:self.pseudoResult  withSenderTag:senderTag shouldReleaseIfSuccessful:releaseIfSuccessful];
+        [self.delegate disconnectSequenceCompletedFromLink:self withResult:self.pseudoResult  withSenderTag:senderTag shouldReleaseIfSuccessful:releaseIfSuccessful];
         //reset the releaseIfSuccessful variable
         releaseIfSuccessful = NO;
     }
@@ -287,7 +287,7 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorConnectSequenceCompletedFromLink:self withResult:self.pseudoResult withSenderTag:senderTag];
+        [self.delegate connectSequenceCompletedFromLink:self withResult:self.pseudoResult withSenderTag:senderTag];
     }
     operationInProgress = -1;
 
@@ -422,7 +422,7 @@
 
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorCaptureSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
+        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
 
     }
     operationInProgress = -1;
@@ -459,7 +459,7 @@
 
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate sensorCaptureSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
+        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
         
     }
     operationInProgress = -1;

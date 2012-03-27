@@ -38,16 +38,27 @@
 
 -(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
 
-//NOTE: The result object will be the result from the last performed step;
-//so if the sequence succeeds, it'll be the last step in the sequence; otherwise
-//it'll be the step that failed, so that the status will indicate what the problem was.
--(void) sensorConnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag;
+//NOTE: The result object will be the result from the last performed step.
+-(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                              withResult:(WSBDResult*)result 
+                           withSenderTag:(int)senderTag;
+
+-(void) configureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                              withResult:(WSBDResult*)result 
+                           withSenderTag:(int)senderTag;
+
 //The array of results contains WSBDResults for each captureId.
 //The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
--(void) sensorCaptureSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)tag;
--(void) sensorDisconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+-(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                           withResults:(NSMutableArray*)results 
+                                         withSenderTag:(int)tag;
 
--(void) sensorSequenceDidFail:(SensorSequenceType)sequenceType
+-(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                 withResult:(WSBDResult*)result 
+                              withSenderTag:(int)senderTag 
+                  shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+
+-(void) sequenceDidFail:(SensorSequenceType)sequenceType
                      fromLink:(NBCLDeviceLink*)link 
                    withResult:(WSBDResult*)result 
                 withSenderTag:(int)senderTag;
@@ -198,10 +209,17 @@
 @property (nonatomic) NSTimeInterval networkTimeout;
 @property (nonatomic) NSTimeInterval exponentialIntervalMax;
 
+@property (nonatomic) BOOL connectedAndReady;
+
 //WS-BD Variables
 @property (nonatomic, strong) NSString *mainNamespace;
 @property (nonatomic, strong) NSString *schemaInstanceNamespace;
 @property (nonatomic, strong) NSString *schemaNamespace;
+
+//IMPORTANT NOTE: Each of these is a GUIDELINE, and SUGGESTS that the sensor 
+//is PROBABLY past the stated phase and connected. If the sensor is
+//disconnected, or another client holds the lock when the next operation is
+//performed, it will still fail.
 @property (nonatomic) BOOL registered;
 @property (nonatomic) BOOL hasLock;
 @property (nonatomic) BOOL initialized;

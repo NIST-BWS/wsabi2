@@ -20,10 +20,7 @@
 
 + (NBCLDeviceLinkManager *) defaultManager;
 
+//This will create a new link if one doesn't exist at the specified uri.
 - (NBCLDeviceLink *) deviceForUri:(NSString*)uri;
-
-//Returns YES if creation was successful.
-//Otherwise, returns NO if that uri already contains a device link.
-- (BOOL) createDeviceForUri:(NSString*)uri;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NBCLDeviceLinkManager.h"
 #import "GMGridView.h"
 #import "WSCDPerson.h"
 #import "WSCDItem.h"

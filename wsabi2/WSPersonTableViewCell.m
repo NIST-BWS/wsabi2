@@ -124,6 +124,14 @@
             //Finally, make sure we're fully visible.
             self.alpha = 1.0;
         }];
+        
+        //Set up sensor links for each item in this person's record.
+        //(It's likely that these links will come back initialized.)
+        for (WSCDItem *item in self.person.items) {
+            NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+            NSLog(@"Created/grabbed sensor link %@",[link description]);
+        }
+        
     }
     else {
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
@@ -473,6 +481,11 @@
         UIPopoverArrowDirectionAny;
         
         self.popoverController.popoverContentSize = cap.view.bounds.size;
+
+        //The sensor associated with this capturer is, hopefully, initialized.
+        //Configure it.
+        NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:cap.item.deviceConfig.uri];
+        
         
         [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
                                            inView:self.superview 
