@@ -49,6 +49,9 @@
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
+//Notification handlers
+-(void) handleDownloadPosted:(NSNotification*)notification;
+
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
 @property (nonatomic, strong) WSCDPerson *person;

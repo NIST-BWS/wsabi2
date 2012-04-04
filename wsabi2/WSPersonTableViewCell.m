@@ -10,6 +10,8 @@
 
 #import "WSAppDelegate.h"
 
+#define GRID_CELL_OFFSET 1000
+
 @implementation WSPersonTableViewCell
 @synthesize popoverController;
 @synthesize person;
@@ -81,6 +83,12 @@
 
         //configure logging
         [self.itemGridView addLongPressGestureLogging:YES withThreshold:0.3];
+        
+        //add notification listeners
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveTestNotification:) 
+                                                     name:kSensorLinkDownloadPosted
+                                                   object:nil];
         
         initialLayoutComplete = YES;
     }
@@ -365,7 +373,15 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 }
 
-#pragma mark - Capture delegate
+#pragma mark - Notification handlers
+-(void) handleDownloadPosted:(NSNotification*)notification
+{
+//    NSMutableDictionary *info = notification.userInfo;
+//    
+//    if ([[info objectForKey:@"tag"] intValue]) {
+//        <#statements#>
+//    }
+}
 
 
 #pragma mark -
@@ -397,6 +413,7 @@
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
     cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
+    cell.tag = GRID_CELL_OFFSET + index;
     return cell;
 }
 
@@ -484,8 +501,21 @@
 
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
-        NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:cap.item.deviceConfig.uri];
+
+        //**FIXME: Make sure this doesn't cause a race condition where the notification is posted before the
+        //capture controller is instantiated and listening for it!
         
+        NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:cap.item.deviceConfig.uri];
+        if (link.initialized) {
+            //grab the lock and try to configure the sensor
+            [link beginConfigureSequence:link.currentSessionId 
+                     configurationParams:[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
+                           withSenderTag:activeCell.tag];
+        }
+        else {
+            //Something's up, and the sensor was not properly initialized. Try again.
+            [link beginConnectSequence:YES withSenderTag:activeCell.tag];
+        }
         
         [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
                                            inView:self.superview 

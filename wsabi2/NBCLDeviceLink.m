@@ -19,7 +19,7 @@
 
 @implementation NBCLDeviceLink
 @synthesize delegate;
-@synthesize registered, hasLock, initialized, sequenceInProgress;
+@synthesize registered, hasLock, initialized, configured, sequenceInProgress;
 @synthesize connectedAndReady;
 @synthesize shouldRetryDownloadIfPending;
 @synthesize uri, currentSessionId, networkTimeout;
@@ -216,8 +216,44 @@
         
 }
 
--(BOOL) beginCaptureSequence:(NSString *)sessionId 
-                 captureType:(int)captureType 
+-(BOOL) beginConfigureSequence:(NSString*)sessionId
+           configurationParams:(NSMutableDictionary*)params
+                 withSenderTag:(int)senderTag
+{
+    if (self.sequenceInProgress) {
+        //don't start another sequence if one is in progress
+        return NO;
+    }
+    
+    //kick off the capture sequence
+    self.sequenceInProgress = kSensorSequenceConfigure;
+    pendingConfiguration = params;
+    [self beginLock:sessionId withSenderTag:senderTag];
+    
+    return YES;
+
+}
+
+-(BOOL) beginCaptureDownloadSequence:(NSString *)sessionId 
+                               withMaxSize:(float)maxSize
+                             withSenderTag:(int)senderTag
+{
+    if (self.sequenceInProgress) {
+        //don't start another sequence if one is in progress
+        return NO;
+    }
+    
+    //kick off the capture sequence
+    self.sequenceInProgress = kSensorSequenceCaptureDownload;
+    downloadMaxSize = maxSize;
+    
+    //start by grabbing the lock
+    [self beginLock:sessionId withSenderTag:senderTag];
+    
+    return YES;
+}
+
+-(BOOL) beginConfigCaptureDownloadSequence:(NSString *)sessionId 
                  configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize
                withSenderTag:(int)senderTag
@@ -231,9 +267,9 @@
     self.sequenceInProgress = kSensorSequenceConfigCaptureDownload;
     downloadMaxSize = maxSize;
     pendingConfiguration = params;
-    [self beginConfigure:self.currentSessionId 
-          withParameters:[NSDictionary dictionaryWithObjectsAndKeys:[WSModalityMap parameterNameForCaptureType:captureType],@"submodality",nil] 
-           withSenderTag:senderTag];
+    
+    //start by grabbing the lock
+    [self beginLock:sessionId withSenderTag:senderTag];
     
     return YES;
 }
@@ -980,6 +1016,7 @@
                                               withResult:self.currentWSBDResult
                                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
+        self.configured = YES;
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.

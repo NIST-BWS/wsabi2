@@ -164,12 +164,37 @@
                                      [NSNumber numberWithInt:senderTag], @"tag",
                                      nil];
     
+    if (result) {
+        [userInfo setObject:result forKey:@"result"];
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConnectSequenceCompleted
                                                         object:self
                                                       userInfo:userInfo];
 
     //add this result to the WS-BD Result cache (at the top)
     NSLog(@"Link at %@ completed its connect sequence", link.uri);
+}
+
+-(void) configureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                withResult:(WSBDResult*)result 
+                             withSenderTag:(int)senderTag;
+{
+    //Post a notification about the completed sequence!
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:senderTag], @"tag",
+                                     nil];
+    if (result) {
+        [userInfo setObject:result forKey:@"result"];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDisconnectSequenceCompleted
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    //add this result to the WS-BD Result cache (at the top)
+    NSLog(@"Link at %@ completed its configure sequence", link.uri);
+
 }
 
 -(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
@@ -211,7 +236,10 @@
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      [NSNumber numberWithInt:senderTag], @"tag",
                                      nil];
-    
+    if (result) {
+        [userInfo setObject:result forKey:@"result"];
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDisconnectSequenceCompleted
                                                         object:self
                                                       userInfo:userInfo];
@@ -233,7 +261,10 @@
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      [NSNumber numberWithInt:senderTag], @"tag",
                                      nil];
-    
+    if (result) {
+        [userInfo setObject:result forKey:@"result"];
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkSequenceFailed
                                                         object:self
                                                       userInfo:userInfo];

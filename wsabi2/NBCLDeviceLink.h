@@ -107,8 +107,10 @@
 
 #pragma mark - Convenience methods to combine multiple steps
 -(BOOL) beginConnectSequence:(BOOL)tryStealLock withSenderTag:(int)senderTag;
--(BOOL) beginCaptureSequence:(NSString*)sessionId
-                 captureType:(int)captureType 
+-(BOOL) beginConfigureSequence:(NSString*)sessionId
+           configurationParams:(NSMutableDictionary*)params
+                 withSenderTag:(int)senderTag;
+-(BOOL) beginConfigCaptureDownloadSequence:(NSString*)sessionId
          configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize 
                withSenderTag:(int)senderTag;
@@ -125,6 +127,7 @@
 -(void) beginUnregisterClient:(NSString*)sessionId withSenderTag:(int)senderTag;
 
 //Lock
+-(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag;
 -(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag;
 -(void) beginStealLock:(NSString*)sessionId withSenderTag:(int)senderTag;
 -(void) beginUnlock:(NSString*)sessionId withSenderTag:(int)senderTag;
@@ -223,6 +226,7 @@
 @property (nonatomic) BOOL registered;
 @property (nonatomic) BOOL hasLock;
 @property (nonatomic) BOOL initialized;
+@property (nonatomic) BOOL configured;
 
 @property (nonatomic) SensorSequenceType sequenceInProgress;
 @property (nonatomic) BOOL shouldRetryDownloadIfPending;
