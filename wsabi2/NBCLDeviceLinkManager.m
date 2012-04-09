@@ -23,6 +23,11 @@
 
 - (NBCLDeviceLink *) deviceForUri:(NSString*)uri
 {
+    if (!uri) {
+        NSLog(@"Tried to grab a device with no URI; ignoring request.");
+        return nil;
+    }
+    
     if (!devices) {
         devices = [[NSMutableDictionary alloc] init];
     }
