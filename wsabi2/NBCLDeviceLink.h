@@ -38,6 +38,8 @@
 
 -(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
 
+/** These are sequences of actions that we'll need to perform **/
+
 //NOTE: The result object will be the result from the last performed step.
 -(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                               withResult:(WSBDResult*)result 
@@ -47,9 +49,17 @@
                               withResult:(WSBDResult*)result 
                            withSenderTag:(int)senderTag;
 
-//The array of results contains WSBDResults for each captureId.
+-(void) connectConfigureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                withResult:(WSBDResult*)result 
+                             withSenderTag:(int)senderTag;
+
+//The array of results in these sequences contains WSBDResults for each captureId.
 //The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
 -(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                           withResults:(NSMutableArray*)results 
+                                         withSenderTag:(int)tag;
+
+-(void) fullSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                                            withResults:(NSMutableArray*)results 
                                          withSenderTag:(int)tag;
 
@@ -106,14 +116,20 @@
 -(BOOL) checkHTTPStatus:(ASIHTTPRequest*)request;
 
 #pragma mark - Convenience methods to combine multiple steps
--(BOOL) beginConnectSequence:(BOOL)tryStealLock withSenderTag:(int)senderTag;
+-(BOOL) beginConnectSequenceWithSenderTag:(int)senderTag;
 -(BOOL) beginConfigureSequence:(NSString*)sessionId
            configurationParams:(NSMutableDictionary*)params
+                 withSenderTag:(int)senderTag;
+-(BOOL) beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary*)params
                  withSenderTag:(int)senderTag;
 -(BOOL) beginConfigCaptureDownloadSequence:(NSString*)sessionId
          configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize 
                withSenderTag:(int)senderTag;
+-(BOOL) beginFullSequenceWithConfigurationParams:(NSMutableDictionary*)params
+                               withMaxSize:(float)maxSize 
+                             withSenderTag:(int)senderTag;
+
 -(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag;
 
 #pragma mark -
@@ -226,7 +242,6 @@
 @property (nonatomic) BOOL registered;
 @property (nonatomic) BOOL hasLock;
 @property (nonatomic) BOOL initialized;
-@property (nonatomic) BOOL configured;
 
 @property (nonatomic) SensorSequenceType sequenceInProgress;
 @property (nonatomic) BOOL shouldRetryDownloadIfPending;

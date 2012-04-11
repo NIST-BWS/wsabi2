@@ -54,7 +54,7 @@
         [devices setObject:link forKey:uri];
         
         //attempt to connect this sensor, stealing the lock if necessary.
-        BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
+        BOOL sequenceStarted = [link beginConnectSequenceWithSenderTag:-1];
         if (!sequenceStarted) {
             NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
         }
@@ -68,7 +68,7 @@
         if (!link.initialized) {
             //if we're supposed to reinitialize any links we find, do so
             //attempt to connect this sensor, stealing the lock if necessary.
-            BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
+            BOOL sequenceStarted = [link beginConnectSequenceWithSenderTag:-1];
             if (!sequenceStarted) {
                 NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
             }
@@ -193,7 +193,7 @@
         [userInfo setObject:result forKey:@"result"];
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDisconnectSequenceCompleted
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConfigureSequenceCompleted
                                                         object:self
                                                       userInfo:userInfo];
     
@@ -202,7 +202,28 @@
 
 }
 
--(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
+-(void) connectConfigureSequenceCompletedFromLink:(NBCLDeviceLink *)link 
+                                       withResult:(WSBDResult *)result 
+                                    withSenderTag:(int)senderTag
+{
+    //Post a notification about the completed sequence!
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:senderTag], @"tag",
+                                     nil];
+    if (result) {
+        [userInfo setObject:result forKey:@"result"];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConnectConfigureSequenceCompleted
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    //add this result to the WS-BD Result cache (at the top)
+    NSLog(@"Link at %@ completed its connect & configure sequence", link.uri);
+
+}
+
+- (void) processDownloadResultsFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
 {
     if (!results) {
         NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.uri);
@@ -210,7 +231,7 @@
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH_mm_ss"];
-
+    
     //Each of the results represents one downloaded object.
     for (int i = 0; i < [results count]; i++) {
         WSBDResult *currentResult = [results objectAtIndex:i];
@@ -229,10 +250,21 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDownloadPosted
                                                             object:self
                                                           userInfo:userInfo];
-
+        
         //add this result to the WS-BD Result cache (at the top)
         NSLog(@"Link at %@ completed downloading one capture result", link.uri);
     }
+
+}
+
+-(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results withSenderTag:(int)senderTag
+{
+    [self processDownloadResultsFromLink:link withResults:results withSenderTag:senderTag];
+}
+
+-(void) fullSequenceCompletedFromLink:(NBCLDeviceLink *)link withResults:(NSMutableArray *)results withSenderTag:(int)senderTag
+{
+    [self processDownloadResultsFromLink:link withResults:results withSenderTag:senderTag];
 }
 
 -(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result withSenderTag:(int)senderTag shouldReleaseIfSuccessful:(BOOL)shouldRelease;
@@ -261,6 +293,9 @@
                    withResult:(WSBDResult*)result 
                 withSenderTag:(int)senderTag
 {
+    
+    //first, try to unlock.
+    [link beginUnlock:link.currentSessionId withSenderTag:senderTag];
     
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:

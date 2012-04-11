@@ -11,6 +11,7 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
 #import "WSCaptureButton.h"
+#import "NBCLDeviceLinkManager.h"
 #import "constants.h"
 
 @protocol WSCaptureDelegate <NSObject>
@@ -21,6 +22,9 @@
 @end
 
 @interface WSCaptureController : UIViewController
+{
+    NBCLDeviceLink *currentLink;
+}
 
 -(IBAction)modalityButtonPressed:(id)sender;
 -(IBAction)deviceButtonPressed:(id)sender;

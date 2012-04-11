@@ -41,13 +41,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-//    //Start connecting to this sensor link
-//    //attempt to connect this sensor, stealing the lock if necessary.
-//    BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
-//    if (!sequenceStarted) {
-//        NSLog(@"Couldn't start sensor connect sequence for sensor at %@",currentDevice.capturer.sensor.uri);
-//    }
-
+    if (self.item) {
+        //Get a reference to the sensor link for this object.
+        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+        
+        //put the button in the default state.
+        self.captureButton.state = WSCaptureButtonStateInactive;
+        
+    }
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
@@ -78,9 +79,6 @@
     
     self.captureButton.waitingRestartCaptureMessage = @"Reconnecting to the sensor";
 
-    //put the button in the first state.
-    self.captureButton.state = WSCaptureButtonStateInactive;
-    
     //put a shadow behind the button
     self.captureButton.layer.shadowColor = [UIColor blackColor].CGColor;
     self.captureButton.layer.shadowOpacity = 0.5;
@@ -136,16 +134,16 @@
 
 -(IBAction)captureButtonPressed:(id)sender
 {    
-//    //Start or stop capture based on our current state.
-//    //Pass the current item as the target to be filled.
-//    NSString *notificationName = self.captureButton.selected ? kStopCaptureNotification : kStartCaptureNotification;
-//    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
-//                                                        object:self
-//                                                      userInfo:userInfo];
+
+    //Try to capture.
+    //Post a notification to start capture, starting from this item
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kStartCaptureNotification
+                                                        object:self
+                                                      userInfo:userInfo];
 
     //Update our state (temporarily, just cycle states).
-    self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
+    //self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
 
 }
 

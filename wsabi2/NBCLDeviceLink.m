@@ -19,7 +19,7 @@
 
 @implementation NBCLDeviceLink
 @synthesize delegate;
-@synthesize registered, hasLock, initialized, configured, sequenceInProgress;
+@synthesize registered, hasLock, initialized, sequenceInProgress;
 @synthesize connectedAndReady;
 @synthesize shouldRetryDownloadIfPending;
 @synthesize uri, currentSessionId, networkTimeout;
@@ -74,7 +74,7 @@
         self.initialized = NO;
         
         self.sequenceInProgress = kSensorSequenceNone;
-        shouldTryStealLock = NO;
+//        shouldTryStealLock = NO;
         releaseIfSuccessful = NO;
 	}
 	return self;
@@ -201,7 +201,7 @@
 }
 
 #pragma mark - Convenience methods to combine multiple steps
--(BOOL) beginConnectSequence:(BOOL)tryStealLock withSenderTag:(int)senderTag
+-(BOOL) beginConnectSequenceWithSenderTag:(int)senderTag
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -210,7 +210,6 @@
   
     //kick off the connection sequence
     self.sequenceInProgress = kSensorSequenceConnect;
-    shouldTryStealLock = tryStealLock;
     [self beginRegisterClient:senderTag];
     return YES;
         
@@ -230,6 +229,22 @@
     pendingConfiguration = params;
     [self beginLock:sessionId withSenderTag:senderTag];
     
+    return YES;
+
+}
+
+-(BOOL) beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary*)params
+                 withSenderTag:(int)senderTag
+{
+    if (self.sequenceInProgress) {
+        //don't start another sequence if one is in progress
+        return NO;
+    }
+    
+    //kick off the connection sequence
+    self.sequenceInProgress = kSensorSequenceConnectConfigure;
+    pendingConfiguration = params;
+    [self beginRegisterClient:senderTag];
     return YES;
 
 }
@@ -272,6 +287,27 @@
     [self beginLock:sessionId withSenderTag:senderTag];
     
     return YES;
+}
+
+-(BOOL) beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params 
+                                     withMaxSize:(float)maxSize 
+                                   withSenderTag:(int)senderTag
+{
+    if (self.sequenceInProgress) {
+        //don't start another sequence if one is in progress
+        return NO;
+    }
+    
+    //kick off the capture sequence
+    self.sequenceInProgress = kSensorSequenceFull;
+    downloadMaxSize = maxSize;
+    pendingConfiguration = params;
+    
+    //start by registering with the service
+    [self beginRegisterClient:senderTag];
+    
+    return YES;
+
 }
 
 -(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag
@@ -441,11 +477,11 @@
 {
 	NSLog(@"Calling beginConfigure");
 	//build the body of the message from our stored parameters
-	NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration xmlns:i=\"%@\" xmlns=\"%@\">", self.schemaInstanceNamespace, self.mainNamespace];
+	NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration %@ %@ %@>", self.schemaInstanceNamespace, self.schemaNamespace, self.mainNamespace];
 	if (params) {
         for(NSString* key in params)
         {
-            [messageBody appendFormat:@"<item><key>%@</key><value xmlns:d3p1=\"http://www.w3.org/2001/XMLSchema\" i:type=\"d3p1:string\">%@</value></item>", key, [params objectForKey:key]];
+            [messageBody appendFormat:@"<item><key>%@</key><value i:type=\"xs:string\">%@</value></item>", key, [params objectForKey:key]];
         }
     }
 	[messageBody appendString:@"</configuration>"];
@@ -581,7 +617,7 @@
 //Register
 -(void) registerClientCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed registration request successfully.");
+	NSLog(@"Completed registration request");
 	if (![self checkHTTPStatus:request])
 		return;
 
@@ -628,7 +664,7 @@
 
 -(void) unregisterClientCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed unregister request successfully.");
+	NSLog(@"Completed unregister request");
 	if (![self checkHTTPStatus:request])
 		return;
 
@@ -685,7 +721,7 @@
 //Lock
 -(void) lockCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed lock request successfully.");
+	NSLog(@"Completed lock request");
 	if (![self checkHTTPStatus:request])
 		return;
 	
@@ -715,7 +751,9 @@
         //set the lock convenience variable.
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress == kSensorSequenceConnect) {
+        if (self.sequenceInProgress == kSensorSequenceConnect ||
+            self.sequenceInProgress == kSensorSequenceFull) 
+        {
             [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
         else if (self.sequenceInProgress == kSensorSequenceConfigure ||
@@ -729,12 +767,12 @@
             [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
     }
-    else if (self.sequenceInProgress && shouldTryStealLock)
-    {
-        //If the lock operation failed, but we've been told to try stealing the lock
-        //if necessary, try to steal the lock.
-        [self beginStealLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
-    }
+//    else if (self.sequenceInProgress && shouldTryStealLock)
+//    {
+//        //If the lock operation failed, but we've been told to try stealing the lock
+//        //if necessary, try to steal the lock.
+//        [self beginStealLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+//    }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate sequenceDidFail:self.sequenceInProgress
@@ -750,7 +788,7 @@
 
 -(void) stealLockCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed steal lock request successfully.");
+	NSLog(@"Completed steal lock request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -810,7 +848,7 @@
 
 -(void) unlockCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed unlock request successfully.");
+	NSLog(@"Completed unlock request");
 	if (![self checkHTTPStatus:request])
 		return;
 	
@@ -843,9 +881,38 @@
         [delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
          
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress) {
+        if (self.sequenceInProgress == kSensorSequenceDisconnect) {
             [self beginUnregisterClient:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
+        
+        /** MOST SEQUENCES END HERE **/
+        
+        else if(self.sequenceInProgress == kSensorSequenceConnect)
+        {
+            //this is the end of the sequence.
+            self.sequenceInProgress = kSensorSequenceNone;
+            [delegate connectSequenceCompletedFromLink:self
+                                            withResult:self.currentWSBDResult
+                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+        else if(self.sequenceInProgress == kSensorSequenceConfigure)
+        {
+            //this is the end of the sequence.
+            self.sequenceInProgress = kSensorSequenceNone;
+            [delegate configureSequenceCompletedFromLink:self
+                                            withResult:self.currentWSBDResult
+                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+        else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
+        {
+            //this is the end of the sequence.
+            self.sequenceInProgress = kSensorSequenceNone;
+            [delegate connectConfigureSequenceCompletedFromLink:self
+                                            withResult:self.currentWSBDResult
+                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
+ 
+
     }
 
     else if (self.sequenceInProgress) {
@@ -864,7 +931,7 @@
 //Info
 -(void) getCommonInfoCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed common info request successfully.");
+	NSLog(@"Completed common info request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -885,7 +952,7 @@
 
 -(void) getInfoCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed detailed info request successfully.");
+	NSLog(@"Completed detailed info request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -908,7 +975,7 @@
 //Initialize
 -(void) initializeCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed initialization request successfully.");
+	NSLog(@"Completed initialization request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -930,19 +997,35 @@
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
              ];
         }
+        self.initialized = NO;
+        operationInProgress = -1;
         return;
 
     }
     
     if (self.currentWSBDResult.status == StatusSuccess) {
-        //set the lock convenience variable.
+        //set the initialization convenience variable.
         self.initialized = YES;
         //notify the delegate that our status is now "connected and ready"
         [delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        
+        if (self.sequenceInProgress == kSensorSequenceFull) {
+            //If we're doing a full sequence of operations, continue to configuring the sensor.
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        }
     }
-    
-    //if this call is part of a sequence, we need to release the lock now.
-    if (self.sequenceInProgress) {
+    else if (self.sequenceInProgress) {
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+        [delegate sequenceDidFail:self.sequenceInProgress
+                         fromLink:self
+                       withResult:self.currentWSBDResult
+                    withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+         ];
+    }
+
+    //if this call is part of a sequence (and we're not running a full sequence), we need to release the lock now.
+    if (self.sequenceInProgress && self.sequenceInProgress != kSensorSequenceFull) {
+        
         [self beginUnlock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
 
     }
@@ -953,7 +1036,7 @@
 //Configure
 -(void) getConfigurationCompleted:(ASIHTTPRequest *)request
 {
-	NSLog(@"Completed get config request successfully.");
+	NSLog(@"Completed get config request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -975,7 +1058,7 @@
 
 -(void) configureCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed set config request successfully.");
+	NSLog(@"Completed set config request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -997,17 +1080,22 @@
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
              ];
         }
+        operationInProgress = -1;
         return;
 
     }
 
     if (self.currentWSBDResult.status == StatusSuccess) {
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
+        if (self.sequenceInProgress == kSensorSequenceConfigCaptureDownload ||
+            self.sequenceInProgress == kSensorSequenceFull
+            ) 
+        {
             //begin capture
             [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceConfigure)
+        else if (self.sequenceInProgress == kSensorSequenceConfigure ||
+                 self.sequenceInProgress == kSensorSequenceConnectConfigure)
         {
             //In this case, this is the last step, so unset the sequence variable and
             //notify our delegate.
@@ -1016,7 +1104,7 @@
                                               withResult:self.currentWSBDResult
                                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
         }
-        self.configured = YES;
+        
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
@@ -1033,7 +1121,7 @@
 //Capture
 -(void) captureCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed capture request successfully.");
+	NSLog(@"Completed capture request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -1055,6 +1143,7 @@
                               withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
              ];
         }
+        operationInProgress = -1;
         return;
 
     }
@@ -1083,13 +1172,14 @@
                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
          ];
     }
+    
     operationInProgress = -1;
 
 }
 
 -(void) getCaptureInfoCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed get capture info request successfully.");
+	NSLog(@"Completed get capture info request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -1114,7 +1204,7 @@
 //this works for both beginDownload calls
 -(void) downloadCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed download request successfully.");
+	NSLog(@"Completed download request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -1181,7 +1271,7 @@
 //Cancel
 -(void) cancelCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed cancel request successfully.");
+	NSLog(@"Completed cancel request");
 
 	if (![self checkHTTPStatus:request])
 		return;

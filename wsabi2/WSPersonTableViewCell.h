@@ -33,6 +33,8 @@
     
     UIActionSheet *deletePersonSheet;
     UIActionSheet *deleteItemSheet;
+    
+    UIViewController *testVC;
 }
 
 -(void) updateData;

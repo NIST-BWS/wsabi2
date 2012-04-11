@@ -12,6 +12,8 @@
 #define kItemCellSize 112
 #define kItemCellSpacing 10
 
+#define kMaxImageSize 1024
+
 #define kFastFadeAnimationDuration 0.1
 #define kMediumFadeAnimationDuration 0.3
 #define kSlowFadeAnimationDuration 0.6

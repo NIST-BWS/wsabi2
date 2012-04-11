@@ -86,7 +86,7 @@
         
         //add notification listeners
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(receiveTestNotification:) 
+                                                 selector:@selector(handleDownloadPosted:) 
                                                      name:kSensorLinkDownloadPosted
                                                    object:nil];
         
@@ -374,13 +374,35 @@
 }
 
 #pragma mark - Notification handlers
+-(void) handleTestImageTap:(UITapGestureRecognizer*)recog
+{
+    [testVC dismissViewControllerAnimated:YES completion:nil];
+
+}
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
+}
 -(void) handleDownloadPosted:(NSNotification*)notification
 {
-//    NSMutableDictionary *info = notification.userInfo;
-//    
-//    if ([[info objectForKey:@"tag"] intValue]) {
-//        <#statements#>
-//    }
+    //Do this in the most simpleminded way possible
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    
+    if ([info objectForKey:@"data"]) {
+        testVC = [[UIViewController alloc] init];
+        UIImageView *testImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[info objectForKey:@"data"]]];
+        testVC.view = testImage;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTestImageTap:)];
+        [testImage addGestureRecognizer:tap];
+        
+        //show this.
+        [[self viewController] presentViewController:testVC animated:YES completion:nil];
+    }
 }
 
 
@@ -513,8 +535,9 @@
                            withSenderTag:activeCell.tag];
         }
         else {
-            //Something's up, and the sensor was not properly initialized. Try again.
-            [link beginConnectSequence:YES withSenderTag:activeCell.tag];
+            //Something's up, and the sensor was not properly initialized. Try again, starting from reconnecting.
+            [link beginConnectConfigureSequenceWithConfigurationParams:[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
+                                                         withSenderTag:activeCell.tag];
         }
         
         [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 

@@ -43,8 +43,10 @@ typedef enum {
     kSensorSequenceNone = 0,
     kSensorSequenceConnect,
     kSensorSequenceConfigure,
+    kSensorSequenceConnectConfigure,
     kSensorSequenceCaptureDownload,
     kSensorSequenceConfigCaptureDownload,
+    kSensorSequenceFull,
     kSensorSequenceDisconnect
     
 } SensorSequenceType;
@@ -58,5 +60,8 @@ typedef enum {
 //Sequence notification names
 #define kSensorLinkConnectedStatusChanged @"Connected Status Changed"
 #define kSensorLinkConnectSequenceCompleted @"Connect Sequence Completed"
+#define kSensorLinkConfigureSequenceCompleted @"Configure Sequence Completed"
+#define kSensorLinkConnectConfigureSequenceCompleted @"Connect and Configure Sequence Completed"
+#define kSensorLinkFullSequenceCompleted @"Full Sequence Completed"
 #define kSensorLinkDisconnectSequenceCompleted @"Disconnect Sequence Completed"
 #define kSensorLinkSequenceFailed @"Sequence Failed"

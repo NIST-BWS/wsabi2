@@ -142,6 +142,9 @@
 
 -(void) didHideSensorWalkthrough:(NSNotification*)notification
 {
+    //save the context.
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
     //launch the popover for the correct item.
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell showCapturePopoverForItem:[notification.userInfo objectForKey:kDictKeyTargetItem]];
@@ -158,19 +161,52 @@
     
     NSLog(@"Requested capture to start for item %@",item.description);
     
-    //Configure and store a new link in the dictionary
-    NBCLDeviceLink *link = [[NBCLDeviceLink alloc] init];
+    //Get a reference to this link
+    NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
-    link.uri = item.deviceConfig.uri;
-    [link beginConnectSequence:YES withSenderTag:-1];
+    if (!link) {
+        NSLog(@"startItemCapture couldn't find a sensor link for URI %@. Ignoring.",item.deviceConfig.uri);
+        return;
+    }
+
+    //If the link is either not registered or not initialized,
+    //run the full sequence (through downloading)
+    BOOL startedOK;
+    if (!link.registered || !link.initialized) {
+        startedOK = [link beginFullSequenceWithConfigurationParams:
+         [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
+                                           withMaxSize:kMaxImageSize withSenderTag:-1];
+        if (!startedOK) {
+            NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
+        }
+
+    }
+    else
+    {
+        startedOK = [link beginConfigCaptureDownloadSequence:link.currentSessionId
+                             configurationParams:[NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
+                                     withMaxSize:kMaxImageSize
+                                   withSenderTag:-1];
+        if (!startedOK) {
+            NSLog(@"WSViewController::startItemCapture couldn't start the config-capture-download sequence.");
+        }
+        else {
+            NSLog(@"WSViewController::startItemCapture started the config-capture-download sequence successfully.");
+        }
+
+    }
     
-    [sensorLinks setObject:link forKey:item];
 }
 
 -(void) stopItemCapture:(NSNotification *)notification
 {
     WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
     NSLog(@"Requested capture to stop for item %@",item.description);
+    
+    //Get a reference to this link
+    NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+    
+    [link beginCancel:link.currentSessionId withSenderTag:-1];
 }
 
 #pragma mark - Button Action methods
