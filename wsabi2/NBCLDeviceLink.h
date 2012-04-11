@@ -31,47 +31,46 @@
 @protocol NBCLDeviceLinkDelegate <NSObject>
 
 @optional
--(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withError:(NSError*)error;
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withResult:(WSBDResult*)result;
--(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
--(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag withResult:(WSBDResult*)result;
+-(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error;
+-(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result;
+-(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID;
+-(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result;
 
--(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link withSenderTag:(int)senderTag;
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID;
 
 /** These are sequences of actions that we'll need to perform **/
 
 //NOTE: The result object will be the result from the last performed step.
 -(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                               withResult:(WSBDResult*)result 
-                           withSenderTag:(int)senderTag;
+                           sourceObjectID:(NSURL*)sourceID;
 
 -(void) configureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                               withResult:(WSBDResult*)result 
-                           withSenderTag:(int)senderTag;
+                           sourceObjectID:(NSURL*)sourceID;
 
 -(void) connectConfigureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                                 withResult:(WSBDResult*)result 
-                             withSenderTag:(int)senderTag;
+                             sourceObjectID:(NSURL*)sourceID;
 
 //The array of results in these sequences contains WSBDResults for each captureId.
 //The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
 -(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                                            withResults:(NSMutableArray*)results 
-                                         withSenderTag:(int)tag;
+                                         sourceObjectID:(NSURL*)sourceID;
 
 -(void) fullSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                                            withResults:(NSMutableArray*)results 
-                                         withSenderTag:(int)tag;
+                                         sourceObjectID:(NSURL*)sourceID;
 
 -(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
                                  withResult:(WSBDResult*)result 
-                              withSenderTag:(int)senderTag 
-                  shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+                              sourceObjectID:(NSURL*)sourceID;
 
 -(void) sequenceDidFail:(SensorSequenceType)sequenceType
                      fromLink:(NBCLDeviceLink*)link 
                    withResult:(WSBDResult*)result 
-                withSenderTag:(int)senderTag;
+                sourceObjectID:(NSURL*)sourceID;
 
 @end
 
@@ -104,7 +103,6 @@
         
     //instance-only variables (no properties attached)
     BOOL shouldTryStealLock;
-    BOOL releaseIfSuccessful;
     float downloadMaxSize;
     int numCaptureIdsAwaitingDownload;
     	
@@ -116,21 +114,21 @@
 -(BOOL) checkHTTPStatus:(ASIHTTPRequest*)request;
 
 #pragma mark - Convenience methods to combine multiple steps
--(BOOL) beginConnectSequenceWithSenderTag:(int)senderTag;
+-(BOOL) beginConnectSequenceWithSourceObjectID:(NSURL*)sourceID;
 -(BOOL) beginConfigureSequence:(NSString*)sessionId
            configurationParams:(NSMutableDictionary*)params
-                 withSenderTag:(int)senderTag;
+                 sourceObjectID:(NSURL*)sourceID;
 -(BOOL) beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary*)params
-                 withSenderTag:(int)senderTag;
+                 sourceObjectID:(NSURL*)sourceID;
 -(BOOL) beginConfigCaptureDownloadSequence:(NSString*)sessionId
          configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize 
-               withSenderTag:(int)senderTag;
+               sourceObjectID:(NSURL*)sourceID;
 -(BOOL) beginFullSequenceWithConfigurationParams:(NSMutableDictionary*)params
                                withMaxSize:(float)maxSize 
-                             withSenderTag:(int)senderTag;
+                             sourceObjectID:(NSURL*)sourceID;
 
--(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag;
+-(BOOL) beginDisconnectSequence:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 #pragma mark -
 #pragma mark Async methods
@@ -139,36 +137,36 @@
 //from where the call originated.
 
 //Register
--(void) beginRegisterClient:(int)senderTag;
--(void) beginUnregisterClient:(NSString*)sessionId withSenderTag:(int)senderTag;
+-(void) beginRegisterClient:(NSURL*)sourceObjectID;
+-(void) beginUnregisterClient:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 //Lock
--(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag;
--(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag;
--(void) beginStealLock:(NSString*)sessionId withSenderTag:(int)senderTag;
--(void) beginUnlock:(NSString*)sessionId withSenderTag:(int)senderTag;
+-(void) beginLock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginLock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginStealLock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginUnlock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 //Info
--(void) beginGetCommonInfo:(int)senderTag;
--(void) beginGetDetailedInfo:(NSString*)sessionId withSenderTag:(int)senderTag;
+-(void) beginGetCommonInfo:(NSURL*)sourceObjectID;
+-(void) beginGetDetailedInfo:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 //Initialize
--(void) beginInitialize:(NSString*)sessionId withSenderTag:(int)senderTag;
+-(void) beginInitialize:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 //Configure
--(void) beginGetConfiguration:(NSString*)sessionId withSenderTag:(int)senderTag;
--(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params withSenderTag:(int)senderTag;
+-(void) beginGetConfiguration:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params sourceObjectID:(NSURL*)sourceID;
 
 //Capture
--(void) beginCapture:(NSString*)sessionId withSenderTag:(int)senderTag;
--(void) beginGetCaptureInfo:(NSString*)captureId withSenderTag:(int)senderTag;
+-(void) beginCapture:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID;
 
 //Download
--(void) beginDownload:(NSString*)captureId withSenderTag:(int)senderTag;
--(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize withSenderTag:(int)senderTag;
+-(void) beginDownload:(NSString*)captureId sourceObjectID:(NSURL*)sourceID;
+-(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL*)sourceID;
 
 //Cancel
--(void) beginCancel:(NSString*)sessionId withSenderTag:(int)senderTag;
+-(void) beginCancel:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 #pragma mark -
 #pragma mark Async completion methods

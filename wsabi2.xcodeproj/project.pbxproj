@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
+		EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
+		EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AD1536162000693D86 /* UIImage+Resize.m */; };
+		EA0DB8B31536162000693D86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AD1536162000693D86 /* UIImage+Resize.m */; };
+		EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
+		EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */; };
 		EA26F70814D972A200BC54F5 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA26F70714D972A200BC54F5 /* README */; };
 		EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -159,6 +165,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		EA0DB8AC1536162000693D86 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		EA0DB8AD1536162000693D86 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		EA26F70114D9728000BC54F5 /* ELCTextfieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCell.h; sourceTree = "<group>"; };
 		EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCell.m; sourceTree = "<group>"; };
@@ -567,6 +579,12 @@
 				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
 				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
+				EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */,
+				EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */,
+				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
+				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
+				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
+				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -931,6 +949,9 @@
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 				EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
+				EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */,
+				EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */,
+				EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,6 +988,9 @@
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 				EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
+				EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */,
+				EA0DB8B31536162000693D86 /* UIImage+Resize.m in Sources */,
+				EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

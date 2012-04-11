@@ -374,35 +374,26 @@
 }
 
 #pragma mark - Notification handlers
--(void) handleTestImageTap:(UITapGestureRecognizer*)recog
-{
-    [testVC dismissViewControllerAnimated:YES completion:nil];
-
-}
-- (UIViewController*)viewController {
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder* nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController*)nextResponder;
-        }
-    }
-    return nil;
-}
 -(void) handleDownloadPosted:(NSNotification*)notification
 {
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    if ([info objectForKey:@"data"]) {
-        testVC = [[UIViewController alloc] init];
-        UIImageView *testImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[info objectForKey:@"data"]]];
-        testVC.view = testImage;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTestImageTap:)];
-        [testImage addGestureRecognizer:tap];
-        
-        //show this.
-        [[self viewController] presentViewController:testVC animated:YES completion:nil];
+    WSCDItem *targetItem = (WSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    
+    //If this item is ours, update it.
+    if ([orderedItems containsObject:targetItem]) {
+        targetItem.data = [info objectForKey:@"data"]; //may be nil
+        targetItem.thumbnail = [UIImage imageWithData:[info objectForKey:@"data"]
+                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:12 interpolationQuality:kCGInterpolationDefault]
+        //FIXME: This needs to handle metadata coming back from the sensor!
     }
+    
+    [self updateData];
+    [self.itemGridView reloadData];
+    
+    //save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
 
@@ -532,12 +523,13 @@
             //grab the lock and try to configure the sensor
             [link beginConfigureSequence:link.currentSessionId 
                      configurationParams:[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
-                           withSenderTag:activeCell.tag];
+                           sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         else {
             //Something's up, and the sensor was not properly initialized. Try again, starting from reconnecting.
-            [link beginConnectConfigureSequenceWithConfigurationParams:[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
-                                                         withSenderTag:activeCell.tag];
+            [link beginConnectConfigureSequenceWithConfigurationParams:
+             [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
+                            sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         
         [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 

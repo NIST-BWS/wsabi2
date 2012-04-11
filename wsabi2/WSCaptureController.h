@@ -30,6 +30,9 @@
 -(IBAction)deviceButtonPressed:(id)sender;
 -(IBAction)captureButtonPressed:(id)sender;
 
+//Notification handlers
+-(void) handleDownloadPosted:(NSNotification*)notification;
+
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
 @property (nonatomic, strong) WSCDItem *item;

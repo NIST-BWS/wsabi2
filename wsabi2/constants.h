@@ -26,6 +26,7 @@
 #define kStopCaptureNotification @"stopCapture"
 
 #define kDictKeyTargetItem @"targetItem"
+#define kDictKeySourceID @"sourceObjectID"
 #define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"
 
 #define kStringDelimiter @"|"

@@ -64,7 +64,7 @@
 }
 
 #pragma mark - Convenience methods to combine multiple steps
--(BOOL) beginConnectSequence:(BOOL)tryStealLock withSenderTag:(int)senderTag
+-(BOOL) beginConnectSequence:(NSURL*)sourceObjectID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -73,13 +73,12 @@
     
     //kick off the connection sequence
     self.sequenceInProgress = YES;
-    shouldTryStealLock = tryStealLock;
-    [self beginRegisterClient:senderTag];
+    [self beginRegisterClient:sourceObjectID];
     return YES;
     
 }
 
--(BOOL) beginCaptureSequence:(NSString *)sessionId captureType:(int)captureType withMaxSize:(float)maxSize withSenderTag:(int)senderTag
+-(BOOL) beginCaptureSequence:(NSString *)sessionId captureType:(int)captureType withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -91,12 +90,12 @@
     downloadMaxSize = maxSize;
     [self beginConfigure:self.currentSessionId 
           withParameters:[NSDictionary dictionaryWithObjectsAndKeys:[WSModalityMap parameterNameForCaptureType:captureType],@"submodality",nil] 
-           withSenderTag:senderTag];
+           sourceObjectID:sourceID];
     
     return YES;
 }
 
--(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag
+-(BOOL) beginDisconnectSequence:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -105,38 +104,39 @@
     
     //kick off the disconnect sequence
     self.sequenceInProgress = YES;
-    [self beginUnlock:self.currentSessionId withSenderTag:senderTag];
+    [self beginUnlock:self.currentSessionId sourceObjectID:sourceID];
     return YES;
     
-    releaseIfSuccessful = shouldRelease;
 }
 
 #pragma mark -
 #pragma mark Methods to start various operations.
 
 //Register
--(void) beginRegisterClient:(int)senderTag
+-(void) beginRegisterClient:(NSURL *)sourceObjectID
 {
     NSLog(@"Calling beginRegister");
     operationInProgress = kOpTypeRegister;
     
  	NSLog(@"Completed registration request successfully.");
     [self.delegate sensorOperationCompleted:kOpTypeRegister 
-                              fromLink:self  withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self
+                             sourceObjectID:sourceObjectID
+                                 withResult:self.pseudoResult];
     //set the registered convenience variable.
     self.registered = YES;
     //store the current session id.
     self.currentSessionId = self.pseudoResult.sessionId;
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
-        [self beginLock:self.currentSessionId withSenderTag:senderTag];
+        [self beginLock:self.currentSessionId sourceObjectID:sourceObjectID];
     }
     
     operationInProgress = -1;
     
 }
 
--(void) beginUnregisterClient:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginUnregisterClient:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {	
     NSLog(@"Calling beginUnregister");
 
@@ -146,14 +146,14 @@
     self.sequenceInProgress = NO; //stop the sequence, as we've got a failure.
     
     [self.delegate sensorOperationCompleted:kOpTypeUnregister 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
     
     //set the registered convenience variable.
     self.registered = NO;
     
     //notify the delegate that we're no longer "connected and ready"
     //NOTE: This may also be done in the unlock method, but there's no guarantee that unlock will be called.
-    [self.delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:senderTag];
+    [self.delegate sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:sourceID];
     
     //clear the current session id.
     self.currentSessionId = nil;
@@ -161,9 +161,9 @@
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate disconnectSequenceCompletedFromLink:self withResult:self.pseudoResult  withSenderTag:senderTag shouldReleaseIfSuccessful:releaseIfSuccessful];
-        //reset the releaseIfSuccessful variable
-        releaseIfSuccessful = NO;
+        [self.delegate disconnectSequenceCompletedFromLink:self 
+                                                withResult:self.pseudoResult 
+                                            sourceObjectID:sourceID];
     }
     
     operationInProgress = -1;
@@ -173,7 +173,7 @@
 
 
 //Lock
--(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginLock:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginLock");
 
@@ -182,20 +182,22 @@
 	NSLog(@"Completed lock request successfully.");
     
     [self.delegate sensorOperationCompleted:kOpTypeLock 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self 
+                                sourceObjectID:sourceID
+                                 withResult:self.pseudoResult];
     
     //set the lock convenience variable.
     self.hasLock = YES;
     
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
-        [self beginInitialize:self.currentSessionId withSenderTag:senderTag];
+        [self beginInitialize:self.currentSessionId sourceObjectID:sourceID];
     }
     
     operationInProgress = -1;
 }
 
--(void) beginStealLock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginStealLock:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginStealLock");
 
@@ -208,13 +210,13 @@
     
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
-        [self beginInitialize:self.currentSessionId withSenderTag:senderTag];
+        [self beginInitialize:self.currentSessionId sourceObjectID:sourceID];
     }
     operationInProgress = -1;
 
 }
 
--(void) beginUnlock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginUnlock:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginUnlock");
 
@@ -227,18 +229,18 @@
     
     //notify the delegate that we're no longer "connected and ready"
     //NOTE: This will also be called in the unregister method, as there's no guarantee that the unlock method will be called.
-    [self.delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:senderTag];
+    [self.delegate sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:sourceID];
     
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
-        [self beginUnregisterClient:self.currentSessionId withSenderTag:senderTag];
+        [self beginUnregisterClient:self.currentSessionId sourceObjectID:sourceID];
     }
 
 }
 
 
 //Info
--(void) beginGetCommonInfo:(int)senderTag
+-(void) beginGetCommonInfo:(NSURL *)sourceObjectID
 {
 	NSLog(@"Calling beginCommonInfo");
 
@@ -247,13 +249,15 @@
  	NSLog(@"Completed common info request successfully.");
     
     [self.delegate sensorOperationCompleted:kOpTypeGetCommonInfo 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self 
+                             sourceObjectID:sourceObjectID 
+                                 withResult:self.pseudoResult];
  
     operationInProgress = -1;
     
 }
 
--(void) beginGetDetailedInfo:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginGetDetailedInfo:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginGetInfo");
  
@@ -262,7 +266,7 @@
  	NSLog(@"Completed detailed info request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeGetDetailedInfo
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
  
     operationInProgress = -1;
     
@@ -270,7 +274,7 @@
 }
 
 //Initialize
--(void) beginInitialize:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginInitialize:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginInitialize");
 
@@ -282,19 +286,19 @@
     self.initialized = YES;
     
     //notify the delegate that our status is now "connected and ready"
-    [self.delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:senderTag];
+    [self.delegate sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:sourceID];
    
     //if this call is part of a sequence, notify our delegate that the sequence is complete.
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate connectSequenceCompletedFromLink:self withResult:self.pseudoResult withSenderTag:senderTag];
+        [self.delegate connectSequenceCompletedFromLink:self withResult:self.pseudoResult sourceObjectID:sourceID];
     }
     operationInProgress = -1;
 
 }
 
 //Configure
--(void) beginGetConfiguration:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginGetConfiguration:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginGetConfiguration");
 
@@ -303,12 +307,12 @@
     NSLog(@"Completed get config request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeGetConfiguration 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
     operationInProgress = -1;
     
 }
 
--(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params withSenderTag:(int)senderTag
+-(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginConfigure");
 
@@ -317,12 +321,12 @@
 	NSLog(@"Completed set config request successfully.");
 
     [self.delegate sensorOperationCompleted:kOpTypeConfigure 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
 
     //if this call is part of a sequence, call the next step.
     if (self.sequenceInProgress) {
         //begin capture
-        [self beginCapture:self.currentSessionId withSenderTag:senderTag];
+        [self beginCapture:self.currentSessionId sourceObjectID:sourceID];
     }
   
     operationInProgress = -1;
@@ -331,7 +335,7 @@
 
 
 //Capture
--(void) beginCapture:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginCapture:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginCapture");
     
@@ -353,11 +357,11 @@
                                                                                 //ONE capture result at a time.
                                                                                 //This is really only useful for testing.
                                                                                 [self.delegate sensorOperationCompleted:kOpTypeCapture 
-                                                                                                          fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                                                                                                          fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
                                                                                 
                                                                                 //if this call is part of a sequence, call the next step.
                                                                                 if (self.sequenceInProgress) {
-                                                                                    [self beginDownload:[self.pseudoResult.captureIds objectAtIndex:0] withMaxSize:downloadMaxSize withSenderTag:senderTag];
+                                                                                    [self beginDownload:[self.pseudoResult.captureIds objectAtIndex:0] withMaxSize:downloadMaxSize sourceObjectID:sourceID];
                                                                                 }
                                                                                 
                                                                                 operationInProgress = -1;
@@ -375,7 +379,7 @@
     [self.previewLayer addSublayer:captureInProgressView.layer];
 }
 
--(void) beginGetCaptureInfo:(NSString*)captureId withSenderTag:(int)senderTag
+-(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginGetCaptureInfo");
 
@@ -384,7 +388,7 @@
     NSLog(@"Completed get capture info request successfully.");
     
    [self.delegate sensorOperationCompleted:kOpTypeGetContentType 
-                             fromLink:self withSenderTag:senderTag withResult:self.currentWSBDResult];
+                             fromLink:self sourceObjectID:sourceID withResult:self.currentWSBDResult];
     
     operationInProgress = -1;
 
@@ -393,7 +397,7 @@
 
 
 //Download
--(void) beginDownload:(NSString*)captureId withSenderTag:(int)senderTag
+-(void) beginDownload:(NSString*)captureId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginDownload");
 
@@ -411,7 +415,7 @@
     }
     
     [self.delegate sensorOperationCompleted:kOpTypeDownload 
-                              fromLink:self withSenderTag:senderTag withResult:result];
+                              fromLink:self sourceObjectID:sourceID withResult:result];
 
     //remove the indicator that a picture is being taken.
     for (CALayer *layer in self.previewLayer.sublayers) {
@@ -422,13 +426,13 @@
 
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
+        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] sourceObjectID:sourceID];
 
     }
     operationInProgress = -1;
 }
 
--(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize withSenderTag:(int)senderTag
+-(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginDownload:withMaxSize");
     
@@ -448,7 +452,7 @@
     }
     
     [self.delegate sensorOperationCompleted:kOpTypeThriftyDownload 
-                              fromLink:self withSenderTag:senderTag withResult:result];
+                              fromLink:self sourceObjectID:sourceID withResult:result];
     
     //remove the indicator that a picture is being taken.
     for (CALayer *layer in self.previewLayer.sublayers) {
@@ -459,27 +463,27 @@
 
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
-        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
+        [self.delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] sourceObjectID:sourceID];
         
     }
     operationInProgress = -1;
 }
 
 //Cancel
--(void) beginCancel:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginCancel:(NSString*)sessionId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginCancel");
 
     //NOTE: We're completely faking this method, as there's no service running operations to cancel.
     [self.delegate sensorOperationCompleted:kOpTypeCancel 
-                              fromLink:self withSenderTag:senderTag withResult:self.pseudoResult];
+                              fromLink:self sourceObjectID:sourceID withResult:self.pseudoResult];
     
     //stop any sequence that was in progress.
     self.sequenceInProgress = NO;
     
     //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
     //of the CANCELLED operation. 
-    [self.delegate sensorOperationWasCancelledByClient:operationInProgress fromLink:self withSenderTag:senderTag];
+    [self.delegate sensorOperationWasCancelledByClient:operationInProgress fromLink:self sourceObjectID:sourceID];
 
     operationInProgress = -1;
 

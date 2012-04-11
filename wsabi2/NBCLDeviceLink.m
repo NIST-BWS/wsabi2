@@ -74,8 +74,6 @@
         self.initialized = NO;
         
         self.sequenceInProgress = kSensorSequenceNone;
-//        shouldTryStealLock = NO;
-        releaseIfSuccessful = NO;
 	}
 	return self;
 }
@@ -201,7 +199,7 @@
 }
 
 #pragma mark - Convenience methods to combine multiple steps
--(BOOL) beginConnectSequenceWithSenderTag:(int)senderTag
+-(BOOL) beginConnectSequenceWithSourceObjectID:(NSURL*)sourceObjectID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -210,14 +208,14 @@
   
     //kick off the connection sequence
     self.sequenceInProgress = kSensorSequenceConnect;
-    [self beginRegisterClient:senderTag];
+    [self beginRegisterClient:sourceObjectID];
     return YES;
         
 }
 
 -(BOOL) beginConfigureSequence:(NSString*)sessionId
            configurationParams:(NSMutableDictionary*)params
-                 withSenderTag:(int)senderTag
+                 sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -227,14 +225,14 @@
     //kick off the capture sequence
     self.sequenceInProgress = kSensorSequenceConfigure;
     pendingConfiguration = params;
-    [self beginLock:sessionId withSenderTag:senderTag];
+    [self beginLock:sessionId sourceObjectID:sourceID];
     
     return YES;
 
 }
 
 -(BOOL) beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary*)params
-                 withSenderTag:(int)senderTag
+                 sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -244,14 +242,14 @@
     //kick off the connection sequence
     self.sequenceInProgress = kSensorSequenceConnectConfigure;
     pendingConfiguration = params;
-    [self beginRegisterClient:senderTag];
+    [self beginRegisterClient:sourceID];
     return YES;
 
 }
 
 -(BOOL) beginCaptureDownloadSequence:(NSString *)sessionId 
                                withMaxSize:(float)maxSize
-                             withSenderTag:(int)senderTag
+                             sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -263,7 +261,7 @@
     downloadMaxSize = maxSize;
     
     //start by grabbing the lock
-    [self beginLock:sessionId withSenderTag:senderTag];
+    [self beginLock:sessionId sourceObjectID:sourceID];
     
     return YES;
 }
@@ -271,7 +269,7 @@
 -(BOOL) beginConfigCaptureDownloadSequence:(NSString *)sessionId 
                  configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize
-               withSenderTag:(int)senderTag
+               sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -284,14 +282,14 @@
     pendingConfiguration = params;
     
     //start by grabbing the lock
-    [self beginLock:sessionId withSenderTag:senderTag];
+    [self beginLock:sessionId sourceObjectID:sourceID];
     
     return YES;
 }
 
 -(BOOL) beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params 
                                      withMaxSize:(float)maxSize 
-                                   withSenderTag:(int)senderTag
+                                   sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -304,13 +302,13 @@
     pendingConfiguration = params;
     
     //start by registering with the service
-    [self beginRegisterClient:senderTag];
+    [self beginRegisterClient:sourceID];
     
     return YES;
 
 }
 
--(BOOL) beginDisconnectSequence:(NSString*)sessionId shouldReleaseIfSuccessful:(BOOL)shouldRelease withSenderTag:(int)senderTag
+-(BOOL) beginDisconnectSequence:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
         //don't start another sequence if one is in progress
@@ -319,22 +317,21 @@
     
     //kick off the disconnect sequence
     self.sequenceInProgress = kSensorSequenceDisconnect;
-    [self beginUnlock:self.currentSessionId withSenderTag:senderTag];
+    [self beginUnlock:self.currentSessionId sourceObjectID:sourceID];
     return YES;
     
-    releaseIfSuccessful = shouldRelease;
 }
 
 #pragma mark -
 #pragma mark Methods to start various operations.
 
 //Register
--(void) beginRegisterClient:(int)senderTag
+-(void) beginRegisterClient:(NSURL*)sourceObjectID
 {
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/register",self.uri]]];
 	NSLog(@"Calling beginRegisterClient with URL %@",request.url);
 	request.requestMethod = @"POST";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeRegister],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeRegister],@"opType",sourceObjectID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -345,12 +342,12 @@
     operationInProgress = kOpTypeRegister;
 }
 
--(void) beginUnregisterClient:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginUnregisterClient:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {	
 	NSLog(@"Calling beginUnregisterClient");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/register/%@",self.uri, sessionId]]];
 	request.requestMethod = @"DELETE";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeUnregister],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeUnregister],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -363,12 +360,12 @@
 
 
 //Lock
--(void) beginLock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginLock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginLock");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/lock/%@",self.uri, sessionId]]];
 	request.requestMethod = @"POST";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeLock],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeLock],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -379,12 +376,12 @@
 
 }
 
--(void) beginStealLock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginStealLock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginStealLock");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/lock/%@",self.uri, sessionId]]];
 	request.requestMethod = @"PUT";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeStealLock],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeStealLock],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -394,12 +391,12 @@
 	operationInProgress = kOpTypeStealLock;
 }
 
--(void) beginUnlock:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginUnlock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginUnlock");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/lock/%@",self.uri, sessionId]]];
 	request.requestMethod = @"DELETE";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeUnlock],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeUnlock],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -411,12 +408,12 @@
 
 
 //Info
--(void) beginGetCommonInfo:(int)senderTag
+-(void) beginGetCommonInfo:(NSURL*)sourceObjectID
 {
 	NSLog(@"Calling beginCommonInfo");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/info",self.uri]]];
 	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetCommonInfo],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetCommonInfo],@"opType",sourceObjectID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -426,12 +423,12 @@
 	operationInProgress = kOpTypeGetCommonInfo;
 }
 
--(void) beginGetDetailedInfo:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginGetDetailedInfo:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginGetInfo");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/info/%@",self.uri, sessionId]]];
 	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetDetailedInfo],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetDetailedInfo],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -442,12 +439,12 @@
 }
 
 //Initialize
--(void) beginInitialize:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginInitialize:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginInitialize");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/initialize/%@",self.uri, sessionId]]];
 	request.requestMethod = @"POST";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeInitialize],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeInitialize],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -458,12 +455,12 @@
 }
 
 //Configure
--(void) beginGetConfiguration:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginGetConfiguration:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginGetConfiguration");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/configure/%@",self.uri, sessionId]]];
 	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeConfigure],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeConfigure],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -473,7 +470,7 @@
 	operationInProgress = kOpTypeGetConfiguration;
 }
 
--(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params withSenderTag:(int)senderTag
+-(void) beginConfigure:(NSString*)sessionId withParameters:(NSDictionary*)params sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginConfigure");
 	//build the body of the message from our stored parameters
@@ -499,7 +496,7 @@
 	NSLog(@"Raw configure request is \n%@",[[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding]);
 	
     
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeConfigure],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeConfigure],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -511,13 +508,13 @@
 
 
 //Capture
--(void) beginCapture:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginCapture:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 
 	NSLog(@"Calling beginCapture");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/capture/%@",self.uri, sessionId]]];
 	request.requestMethod = @"POST";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeCapture],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeCapture],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -527,12 +524,12 @@
 	operationInProgress = kOpTypeCapture;
 }
 
--(void) beginGetCaptureInfo:(NSString*)captureId withSenderTag:(int)senderTag
+-(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginGetCaptureInfo");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/capture/%@",self.uri, captureId]]];
 	request.requestMethod = @"GET";
-	[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetContentType],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetContentType],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -545,12 +542,12 @@
 
 
 //Download
--(void) beginDownload:(NSString*)captureId withSenderTag:(int)senderTag
+-(void) beginDownload:(NSString*)captureId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginDownload");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/download/%@",self.uri, captureId]]];
 	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeDownload],@"opType",[NSNumber numberWithInt:senderTag],@"tag",captureId,@"captureId",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeDownload],@"opType",sourceID,kDictKeySourceID,captureId,@"captureId",nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -560,12 +557,12 @@
 	operationInProgress = kOpTypeDownload;
 }
 
--(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize withSenderTag:(int)senderTag
+-(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginDownload:withMaxSize");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/download/%@/%1.0f",self.uri, captureId, maxSize]]];
 	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeThriftyDownload],@"opType",[NSNumber numberWithInt:senderTag],@"tag",captureId,@"captureId",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeThriftyDownload],@"opType",sourceID,kDictKeySourceID,captureId,@"captureId",nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -576,12 +573,12 @@
 }
 
 //Cancel
--(void) beginCancel:(NSString*)sessionId withSenderTag:(int)senderTag
+-(void) beginCancel:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
 {
 	NSLog(@"Calling beginCancel");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/cancel/%@",self.uri, sessionId]]];
 	request.requestMethod = @"POST";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeCancel],@"opType",[NSNumber numberWithInt:senderTag],@"tag",nil]; //we'll use this to identify this operation.
+	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeCancel],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
 	request.delegate = self;
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
@@ -609,7 +606,7 @@
 	NSLog(@"Sensor operation failed with message %@", request.responseStatusMessage);
 	[delegate sensorOperationDidFail:[[request.userInfo objectForKey:@"opType"] intValue] 
 							fromLink:self 
-                       withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                       sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
 						   withError:request.error];
     operationInProgress = -1;
 }
@@ -625,7 +622,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
-                                 withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                 sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -635,7 +632,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
 
         }
@@ -649,14 +646,14 @@
         self.currentSessionId = self.currentWSBDResult.sessionId;
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
-            [self beginLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginLock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
     }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate connectSequenceCompletedFromLink:self 
                                               withResult:self.currentWSBDResult
-                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                                           sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
     }
     operationInProgress = -1;
 
@@ -672,7 +669,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -682,7 +679,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         return;
@@ -696,7 +693,7 @@
         //notify the delegate that we're no longer "connected and ready"
         [delegate sensorConnectionStatusChanged:NO 
                                        fromLink:self
-                                  withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                  sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
 
         //clear the current session id.
@@ -708,10 +705,8 @@
         self.sequenceInProgress = kSensorSequenceNone;
         [delegate disconnectSequenceCompletedFromLink:self 
                                                  withResult:self.currentWSBDResult 
-                                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
-                                  shouldReleaseIfSuccessful:releaseIfSuccessful];
-        //reset the releaseIfSuccessful variable
-        releaseIfSuccessful = NO;
+                                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+        
     }
     operationInProgress = -1;
 
@@ -729,7 +724,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult
          ];
     }
@@ -740,7 +735,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
 
@@ -754,31 +749,31 @@
         if (self.sequenceInProgress == kSensorSequenceConnect ||
             self.sequenceInProgress == kSensorSequenceFull) 
         {
-            [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginInitialize:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if (self.sequenceInProgress == kSensorSequenceConfigure ||
                  self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
             
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
-                   withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                   sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
         {
-            [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginCapture:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
     }
 //    else if (self.sequenceInProgress && shouldTryStealLock)
 //    {
 //        //If the lock operation failed, but we've been told to try stealing the lock
 //        //if necessary, try to steal the lock.
-//        [self beginStealLock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+//        [self beginStealLock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
 //    }
     else if (self.sequenceInProgress) {
         self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
-                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
 
@@ -797,7 +792,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -807,7 +802,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         
@@ -819,17 +814,17 @@
         self.hasLock = YES;
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress == kSensorSequenceConnect) {
-            [self beginInitialize:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginInitialize:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if (self.sequenceInProgress == kSensorSequenceConfigure ||
                  self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
             
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
-                   withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                   sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
         {
-            [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginCapture:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
 
     }
@@ -838,7 +833,7 @@
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
-                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
 
@@ -856,7 +851,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -866,7 +861,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         return;
@@ -878,11 +873,11 @@
         self.hasLock = NO;
    
         //notify the delegate that we're no longer "connected and ready"
-        [delegate sensorConnectionStatusChanged:NO fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        [delegate sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
          
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress == kSensorSequenceDisconnect) {
-            [self beginUnregisterClient:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginUnregisterClient:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         
         /** MOST SEQUENCES END HERE **/
@@ -893,7 +888,7 @@
             self.sequenceInProgress = kSensorSequenceNone;
             [delegate connectSequenceCompletedFromLink:self
                                             withResult:self.currentWSBDResult
-                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if(self.sequenceInProgress == kSensorSequenceConfigure)
         {
@@ -901,7 +896,7 @@
             self.sequenceInProgress = kSensorSequenceNone;
             [delegate configureSequenceCompletedFromLink:self
                                             withResult:self.currentWSBDResult
-                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
         {
@@ -909,7 +904,7 @@
             self.sequenceInProgress = kSensorSequenceNone;
             [delegate connectConfigureSequenceCompletedFromLink:self
                                             withResult:self.currentWSBDResult
-                                         withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
  
 
@@ -920,7 +915,7 @@
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
-                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
 
@@ -939,7 +934,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -961,7 +956,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                            withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                            sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -984,7 +979,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -994,7 +989,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         self.initialized = NO;
@@ -1007,11 +1002,11 @@
         //set the initialization convenience variable.
         self.initialized = YES;
         //notify the delegate that our status is now "connected and ready"
-        [delegate sensorConnectionStatusChanged:YES fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        [delegate sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         
         if (self.sequenceInProgress == kSensorSequenceFull) {
             //If we're doing a full sequence of operations, continue to configuring the sensor.
-            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
     }
     else if (self.sequenceInProgress) {
@@ -1019,14 +1014,14 @@
         [delegate sequenceDidFail:self.sequenceInProgress
                          fromLink:self
                        withResult:self.currentWSBDResult
-                    withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                    sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
 
     //if this call is part of a sequence (and we're not running a full sequence), we need to release the lock now.
     if (self.sequenceInProgress && self.sequenceInProgress != kSensorSequenceFull) {
         
-        [self beginUnlock:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+        [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
 
     }
     operationInProgress = -1;
@@ -1045,7 +1040,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1067,7 +1062,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1077,7 +1072,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         operationInProgress = -1;
@@ -1092,17 +1087,20 @@
             ) 
         {
             //begin capture
-            [self beginCapture:self.currentSessionId withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginCapture:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         else if (self.sequenceInProgress == kSensorSequenceConfigure ||
                  self.sequenceInProgress == kSensorSequenceConnectConfigure)
         {
+            //First, return the lock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+
             //In this case, this is the last step, so unset the sequence variable and
             //notify our delegate.
             self.sequenceInProgress = kSensorSequenceNone;
             [delegate configureSequenceCompletedFromLink:self
                                               withResult:self.currentWSBDResult
-                                           withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                                           sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         
     }
@@ -1111,7 +1109,7 @@
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
-                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
     operationInProgress = -1;
@@ -1130,7 +1128,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1140,7 +1138,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
-                              withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
         operationInProgress = -1;
@@ -1151,7 +1149,9 @@
     if (self.currentWSBDResult.status == StatusSuccess) {
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress) {
-            //reset any existind download sequence variables.
+            //First, return the lock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+            //reset any existing download sequence variables.
             if (self.downloadSequenceResults) {
                 [self.downloadSequenceResults removeAllObjects];
                 self.downloadSequenceResults = nil;
@@ -1160,7 +1160,7 @@
             //download each result.
             numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
             for (NSString *capId in self.currentWSBDResult.captureIds) {
-                [self beginDownload:capId withMaxSize:downloadMaxSize withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+                [self beginDownload:capId withMaxSize:downloadMaxSize sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
             }
         }
     }
@@ -1169,7 +1169,7 @@
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
-                          withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
     }
     
@@ -1188,7 +1188,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                             withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                             sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1213,7 +1213,7 @@
 	if (parseSuccess) {
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
-                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1233,10 +1233,18 @@
         //add the current download result to the list.
         [self.downloadSequenceResults addObject:self.currentWSBDResult];
         numCaptureIdsAwaitingDownload--;
-        if (numCaptureIdsAwaitingDownload <= 0) {
+        if (numCaptureIdsAwaitingDownload <= 0) {           
+            if(self.sequenceInProgress == kSensorSequenceCaptureDownload ||
+               self.sequenceInProgress == kSensorSequenceConfigCaptureDownload)
+            {
+                [delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+            }
+            else if (self.sequenceInProgress == kSensorSequenceFull)
+            {
+                [delegate fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+            }
             self.sequenceInProgress = kSensorSequenceNone;
-            [delegate configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
-            numCaptureIdsAwaitingDownload = 0;
+             numCaptureIdsAwaitingDownload = 0;
         }
         //remove any retry counter attached to this request.
         if (currentId) {
@@ -1256,7 +1264,7 @@
             
             [NSThread sleepForTimeInterval:currentCaptureInterval]; //NOTE: we may need to run these *Completed methods on their own threads to avoid blocking the queue...?
             //put a new attempt at this download in the queue.
-            [self beginDownload:currentId withMaxSize:downloadMaxSize withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [self beginDownload:currentId withMaxSize:downloadMaxSize sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
             
             //increase the retry count
             [downloadRetryCount setObject:[NSNumber numberWithInt:(currentCaptureRetryCount + 1)] forKey:currentId];
@@ -1281,7 +1289,7 @@
         //The *cancel* operation succeeded, so fire the delegate for that operation's completion.
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self 
-                                withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                                sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
         
         //cancel any sequence that was in progress.
@@ -1290,7 +1298,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                              fromLink:self
                            withResult:self.currentWSBDResult
-                        withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                        sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
 
@@ -1298,7 +1306,7 @@
         //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
         //of the *cancelled* operation. 
         if (operationPendingCancellation >= 0) {
-            [delegate sensorOperationWasCancelledByClient:operationPendingCancellation fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+            [delegate sensorOperationWasCancelledByClient:operationPendingCancellation fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
 
     }
@@ -1310,7 +1318,7 @@
             [delegate sequenceDidFail:self.sequenceInProgress
                              fromLink:self
                            withResult:self.currentWSBDResult
-                        withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]
+                        sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
         }
 
@@ -1331,7 +1339,7 @@
 {
 	NSLog(@"Cancelling all queued operations.");
 	[networkQueue cancelAllOperations];
-	[delegate sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self withSenderTag:-1];
+	[delegate sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self sourceObjectID:nil];
 }
 
 //This will generally be called after retrieving the matching request from the
@@ -1340,7 +1348,7 @@
 {
 	NSLog(@"Cancelling operation %@",request);
 	[request cancel];
-	[delegate sensorOperationWasCancelledByClient:[[request.userInfo objectForKey:@"opType"] intValue] fromLink:self withSenderTag:[[request.userInfo objectForKey:@"tag"] intValue]];
+	[delegate sensorOperationWasCancelledByClient:[[request.userInfo objectForKey:@"opType"] intValue] fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
 }
 
 #pragma mark -

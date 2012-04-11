@@ -48,6 +48,9 @@
         //put the button in the default state.
         self.captureButton.state = WSCaptureButtonStateInactive;
         
+        if (self.item.data) {
+            self.itemDataView.image = [UIImage imageWithData:self.item.data];
+        }
     }
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
@@ -84,6 +87,13 @@
     self.captureButton.layer.shadowOpacity = 0.5;
     self.captureButton.layer.shadowRadius = 6;
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
+    
+    //add notification listeners
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleDownloadPosted:) 
+                                                 name:kSensorLinkDownloadPosted
+                                               object:nil];
+
     
     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
@@ -137,7 +147,8 @@
 
     //Try to capture.
     //Post a notification to start capture, starting from this item
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,nil];
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kStartCaptureNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -145,6 +156,22 @@
     //Update our state (temporarily, just cycle states).
     //self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
 
+}
+
+#pragma mark - Notification handlers
+-(void) handleDownloadPosted:(NSNotification*)notification
+{
+    //Do this in the most simpleminded way possible
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    
+    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    
+    if (self.item == targetItem && [info objectForKey:@"data"]) {
+        //the table view is going to take care of editing the actual data, we just need to use
+        //the image.
+        self.itemDataView.image = [UIImage imageWithData:[info objectForKey:@"data"]];
+    }
+    
 }
 
 @end

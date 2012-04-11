@@ -28,6 +28,7 @@
 //@property (nonatomic, unsafe_unretained) id<WSItemGridCellDelegate> delegate;
 
 @property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *tempLabel;
 
 @property (nonatomic) BOOL active;

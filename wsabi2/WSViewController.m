@@ -175,7 +175,7 @@
     if (!link.registered || !link.initialized) {
         startedOK = [link beginFullSequenceWithConfigurationParams:
          [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
-                                           withMaxSize:kMaxImageSize withSenderTag:-1];
+                                           withMaxSize:kMaxImageSize sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
         }
@@ -186,7 +186,7 @@
         startedOK = [link beginConfigCaptureDownloadSequence:link.currentSessionId
                              configurationParams:[NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
                                      withMaxSize:kMaxImageSize
-                                   withSenderTag:-1];
+                                   sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the config-capture-download sequence.");
         }
@@ -206,7 +206,7 @@
     //Get a reference to this link
     NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
-    [link beginCancel:link.currentSessionId withSenderTag:-1];
+    [link beginCancel:link.currentSessionId sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
 }
 
 #pragma mark - Button Action methods

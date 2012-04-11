@@ -11,6 +11,7 @@
 @implementation WSItemGridCell
 
 @synthesize item;
+@synthesize imageView;
 @synthesize tempLabel;
 @synthesize active;
 
@@ -20,6 +21,7 @@
     if (self) {
         // Initialization code
         self.tempLabel = [[UILabel alloc] init];
+        self.imageView = [[UIImageView alloc] init];
     }
     return self;
 
@@ -38,16 +40,22 @@
 {
     if (!initialLayoutComplete) {
         
+//        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//        self.layer.borderWidth = 2;
+//        self.layer.cornerRadius = 12;
+//        self.layer.shouldRasterize = YES;
+//        self.clipsToBounds = YES;
+
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         
         view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         view.opaque = NO;
-        view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        view.layer.cornerRadius = 12;
-        view.layer.shouldRasterize = YES;
 
         self.contentView = view;
         
+        self.imageView.frame = view.bounds;
+        [self.contentView addSubview:self.imageView];
+                
         self.tempLabel.frame = self.bounds;
         self.tempLabel.backgroundColor = [UIColor clearColor];
         self.tempLabel.textColor = [UIColor whiteColor];
@@ -65,8 +73,16 @@
         initialLayoutComplete = YES;
     }
 
-    self.contentView.layer.borderWidth = self.active ? 4.0 : 1.0;
+    self.layer.borderWidth = self.active ? 4.0 : 1.0;
+}
 
+-(void) setItem:(WSCDItem *)newItem
+{
+    if (newItem.data) {
+        self.imageView.image = [UIImage imageWithData:newItem.data];
+    }
+
+    item = newItem;
 }
 
 
