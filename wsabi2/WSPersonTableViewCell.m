@@ -382,10 +382,11 @@
     WSCDItem *targetItem = (WSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
     
     //If this item is ours, update it.
-    if ([orderedItems containsObject:targetItem]) {
-        targetItem.data = [info objectForKey:@"data"]; //may be nil
-        targetItem.thumbnail = [UIImage imageWithData:[info objectForKey:@"data"]
-                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:12 interpolationQuality:kCGInterpolationDefault]
+    NSData *imageData = [info objectForKey:@"data"]; //may be nil
+    if (imageData && [orderedItems containsObject:targetItem]) {
+        targetItem.data = imageData; 
+        targetItem.thumbnail = UIImagePNGRepresentation([[UIImage imageWithData:imageData]
+                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:12 interpolationQuality:kCGInterpolationDefault]);
         //FIXME: This needs to handle metadata coming back from the sensor!
     }
     
@@ -407,7 +408,7 @@
     else return 0;
 }
 
-- (CGSize)sizeForItemsInGMGridView:(GMGridView *)gridView
+- (CGSize) GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     return CGSizeMake(kItemCellSize, kItemCellSize);
 }
@@ -418,7 +419,7 @@
 
     if(!cell) {
         cell = [[WSItemGridCell alloc] init];
-        CGSize theSize = [self sizeForItemsInGMGridView:gridView];
+        CGSize theSize = [self GMGridView:gridView sizeForItemsInInterfaceOrientation:UIInterfaceOrientationPortrait];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
         //turn on gesture logging for new cells
         [cell startAutomaticGestureLogging:YES];

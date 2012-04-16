@@ -41,6 +41,7 @@ typedef enum {
 //Sequence types
 typedef enum {
     kSensorSequenceNone = 0,
+    kSensorSequenceRecovery,
     kSensorSequenceConnect,
     kSensorSequenceConfigure,
     kSensorSequenceConnectConfigure,

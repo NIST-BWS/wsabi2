@@ -46,9 +46,7 @@
         CGFloat rotation = 0.03;
         
         CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform"];
-        //M. Aronoff edit
-        //Change shake duration
-        shake.duration = 0.2;
+        shake.duration = 0.13;
         shake.autoreverses = YES;
         shake.repeatCount  = MAXFLOAT;
         shake.removedOnCompletion = NO;

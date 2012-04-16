@@ -93,6 +93,8 @@
 
     int operationInProgress;
     int operationPendingCancellation;
+    
+    SensorSequenceType storedSequence;
 
 	ASINetworkQueue *networkQueue;
     	
@@ -110,25 +112,30 @@
 
 +(NSString*) stringForOpType:(int)opType;
 
-//-(void) sendRequest:(NSString*)requestString toRelativeAddress:(NSString*)relativeAddress withHTTPMethod:(NSString*)method;
 -(BOOL) checkHTTPStatus:(ASIHTTPRequest*)request;
+-(void) attemptWSBDSequenceRecovery:(NSURL*)sourceObjectID; //try to figure out what problem we've got and re-establish the sequence.
 
 #pragma mark - Convenience methods to combine multiple steps
 -(BOOL) beginConnectSequenceWithSourceObjectID:(NSURL*)sourceID;
+
 -(BOOL) beginConfigureSequence:(NSString*)sessionId
            configurationParams:(NSMutableDictionary*)params
                  sourceObjectID:(NSURL*)sourceID;
+
 -(BOOL) beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary*)params
                  sourceObjectID:(NSURL*)sourceID;
+
 -(BOOL) beginConfigCaptureDownloadSequence:(NSString*)sessionId
          configurationParams:(NSMutableDictionary*)params
                  withMaxSize:(float)maxSize 
                sourceObjectID:(NSURL*)sourceID;
+
 -(BOOL) beginFullSequenceWithConfigurationParams:(NSMutableDictionary*)params
                                withMaxSize:(float)maxSize 
                              sourceObjectID:(NSURL*)sourceID;
 
 -(BOOL) beginDisconnectSequence:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+
 
 #pragma mark -
 #pragma mark Async methods

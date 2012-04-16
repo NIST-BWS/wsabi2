@@ -181,7 +181,7 @@
 //    }
 //}
 	
-
+#pragma mark - Common WS-BD-related operations
 //TODO: Check for more HTTP error codes here.
 -(BOOL) checkHTTPStatus:(ASIHTTPRequest*)request
 {
@@ -197,6 +197,40 @@
 	}
 	
 }
+
+//try to figure out what problem we've got and re-establish the sequence.
+-(void) attemptWSBDSequenceRecovery:(NSURL*) sourceObjectID
+{
+    NSLog(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
+    
+    //If we got an unsuccessful result, and haven't already tried to recover, do so now.
+    storedSequence = self.sequenceInProgress;
+    self.sequenceInProgress = kSensorSequenceRecovery;
+
+    //Figure out where we need to go.
+    switch (self.currentWSBDResult.status) {
+        case StatusInvalidId:
+            //need to re-register
+            [self beginRegisterClient:sourceObjectID];
+            break;
+        case StatusLockHeldByAnother:
+            //try once to steal the lock.
+            [self beginLock:self.currentSessionId sourceObjectID:sourceObjectID];
+            break;
+        case StatusSensorNeedsInitialization:
+            //We need to run initialization again.
+            [self beginInitialize:self.currentSessionId sourceObjectID:sourceObjectID];
+            break;
+        case StatusSensorNeedsConfiguration:
+            //We need to run configuration again.
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:sourceObjectID];
+            break;
+        default:
+            break;
+    }
+
+}
+
 
 #pragma mark - Convenience methods to combine multiple steps
 -(BOOL) beginConnectSequenceWithSourceObjectID:(NSURL*)sourceObjectID
@@ -737,6 +771,8 @@
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            //Try to force an unlock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
 
         return;
@@ -745,36 +781,46 @@
     if (self.currentWSBDResult.status == StatusSuccess) {
         //set the lock convenience variable.
         self.hasLock = YES;
+        
+        //If this is a recovery sequence, use the stored sequence to determine
+        //what to do next. Otherwise, use the main sequence.
+        SensorSequenceType seq = self.sequenceInProgress;
+        if (self.sequenceInProgress == kSensorSequenceRecovery) {
+            seq = storedSequence;
+        }
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress == kSensorSequenceConnect ||
-            self.sequenceInProgress == kSensorSequenceFull) 
+        if (seq == kSensorSequenceConnect ||
+            seq == kSensorSequenceFull)
         {
             [self beginInitialize:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceConfigure ||
-                 self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
+        else if (seq == kSensorSequenceConfigure ||
+                 seq == kSensorSequenceConfigCaptureDownload) {
             
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration
                    sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
+        else if (seq == kSensorSequenceCaptureDownload)
         {
             [self beginCapture:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
     }
-//    else if (self.sequenceInProgress && shouldTryStealLock)
-//    {
-//        //If the lock operation failed, but we've been told to try stealing the lock
-//        //if necessary, try to steal the lock.
-//        [self beginStealLock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
-//    }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sequenceDidFail:self.sequenceInProgress
-                               fromLink:self
-                             withResult:self.currentWSBDResult
-                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
-         ];
+
+        if(self.sequenceInProgress != kSensorSequenceRecovery)
+        {
+            //If we haven't already tried it, attempt to recover
+            [self attemptWSBDSequenceRecovery:[request.userInfo objectForKey:kDictKeySourceID]];
+        }
+        else {
+            //We've already tried to recover; give up.
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sequenceDidFail:self.sequenceInProgress
+                             fromLink:self
+                           withResult:self.currentWSBDResult
+                       sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
+             ];
+        }
     }
 
     operationInProgress = -1;
@@ -875,13 +921,24 @@
         //notify the delegate that we're no longer "connected and ready"
         [delegate sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
          
+        //First, handle recovery mode.
+        //If we've completed one of several sequences in recovery mode,
+        //restore the stored sequence and respond as if we'd never attempted
+        //a recovery.
+        if (self.sequenceInProgress == kSensorSequenceRecovery)
+        {
+            self.sequenceInProgress = storedSequence;
+            
+            //clear the stored sequence.
+            storedSequence = kSensorSequenceNone;
+        }
+
         //if this call is part of a sequence, call the next step.
         if (self.sequenceInProgress == kSensorSequenceDisconnect) {
             [self beginUnregisterClient:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         
         /** MOST SEQUENCES END HERE **/
-        
         else if(self.sequenceInProgress == kSensorSequenceConnect)
         {
             //this is the end of the sequence.
@@ -991,6 +1048,8 @@
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            //Try to force an unlock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         self.initialized = NO;
         operationInProgress = -1;
@@ -1004,26 +1063,47 @@
         //notify the delegate that our status is now "connected and ready"
         [delegate sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         
-        if (self.sequenceInProgress == kSensorSequenceFull) {
-            //If we're doing a full sequence of operations, continue to configuring the sensor.
+        //If this is a recovery sequence, use the stored sequence to determine
+        //what to do next. Otherwise, use the main sequence.
+        SensorSequenceType seq = self.sequenceInProgress;
+        if (self.sequenceInProgress == kSensorSequenceRecovery) {
+            seq = storedSequence;
+        }
+
+        if (seq == kSensorSequenceFull ||
+            seq == kSensorSequenceConfigure) {
+            //If we're not done, continue to configuring the sensor.
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
-    }
+        else if (seq != kSensorSequenceNone)
+        {
+            //otherwise, we're done. Unlock.
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+        }
+     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sequenceDidFail:self.sequenceInProgress
-                         fromLink:self
-                       withResult:self.currentWSBDResult
-                    sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
-         ];
+        if(self.sequenceInProgress != kSensorSequenceRecovery)
+        {
+            //If we haven't already tried it, attempt to recover
+            [self attemptWSBDSequenceRecovery:[request.userInfo objectForKey:kDictKeySourceID]];
+        }
+        else {
+            //We've already tried to recover; give up.
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
+            //Release the lock.
+            [self beginUnlock:self.currentSessionId 
+               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+            
+            
+            [delegate sequenceDidFail:self.sequenceInProgress
+                             fromLink:self
+                           withResult:self.currentWSBDResult
+                        sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
+             ];
+        }
     }
 
-    //if this call is part of a sequence (and we're not running a full sequence), we need to release the lock now.
-    if (self.sequenceInProgress && self.sequenceInProgress != kSensorSequenceFull) {
-        
-        [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
-
-    }
     operationInProgress = -1;
 
 }
@@ -1074,6 +1154,8 @@
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            //Try to force an unlock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
         operationInProgress = -1;
         return;
@@ -1081,16 +1163,23 @@
     }
 
     if (self.currentWSBDResult.status == StatusSuccess) {
+        //If this is a recovery sequence, use the stored sequence to determine
+        //what to do next. Otherwise, use the main sequence.
+        SensorSequenceType seq = self.sequenceInProgress;
+        if (self.sequenceInProgress == kSensorSequenceRecovery) {
+            seq = storedSequence;
+        }
+        
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress == kSensorSequenceConfigCaptureDownload ||
-            self.sequenceInProgress == kSensorSequenceFull
+        if (seq == kSensorSequenceConfigCaptureDownload ||
+            seq == kSensorSequenceFull
             ) 
         {
             //begin capture
             [self beginCapture:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
-        else if (self.sequenceInProgress == kSensorSequenceConfigure ||
-                 self.sequenceInProgress == kSensorSequenceConnectConfigure)
+        else if (seq == kSensorSequenceConfigure ||
+                 seq == kSensorSequenceConnectConfigure)
         {
             //First, return the lock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
@@ -1105,12 +1194,23 @@
         
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sequenceDidFail:self.sequenceInProgress
-                               fromLink:self
-                             withResult:self.currentWSBDResult
-                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
-         ];
+        if(self.sequenceInProgress != kSensorSequenceRecovery)
+        {
+            //If we haven't already tried it, attempt to recover
+            [self attemptWSBDSequenceRecovery:[request.userInfo objectForKey:kDictKeySourceID]];
+        }
+        else {
+
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
+             ];
+            //Try to force an unlock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+
+        }
     }
     operationInProgress = -1;
 
@@ -1147,8 +1247,15 @@
     }
 
     if (self.currentWSBDResult.status == StatusSuccess) {
+        //If this is a recovery sequence, use the stored sequence to determine
+        //what to do next. Otherwise, use the main sequence.
+        SensorSequenceType seq = self.sequenceInProgress;
+        if (self.sequenceInProgress == kSensorSequenceRecovery) {
+            seq = storedSequence;
+        }
+
         //if this call is part of a sequence, call the next step.
-        if (self.sequenceInProgress) {
+        if (seq) {
             //First, return the lock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
             //reset any existing download sequence variables.
@@ -1165,12 +1272,23 @@
         }
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-        [delegate sequenceDidFail:self.sequenceInProgress
-                               fromLink:self
-                             withResult:self.currentWSBDResult
-                          sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
-         ];
+        if(self.sequenceInProgress != kSensorSequenceRecovery)
+        {
+            //If we haven't already tried it, attempt to recover
+            [self attemptWSBDSequenceRecovery:[request.userInfo objectForKey:kDictKeySourceID]];
+        }
+        else {            
+
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+            [delegate sequenceDidFail:self.sequenceInProgress
+                                   fromLink:self
+                                 withResult:self.currentWSBDResult
+                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
+             ];
+            //Try to force an unlock
+            [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+
+        }
     }
     
     operationInProgress = -1;
