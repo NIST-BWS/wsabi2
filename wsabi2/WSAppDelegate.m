@@ -31,7 +31,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.viewController = [[WSViewController alloc] initWithNibName:@"WSViewController" bundle:nil];
     self.viewController.managedObjectContext = self.managedObjectContext;
     
-    self.window.rootViewController = self.viewController;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+
+    self.window.rootViewController = nav;
 
     //Set up logging
     [DDLog addLogger:[DDASLLogger sharedInstance]];

@@ -9,7 +9,8 @@
 #ifndef wsabi2_constants_h
 #define wsabi2_constants_h
 
-#define kItemCellSize 112
+#define kItemCellSize 114
+#define kItemCellCornerRadius 18
 #define kItemCellSpacing 10
 
 #define kMaxImageSize 1024

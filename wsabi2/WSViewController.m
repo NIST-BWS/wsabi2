@@ -30,7 +30,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+        
+    //set the table view background
+    self.tableView.backgroundColor = [UIColor grayColor]; //[UIColor colorWithPatternImage:[UIImage imageNamed:@"square_bg"]];
     
+    //Set up the nav bar.
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:32/255.0 green:32/255.0 blue:32/255.0 alpha:1.0]];
+
+    UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wsabi-title"]];
+    self.navigationItem.titleView = titleView;
+    [[UINavigationBar appearanceWhenContainedIn:[self class], nil] setTitleVerticalPositionAdjustment:-4 forBarMetrics:UIBarMetricsDefault];
+
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
     self.popoverController.delegate = self;
@@ -530,6 +540,14 @@
 
         newPerson.notes = nil;
         
+        for (WSCDItem *item in newPerson.items) {
+            item.timeStampCreated = [NSDate date];
+            item.data = nil;
+            item.thumbnail = nil;
+            item.dataContentType = nil;
+            item.captureMetadata = nil;
+        }
+        
         //Save the context
         [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
         
@@ -561,9 +579,11 @@
     [activeCell showCapturePopoverForItem:sourceItem];
 }
 
-#pragma mark - UIPopoverController delegate (currently just for logging)
+#pragma mark - UIPopoverController delegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
+    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [activeCell deselectAllItems]; //clear selection
     [self.view logPopoverHidden];
 }
 

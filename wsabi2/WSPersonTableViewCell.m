@@ -18,7 +18,7 @@
 @synthesize itemGridView;
 @synthesize biographicalDataButton, biographicalDataInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
-@synthesize customSelectedBackgroundView;
+@synthesize shadowUpView, shadowDownView, customSelectedBackgroundView;
 @synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -31,27 +31,32 @@
 }
 
 -(void) layoutSubviews {
-    [super layoutSubviews];
     if (!initialLayoutComplete) {
         
         deletableItem = -1;
         
         //configure UI elements
-        self.biographicalDataButton.layer.cornerRadius = 8;
-        self.biographicalDataButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        self.biographicalDataButton.layer.borderWidth = 2;
+//        self.biographicalDataButton.layer.cornerRadius = 8;
+//        self.biographicalDataButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//        self.biographicalDataButton.layer.borderWidth = 2;
 
+        normalBGColor = [UIColor clearColor];
+        selectedBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black-Linen"]];
+        
         self.biographicalDataInactiveLabel.alpha = self.selected ? 0.0 : 1.0;
 
-        [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-normal"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
-        [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateHighlighted];
-        [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateDisabled];
+        [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateNormal];
+        [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateHighlighted];
         
-        [self.editButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-normal"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
-        [self.editButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateHighlighted];
-        [self.editButton setBackgroundImage:[[UIImage imageNamed:@"glossyButton-black-disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateDisabled];
+        UIImage *silverButton = [[UIImage imageNamed:@"UINavigationBarSilverButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16];
+        [self.biographicalDataButton setBackgroundImage:silverButton forState:UIControlStateNormal];
+        [self.deleteButton setBackgroundImage:silverButton forState:UIControlStateNormal];
+        [self.addButton setBackgroundImage:silverButton forState:UIControlStateNormal];
+        [self.editButton setBackgroundImage:silverButton forState:UIControlStateNormal];
+        [self.editButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarDoneButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateSelected];
         
-        self.customSelectedBackgroundView.image = [[UIImage imageNamed:@"personcell-bg-selected"] stretchableImageWithLeftCapWidth:20 topCapHeight:170];
+        self.shadowUpView.image = [[UIImage imageNamed:@"cell-drop-shadow-up"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
+        self.shadowDownView.image = [[UIImage imageNamed:@"cell-drop-shadow-down"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
         
         //new rows that start selected need to have the active controls' highlights turned off.
         self.duplicateRowButton.highlighted = !self.selected;
@@ -89,7 +94,7 @@
                                                  selector:@selector(handleDownloadPosted:) 
                                                      name:kSensorLinkDownloadPosted
                                                    object:nil];
-        
+                
         initialLayoutComplete = YES;
     }
     
@@ -103,7 +108,9 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
-    self.alpha = self.selected ? 1.0 : 0.6;
+    self.contentView.alpha = self.selected ? 1.0 : 0.6;
+    
+    [super layoutSubviews];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -112,13 +119,15 @@
     
     // Configure the view for the selected state
     self.duplicateRowButton.highlighted = !selected;
+    self.biographicalDataButton.highlighted = !selected;
     self.addButton.highlighted = !selected;
     self.editButton.highlighted = !selected;
     self.deleteButton.highlighted = !selected;
     
     if (selected) {
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            self.customSelectedBackgroundView.alpha = 1.0;
+            self.shadowUpView.alpha = 1.0;
+            self.shadowDownView.alpha = 1.0;
             self.biographicalDataButton.alpha = 1.0;
             self.biographicalDataInactiveLabel.alpha = 0.0;
             self.duplicateRowButton.alpha = 1.0;
@@ -130,7 +139,9 @@
                                                  self.itemGridView.frame.size.width,
                                                  self.bounds.size.height - 128 - 30); //subtract extra space from the height because of the New Person button visible at the bottom.
             //Finally, make sure we're fully visible.
-            self.alpha = 1.0;
+            self.contentView.alpha = 1.0;
+            //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
+            self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
         }];
         
         //Set up sensor links for each item in this person's record.
@@ -143,7 +154,8 @@
     }
     else {
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            self.customSelectedBackgroundView.alpha = 0.0;
+            self.shadowUpView.alpha = 0.0;
+            self.shadowDownView.alpha = 0.0;
             self.biographicalDataButton.alpha = 0.0;
             self.biographicalDataInactiveLabel.alpha = 1.0;
             self.duplicateRowButton.alpha = 0.0;
@@ -156,7 +168,8 @@
                                  self.bounds.size.height - 24); //Leave a 12-pixel border above and below
 
             //Finally, fade everything partially out.
-            self.alpha = 0.6;
+            self.contentView.alpha = 0.6;
+            self.customSelectedBackgroundView.backgroundColor = normalBGColor;
         } 
          
         ];
@@ -164,6 +177,7 @@
         //make sure we're not in edit mode
         [self setEditing:NO];
     }
+
     self.itemGridView.userInteractionEnabled = selected;
     [self.itemGridView reloadData];
 
@@ -293,9 +307,6 @@
         return;
     }
     
-    //leave edit mode if we're in it.
-    [self setEditing:NO];
-    
     WSCDItem *newCaptureItem = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
 
     //insert this item at the beginning of the list.
@@ -318,6 +329,9 @@
     
     //animate a reload of the data
     [self reloadItemGridAnimated:NO];
+    
+    //leave edit mode if we're in it.
+    [self setEditing:NO];
     
     //launch the sensor walkthrough for this item.
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
@@ -358,7 +372,33 @@
     }
     else if (actionSheet == deleteItemSheet && buttonIndex != actionSheet.cancelButtonIndex && deletableItem >= 0) {
         //Having confirmed the deletion, perform it.
-        [self performItemDeletionAtIndex:deletableItem];
+        //if we have a valid item, delete it and reload the grid.
+        WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
+        if (foundItem) {
+            [self.person removeItemsObject:foundItem];
+            //rebuild the ordered collection.
+            [self updateData]; 
+            //update the item indices within the now-updated ordered collection
+            for (int i = 0; i < [orderedItems count]; i++) {
+                WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+                tempItem.index = [NSNumber numberWithInt:i];
+            }
+            
+            //animate a reload of the data
+            [self reloadItemGridAnimated:YES];
+
+            //Save the context
+            [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+            
+            //FIXME: make sure we remain in edit mode. This shouldn't be required.
+            //Figure out why we bounce back out of edit mode after a delete.
+            self.editing = YES;
+        }
+        else
+        {
+            NSLog(@"Tried to remove a nonexistent item at index %d",deletableItem);
+        }
+
         //reset the deletable item index.
         deletableItem = -1;
     }
@@ -386,7 +426,7 @@
     if (imageData && [orderedItems containsObject:targetItem]) {
         targetItem.data = imageData; 
         targetItem.thumbnail = UIImagePNGRepresentation([[UIImage imageWithData:imageData]
-                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:12 interpolationQuality:kCGInterpolationDefault]);
+                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:2*kItemCellCornerRadius interpolationQuality:kCGInterpolationDefault]);
         //FIXME: This needs to handle metadata coming back from the sensor!
     }
     
@@ -397,6 +437,15 @@
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
+#pragma mark - Called by external classes to clear the selection
+-(void) deselectAllItems
+{
+    for (UIView *v in self.itemGridView.subviews) {
+        if ([v isKindOfClass:[WSItemGridCell class]]) {
+            ((WSItemGridCell*)v).selected = NO;
+        }
+    }
+}
 
 #pragma mark -
 #pragma mark GridView Data Source
@@ -415,10 +464,13 @@
 
 - (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
-    WSItemGridCell *cell =(WSItemGridCell*) [gridView dequeueReusableCell];
+    static NSString *CellIdentifier = @"gridCell";
+    
+    WSItemGridCell *cell =(WSItemGridCell*) [gridView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if(!cell) {
         cell = [[WSItemGridCell alloc] init];
+        cell.reuseIdentifier = CellIdentifier;
         CGSize theSize = [self GMGridView:gridView sizeForItemsInInterfaceOrientation:UIInterfaceOrientationPortrait];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
         //turn on gesture logging for new cells
@@ -426,69 +478,20 @@
     }
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
-    cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
+    //cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
     cell.tag = GRID_CELL_OFFSET + index;
     return cell;
 }
 
-- (void)GMGridView:(GMGridView *)gridView deleteItemAtIndex:(NSInteger)index
+- (BOOL)GMGridView:(GMGridView *)gridView canDeleteItemAtIndex:(NSInteger)index
 {
-    deleteItemSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:@"Delete Item"
-                                                    otherButtonTitles:nil];
-
-    deletableItem = index; //mark this cell for deletion if the user confirms the action.
-    
-    GMGridViewCell *activeCell;           
-
-    // Might return nil if cell not loaded for the specific index
-    if ((activeCell = [self.itemGridView cellForItemAtIndex:index])) { 
-        [deleteItemSheet showFromRect:activeCell.bounds inView:activeCell animated:YES];
-        //Log the action sheet
-        [activeCell logActionSheetShown:YES];
-    }
-    else {
-        //default to showing this from the entire view.
-        [deleteItemSheet showFromRect:self.bounds inView:self animated:YES];
-        //Log the action sheet
-        [self logActionSheetShown:YES];
-
-    }
-    
- }
-
-
--(void) performItemDeletionAtIndex:(int) index
-{
-    //if we have a valid item, delete it and reload the grid.
-    WSCDItem *foundItem = [orderedItems objectAtIndex:index];
-    if (foundItem) {
-        [self.person removeItemsObject:foundItem];
-        //rebuild the ordered collection.
-        [self updateData]; 
-        //update the item indices within the now-updated ordered collection
-        for (int i = 0; i < [orderedItems count]; i++) {
-            WSCDItem *tempItem = [orderedItems objectAtIndex:i];
-            tempItem.index = [NSNumber numberWithInt:i];
-        }
-                
-        //animate a reload of the data
-        [self reloadItemGridAnimated:YES];
-
-        //Save the context
-        [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-
-        //FIXME: make sure we remain in edit mode. This shouldn't be required.
-        //Figure out why we bounce back out of edit mode after a delete.
-        self.editing = YES;
-    }
-    else
-    {
-        NSLog(@"Tried to remove a nonexistent item at index %d",index);
-    }
+    return YES;
 }
+
+
+//-(void) performItemDeletionAtIndex:(int) index
+//{
+//}
 
 -(void) showCapturePopoverAtIndex:(int) index
 {
@@ -557,9 +560,45 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
+    [(WSItemGridCell*)[gridView cellForItemAtIndex:position] setSelected:YES];
     [self showCapturePopoverAtIndex:position];
 }
 
+// Tap on space without any items
+- (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
+{
+    //for now, do nothing.
+}
+
+// Called when the delete-button has been pressed. Required to enable editing mode.
+// This method wont delete the cell automatically. Call the delete method of the gridView when appropriate.
+- (void)GMGridView:(GMGridView *)gridView processDeleteActionForItemAtIndex:(NSInteger)index
+{
+    deleteItemSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                    destructiveButtonTitle:@"Delete Item"
+                                         otherButtonTitles:nil];
+    
+    deletableItem = index; //mark this cell for deletion if the user confirms the action.
+    
+    GMGridViewCell *activeCell;           
+    
+    // Might return nil if cell not loaded for the specific index
+    if ((activeCell = [self.itemGridView cellForItemAtIndex:index])) { 
+        [deleteItemSheet showFromRect:activeCell.bounds inView:activeCell animated:YES];
+        //Log the action sheet
+        [activeCell logActionSheetShown:YES];
+    }
+    else {
+        //default to showing this from the entire view.
+        [deleteItemSheet showFromRect:self.bounds inView:self animated:YES];
+        //Log the action sheet
+        [self logActionSheetShown:YES];
+        
+    }
+
+}
 
 #pragma mark - GMGridViewSortingDelegate
 
@@ -631,20 +670,19 @@
 }
 
 #pragma mark - DraggableGridViewTransformingDelegate
-
-- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
+- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index inInterfaceOrientation:(UIInterfaceOrientation)orientation;
 {
     return CGSizeMake(700, 530);
 }
 
-- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
+- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index 
 {
     UIView *fullView = [[UIView alloc] init];
     fullView.backgroundColor = [UIColor yellowColor];
     fullView.layer.masksToBounds = NO;
     fullView.layer.cornerRadius = 8;
     
-    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index];
+    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index inInterfaceOrientation:UIInterfaceOrientationPortrait];
     fullView.bounds = CGRectMake(0, 0, size.width, size.height);
     
     UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];

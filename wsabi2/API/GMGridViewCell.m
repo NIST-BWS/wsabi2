@@ -103,6 +103,7 @@
     else
     {
         self.fullSizeView.frame = self.bounds;
+
     }
 }
 

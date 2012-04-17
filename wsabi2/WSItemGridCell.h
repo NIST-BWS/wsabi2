@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GMGridViewCell.h"
 #import "GMGridViewCell+Extended.h"
+#import "UIView+GMGridViewAdditions.h"
 #import "WSCDItem.h"
 #import "constants.h"
 
@@ -29,8 +30,10 @@
 
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILabel *tempLabel;
+@property (nonatomic, strong) UIImageView *shadowView;
+@property (nonatomic, strong) UIImageView *glossView; //not currently used.
 
 @property (nonatomic) BOOL active;
+@property (nonatomic) BOOL selected;
 
 @end
