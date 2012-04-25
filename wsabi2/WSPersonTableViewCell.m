@@ -19,6 +19,7 @@
 @synthesize biographicalDataButton, biographicalDataInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize shadowUpView, shadowDownView, customSelectedBackgroundView;
+@synthesize inactiveOverlayView, separatorView;
 @synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -48,11 +49,18 @@
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateHighlighted];
         
-        UIImage *silverButton = [[UIImage imageNamed:@"UINavigationBarSilverButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16];
+        UIImage *silverButton = [[UIImage imageNamed:@"kb-extended-candidates-segmented-control-button"] stretchableImageWithLeftCapWidth:5 topCapHeight:7];
+        UIImage *silverButtonPressed = [[UIImage imageNamed:@"kb-extended-candidates-segmented-control-button-selected"] stretchableImageWithLeftCapWidth:5 topCapHeight:7];
         [self.biographicalDataButton setBackgroundImage:silverButton forState:UIControlStateNormal];
         [self.deleteButton setBackgroundImage:silverButton forState:UIControlStateNormal];
         [self.addButton setBackgroundImage:silverButton forState:UIControlStateNormal];
         [self.editButton setBackgroundImage:silverButton forState:UIControlStateNormal];
+        
+        [self.biographicalDataButton setBackgroundImage:silverButtonPressed forState:UIControlStateHighlighted];
+        [self.deleteButton setBackgroundImage:silverButtonPressed forState:UIControlStateHighlighted];
+        [self.addButton setBackgroundImage:silverButtonPressed forState:UIControlStateHighlighted];
+        [self.editButton setBackgroundImage:silverButtonPressed forState:UIControlStateHighlighted];
+
         [self.editButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarDoneButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateSelected];
         
         self.shadowUpView.image = [[UIImage imageNamed:@"cell-drop-shadow-up"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
@@ -94,7 +102,12 @@
                                                  selector:@selector(handleDownloadPosted:) 
                                                      name:kSensorLinkDownloadPosted
                                                    object:nil];
-                
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didChangeItem:)
+                                                     name:kChangedWSCDItemNotification
+                                                   object:nil];
+
         initialLayoutComplete = YES;
     }
     
@@ -108,7 +121,7 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
-    self.contentView.alpha = self.selected ? 1.0 : 0.6;
+    self.itemGridView.alpha = self.selected ? 1.0 : 0.3;
     
     [super layoutSubviews];
 }
@@ -142,6 +155,8 @@
             self.contentView.alpha = 1.0;
             //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
             self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
+            self.inactiveOverlayView.alpha = 0.0;
+            self.separatorView.alpha = 0.0;
         }];
         
         //Set up sensor links for each item in this person's record.
@@ -168,8 +183,11 @@
                                  self.bounds.size.height - 24); //Leave a 12-pixel border above and below
 
             //Finally, fade everything partially out.
-            self.contentView.alpha = 0.6;
+            self.itemGridView.alpha = 0.3;
             self.customSelectedBackgroundView.backgroundColor = normalBGColor;
+            [self deselectAllItems:nil];
+            self.inactiveOverlayView.alpha = 1.0;
+            self.separatorView.alpha = 1.0;
         } 
          
         ];
@@ -179,7 +197,7 @@
     }
 
     self.itemGridView.userInteractionEnabled = selected;
-    [self.itemGridView reloadData];
+    //[self.itemGridView reloadData];
 
 }
 
@@ -307,7 +325,9 @@
         return;
     }
     
-    WSCDItem *newCaptureItem = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
+    //Create a temporary item
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
+    WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:0]; 
@@ -319,17 +339,17 @@
         tempItem.index = [NSNumber numberWithInt:[tempItem.index intValue] + 1];
     }
     
-    [self.person addItemsObject:newCaptureItem];
-    
-    //update the local (sorted) data
-    [self updateData];
-
-    //Save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];    
-    
-    //animate a reload of the data
-    [self reloadItemGridAnimated:NO];
-    
+//    [self.person addItemsObject:newCaptureItem];
+//    
+//    //update the local (sorted) data
+//    [self updateData];
+//
+//    //Save the context
+//    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];    
+//    
+//    //animate a reload of the data
+//    [self reloadItemGridAnimated:NO];
+//    
     //leave edit mode if we're in it.
     [self setEditing:NO];
     
@@ -414,6 +434,19 @@
 }
 
 #pragma mark - Notification handlers
+-(void) didChangeItem:(NSNotification*)notification
+{
+    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+
+    if (![self.person.items containsObject:item]) {
+        return; //nothing to do if we don't have this item.
+    }
+    
+    NSLog(@"Item %@ was changed",item.description);
+        
+    [self.itemGridView reloadObjectAtIndex:[orderedItems indexOfObject:item] animated:YES];
+}
+
 -(void) handleDownloadPosted:(NSNotification*)notification
 {
     //Do this in the most simpleminded way possible
@@ -438,11 +471,11 @@
 }
 
 #pragma mark - Called by external classes to clear the selection
--(void) deselectAllItems
+-(void) deselectAllItems:(WSItemGridCell*)exceptThisOne
 {
     for (UIView *v in self.itemGridView.subviews) {
         if ([v isKindOfClass:[WSItemGridCell class]]) {
-            ((WSItemGridCell*)v).selected = NO;
+            ((WSItemGridCell*)v).selected = (((WSItemGridCell*)v) == exceptThisOne);
         }
     }
 }
@@ -496,7 +529,7 @@
 -(void) showCapturePopoverAtIndex:(int) index
 {
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
-    
+            
     //If we found a valid item, launch the capture popover from it.
     if (activeCell) {
         WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
@@ -505,7 +538,7 @@
         
         //This is intentionally naïve; if there's no controller here,
         //we have a problem.
-        self.popoverController.contentViewController = cap;
+        [self.popoverController setContentViewController:cap animated:NO];
         
         //give the capture controller a reference to its containing popover.
         cap.popoverController = self.popoverController;
@@ -516,6 +549,9 @@
         
         self.popoverController.popoverContentSize = cap.view.bounds.size;
 
+        //allow the user to interact with anything in this cell's grid view while the popover is active.
+        self.popoverController.passthroughViews = self.itemGridView.subviews;
+        
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
 
@@ -560,8 +596,20 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
-    [(WSItemGridCell*)[gridView cellForItemAtIndex:position] setSelected:YES];
-    [self showCapturePopoverAtIndex:position];
+    
+    WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
+    
+    if (currentCell.selected) {
+        //just hide this.
+        [self.popoverController dismissPopoverAnimated:YES];
+        [self deselectAllItems:nil];
+    }
+    else {
+        //deselect everything except this item
+        [self deselectAllItems:currentCell];
+        
+        [self showCapturePopoverAtIndex:position];
+    }
 }
 
 // Tap on space without any items

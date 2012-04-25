@@ -8,6 +8,8 @@
 
 #import "WSDeviceChooserController.h"
 
+#import "WSAppDelegate.h"
+
 @implementation WSDeviceChooserController
 @synthesize submodality;
 @synthesize modality;
@@ -57,8 +59,9 @@
 
     //Fetch a list of recent sensors from Core Data
     
-    //Taken directly from Apple's "Fetching Managed Objects" docs
-    NSManagedObjectContext *moc = self.item.managedObjectContext;
+    //Since we might be working on a temporary object, don't ask it for a managed object context.
+    //Instead, get the primary context from the app delegate.
+    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription
                                               entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -389,7 +392,7 @@
     subChooser.item = self.item; //pass the data object
     subChooser.modality = self.modality;
     subChooser.submodality = self.submodality;
-    
+        
     //Configure the device definition
     //FIXME: Either choose an existing def and copy it, or start with a new def here.
 
@@ -462,13 +465,27 @@
     
     //If we need to create a new device def, do so.
     if (!def && createNewDef) {
-        def = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDDeviceDefinition" inManagedObjectContext:self.item.managedObjectContext];
-        def.timeStampLastEdit = [NSDate date];
-        subChooser.deviceDefinition = def; 
+        //Create a temporary item
+        NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+        newDef.timeStampLastEdit = [NSDate date];
+        subChooser.deviceDefinition = newDef; 
     }
-    else if (def) {
-        //duplicate this sensor, making sure to avoid cloning the entire graph by blocking our parent from being cloned.
-        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[def cloneInContext:def.managedObjectContext exludeEntities:[NSArray arrayWithObject:@"WSCDItem"]];
+    else if (def) {        
+        //NOTE: We can't use cloneInContext here, because we have no context to clone into (or at least we might not). Copy manually.
+        //Create a new temporary item and fill it.
+        NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+        newDef.inactivityTimeout = def.inactivityTimeout;
+        newDef.modalities = def.modalities;
+        newDef.mostRecentSessionId = def.mostRecentSessionId;
+        newDef.name = def.name;
+        newDef.parameterDictionary = def.parameterDictionary;
+        newDef.submodalities = def.submodalities;
+        newDef.uri = def.uri;
+        
         newDef.timeStampLastEdit = [NSDate date];
         subChooser.deviceDefinition = newDef;
     }

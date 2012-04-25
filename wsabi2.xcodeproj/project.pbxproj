@@ -120,6 +120,28 @@
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
+		EA65DF741546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */; };
+		EA65DF751546D835006C826E /* UISegmentOptionsButtonSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */; };
+		EA65DF7B1546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */; };
+		EA65DF7C1546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF781546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png */; };
+		EA65DF7D1546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF791546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png */; };
+		EA65DF7E1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */; };
+		EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */; };
+		EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */; };
+		EA65DF861546FF7A006C826E /* WSAnnotationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DF841546FF7A006C826E /* WSAnnotationController.m */; };
+		EA65DF871546FF7A006C826E /* WSAnnotationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF851546FF7A006C826E /* WSAnnotationController.xib */; };
+		EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */; };
+		EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */; };
+		EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC91548239D006C826E /* WSCDPerson.m */; };
+		EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFCC1548239D006C826E /* WSCDItem.m */; };
+		EA65DFD215483769006C826E /* symbol-notok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCE15483769006C826E /* symbol-notok.png */; };
+		EA65DFD315483769006C826E /* symbol-notok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCF15483769006C826E /* symbol-notok@2x.png */; };
+		EA65DFD415483769006C826E /* symbol-ok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD015483769006C826E /* symbol-ok.png */; };
+		EA65DFD515483769006C826E /* symbol-ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD115483769006C826E /* symbol-ok@2x.png */; };
+		EA65DFEA154870FA006C826E /* capture-button-annotation-warning.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE6154870F9006C826E /* capture-button-annotation-warning.png */; };
+		EA65DFEB154870FA006C826E /* capture-button-annotation-warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE7154870F9006C826E /* capture-button-annotation-warning@2x.png */; };
+		EA65DFEC154870FA006C826E /* capture-button-annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE8154870F9006C826E /* capture-button-annotation.png */; };
+		EA65DFED154870FA006C826E /* capture-button-annotation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE9154870FA006C826E /* capture-button-annotation@2x.png */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
 		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
 		EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */; };
@@ -139,8 +161,6 @@
 		EA939C7F153D909B005BDA47 /* black-Linen.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939C7E153D909B005BDA47 /* black-Linen.png */; };
 		EA939CA5153DAD4C005BDA47 /* personcell-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */; };
 		EA939CA6153DAD4C005BDA47 /* personcell-bg-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */; };
-		EA939CAD153DAEAC005BDA47 /* wsabi-title.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CAB153DAEAC005BDA47 /* wsabi-title.png */; };
-		EA939CAE153DAEAC005BDA47 /* wsabi-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CAC153DAEAC005BDA47 /* wsabi-title@2x.png */; };
 		EA939CCC153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CC4153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png */; };
 		EA939CCD153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CC4153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png */; };
 		EA939CCE153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939CC5153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png */; };
@@ -194,9 +214,10 @@
 		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
 		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
 		EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */; };
-		EACA8C2014F7D50200A3975A /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C1F14F7D50200A3975A /* WSCDPerson.m */; };
-		EACA8C2314F7D50200A3975A /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C2214F7D50200A3975A /* WSCDItem.m */; };
-		EACA8C2614F7D50200A3975A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */; };
+		EAE99C361548785F00104679 /* wsabi-title.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE99C341548785F00104679 /* wsabi-title.png */; };
+		EAE99C371548785F00104679 /* wsabi-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE99C351548785F00104679 /* wsabi-title@2x.png */; };
+		EAE99C3E15487CAD00104679 /* warning-small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE99C3C15487CAD00104679 /* warning-small.png */; };
+		EAE99C3F15487CAD00104679 /* warning-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE99C3D15487CAD00104679 /* warning-small@2x.png */; };
 		EAF0F97714BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
 		EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
 		EAF0F97B14BC7B8C00544416 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */; };
@@ -360,6 +381,34 @@
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLXMLMap.h; sourceTree = "<group>"; };
 		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLXMLMap.m; sourceTree = "<group>"; };
+		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
+		EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSilver@2x.png"; sourceTree = "<group>"; };
+		EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonDark@2x.png"; sourceTree = "<group>"; };
+		EA65DF781546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonDarkPressed@2x.png"; sourceTree = "<group>"; };
+		EA65DF791546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonNormal@2x.png"; sourceTree = "<group>"; };
+		EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
+		EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button-selected@2x.png"; sourceTree = "<group>"; };
+		EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button@2x.png"; sourceTree = "<group>"; };
+		EA65DF831546FF7A006C826E /* WSAnnotationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAnnotationController.h; sourceTree = "<group>"; };
+		EA65DF841546FF7A006C826E /* WSAnnotationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAnnotationController.m; sourceTree = "<group>"; };
+		EA65DF851546FF7A006C826E /* WSAnnotationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSAnnotationController.xib; sourceTree = "<group>"; };
+		EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FlipTransition.h"; sourceTree = "<group>"; };
+		EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlipTransition.m"; sourceTree = "<group>"; };
+		EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "wsabi2-4.25.2012.0817.xcdatamodel"; sourceTree = "<group>"; };
+		EA65DFC51548239D006C826E /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA65DFC81548239D006C826E /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EA65DFC91548239D006C826E /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
+		EA65DFCB1548239D006C826E /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EA65DFCC1548239D006C826E /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EA65DFCE15483769006C826E /* symbol-notok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok.png"; sourceTree = "<group>"; };
+		EA65DFCF15483769006C826E /* symbol-notok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok@2x.png"; sourceTree = "<group>"; };
+		EA65DFD015483769006C826E /* symbol-ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-ok.png"; sourceTree = "<group>"; };
+		EA65DFD115483769006C826E /* symbol-ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-ok@2x.png"; sourceTree = "<group>"; };
+		EA65DFE6154870F9006C826E /* capture-button-annotation-warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation-warning.png"; sourceTree = "<group>"; };
+		EA65DFE7154870F9006C826E /* capture-button-annotation-warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation-warning@2x.png"; sourceTree = "<group>"; };
+		EA65DFE8154870F9006C826E /* capture-button-annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation.png"; sourceTree = "<group>"; };
+		EA65DFE9154870FA006C826E /* capture-button-annotation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation@2x.png"; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
 		EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-disabled.png"; sourceTree = "<group>"; };
@@ -380,8 +429,6 @@
 		EA939C7E153D909B005BDA47 /* black-Linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-Linen.png"; sourceTree = "<group>"; };
 		EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected.png"; sourceTree = "<group>"; };
 		EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcell-bg-selected@2x.png"; sourceTree = "<group>"; };
-		EA939CAB153DAEAC005BDA47 /* wsabi-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wsabi-title.png"; sourceTree = "<group>"; };
-		EA939CAC153DAEAC005BDA47 /* wsabi-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wsabi-title@2x.png"; sourceTree = "<group>"; };
 		EA939CC4153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButton@2x.png"; sourceTree = "<group>"; };
 		EA939CC5153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonDark@2x.png"; sourceTree = "<group>"; };
 		EA939CC6153DBF37005BDA47 /* UINavigationBarDoneButtonPressedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonPressedSilver@2x.png"; sourceTree = "<group>"; };
@@ -414,12 +461,10 @@
 		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPersonTableViewCell.m; sourceTree = "<group>"; };
 		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSItemGridCell.h; sourceTree = "<group>"; };
 		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSItemGridCell.m; sourceTree = "<group>"; };
-		EACA8C1E14F7D50200A3975A /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EACA8C1F14F7D50200A3975A /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EACA8C2114F7D50200A3975A /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EACA8C2214F7D50200A3975A /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
-		EACA8C2414F7D50200A3975A /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EAE99C341548785F00104679 /* wsabi-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wsabi-title.png"; sourceTree = "<group>"; };
+		EAE99C351548785F00104679 /* wsabi-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wsabi-title@2x.png"; sourceTree = "<group>"; };
+		EAE99C3C15487CAD00104679 /* warning-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning-small.png"; sourceTree = "<group>"; };
+		EAE99C3D15487CAD00104679 /* warning-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning-small@2x.png"; sourceTree = "<group>"; };
 		EAF0F97214BC7B8C00544416 /* wsabi2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wsabi2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF0F97614BC7B8C00544416 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAF0F97814BC7B8C00544416 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -530,6 +575,8 @@
 		EA277B0114EABF2E002484CF /* from iOS SDK */ = {
 			isa = PBXGroup;
 			children = (
+				EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */,
+				EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */,
 				EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */,
 				EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */,
 				EA939CDC153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButton@2x.png */,
@@ -542,6 +589,12 @@
 				EA939CC9153DBF37005BDA47 /* UINavigationBarRemoveButtonDark@2x.png */,
 				EA939CCA153DBF37005BDA47 /* UINavigationBarSilverButton@2x.png */,
 				EA939CCB153DBF37005BDA47 /* UINavigationBarSilverButtonPressed@2x.png */,
+				EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */,
+				EA65DF781546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png */,
+				EA65DF791546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png */,
+				EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */,
+				EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */,
+				EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */,
 			);
 			name = "from iOS SDK";
 			sourceTree = "<group>";
@@ -655,6 +708,10 @@
 				EA2D1D8414FD1F8D007CB41F /* Symbolicons */,
 				EA277B0D14EADA59002484CF /* Blank.png */,
 				EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */,
+				EA65DFE6154870F9006C826E /* capture-button-annotation-warning.png */,
+				EA65DFE7154870F9006C826E /* capture-button-annotation-warning@2x.png */,
+				EA65DFE8154870F9006C826E /* capture-button-annotation.png */,
+				EA65DFE9154870FA006C826E /* capture-button-annotation@2x.png */,
 				EA939CEE153DDCA2005BDA47 /* cell-drop-shadow-down.png */,
 				EA939CEF153DDCA3005BDA47 /* cell-drop-shadow-down@2x.png */,
 				EA939CF0153DDCA3005BDA47 /* cell-drop-shadow-up.png */,
@@ -678,8 +735,14 @@
 				EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */,
 				EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */,
 				EA8A046B14C7599A00199FF8 /* plus-button.png */,
-				EA939CAB153DAEAC005BDA47 /* wsabi-title.png */,
-				EA939CAC153DAEAC005BDA47 /* wsabi-title@2x.png */,
+				EA65DFCE15483769006C826E /* symbol-notok.png */,
+				EA65DFCF15483769006C826E /* symbol-notok@2x.png */,
+				EA65DFD015483769006C826E /* symbol-ok.png */,
+				EA65DFD115483769006C826E /* symbol-ok@2x.png */,
+				EAE99C3C15487CAD00104679 /* warning-small.png */,
+				EAE99C3D15487CAD00104679 /* warning-small@2x.png */,
+				EAE99C341548785F00104679 /* wsabi-title.png */,
+				EAE99C351548785F00104679 /* wsabi-title@2x.png */,
 				EA939CE8153DC2FC005BDA47 /* x.png */,
 				EA939CE9153DC2FC005BDA47 /* x@2x.png */,
 				EA277B0114EABF2E002484CF /* from iOS SDK */,
@@ -706,6 +769,8 @@
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
 				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
+				EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */,
+				EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -725,13 +790,13 @@
 		EA8E447214BC9C18007D9B43 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA65DFCB1548239D006C826E /* WSCDItem.h */,
+				EA65DFCC1548239D006C826E /* WSCDItem.m */,
+				EA65DFC81548239D006C826E /* WSCDPerson.h */,
+				EA65DFC91548239D006C826E /* WSCDPerson.m */,
+				EA65DFC51548239D006C826E /* WSCDDeviceDefinition.h */,
+				EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */,
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EACA8C2414F7D50200A3975A /* WSCDDeviceDefinition.h */,
-				EACA8C2514F7D50200A3975A /* WSCDDeviceDefinition.m */,
-				EACA8C2114F7D50200A3975A /* WSCDItem.h */,
-				EACA8C2214F7D50200A3975A /* WSCDItem.m */,
-				EACA8C1E14F7D50200A3975A /* WSCDPerson.h */,
-				EACA8C1F14F7D50200A3975A /* WSCDPerson.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -833,6 +898,9 @@
 				EA2D1D5B14FC17D4007CB41F /* Network communication */,
 				EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */,
 				EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */,
+				EA65DF831546FF7A006C826E /* WSAnnotationController.h */,
+				EA65DF841546FF7A006C826E /* WSAnnotationController.m */,
+				EA65DF851546FF7A006C826E /* WSAnnotationController.xib */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
 				EA2D105214D7344300C23365 /* WSBiographicalDataController.h */,
@@ -993,8 +1061,6 @@
 				EA939C7F153D909B005BDA47 /* black-Linen.png in Resources */,
 				EA939CA5153DAD4C005BDA47 /* personcell-bg-selected.png in Resources */,
 				EA939CA6153DAD4C005BDA47 /* personcell-bg-selected@2x.png in Resources */,
-				EA939CAD153DAEAC005BDA47 /* wsabi-title.png in Resources */,
-				EA939CAE153DAEAC005BDA47 /* wsabi-title@2x.png in Resources */,
 				EA939CCC153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png in Resources */,
 				EA939CCE153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png in Resources */,
 				EA939CD0153DBF37005BDA47 /* UINavigationBarDoneButtonPressedSilver@2x.png in Resources */,
@@ -1019,6 +1085,27 @@
 				EA939D1C153DF525005BDA47 /* gloss_114@2x.png in Resources */,
 				EA939D26153DFBC5005BDA47 /* item-cell-shadow-selected.png in Resources */,
 				EA939D28153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */,
+				EA65DF741546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png in Resources */,
+				EA65DF751546D835006C826E /* UISegmentOptionsButtonSilver@2x.png in Resources */,
+				EA65DF7B1546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png in Resources */,
+				EA65DF7C1546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png in Resources */,
+				EA65DF7D1546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png in Resources */,
+				EA65DF7E1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png in Resources */,
+				EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */,
+				EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */,
+				EA65DF871546FF7A006C826E /* WSAnnotationController.xib in Resources */,
+				EA65DFD215483769006C826E /* symbol-notok.png in Resources */,
+				EA65DFD315483769006C826E /* symbol-notok@2x.png in Resources */,
+				EA65DFD415483769006C826E /* symbol-ok.png in Resources */,
+				EA65DFD515483769006C826E /* symbol-ok@2x.png in Resources */,
+				EA65DFEA154870FA006C826E /* capture-button-annotation-warning.png in Resources */,
+				EA65DFEB154870FA006C826E /* capture-button-annotation-warning@2x.png in Resources */,
+				EA65DFEC154870FA006C826E /* capture-button-annotation.png in Resources */,
+				EA65DFED154870FA006C826E /* capture-button-annotation@2x.png in Resources */,
+				EAE99C361548785F00104679 /* wsabi-title.png in Resources */,
+				EAE99C371548785F00104679 /* wsabi-title@2x.png in Resources */,
+				EAE99C3E15487CAD00104679 /* warning-small.png in Resources */,
+				EAE99C3F15487CAD00104679 /* warning-small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,9 +1189,6 @@
 				EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */,
 				EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */,
 				EA277B1214EBDFBA002484CF /* WSDeviceSetupController.m in Sources */,
-				EACA8C2014F7D50200A3975A /* WSCDPerson.m in Sources */,
-				EACA8C2314F7D50200A3975A /* WSCDItem.m in Sources */,
-				EACA8C2614F7D50200A3975A /* WSCDDeviceDefinition.m in Sources */,
 				EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */,
 				EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */,
 				EA2D1D4314FBD526007CB41F /* ASIDataDecompressor.m in Sources */,
@@ -1141,6 +1225,11 @@
 				EA28CF1F153C4E7900A2F558 /* GMGridViewLayoutStrategies.m in Sources */,
 				EA28CF21153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF23153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
+				EA65DF861546FF7A006C826E /* WSAnnotationController.m in Sources */,
+				EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */,
+				EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */,
+				EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */,
+				EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1371,9 +1460,10 @@
 		EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */,
 				EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */,
 			);
-			currentVersion = EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */;
+			currentVersion = EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */;
 			path = wsabi2.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

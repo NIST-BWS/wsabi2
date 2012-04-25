@@ -7,6 +7,7 @@
 //
 
 #import "WSDeviceSetupController.h"
+#import "WSAppDelegate.h"
 
 #define STATUS_CONTAINER_HEIGHT 95
 
@@ -216,13 +217,28 @@
     //Store the device definition in the item at this point.
     self.item.modality = [WSModalityMap stringForModality:self.modality];
     self.item.submodality = [WSModalityMap stringForCaptureType:self.submodality];
+    
+    //If necessary, insert both the item and its device definition into the real context, which
+    //we'll have to get from the app delegate.
+    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+
+    if (!self.item.managedObjectContext) {
+        [moc insertObject:self.item];
+    }
+    if (!self.deviceDefinition.managedObjectContext) {
+        [moc insertObject:self.deviceDefinition];
+    }
+    
+    //connect the device definition and the item.
     self.item.deviceConfig = self.deviceDefinition;
+    
+    
     
     [self dismissModalViewControllerAnimated:YES];
     
     //post a notification to hide the device chooser and return to the previous state
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHideWalkthroughNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCompleteWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];
     
@@ -336,7 +352,7 @@
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.leftLabel.font = [UIFont boldSystemFontOfSize:17];
+        cell.leftLabel.font = [UIFont boldSystemFontOfSize:15];
         cell.rightTextField.font = [UIFont systemFontOfSize:15];
         cell.rightTextField.placeholder = @"";
         

@@ -16,6 +16,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize popoverController;
 @synthesize tableView;
+@synthesize dropShadowView;
 @synthesize addFirstButton;
 
 - (void)didReceiveMemoryWarning
@@ -32,15 +33,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
         
     //set the table view background
-    self.tableView.backgroundColor = [UIColor grayColor]; //[UIColor colorWithPatternImage:[UIImage imageNamed:@"square_bg"]];
+    //self.tableView.backgroundColor = [UIColor grayColor]; //[UIColor colorWithPatternImage:[UIImage imageNamed:@"square_bg"]];
     
     //Set up the nav bar.
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:32/255.0 green:32/255.0 blue:32/255.0 alpha:1.0]];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:32/255.0 green:32/255.0 blue:32/255.0 alpha:1.0]];
 
     UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wsabi-title"]];
     self.navigationItem.titleView = titleView;
     [[UINavigationBar appearanceWhenContainedIn:[self class], nil] setTitleVerticalPositionAdjustment:-4 forBarMetrics:UIBarMetricsDefault];
 
+    self.dropShadowView.image = [[UIImage imageNamed:@"cell-drop-shadow-down"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
+    
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
     self.popoverController.delegate = self;
@@ -58,9 +61,15 @@
                                                  name:kShowWalkthroughNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didHideSensorWalkthrough:)
-                                                 name:kHideWalkthroughNotification
+                                             selector:@selector(didCompleteSensorWalkthrough:)
+                                                 name:kCompleteWalkthroughNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didCancelSensorWalkthrough:)
+                                                 name:kCancelWalkthroughNotification
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(startItemCapture:)
                                                  name:kStartCaptureNotification
@@ -69,7 +78,7 @@
                                              selector:@selector(stopItemCapture:)
                                                  name:kStopCaptureNotification
                                                object:nil];
-
+    
 }
 
 - (void)viewDidUnload
@@ -125,7 +134,6 @@
         chooser.modality = [WSModalityMap modalityForString:item.modality];
         chooser.submodality = [WSModalityMap captureTypeForString:item.submodality];
         
-        chooser.walkthroughDelegate = self;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
@@ -138,7 +146,6 @@
         //show the full selection walkthrough
         WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
         chooser.item = [notification.userInfo objectForKey:kDictKeyTargetItem];
-        chooser.walkthroughDelegate = self;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
@@ -150,15 +157,33 @@
     }
 }
 
--(void) didHideSensorWalkthrough:(NSNotification*)notification
+-(void) didCompleteSensorWalkthrough:(NSNotification*)notification
 {
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
+    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    
+    //if this is a newly created item, it will have just been added to the real managed
+    //object context. Connect it to the current person.
+    if (!sourceItem.person) {
+        sourceItem.person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    }
+
     //launch the popover for the correct item.
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell showCapturePopoverForItem:[notification.userInfo objectForKey:kDictKeyTargetItem]];
+    [activeCell showCapturePopoverForItem:sourceItem];
 }
+
+-(void) didCancelSensorWalkthrough:(NSNotification*)notification
+{
+    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    
+    //just launch the popover for the correct item.
+    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [activeCell showCapturePopoverForItem:sourceItem];
+}
+
 
 -(void) startItemCapture:(NSNotification *)notification
 {
@@ -565,8 +590,7 @@
         [self.managedObjectContext deleteObject:oldPerson];
     }
 }
-
-#pragma mark - Device Config walkthrough delegate
+#pragma mark - Device Config walkthrough delegate (OBSOLETED??)
 -(void) didCancelDeviceConfigWalkthrough:(WSCDItem*)sourceItem
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
@@ -577,13 +601,14 @@
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell showCapturePopoverForItem:sourceItem];
-}
+    
+ }
 
 #pragma mark - UIPopoverController delegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell deselectAllItems]; //clear selection
+    [activeCell deselectAllItems:nil]; //clear selection
     [self.view logPopoverHidden];
 }
 

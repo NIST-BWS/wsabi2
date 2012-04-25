@@ -85,7 +85,11 @@
 -(IBAction) cancelButtonPressed:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES];
-    [walkthroughDelegate didCancelDeviceConfigWalkthrough:self.item];
+    //post a notification to hide the device chooser and return to the previous state
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 

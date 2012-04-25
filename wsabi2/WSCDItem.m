@@ -2,7 +2,7 @@
 //  WSCDItem.m
 //  wsabi2
 //
-//  Created by Matt Aronoff on 2/24/12.
+//  Created by Matt Aronoff on 4/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -22,6 +22,7 @@
 @dynamic submodality;
 @dynamic thumbnail;
 @dynamic timeStampCreated;
+@dynamic annotations;
 @dynamic deviceConfig;
 @dynamic person;
 

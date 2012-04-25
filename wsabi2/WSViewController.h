@@ -30,7 +30,9 @@
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;
--(void) didHideSensorWalkthrough:(NSNotification*)notification;
+-(void) didCompleteSensorWalkthrough:(NSNotification*)notification;
+-(void) didCancelSensorWalkthrough:(NSNotification*)notification;
+
 -(void) startItemCapture:(NSNotification*)notification;
 -(void) stopItemCapture:(NSNotification*)notification;
 
@@ -40,6 +42,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) UIPopoverController *popoverController;
+
+@property (strong, nonatomic) IBOutlet UIImageView *dropShadowView;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *addFirstButton;

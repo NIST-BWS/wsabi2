@@ -16,7 +16,7 @@
 	[super layoutSubviews];
 	CGRect origFrame = self.contentView.frame;
 	if (leftLabel.text != nil) {
-		leftLabel.frame = CGRectMake(origFrame.origin.x, origFrame.origin.y, 150, origFrame.size.height-1);
+		leftLabel.frame = CGRectMake(origFrame.origin.x+12, origFrame.origin.y, 150, origFrame.size.height-1);
 		rightTextField.frame = CGRectMake(origFrame.origin.x+165, origFrame.origin.y, origFrame.size.width-180, origFrame.size.height-1);
 	} else {
 		leftLabel.hidden = YES;

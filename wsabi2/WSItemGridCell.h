@@ -22,6 +22,7 @@
 @interface WSItemGridCell : GMGridViewCell <UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
+    NSMutableArray *currentAnnotationArray;
 }
 
 //-(void) deleteButtonPressed:(id)sender;
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *shadowView;
-@property (nonatomic, strong) UIImageView *glossView; //not currently used.
+@property (nonatomic, strong) UIImageView *annotationView;
 
 @property (nonatomic) BOOL active;
 @property (nonatomic) BOOL selected;

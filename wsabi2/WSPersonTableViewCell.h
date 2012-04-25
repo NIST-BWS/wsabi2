@@ -34,11 +34,11 @@
     
     UIActionSheet *deletePersonSheet;
     UIActionSheet *deleteItemSheet;
-    
-    UIViewController *testVC;
-    
+        
     UIColor *normalBGColor;
     UIColor *selectedBGColor;
+    
+    int selectedIndex;
 }
 
 -(void) updateData;
@@ -55,9 +55,10 @@
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
--(void) deselectAllItems;
+-(void) deselectAllItems:(WSItemGridCell*)exceptThisOne;
 
 //Notification handlers
+-(void) didChangeItem:(NSNotification*)notification;
 -(void) handleDownloadPosted:(NSNotification*)notification;
 
 @property (nonatomic, strong) UIPopoverController *popoverController;
@@ -74,6 +75,10 @@
 @property (nonatomic, strong) IBOutlet UIView *customSelectedBackgroundView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowUpView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowDownView;
+
+@property (nonatomic, strong) IBOutlet UIView *inactiveOverlayView;
+@property (nonatomic, strong) IBOutlet UIView *separatorView;
+
 
 @property (nonatomic, unsafe_unretained) id<WSPersonTableViewCellDelegate> delegate;
 

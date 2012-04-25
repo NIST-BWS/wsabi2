@@ -13,7 +13,7 @@
 @synthesize item;
 @synthesize imageView;
 @synthesize shadowView;
-@synthesize glossView;
+@synthesize annotationView;
 @synthesize active;
 @synthesize selected;
 
@@ -35,6 +35,26 @@
         // Initialization code
     }
     return self;
+}
+
+#pragma mark - Internal convenience methods
+-(BOOL) hasAnnotationOrNotes
+{
+    if (self.item.notes && ![self.item.notes isEqualToString:@""]) {
+        return YES;
+    }
+    
+    if (!currentAnnotationArray) {
+        return NO;
+    }
+    
+    for (NSNumber *val in currentAnnotationArray) {
+        if ([val boolValue]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 -(void) layoutSubviews
@@ -61,12 +81,16 @@
         self.imageView.frame = view.bounds;
         [self.contentView addSubview:self.imageView];
         
-//        self.glossView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"gloss_114"]];
-//        self.glossView.alpha = 1;
-//        [self.contentView addSubview:self.glossView];
+        self.annotationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning-small"]];
+        self.annotationView.frame = CGRectMake(80,0,34,34);
+        [self.contentView addSubview:self.annotationView];
+        self.annotationView.hidden = ![self hasAnnotationOrNotes];
         
         self.deleteButtonIcon = [UIImage imageNamed:@"DeleteRed"];
         self.deleteButtonOffset = CGPointMake(37, 37);
+        self.deleteButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.deleteButton.layer.shadowOpacity = 0.7;
+        self.deleteButton.layer.shadowOffset = CGSizeMake(0,2);
         
         //enable logging for this object.
         //self.touchLoggingEnabled = YES;
@@ -79,15 +103,31 @@
 }
 
 -(void) setItem:(WSCDItem *)newItem
-{
+{    
+    
+    item = newItem;
+
     if (newItem.data) {
         self.imageView.image = [UIImage imageWithData:newItem.thumbnail];
     }
     else {
         self.imageView.image = nil;
     }
+    
+    //store the annotation array locally for performance.
+    if (item.annotations) {
+        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
+    }
+    else {
+        //If there isn't an annotation array, create and fill one.
+        int maximumAnnotations = 4;
+        currentAnnotationArray = [[NSMutableArray alloc] initWithCapacity:maximumAnnotations]; //the largest (current) submodality
+        for (int i = 0; i < maximumAnnotations; i++) {
+            [currentAnnotationArray addObject:[NSNumber numberWithBool:NO]];
+        }
+    }
 
-    item = newItem;
+
 }
 
 -(void) setSelected:(BOOL)sel

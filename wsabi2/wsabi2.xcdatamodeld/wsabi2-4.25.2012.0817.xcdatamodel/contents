@@ -12,6 +12,7 @@
         <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WSCDItem" inverseName="deviceConfig" inverseEntity="WSCDItem" syncable="YES"/>
     </entity>
     <entity name="WSCDItem" representedClassName="WSCDItem" syncable="YES">
+        <attribute name="annotations" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="captureMetadata" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>

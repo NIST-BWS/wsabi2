@@ -18,13 +18,18 @@
 #define kFastFadeAnimationDuration 0.1
 #define kMediumFadeAnimationDuration 0.3
 #define kSlowFadeAnimationDuration 0.6
+#define kFlipAnimationDuration 0.4
 
 #define kTableViewContentsAnimationDuration 0.2
 
 #define kShowWalkthroughNotification @"showWalkthrough"
-#define kHideWalkthroughNotification @"hideWalkthrough"
+#define kCompleteWalkthroughNotification @"completeWalkthrough"
+#define kCancelWalkthroughNotification @"cancelWalkthrough"
+
 #define kStartCaptureNotification @"startCapture"
 #define kStopCaptureNotification @"stopCapture"
+
+#define kChangedWSCDItemNotification @"changedWSCDItem"
 
 #define kDictKeyTargetItem @"targetItem"
 #define kDictKeySourceID @"sourceObjectID"
