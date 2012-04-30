@@ -30,7 +30,6 @@
 
 @protocol NBCLDeviceLinkDelegate <NSObject>
 
-@optional
 -(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error;
 -(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result;
 -(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID;
@@ -154,8 +153,7 @@
 -(void) beginUnlock:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
 
 //Info
--(void) beginGetCommonInfo:(NSURL*)sourceObjectID;
--(void) beginGetDetailedInfo:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
+-(void) beginGetServiceInfo:(NSURL*)sourceObjectID;
 
 //Initialize
 -(void) beginInitialize:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
@@ -166,11 +164,11 @@
 
 //Capture
 -(void) beginCapture:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
--(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID;
 
 //Download
 -(void) beginDownload:(NSString*)captureId sourceObjectID:(NSURL*)sourceID;
 -(void) beginDownload:(NSString*)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL*)sourceID;
+-(void) beginGetDownloadInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID;
 
 //Cancel
 -(void) beginCancel:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID;
@@ -189,8 +187,7 @@
 -(void) unlockCompleted:(ASIHTTPRequest*)request;
 
 //Info
--(void) getCommonInfoCompleted:(ASIHTTPRequest*)request;
--(void) getInfoCompleted:(ASIHTTPRequest*)request;
+-(void) getServiceInfoCompleted:(ASIHTTPRequest*)request;
 
 //Initialize
 -(void) initializeCompleted:(ASIHTTPRequest*)request;
@@ -201,11 +198,11 @@
 
 //Capture
 -(void) captureCompleted:(ASIHTTPRequest*)request;
--(void) getCaptureInfoCompleted:(ASIHTTPRequest*)request;
 
 //Download
 //-(void) getDownloadInfoCompleted:(WSBDResult*)result;
 -(void) downloadCompleted:(ASIHTTPRequest*)request; //this works for both beginDownload calls
+-(void) getDownloadInfoCompleted:(ASIHTTPRequest*)request;
 
 //-(void) downloadMostRecentCaptureCompleted:(WSBDResult*)result; //convenience method
 

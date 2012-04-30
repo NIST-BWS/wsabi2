@@ -127,7 +127,8 @@
         }
     }
 
-
+    //update the annotation view
+    self.annotationView.hidden = ![self hasAnnotationOrNotes];
 }
 
 -(void) setSelected:(BOOL)sel

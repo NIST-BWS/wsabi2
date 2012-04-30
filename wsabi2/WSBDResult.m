@@ -19,7 +19,7 @@
 @implementation WSBDResult
 
 @synthesize status, message;
-@synthesize sessionId, captureIds, downloadMetadata, config, resultCount, contentType, downloadData;
+@synthesize sessionId, captureIds, metadata, config, resultCount, contentType, downloadData;
 
 +(NSString*)stringForStatusValue:(StatusValue)value
 {

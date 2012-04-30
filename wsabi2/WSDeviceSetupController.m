@@ -11,6 +11,9 @@
 
 #define STATUS_CONTAINER_HEIGHT 95
 
+#define TAG_NETWORK_ADDRESS 1000
+#define TAG_NAME 1001
+
 @implementation WSDeviceSetupController
 
 @synthesize item;
@@ -99,8 +102,33 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     
+    //Set up the basic sensor link.
+    currentLink = [[NBCLDeviceLink alloc] init];
+    currentLink.delegate = self;
+    
+    if (self.deviceDefinition && self.deviceDefinition.uri) {
+        self.sensorCheckStatus = kStatusChecking;
+        //Start checking this sensor right away.
+        sensorCheckTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                            target:self
+                                                          selector:@selector(checkSensor:) userInfo:self.deviceDefinition.uri
+                                                           repeats:NO];
+    }
+    else {
+        //Start with a blank status section by default
+        self.sensorCheckStatus = kStatusBlank;
+    }
+    
     //enable touch logging for this controller
     [self.view startAutomaticGestureLogging:YES];
+    
+
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    //whatever the reason for disappearing, cancel all of our network operations
+    [currentLink cancelAllOperations];
 }
 
 - (void)viewDidUnload
@@ -198,11 +226,6 @@
                                  break;
                          }
 
-//                         //update the table size
-//                         self.tableView.frame = (sensorCheckStatus == kStatusBlank) ? 
-//                         CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) :
-//                         CGRectMake(0, STATUS_CONTAINER_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_CONTAINER_HEIGHT) ;
-
                      }
                      completion:^(BOOL completed) {
                          
@@ -281,6 +304,18 @@
         }
         if (target) {
             [self.navigationController popToViewController:target animated:YES];
+        }
+        else {
+            //We're trying to back up further than we've loaded. Add the full navigation stack.
+            [self dismissViewControllerAnimated:YES completion:^{
+                //Post a notification to show the modality walkthrough starting from device selection.
+                NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,[NSNumber numberWithBool:NO],kDictKeyStartFromDevice,nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
+                                                                    object:self
+                                                                  userInfo:userInfo];
+            }];
+ 
+
         }
     }
     else if (self.sensorCheckStatus == kStatusBadSubmodality) {
@@ -363,11 +398,15 @@
             }
             cell.rightTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             cell.rightTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+            cell.rightTextField.tag = TAG_NETWORK_ADDRESS;
+            cell.rightTextField.delegate = self;
         }
         else if (indexPath.row == 1) {
             cell.leftLabel.text = @"Name";
             if (self.deviceDefinition) {
                 cell.rightTextField.text = self.deviceDefinition.name;
+                cell.rightTextField.tag = TAG_NAME;
+                cell.rightTextField.delegate = nil; //don't listen for changes from this field.
             }
         }
         return cell;
@@ -472,6 +511,231 @@
             if(self.deviceDefinition) self.deviceDefinition.name = string;
         }
     }
+}
+
+#pragma mark - UITextField Delegate methods
+-(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //allow the text change, and fire a delayed action to query the sensor about status.
+    
+    //If the timer is already running, cancel it.
+    if (sensorCheckTimer.isValid) {
+        [sensorCheckTimer invalidate];
+        //update the UI
+        self.sensorCheckStatus = kStatusBlank;
+    }
+    
+    //start a new scheduled timer to fire a sensor check in 3 seconds.
+    NSString *newUri = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    sensorCheckTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                        target:self
+                                                      selector:@selector(checkSensor:) userInfo:newUri
+                                                       repeats:NO];
+        
+    return YES;
+}
+
+#pragma mark - Sensor interaction stuff
+-(void) checkSensor:(NSTimer*)timer
+{
+    if (checkingSensor) {
+        //we're currently in the middle of a check. Cancel it, and start
+        //a new check.
+        //NOTE: We don't care about the return result, so just cancel this op from the client.
+        [currentLink cancelAllOperations];
+    }
+    
+    NSLog(@"checkSensor gets incoming object %@",(NSString*)timer.userInfo);
+    
+    //update the link to use this uri.
+    currentLink.uri = (NSString*)timer.userInfo;
+    
+    //start the metadata call (we're passing our WSCDItem here, but it's mainly
+    //to make sure we don't pass a nil object; at the moment, nothing is done with it.)
+    self.sensorCheckStatus = kStatusChecking;
+    
+    checkingSensor = YES;
+    [currentLink beginGetServiceInfo:[self.item.objectID URIRepresentation]];    
+}
+
+#pragma mark - Device link delegate
+-(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error
+{
+    //we couldn't get hold of the sensor info we expected; set status accordingly.
+    self.sensorCheckStatus = kStatusNotFound;
+    checkingSensor = NO;
+}
+
+-(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+{
+    //we couldn't get hold of the sensor info we expected; set status accordingly.
+    self.sensorCheckStatus = kStatusNotFound;
+    checkingSensor = NO;
+}
+
+-(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+{
+    if (!result || result.status != StatusSuccess || !result.metadata) {
+        //we didn't get a result back, or it didn't give us a metadata dictionary at all.
+        //Since there aren't any parameters to change, treat this as a failure.
+        self.sensorCheckStatus = kStatusNotFound;
+        return;
+    }
+    
+    NSMutableDictionary *serviceMetadata = result.metadata;
+
+    NSLog(@"Service metadata is %@ of class %@",result.metadata.description, [result.metadata class]);
+    
+    //These parameters are described in Appendix A of NIST SP 500-288
+    NSLog(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
+    WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
+    WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
+    
+    if (serviceModalityParam.readOnly) {
+        NSString *serviceModalityDefault = serviceModalityParam.defaultValue;
+        NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
+        
+        if([serviceModalityDefault localizedCaseInsensitiveCompare:
+            [WSModalityMap stringForModality:self.modality]] 
+           != NSOrderedSame)
+        {
+            //This sensor doesn't support the requested modality.
+            self.sensorCheckStatus = kStatusBadModality;
+            NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
+                  serviceModalityDefault);
+        }
+        else if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
+                 [WSModalityMap stringForCaptureType:self.submodality]] 
+                != NSOrderedSame)
+        {
+            //This sensor doesn't support the requested submodality.
+            self.sensorCheckStatus = kStatusBadSubmodality;
+            NSLog(@"Expected submodality %@, got %@",[WSModalityMap stringForCaptureType:self.submodality], serviceSubmodalityDefault);
+        }
+        else {
+            //We're good.
+            self.sensorCheckStatus = kStatusSuccessful;
+        }
+
+    }
+    else {
+        //This has to look at allowedValues, not defaultValue!!
+        NSArray *serviceModalityAllowed = serviceModalityParam.allowedValues;
+        NSArray *serviceSubmodalityAllowed = serviceSubmodalityParam.allowedValues;
+        
+        BOOL modalityOK = NO;
+        for (NSString *mod in serviceModalityAllowed) {
+            if ([mod localizedCaseInsensitiveCompare:
+                 [WSModalityMap stringForModality:self.modality]] 
+                != NSOrderedSame)
+            {
+                modalityOK = YES;
+                break; //we found something, no need to continue.
+            }
+        }
+        
+        if (!modalityOK) {
+            //This sensor doesn't support the requested modality.
+            self.sensorCheckStatus = kStatusBadModality;
+            checkingSensor = NO;
+            return; //skip the other checks
+        }
+        else {
+            //We're good.
+            self.sensorCheckStatus = kStatusSuccessful;
+            checkingSensor = NO;
+            return;
+        }
+
+        
+        BOOL submodalityOK = NO;
+        for (NSString *smod in serviceSubmodalityAllowed) {
+            if ([smod localizedCaseInsensitiveCompare:
+                 [WSModalityMap stringForModality:self.submodality]] 
+                != NSOrderedSame)
+            {
+                submodalityOK = YES;
+                break; //we found something, no need to continue.
+            }
+        }
+        
+        if (!submodalityOK) {
+            //This sensor doesn't support the requested modality.
+            self.sensorCheckStatus = kStatusBadSubmodality;
+            checkingSensor = NO;
+            return; //skip the other checks
+        }
+        else {
+            //We're good.
+            self.sensorCheckStatus = kStatusSuccessful;
+            checkingSensor = NO;
+            return;
+        }
+
+    }
+
+}
+#pragma mark - Empty NBCLDeviceLink delegate methods
+-(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+withResult:(WSBDResult*)result 
+sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) configureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                withResult:(WSBDResult*)result 
+                            sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) connectConfigureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+withResult:(WSBDResult*)result 
+sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+//The array of results in these sequences contains WSBDResults for each captureId.
+//The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
+-(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                           withResults:(NSMutableArray*)results 
+                                        sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) fullSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+withResults:(NSMutableArray*)results 
+sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                 withResult:(WSBDResult*)result 
+                             sourceObjectID:(NSURL*)sourceID
+{
+    
+}
+
+-(void) sequenceDidFail:(SensorSequenceType)sequenceType
+fromLink:(NBCLDeviceLink*)link 
+withResult:(WSBDResult*)result 
+sourceObjectID:(NSURL*)sourceID
+{
+    
 }
 
 @end

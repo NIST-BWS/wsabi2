@@ -243,7 +243,7 @@
         //Post a notification about the status change containing the new value
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          sourceID, kDictKeySourceID,
-                                         currentResult.downloadMetadata, @"metadata",
+                                         currentResult.metadata, @"metadata",
                                          currentResult.downloadData, @"data",
                                          nil];
         
@@ -267,7 +267,9 @@
     [self processDownloadResultsFromLink:link withResults:results sourceObjectID:sourceID];
 }
 
--(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result sourceObjectID:(NSURL *)sourceID shouldReleaseIfSuccessful:(BOOL)shouldRelease;
+-(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+                                 withResult:(WSBDResult*)result 
+                             sourceObjectID:(NSURL*)sourceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:

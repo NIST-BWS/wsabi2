@@ -25,8 +25,10 @@
 
 @end
 
-@interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate,
-                                                    WSBiographicalDataDelegate, WSCaptureDelegate, UIActionSheetDelegate>
+@interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
+                                                    GMGridViewTransformationDelegate, GMGridViewActionDelegate,
+                                                    WSBiographicalDataDelegate, WSCaptureDelegate,
+                                                    UIPopoverControllerDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSMutableArray *orderedItems;

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NBCLDeviceLink.h"
 #import "constants.h"
 #import "WSModalityMap.h"
+#import "WSBDResult.h"
+#import "WSBDParameter.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSCDItem.h"
 #import "ELCTextfieldCellWide.h"
@@ -27,7 +30,18 @@ typedef enum {
 } WSSensorSetupStatusType;
 
 
-@interface WSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface WSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate,
+                                                        UITextFieldDelegate, NBCLDeviceLinkDelegate>
+{
+    BOOL checkingSensor;
+    
+    NSTimer *sensorCheckTimer;
+    
+    //This will be a standalone single link, and won't be connected to 
+    //the device link manager, because we don't want to stomp on existing
+    //communications, and we only need rapid access to one endpoint (/info).
+    NBCLDeviceLink *currentLink; 
+}
 
 -(IBAction)doneButtonPressed:(id)sender;
 -(IBAction)cycleButtonPressed:(id)sender;
@@ -36,6 +50,9 @@ typedef enum {
 -(IBAction)changeCaptureTypeButtonPressed:(id)sender;
 
 -(void) dismissKeyboard:(UITapGestureRecognizer*)recog;
+
+//Sensor interaction stuff
+-(void) checkSensor:(NSTimer*)timer;
 
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) WSCDDeviceDefinition *deviceDefinition;

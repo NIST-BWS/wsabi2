@@ -240,7 +240,7 @@
 
 
 //Info
--(void) beginGetCommonInfo:(NSURL *)sourceObjectID
+-(void) beginGetServiceInfo:(NSURL *)sourceObjectID
 {
 	NSLog(@"Calling beginCommonInfo");
 
@@ -379,7 +379,7 @@
     [self.previewLayer addSublayer:captureInProgressView.layer];
 }
 
--(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL *)sourceID
+-(void) beginGetDownloadInfo:(NSString*)captureId sourceObjectID:(NSURL *)sourceID
 {
 	NSLog(@"Calling beginGetCaptureInfo");
 

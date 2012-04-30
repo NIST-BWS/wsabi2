@@ -42,7 +42,7 @@ typedef enum {
 
 	NSString *sessionId;
 	NSMutableArray *captureIds;
-	NSMutableDictionary *downloadMetadata;
+	NSMutableDictionary *metadata;
 	NSMutableDictionary *config;
 	int resultCount;
 	NSString *contentType;
@@ -58,7 +58,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *sessionId;
 @property (nonatomic, strong) NSMutableArray *captureIds;
 
-@property (nonatomic, strong) NSMutableDictionary *downloadMetadata;
+@property (nonatomic, strong) NSMutableDictionary *metadata;
 @property (nonatomic, strong) NSMutableDictionary *config;
 @property (nonatomic) int resultCount;
 @property (nonatomic, strong) NSString *contentType;

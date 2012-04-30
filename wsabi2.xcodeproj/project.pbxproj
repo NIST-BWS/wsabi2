@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */; };
 		EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
 		EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
 		EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AD1536162000693D86 /* UIImage+Resize.m */; };
@@ -247,6 +248,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA045284154EBA63007577B6 /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
+		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
 		EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		EA0DB8AC1536162000693D86 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -755,6 +758,8 @@
 			children = (
 				EA8A051614C8938A00199FF8 /* NSManagedObject+DeepCopy.h */,
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
+				EA045284154EBA63007577B6 /* NSObject+GCDBlocks.h */,
+				EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
 				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
@@ -1230,6 +1235,7 @@
 				EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */,
 				EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */,
 				EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */,
+				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

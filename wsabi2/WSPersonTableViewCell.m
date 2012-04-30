@@ -35,6 +35,7 @@
     if (!initialLayoutComplete) {
         
         deletableItem = -1;
+        selectedIndex = -1;
         
         //configure UI elements
 //        self.biographicalDataButton.layer.cornerRadius = 8;
@@ -442,7 +443,7 @@
         return; //nothing to do if we don't have this item.
     }
     
-    NSLog(@"Item %@ was changed",item.description);
+    //NSLog(@"Item %@ was changed",item.description);
         
     [self.itemGridView reloadObjectAtIndex:[orderedItems indexOfObject:item] animated:YES];
 }
@@ -473,9 +474,21 @@
 #pragma mark - Called by external classes to clear the selection
 -(void) deselectAllItems:(WSItemGridCell*)exceptThisOne
 {
+    if(!exceptThisOne) {
+        //we're deselecting everything
+        selectedIndex = -1;
+    }
+    
     for (UIView *v in self.itemGridView.subviews) {
         if ([v isKindOfClass:[WSItemGridCell class]]) {
-            ((WSItemGridCell*)v).selected = (((WSItemGridCell*)v) == exceptThisOne);
+            WSItemGridCell *cell = ((WSItemGridCell*)v);
+            if (cell == exceptThisOne) {
+                cell.selected = YES;
+                selectedIndex = [orderedItems indexOfObject:cell.item];
+            }
+            else {
+                cell.selected = NO;
+            }
         }
     }
 }
@@ -511,6 +524,7 @@
     }
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
+    cell.selected = (index == selectedIndex);
     //cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
     cell.tag = GRID_CELL_OFFSET + index;
     return cell;
@@ -532,6 +546,7 @@
             
     //If we found a valid item, launch the capture popover from it.
     if (activeCell) {
+
         WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
         cap.delegate = self;
         cap.item = [orderedItems objectAtIndex:index];
@@ -551,7 +566,7 @@
 
         //allow the user to interact with anything in this cell's grid view while the popover is active.
         self.popoverController.passthroughViews = self.itemGridView.subviews;
-        
+                
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
 
@@ -596,7 +611,7 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
-    
+ 
     WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
     
     if (currentCell.selected) {
@@ -655,6 +670,9 @@
     //disable the gesture recognizers on the main table view.
     ((UITableView*)self.superview).scrollEnabled = NO;
     
+    //hide the popover if it's showing
+    [self.popoverController dismissPopoverAnimated:YES];
+    
     [UIView animateWithDuration:0.3 
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction 
@@ -703,6 +721,9 @@
         WSCDItem *tempItem = [orderedItems objectAtIndex:i];
         tempItem.index = [NSNumber numberWithInt:i];
     }
+    
+    //deselect everything
+    [self deselectAllItems:nil];
     
 }
 

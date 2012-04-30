@@ -442,9 +442,9 @@
 
 
 //Info
--(void) beginGetCommonInfo:(NSURL*)sourceObjectID
+-(void) beginGetServiceInfo:(NSURL*)sourceObjectID
 {
-	NSLog(@"Calling beginCommonInfo");
+	NSLog(@"Calling beginServiceInfo");
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/info",self.uri]]];
 	request.requestMethod = @"GET";
 	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetCommonInfo],@"opType",sourceObjectID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
@@ -452,24 +452,9 @@
     request.timeOutSeconds = self.networkTimeout;
     request.shouldContinueWhenAppEntersBackground = YES;
 
-	[request setDidFinishSelector:@selector(getCommonInfoCompleted:)];
+	[request setDidFinishSelector:@selector(getServiceInfoCompleted:)];
 	[networkQueue addOperation:request];
 	operationInProgress = kOpTypeGetCommonInfo;
-}
-
--(void) beginGetDetailedInfo:(NSString*)sessionId sourceObjectID:(NSURL*)sourceID
-{
-	NSLog(@"Calling beginGetInfo");
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/info/%@",self.uri, sessionId]]];
-	request.requestMethod = @"GET";
-	request.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetDetailedInfo],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
-	request.delegate = self;
-    request.timeOutSeconds = self.networkTimeout;
-    request.shouldContinueWhenAppEntersBackground = YES;
-
-	[request setDidFinishSelector:@selector(getInfoCompleted:)];
-	[networkQueue addOperation:request];
-	operationInProgress = kOpTypeGetDetailedInfo;
 }
 
 //Initialize
@@ -558,20 +543,6 @@
 	operationInProgress = kOpTypeCapture;
 }
 
--(void) beginGetCaptureInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID
-{
-	NSLog(@"Calling beginGetCaptureInfo");
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/capture/%@",self.uri, captureId]]];
-	request.requestMethod = @"GET";
-	[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetContentType],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
-	request.delegate = self;
-    request.timeOutSeconds = self.networkTimeout;
-    request.shouldContinueWhenAppEntersBackground = YES;
-
-	[request setDidFinishSelector:@selector(getCaptureInfoCompleted:)];
-	[networkQueue addOperation:request];
-    operationInProgress = kOpTypeGetContentType;
-}
 
 
 
@@ -604,6 +575,21 @@
 	[request setDidFinishSelector:@selector(downloadCompleted:)];
 	[networkQueue addOperation:request];
 	operationInProgress = kOpTypeThriftyDownload;
+}
+
+-(void) beginGetDownloadInfo:(NSString*)captureId sourceObjectID:(NSURL*)sourceID
+{
+	NSLog(@"Calling beginGetDownloadInfo");
+	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/download/%@",self.uri, captureId]]];
+	request.requestMethod = @"GET";
+	[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kOpTypeGetContentType],@"opType",sourceID,kDictKeySourceID,nil]; //we'll use this to identify this operation.
+	request.delegate = self;
+    request.timeOutSeconds = self.networkTimeout;
+    request.shouldContinueWhenAppEntersBackground = YES;
+
+	[request setDidFinishSelector:@selector(getDownloadInfoCompleted:)];
+	[networkQueue addOperation:request];
+    operationInProgress = kOpTypeGetContentType;
 }
 
 //Cancel
@@ -981,9 +967,9 @@
 }
 
 //Info
--(void) getCommonInfoCompleted:(ASIHTTPRequest*)request
+-(void) getServiceInfoCompleted:(ASIHTTPRequest*)request
 {
-	NSLog(@"Completed common info request");
+	NSLog(@"Completed service info request");
 
 	if (![self checkHTTPStatus:request])
 		return;
@@ -992,28 +978,6 @@
         [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
                                   fromLink:self
                              sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
-                                withResult:self.currentWSBDResult];
-    }
-    else {
-        [self sensorOperationFailed:request];
-        
-    }
-    operationInProgress = -1;
-
-}
-
--(void) getInfoCompleted:(ASIHTTPRequest*)request
-{
-	NSLog(@"Completed detailed info request");
-
-	if (![self checkHTTPStatus:request])
-		return;
-    
-	BOOL parseSuccess = [self parseResultData:responseData];
-	if (parseSuccess) {
-        [delegate sensorOperationCompleted:[[request.userInfo objectForKey:@"opType"] intValue] 
-                                  fromLink:self 
-                            sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
                                 withResult:self.currentWSBDResult];
     }
     else {
@@ -1295,7 +1259,7 @@
 
 }
 
--(void) getCaptureInfoCompleted:(ASIHTTPRequest*)request
+-(void) getDownloadInfoCompleted:(ASIHTTPRequest*)request
 {
 	NSLog(@"Completed get capture info request");
 
@@ -1572,7 +1536,8 @@
 	self.currentContainerDictionary = nil;
 	self.currentDictionaryKey = nil;
 	self.currentDictionaryValue = nil;
-
+    self.currentWSBDParameter = nil;
+    
 	self.currentElementName=@"";
 }
 
@@ -1587,8 +1552,8 @@
 		self.currentWSBDResult = [[WSBDResult alloc] init];
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"metadata"] == NSOrderedSame) {
-		self.currentWSBDResult.downloadMetadata = [[NSMutableDictionary alloc] init];
-		self.currentContainerDictionary = self.currentWSBDResult.downloadMetadata;
+		self.currentWSBDResult.metadata = [[NSMutableDictionary alloc] init];
+		self.currentContainerDictionary = self.currentWSBDResult.metadata;
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"configuration"] == NSOrderedSame) {
 		self.currentWSBDResult.config = [[NSMutableDictionary alloc] init];
@@ -1608,8 +1573,8 @@
     
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
 	{
-        //If we're inside a metadata element, this is a WSBDParameter
-        if (self.currentContainerDictionary == self.currentWSBDResult.downloadMetadata) {
+        //If we hit a Parameter-typed element, this is a WSBDParameter
+        if ([[attributeDict objectForKey:@"i:type"] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame) {
             self.currentWSBDParameter = [[WSBDParameter alloc] init];
         }
     }	
@@ -1641,10 +1606,23 @@
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
 	{
-  		self.currentDictionaryValue = self.currentElementValue;
 
-        //We also need to clear the current WSBDParameter value here.
-        self.currentWSBDParameter = nil;
+        if (self.currentWSBDResult.metadata && self.currentWSBDParameter) {
+            
+//            NSLog(@"About to store %@ in the metadata dict under key %@",[self.currentWSBDParameter debugDescription], self.currentDictionaryKey);
+            
+            //store that value in the dictionary
+            [self.currentWSBDResult.metadata setObject:self.currentWSBDParameter forKey:self.currentDictionaryKey];
+            self.currentDictionaryValue = self.currentWSBDParameter;
+
+            //We also need to clear the current WSBDParameter value here.
+            self.currentWSBDParameter = nil;
+        }
+        else {
+            //treat this as a normal element
+            self.currentDictionaryValue = self.currentElementValue;
+        }        
+        
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"item"] == NSOrderedSame)
 	{
@@ -1743,21 +1721,21 @@
     {
         NSString *typeString = nil;
         for (NSString *key in self.currentElementAttributes.allKeys) {
-            if ([key localizedCaseInsensitiveCompare:@"type"] == NSOrderedSame) {
+            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
                 typeString = [self.currentElementAttributes objectForKey:key];
             }
         }
         
         //Get the converted object and store it.
         self.currentWSBDParameter.defaultValue = [NBCLXMLMap objcObjectForXML:currentElementValue ofType:typeString];
-                
+        NSLog(@"Parameter %@ has defaultValue %@",self.currentWSBDParameter.name, self.currentWSBDParameter.defaultValue);
     }
 
     else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"allowedValue"] == NSOrderedSame)
     {
         NSString *typeString = nil;
         for (NSString *key in self.currentElementAttributes.allKeys) {
-            if ([key localizedCaseInsensitiveCompare:@"type"] == NSOrderedSame) {
+            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
                 typeString = [self.currentElementAttributes objectForKey:key];
             }
         }
