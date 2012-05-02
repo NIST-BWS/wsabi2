@@ -167,19 +167,15 @@
 }
 
 #pragma mark - Property accessors
-//-(void) setUri:(NSString *)newUri
-//{
-//    if (uri != newUri) {
-//        [newUri retain];
-//        [uri release];
-//        uri = newUri;
-//    }
-//    
-//    if (![uri hasPrefix:@"http://"]) {
-//         //prepend this prefix if it doesn't exist.
-//        uri = [[@"http://" stringByAppendingString:uri] retain];
-//    }
-//}
+-(void) setUri:(NSString *)newUri
+{
+    uri = newUri;
+    
+    if (![uri hasPrefix:@"http://"]) {
+         //prepend this prefix if it doesn't exist.
+        uri = [@"http://" stringByAppendingString:uri];
+    }
+}
 	
 #pragma mark - Common WS-BD-related operations
 //TODO: Check for more HTTP error codes here.
