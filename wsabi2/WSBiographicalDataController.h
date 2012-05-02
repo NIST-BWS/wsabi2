@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+FirstResponder.h"
 #import "WSCDPerson.h"
 #import "ELCTextfieldCell.h"
 #import "ActionSheetPicker.h"
@@ -56,6 +57,8 @@
     NSArray *eyeColorStrings;
 
 }
+
+-(void) keyboardDidShow:(NSNotification*)notification;
 
 -(void) dobSelected:(NSDate *)selectedDate element:(id)element;
 -(void) genderSelected:(NSNumber *)selectedIndex element:(id)element;

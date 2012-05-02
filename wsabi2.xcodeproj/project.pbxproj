@@ -916,12 +916,12 @@
 				EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */,
 				EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */,
 				EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */,
-				EA277AB914DC5C72002484CF /* Device Config Process */,
 				EA277AB114DC4092002484CF /* WSModalityMap.h */,
 				EA277AB214DC4092002484CF /* WSModalityMap.m */,
 				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
 				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
 				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
+				EA277AB914DC5C72002484CF /* Device Config Process */,
 				EA8E447014BC9C05007D9B43 /* Table View Cells */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
 			);

@@ -751,12 +751,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             //Try to force an unlock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
@@ -861,12 +861,12 @@
 
     }
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
     }
 
     operationInProgress = -1;
@@ -889,12 +889,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         }
         return;
 
@@ -954,12 +954,12 @@
     }
 
     else if (self.sequenceInProgress) {
-        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
         [delegate sequenceDidFail:self.sequenceInProgress
                                fromLink:self
                              withResult:self.currentWSBDResult
                           sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
          ];
+        self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
     }
 
     operationInProgress = -1;
@@ -1006,12 +1006,12 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             //Try to force an unlock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
         }
@@ -1053,8 +1053,6 @@
         }
         else {
             //We've already tried to recover; give up.
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-
             //Release the lock.
             [self beginUnlock:self.currentSessionId 
                sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
@@ -1065,6 +1063,8 @@
                            withResult:self.currentWSBDResult
                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
         }
     }
 
@@ -1112,14 +1112,15 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             //Try to force an unlock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+
         }
         operationInProgress = -1;
         return;
@@ -1165,12 +1166,13 @@
         }
         else {
 
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
             //Try to force an unlock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
 
@@ -1198,12 +1200,13 @@
     else {
         [self sensorOperationFailed:request];
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
         }
         operationInProgress = -1;
         return;
@@ -1243,12 +1246,12 @@
         }
         else {            
 
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                                    fromLink:self
                                  withResult:self.currentWSBDResult
                               sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             //Try to force an unlock
             [self beginUnlock:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
 
@@ -1376,12 +1379,13 @@
         
         //cancel any sequence that was in progress.
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                              fromLink:self
                            withResult:self.currentWSBDResult
                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
         }
 
         
@@ -1396,12 +1400,13 @@
         [self sensorOperationFailed:request];
         
         if (self.sequenceInProgress) {
-            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
             [delegate sequenceDidFail:self.sequenceInProgress
                              fromLink:self
                            withResult:self.currentWSBDResult
                         sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]
              ];
+            self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
         }
 
     }

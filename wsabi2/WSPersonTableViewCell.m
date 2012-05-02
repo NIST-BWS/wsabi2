@@ -340,19 +340,11 @@
         tempItem.index = [NSNumber numberWithInt:[tempItem.index intValue] + 1];
     }
     
-//    [self.person addItemsObject:newCaptureItem];
-//    
-//    //update the local (sorted) data
-//    [self updateData];
-//
-//    //Save the context
-//    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];    
-//    
-//    //animate a reload of the data
-//    [self reloadItemGridAnimated:NO];
-//    
     //leave edit mode if we're in it.
     [self setEditing:NO];
+
+    //dismiss the capture popover
+    [self.popoverController dismissPopoverAnimated:YES];
     
     //launch the sensor walkthrough for this item.
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
@@ -471,6 +463,28 @@
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
+#pragma mark - Capture Controller delegate
+-(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem
+{
+    //find this item, then start capture on the previous item instead.
+    int index = [orderedItems indexOfObject:currentItem];
+    
+    if (index != NSNotFound && index > 0) {
+        [self showCapturePopoverAtIndex:index-1];
+    }
+}
+
+-(void) didRequestCaptureNextItem:(WSCDItem*)currentItem
+{
+    //find this item, then start capture on the next item instead.
+    int index = [orderedItems indexOfObject:currentItem];
+    
+    if (index != NSNotFound && index < ([orderedItems count]-1)) {
+        [self showCapturePopoverAtIndex:index+1];
+    }
+
+}
+
 #pragma mark - Called by external classes to clear the selection
 -(void) deselectAllItems:(WSItemGridCell*)exceptThisOne
 {
@@ -543,10 +557,13 @@
 -(void) showCapturePopoverAtIndex:(int) index
 {
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
-            
+           
     //If we found a valid item, launch the capture popover from it.
     if (activeCell) {
 
+        //Move the highlight to this new cell
+        [self deselectAllItems:activeCell];
+        
         WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
         cap.delegate = self;
         cap.item = [orderedItems objectAtIndex:index];
@@ -564,8 +581,12 @@
         
         self.popoverController.popoverContentSize = cap.view.bounds.size;
 
-        //allow the user to interact with anything in this cell's grid view while the popover is active.
-        self.popoverController.passthroughViews = self.itemGridView.subviews;
+        //allow the user to interact with anything in this cell's grid view while the popover is active, as well
+        //as the add-new-item button.
+        NSMutableArray *passthrough = [NSMutableArray arrayWithArray:self.itemGridView.subviews];
+        [passthrough addObject:self.addButton];
+        
+        self.popoverController.passthroughViews = passthrough;
                 
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
@@ -620,8 +641,6 @@
         [self deselectAllItems:nil];
     }
     else {
-        //deselect everything except this item
-        [self deselectAllItems:currentCell];
         
         [self showCapturePopoverAtIndex:position];
     }

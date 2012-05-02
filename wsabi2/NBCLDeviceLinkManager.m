@@ -302,6 +302,8 @@
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      sourceID, kDictKeySourceID,
+                                     [NSNumber numberWithInt:sequenceType], kDictKeySequenceType,
+                                     [WSBDResult stringForStatusValue:result.status], kDictKeyMessage,
                                      nil];
     if (result) {
         [userInfo setObject:result forKey:@"result"];

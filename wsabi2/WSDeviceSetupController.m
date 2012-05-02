@@ -278,8 +278,25 @@
 
 -(IBAction)checkAgainButtonPressed:(id)sender
 {
-    //set the status back to checking.
-    self.sensorCheckStatus = kStatusChecking;
+    //fire an action to query the sensor about status.
+    
+    //If the timer is already running, cancel it.
+    if (sensorCheckTimer.isValid) {
+        [sensorCheckTimer invalidate];
+        //update the UI
+        self.sensorCheckStatus = kStatusBlank;
+    }
+    
+    //start a new scheduled timer to fire a sensor check in 0.05 seconds.
+
+    //find the network address field
+    ELCTextfieldCellWide *addressCell = (ELCTextfieldCellWide*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    NSString *newUri = addressCell.rightTextField.text;
+    
+    sensorCheckTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                        target:self
+                                                      selector:@selector(checkSensor:) userInfo:newUri
+                                                       repeats:NO];
 }
 
 -(IBAction)editAddressButtonPressed:(id)sender;
@@ -398,6 +415,7 @@
             }
             cell.rightTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             cell.rightTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+            cell.rightTextField.keyboardType = UIKeyboardTypeURL;
             cell.rightTextField.tag = TAG_NETWORK_ADDRESS;
             cell.rightTextField.delegate = self;
         }
@@ -406,6 +424,7 @@
             if (self.deviceDefinition) {
                 cell.rightTextField.text = self.deviceDefinition.name;
                 cell.rightTextField.tag = TAG_NAME;
+                cell.rightTextField.keyboardType = UIKeyboardTypeAlphabet;
                 cell.rightTextField.delegate = nil; //don't listen for changes from this field.
             }
         }
@@ -533,6 +552,11 @@
                                                        repeats:NO];
         
     return YES;
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
 }
 
 #pragma mark - Sensor interaction stuff

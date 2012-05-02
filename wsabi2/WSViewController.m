@@ -162,26 +162,12 @@
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
-    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
-    
-    //if this is a newly created item, it will have just been added to the real managed
-    //object context. Connect it to the current person.
-    if (!sourceItem.person) {
-        sourceItem.person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    }
-
-    //launch the popover for the correct item.
-    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell showCapturePopoverForItem:sourceItem];
 }
 
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification
 {
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
-    //just launch the popover for the correct item.
-    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell showCapturePopoverForItem:sourceItem];
 }
 
 

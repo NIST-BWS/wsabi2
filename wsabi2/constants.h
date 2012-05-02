@@ -33,6 +33,8 @@
 
 #define kDictKeyTargetItem @"targetItem"
 #define kDictKeySourceID @"sourceObjectID"
+#define kDictKeySequenceType @"sequenceType"
+#define kDictKeyMessage @"message"
 #define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"
 
 #define kStringDelimiter @"|"

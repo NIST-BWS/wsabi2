@@ -92,7 +92,8 @@
      WSCaptureButtonStateWaiting,
      WSCaptureButtonStateWaitingRestartCapture,
      */
-        
+    
+    self.userInteractionEnabled = (newState != WSCaptureButtonStateInactive);
      switch (newState) {
          case WSCaptureButtonStateInactive:
              [self setImage:self.inactiveImage forState:UIControlStateNormal];

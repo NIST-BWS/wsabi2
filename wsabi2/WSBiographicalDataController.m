@@ -47,6 +47,10 @@
     
     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
+    
+    //listen for the keyboard
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) 
+                                                 name:UIKeyboardDidShowNotification object:nil]; 
 
 }
 
@@ -87,6 +91,14 @@
     else {
         placesOfBirth = [[NSMutableArray alloc] init];
     }
+}
+
+#pragma mark - Notification handlers
+-(void) keyboardDidShow:(NSNotification*)notification
+{
+    //find first responder, scroll it to visible.
+    UIView *fr = [self.bioDataTable findFirstResponder];
+    [self.bioDataTable scrollRectToVisible:[self.bioDataTable convertRect:fr.frame fromView:fr.superview] animated:YES];
 }
 
 #pragma mark - TableView data source/delegate

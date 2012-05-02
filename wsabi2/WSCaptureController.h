@@ -18,16 +18,18 @@
 
 @protocol WSCaptureDelegate <NSObject>
 
-//-(void) didRequestModalityChangeForItem:(WSCDItem*)item;
-//-(void) didRequestDeviceChangeForItem:(WSCDItem*)item;
+-(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem;
+-(void) didRequestCaptureNextItem:(WSCDItem*)currentItem;
 
 @end
 
-@interface WSCaptureController : UIViewController <UITextViewDelegate>
+@interface WSCaptureController : UIViewController <UITextViewDelegate, UIActionSheetDelegate>
 {
     NBCLDeviceLink *currentLink;
     NSMutableArray *currentAnnotationArray;
     BOOL frontVisible;
+    
+    UIActionSheet *annotateClearActionSheet;
 }
 
 -(IBAction)annotateButtonPressed:(id)sender;
@@ -36,8 +38,12 @@
 -(IBAction)deviceButtonPressed:(id)sender;
 -(IBAction)captureButtonPressed:(id)sender;
 
+-(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
+
 //Notification handlers
 -(void) handleDownloadPosted:(NSNotification*)notification;
+-(void) handleItemChanged:(NSNotification*)notification;
+-(void) handleSensorSequenceFailed:(NSNotification*)notification;
 
 @property (nonatomic, strong) WSCDItem *item;
 

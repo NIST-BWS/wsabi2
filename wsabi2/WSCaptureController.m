@@ -112,12 +112,23 @@
     self.captureButton.waitingMessage = @"Waiting for sensor";
     
     self.captureButton.waitingRestartCaptureMessage = @"Reconnecting to the sensor";
-
+    
     //put a shadow behind the button
     self.captureButton.layer.shadowColor = [UIColor blackColor].CGColor;
     self.captureButton.layer.shadowOpacity = 0.5;
     self.captureButton.layer.shadowRadius = 6;
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
+    
+    //add swipe listeners to the capture button to switch between items.
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
+
+    //Start with the button in the "ready to capture" state
+    self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
     
     //configure the annotation button and panel
     if ([self hasAnnotationOrNotes]) {
@@ -131,11 +142,23 @@
     self.annotationNotesTableView.alwaysBounceVertical = NO;
     
     //add notification listeners
+    
+    //Catch a posted download
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleDownloadPosted:) 
                                                  name:kSensorLinkDownloadPosted
                                                object:nil];
+    //Catch an item change
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleItemChanged:) 
+                                                 name:kChangedWSCDItemNotification
+                                               object:nil];
 
+    //Catch a failed sensor sequence
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleSensorSequenceFailed:) 
+                                                 name:kSensorLinkSequenceFailed
+                                               object:nil];
     
     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
@@ -187,7 +210,20 @@
 #pragma mark - Button Action Methods
 -(IBAction)annotateButtonPressed:(id)sender
 {
-    [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+    if (self.item.data) {
+        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                 destructiveButtonTitle:@"Clear this item"
+                                                      otherButtonTitles:@"Annotate", nil];
+        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        
+        [annotateClearActionSheet showInView:self.view];
+    }
+    else {
+        //just flip to the annotation.
+        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+    }
 }
 
 -(IBAction)doneButtonPressed:(id)sender
@@ -203,6 +239,7 @@
         [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
     }
 
+    //make sure the front container is starting hidden.
     [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:kFlipAnimationDuration completion:nil];
     
     //save the context
@@ -259,10 +296,72 @@
 
     //Update our state (temporarily, just cycle states).
     //self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
+    self.captureButton.state = WSCaptureButtonStateStop;
+}
+                                       
+#pragma mark - Gesture recognizer handlers
+-(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog
+{
+    if (recog.direction == UISwipeGestureRecognizerDirectionLeft) {
+        //go to the previous item
+        [delegate didRequestCapturePreviousItem:self.item];
+    }
+    else if (recog.direction == UISwipeGestureRecognizerDirectionRight) {
+        //go to the next item
+        [delegate didRequestCaptureNextItem:self.item];
+    }
+        
+}
 
+
+#pragma mark - UIActionSheet delegate
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet == annotateClearActionSheet && buttonIndex != actionSheet.cancelButtonIndex) {
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            //This is the clear button. Remove data and set the capture button state.
+            self.item.data = nil;
+            self.item.dataContentType = nil;
+            
+            //Post a notification that this item has changed
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                                      [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            self.captureButton.state = WSCaptureButtonStateCapture;
+        }
+        else {
+            //This is the annotate button. Flip.
+            [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+        }
+    }
 }
 
 #pragma mark - Notification handlers
+-(void) handleItemChanged:(NSNotification*)notification
+{
+    //At the moment, this is mainly used to catch a deletion, but may also be used to catch any time
+    //the item changes out from under us.
+    
+    //Do this in the most simpleminded way possible
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    
+    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+
+    //Catch a change to the item state.
+    if (self.item == targetItem) {
+        if ([info objectForKey:@"data"]) {
+            //the table view is going to take care of editing the actual data, we just need to use
+            //the image.
+            self.itemDataView.image = [UIImage imageWithData:[info objectForKey:@"data"]];
+        }
+        else {
+            self.itemDataView.image = nil;
+        }
+    }
+}
+
 -(void) handleDownloadPosted:(NSNotification*)notification
 {
     //Do this in the most simpleminded way possible
@@ -276,6 +375,40 @@
         self.itemDataView.image = [UIImage imageWithData:[info objectForKey:@"data"]];
     }
     
+    //return the capture state to normal or hidden
+    if(self.itemDataView.image)
+    {
+        self.captureButton.state = WSCaptureButtonStateInactive;
+    }
+    else {
+        self.captureButton.state = WSCaptureButtonStateCapture;
+
+    }
+}
+
+-(void) handleSensorSequenceFailed:(NSNotification *)notification
+{
+    //Do this in the most simpleminded way possible
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    
+//    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+//
+//    //Make sure this applies to us.
+//    if (self.item == targetItem) {
+//        
+        NSString *message = [info objectForKey:kDictKeyMessage];
+        
+        SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
+        
+        if (seq == kSensorSequenceConfigCaptureDownload ||
+            seq == kSensorSequenceCaptureDownload ||
+            seq == kSensorSequenceFull 
+            ) {
+            //This is a failed capture notification, so change our button state.
+            self.captureButton.warningMessage = message ? message : @"Hmmmm... something's up.";
+            self.captureButton.state = WSCaptureButtonStateWarning;
+        }
+//    }
 }
 
 #pragma mark - TableView data source/delegate
@@ -502,6 +635,7 @@
 
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
+    [textView resignFirstResponder];
     [textView logTextViewEnded:nil];
 }
 
