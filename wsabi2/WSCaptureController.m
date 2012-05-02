@@ -80,7 +80,8 @@
         self.captureButton.state = WSCaptureButtonStateInactive;
         
         if (self.item.data) {
-            self.itemDataView.image = [UIImage imageWithData:self.item.data];
+            dataImage = [UIImage imageWithData:self.item.data];
+            self.itemDataView.image = dataImage;
         }
     }
     
@@ -221,7 +222,12 @@
         [annotateClearActionSheet showInView:self.view];
     }
     else {
-        //just flip to the annotation.
+//        //just flip to the annotation.
+//        [UIView transitionFromView:self.frontContainer
+//                            toView:self.backContainer
+//                          duration:kFlipAnimationDuration
+//                           options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionTransitionFlipFromLeft
+//                        completion:nil];
         [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
     }
 }
@@ -239,9 +245,28 @@
         [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
     }
 
-    //make sure the front container is starting hidden.
-    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:kFlipAnimationDuration completion:nil];
-    
+    //just flip to the capture view.
+    //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped
+    //and hidden. This works identically when hiding the view using UIView's built-in transition methods. It works identically
+    //when keeping a reference to the contained UIImage as an ivar as when loading it directly from the WSCDItem. It works identically
+    //when setting the UIImageView to clear its contents and not. For the moment, we'll reset the image manually when it appears.
+    if (self.item.data) {
+        //this makes for a smoother transition.
+        self.itemDataView.backgroundColor = [UIColor darkGrayColor];
+    }
+
+    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:kFlipAnimationDuration 
+                        completion:^(BOOL completed) {
+                            if (self.item.data) {
+                                self.itemDataView.alpha = 0;
+                                self.itemDataView.image = dataImage;
+                                [UIView animateWithDuration:0.1 animations:^{
+                                    self.itemDataView.alpha = 1.0;
+                                    self.itemDataView.backgroundColor = [UIColor whiteColor];
+                                }];
+
+                            }
+                    }];
     //save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 
@@ -332,7 +357,13 @@
             self.captureButton.state = WSCaptureButtonStateCapture;
         }
         else {
-            //This is the annotate button. Flip.
+            //just flip to the annotation.
+//            [UIView transitionFromView:self.frontContainer
+//                                toView:self.backContainer
+//                              duration:kFlipAnimationDuration
+//                               options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionTransitionFlipFromLeft
+//                            completion:^(BOOL finished) {
+//                            }];
             [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
         }
     }
@@ -354,7 +385,8 @@
         if ([info objectForKey:@"data"]) {
             //the table view is going to take care of editing the actual data, we just need to use
             //the image.
-            self.itemDataView.image = [UIImage imageWithData:[info objectForKey:@"data"]];
+            dataImage = [UIImage imageWithData:[info objectForKey:@"data"]];
+            self.itemDataView.image = dataImage;
         }
         else {
             self.itemDataView.image = nil;
@@ -372,7 +404,8 @@
     if (self.item == targetItem && [info objectForKey:@"data"]) {
         //the table view is going to take care of editing the actual data, we just need to use
         //the image.
-        self.itemDataView.image = [UIImage imageWithData:[info objectForKey:@"data"]];
+        dataImage = [UIImage imageWithData:[info objectForKey:@"data"]];
+        self.itemDataView.image = dataImage;
     }
     
     //return the capture state to normal or hidden

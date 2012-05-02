@@ -187,6 +187,7 @@
             self.itemGridView.alpha = 0.3;
             self.customSelectedBackgroundView.backgroundColor = normalBGColor;
             [self deselectAllItems:nil];
+            selectedIndex = -1;
             self.inactiveOverlayView.alpha = 1.0;
             self.separatorView.alpha = 1.0;
         } 

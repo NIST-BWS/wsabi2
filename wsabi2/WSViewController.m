@@ -159,6 +159,13 @@
 
 -(void) didCompleteSensorWalkthrough:(NSNotification*)notification
 {
+    //This won't be attached to anything yet.
+    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
+
+    //get the currently active record and add the item.
+    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [person addItemsObject:sourceItem];
+    
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     

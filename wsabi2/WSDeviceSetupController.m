@@ -241,6 +241,11 @@
     self.item.modality = [WSModalityMap stringForModality:self.modality];
     self.item.submodality = [WSModalityMap stringForCaptureType:self.submodality];
     
+    UITextField *networkField = (UITextField*)[self.tableView viewWithTag:TAG_NETWORK_ADDRESS];
+    self.deviceDefinition.uri = networkField.text;
+    UITextField *nameField = (UITextField*)[self.tableView viewWithTag:TAG_NAME];
+    self.deviceDefinition.name = nameField.text;
+    
     //If necessary, insert both the item and its device definition into the real context, which
     //we'll have to get from the app delegate.
     NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -255,12 +260,10 @@
     //connect the device definition and the item.
     self.item.deviceConfig = self.deviceDefinition;
     
-    
-    
     [self dismissModalViewControllerAnimated:YES];
     
     //post a notification to hide the device chooser and return to the previous state
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
     [[NSNotificationCenter defaultCenter] postNotificationName:kCompleteWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -516,20 +519,20 @@
 
 - (void)updateTextLabelAtIndexPath:(NSIndexPath*)indexPath string:(NSString*)string {
     
-	//NSLog(@"See input: %@ from section: %d row: %d, should update models appropriately", string, indexPath.section, indexPath.row);
-    
-    if (indexPath.section == 0) {
-        //These are all string cells
-        if (indexPath.row == 0) {
-            //update the uri
-            if(self.deviceDefinition) self.deviceDefinition.uri = string;
-        }
-        else if (indexPath.row == 1) {
-            //update the name and the window title.
-            self.title = string;
-            if(self.deviceDefinition) self.deviceDefinition.name = string;
-        }
-    }
+//	//NSLog(@"See input: %@ from section: %d row: %d, should update models appropriately", string, indexPath.section, indexPath.row);
+//    
+//    if (indexPath.section == 0) {
+//        //These are all string cells
+//        if (indexPath.row == 0) {
+//            //update the uri
+//            if(self.deviceDefinition) self.deviceDefinition.uri = string;
+//        }
+//        else if (indexPath.row == 1) {
+//            //update the name and the window title.
+//            self.title = string;
+//            if(self.deviceDefinition) self.deviceDefinition.name = string;
+//        }
+//    }
 }
 
 #pragma mark - UITextField Delegate methods

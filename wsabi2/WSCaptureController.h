@@ -30,6 +30,8 @@
     BOOL frontVisible;
     
     UIActionSheet *annotateClearActionSheet;
+    
+    UIImage *dataImage;
 }
 
 -(IBAction)annotateButtonPressed:(id)sender;
