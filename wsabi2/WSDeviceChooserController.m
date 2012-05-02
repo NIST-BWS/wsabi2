@@ -69,9 +69,11 @@
     
     //FIXME: This is currently disabled, because we'll need to get data from the sensors before
     //being able to filter
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-//                              @"modality contains[cd] %@", [WSModalityMap stringForModality:self.modality]];
-//    [request setPredicate:predicate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"(modalities like %@)",
+                              [WSModalityMap stringForModality:self.modality], 
+                              [WSModalityMap stringForCaptureType:self.submodality]];
+    [request setPredicate:predicate];
     
     //get a sorted list of the recent sensors
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStampLastEdit" ascending:NO];
@@ -84,6 +86,8 @@
     {
         NSLog(@"Couldn't get a list of recent sensors, error was: %@",[error description]);
     }
+    
+    NSLog(@"Found %d recent sensors matching these criteria",[recentSensors count]);
 }
 
 - (void)viewDidUnload

@@ -45,7 +45,12 @@
         normalBGColor = [UIColor clearColor];
         selectedBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black-Linen"]];
         
-        self.biographicalDataInactiveLabel.alpha = self.selected ? 0.0 : 1.0;
+        if (self.selected && (self.person.firstName || self.person.middleName || self.person.lastName)) {
+            self.biographicalDataInactiveLabel.alpha = 1.0;
+        }
+        else {
+            self.biographicalDataInactiveLabel.alpha = 0.0;
+        }
 
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateHighlighted];
@@ -173,7 +178,13 @@
             self.shadowUpView.alpha = 0.0;
             self.shadowDownView.alpha = 0.0;
             self.biographicalDataButton.alpha = 0.0;
-            self.biographicalDataInactiveLabel.alpha = 1.0;
+            //only show the smaller label if there's a name
+            if (self.person.firstName || self.person.middleName || self.person.lastName) {
+                self.biographicalDataInactiveLabel.alpha = 1.0;
+            }
+            else {
+                self.biographicalDataInactiveLabel.alpha = 0.0;
+            }
             self.duplicateRowButton.alpha = 0.0;
             self.addButton.alpha = 0.0;
             self.editButton.alpha = 0.0;
@@ -229,7 +240,7 @@
 
 -(NSString*)biographicalShortName
 {
-    NSString *placeholder = @"no name";
+    NSString *placeholder = @"Tap to set name";
     BOOL foundSomething = NO;
     NSMutableString *result = [[NSMutableString alloc] init];
     

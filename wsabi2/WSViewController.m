@@ -564,6 +564,7 @@
             item.thumbnail = nil;
             item.dataContentType = nil;
             item.captureMetadata = nil;
+            item.annotations = nil;
         }
         
         //Save the context

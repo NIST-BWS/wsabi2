@@ -245,6 +245,11 @@
     self.deviceDefinition.uri = networkField.text;
     UITextField *nameField = (UITextField*)[self.tableView viewWithTag:TAG_NAME];
     self.deviceDefinition.name = nameField.text;
+
+    //For the moment, just set the device definition's modalities and submodalities strings
+    //to the current modality and submodality. This could be expanded for multiple modalities later.
+    self.deviceDefinition.modalities = self.item.modality;
+    self.deviceDefinition.submodalities = self.item.submodality;
     
     //If necessary, insert both the item and its device definition into the real context, which
     //we'll have to get from the app delegate.

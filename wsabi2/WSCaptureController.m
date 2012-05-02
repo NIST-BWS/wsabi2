@@ -155,6 +155,12 @@
                                                  name:kChangedWSCDItemNotification
                                                object:nil];
 
+    //Catch a failed sensor operation
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleSensorOperationFailed:) 
+                                                 name:kSensorLinkOperationFailed
+                                               object:nil];
+
     //Catch a failed sensor sequence
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleSensorSequenceFailed:) 
@@ -419,6 +425,16 @@
     }
 }
 
+-(void) handleSensorOperationFailed:(NSNotification*)notification
+{
+    //Do this in the most simpleminded way possible
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    NSError *error = [info objectForKey:@"error"];
+    
+    self.captureButton.state = WSCaptureButtonStateWarning;
+    self.captureButton.warningMessage = error.description;
+}
+
 -(void) handleSensorSequenceFailed:(NSNotification *)notification
 {
     //Do this in the most simpleminded way possible
@@ -432,15 +448,15 @@
         NSString *message = [info objectForKey:kDictKeyMessage];
         
         SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
-        
-        if (seq == kSensorSequenceConfigCaptureDownload ||
-            seq == kSensorSequenceCaptureDownload ||
-            seq == kSensorSequenceFull 
-            ) {
+//        
+//        if (seq == kSensorSequenceConfigCaptureDownload ||
+//            seq == kSensorSequenceCaptureDownload ||
+//            seq == kSensorSequenceFull 
+//            ) {
             //This is a failed capture notification, so change our button state.
             self.captureButton.warningMessage = message ? message : @"Hmmmm... something's up.";
             self.captureButton.state = WSCaptureButtonStateWarning;
-        }
+//        }
 //    }
 }
 

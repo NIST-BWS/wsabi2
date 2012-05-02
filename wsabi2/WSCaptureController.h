@@ -45,6 +45,7 @@
 //Notification handlers
 -(void) handleDownloadPosted:(NSNotification*)notification;
 -(void) handleItemChanged:(NSNotification*)notification;
+-(void) handleSensorOperationFailed:(NSNotification*)notification;
 -(void) handleSensorSequenceFailed:(NSNotification*)notification;
 
 @property (nonatomic, strong) WSCDItem *item;
