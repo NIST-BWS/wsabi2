@@ -45,13 +45,6 @@
         normalBGColor = [UIColor clearColor];
         selectedBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black-Linen"]];
         
-        if (self.selected && (self.person.firstName || self.person.middleName || self.person.lastName)) {
-            self.biographicalDataInactiveLabel.alpha = 1.0;
-        }
-        else {
-            self.biographicalDataInactiveLabel.alpha = 0.0;
-        }
-
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateNormal];
         [self.duplicateRowButton setBackgroundImage:[[UIImage imageNamed:@"UINavigationBarBlackOpaqueButton"] stretchableImageWithLeftCapWidth:6 topCapHeight:16] forState:UIControlStateHighlighted];
         
@@ -125,6 +118,13 @@
     //Make sure the labels are right.
     self.biographicalDataInactiveLabel.text = [self biographicalShortName];
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
+
+    if (!self.selected && (self.person.firstName || self.person.middleName || self.person.lastName)) {
+        self.biographicalDataInactiveLabel.alpha = 1.0;
+    }
+    else {
+        self.biographicalDataInactiveLabel.alpha = 0.0;
+    }
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
     self.itemGridView.alpha = self.selected ? 1.0 : 0.3;

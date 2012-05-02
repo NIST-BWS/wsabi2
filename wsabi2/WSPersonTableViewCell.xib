@@ -209,13 +209,12 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUITextColor" ref="805251238"/>
-								<nil key="IBUIHighlightedColor"/>
-								<object class="NSColor" key="IBUIShadowColor">
+								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC41MDI0NTIwOTg1AA</bytes>
+									<bytes key="NSWhite">MC43NDg0ODg4MjMAA</bytes>
 								</object>
-								<string key="IBUIShadowOffset">{0, 1}</string>
+								<nil key="IBUIHighlightedColor"/>
+								<reference key="IBUIShadowColor" ref="805251238"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
 								<reference key="IBUIFontDescription" ref="186345660"/>
@@ -267,6 +266,7 @@
 								<string key="NSFrame">{{0, 163}, {768, 1}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
