@@ -43,9 +43,9 @@
 
 //Modality types
 typedef enum {
-	kModalityFace = 0,
+    kModalityFinger = 0,
+	kModalityFace,
     kModalityIris,
-	kModalityFinger,
     kModalityEar,
     kModalityVein,
     kModalityRetina,
