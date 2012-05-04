@@ -31,17 +31,42 @@
     return self;
 }
 
+-(void) layoutGrid {
+    //if the grid has fewer cells than would make a full row, we need to resize the grid.
+    //FIXME: This is because turning off the "centerGrid" property in GMGridView introduces a
+    //LOT of graphical problems.
+    float gridWidth = self.contentView.bounds.size.width - 92 - kItemCellSpacing;
+    float leftOffset = 92;
+    if (leftOffset + kItemCellSpacing + ((kItemCellSize + kItemCellSpacing) * [orderedItems count]) 
+        < self.contentView.bounds.size.width) {
+        gridWidth = 4*kItemCellSpacing + ([orderedItems count] * (kItemCellSize + kItemCellSpacing));
+    }
+    if (self.selected) {
+        self.itemGridView.frame = CGRectMake(92,
+                                             96,
+                                             gridWidth,
+                                             self.contentView.bounds.size.height - 96 - 30 - kItemCellSpacing);
+    }
+    else {
+        self.itemGridView.frame = CGRectMake(92,
+                                             24,
+                                             gridWidth,
+                                             self.contentView.bounds.size.height - 24 - kItemCellSpacing);
+        
+    }
+    
+
+}
+
 -(void) layoutSubviews {
+    [super layoutSubviews];
+
     if (!initialLayoutComplete) {
         
         deletableItem = -1;
         selectedIndex = -1;
         
         //configure UI elements
-//        self.biographicalDataButton.layer.cornerRadius = 8;
-//        self.biographicalDataButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//        self.biographicalDataButton.layer.borderWidth = 2;
-
         normalBGColor = [UIColor clearColor];
         selectedBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black-Linen"]];
         
@@ -77,22 +102,27 @@
         
         //configure and reload the grid view
         //NOTE: The grid view has to be initialized here, because at least for the moment, GMGridView doesn't have an initWithCoder implementation.
-        self.itemGridView = [[GMGridView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height)];
+        //self.itemGridView = [[GMGridView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height)];
+        self.itemGridView = [[GMGridView alloc] initWithFrame:CGRectMake(92, 
+                                                                         2*kItemCellSpacing,
+                                                                         self.contentView.bounds.size.width - 92 - kItemCellSpacing,
+                                                                         self.contentView.bounds.size.height - 3*kItemCellSpacing)];
+        
         self.itemGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         self.itemGridView.backgroundColor = [UIColor clearColor]; //[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.3]; 
         self.itemGridView.style = GMGridViewStylePush;
         self.itemGridView.itemSpacing = kItemCellSpacing;
-        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*kItemCellSpacing, 92, kItemCellSpacing, kItemCellSpacing);
-        self.itemGridView.centerGrid = NO;
+        self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(kItemCellSpacing, kItemCellSpacing, kItemCellSpacing, kItemCellSpacing);
+        //self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*kItemCellSpacing, 92, kItemCellSpacing, kItemCellSpacing);
         self.itemGridView.actionDelegate = self;
         self.itemGridView.sortingDelegate = self;
-        self.itemGridView.transformDelegate = self;
+        //self.itemGridView.transformDelegate = self;
         self.itemGridView.dataSource = self;
         self.itemGridView.userInteractionEnabled = NO; //start with this disabled unless we actively set this cell to selected.
         
-        [self.contentView insertSubview:self.itemGridView aboveSubview:self.customSelectedBackgroundView];
-
+        [self.contentView insertSubview:self.itemGridView aboveSubview:self.duplicateRowButton]; //make sure drag & drop looks right by placing the grid above everything else.
+        
         //configure logging
         [self.itemGridView addLongPressGestureLogging:YES withThreshold:0.3];
         
@@ -129,7 +159,10 @@
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
     self.itemGridView.alpha = self.selected ? 1.0 : 0.3;
     
-    [super layoutSubviews];
+    [self layoutGrid];
+    
+    //make sure the separator stays visible.
+    [self bringSubviewToFront:self.separatorView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -153,16 +186,15 @@
             self.addButton.alpha = 1.0;
             self.editButton.alpha = 1.0;
             self.deleteButton.alpha = 1.0;
-            self.itemGridView.frame = CGRectMake(self.itemGridView.frame.origin.x, 
-                                                 128, 
-                                                 self.itemGridView.frame.size.width,
-                                                 self.bounds.size.height - 128 - 30); //subtract extra space from the height because of the New Person button visible at the bottom.
             //Finally, make sure we're fully visible.
             self.contentView.alpha = 1.0;
+            self.itemGridView.alpha = 1.0;
             //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
             self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
             self.inactiveOverlayView.alpha = 0.0;
             self.separatorView.alpha = 0.0;
+            [self layoutGrid];
+
         }];
         
         //Set up sensor links for each item in this person's record.
@@ -189,10 +221,6 @@
             self.addButton.alpha = 0.0;
             self.editButton.alpha = 0.0;
             self.deleteButton.alpha = 0.0;
-            self.itemGridView.frame = CGRectMake(self.itemGridView.frame.origin.x, 
-                                 12, 
-                                 self.itemGridView.frame.size.width,
-                                 self.bounds.size.height - 24); //Leave a 12-pixel border above and below
 
             //Finally, fade everything partially out.
             self.itemGridView.alpha = 0.3;
@@ -201,6 +229,8 @@
             selectedIndex = -1;
             self.inactiveOverlayView.alpha = 1.0;
             self.separatorView.alpha = 1.0;
+            [self layoutGrid];
+
         } 
          
         ];
@@ -531,7 +561,7 @@
 
 - (CGSize) GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return CGSizeMake(kItemCellSize, kItemCellSize);
+    return CGSizeMake(kItemCellSize, kItemCellSize+kItemCellSizeVerticalAddition);
 }
 
 - (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -769,65 +799,65 @@
 
 }
 
-#pragma mark - DraggableGridViewTransformingDelegate
-- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index inInterfaceOrientation:(UIInterfaceOrientation)orientation;
-{
-    return CGSizeMake(700, 530);
-}
-
-- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index 
-{
-    UIView *fullView = [[UIView alloc] init];
-    fullView.backgroundColor = [UIColor yellowColor];
-    fullView.layer.masksToBounds = NO;
-    fullView.layer.cornerRadius = 8;
-    
-    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index inInterfaceOrientation:UIInterfaceOrientationPortrait];
-    fullView.bounds = CGRectMake(0, 0, size.width, size.height);
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];
-    label.text = [NSString stringWithFormat:@"Fullscreen View for cell at index %d", index];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    label.font = [UIFont boldSystemFontOfSize:20];
-    
-    [fullView addSubview:label];
-    
-    
-    return fullView;
-}
-
-- (void)GMGridView:(GMGridView *)gridView didStartTransformingCell:(GMGridViewCell *)cell
-{
-    [UIView animateWithDuration:0.5 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{
-                         //cell.contentView.backgroundColor = [UIColor blueColor];
-                         cell.contentView.layer.shadowOpacity = 0.7;
-                     } 
-                     completion:nil];
-}
-
-- (void)GMGridView:(GMGridView *)gridView didEndTransformingCell:(GMGridViewCell *)cell
-{
-    [UIView animateWithDuration:0.5 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{
-                         //cell.contentView.backgroundColor = [UIColor redColor];
-                         cell.contentView.layer.shadowOpacity = 0;
-                     } 
-                     completion:nil];
-}
-
-- (void)GMGridView:(GMGridView *)gridView didEnterFullSizeForCell:(UIView *)cell
-{
-    
-}
-
+//#pragma mark - DraggableGridViewTransformingDelegate
+//- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index inInterfaceOrientation:(UIInterfaceOrientation)orientation;
+//{
+//    return CGSizeMake(700, 530);
+//}
+//
+//- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index 
+//{
+//    UIView *fullView = [[UIView alloc] init];
+//    fullView.backgroundColor = [UIColor yellowColor];
+//    fullView.layer.masksToBounds = NO;
+//    fullView.layer.cornerRadius = 8;
+//    
+//    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index inInterfaceOrientation:UIInterfaceOrientationPortrait];
+//    fullView.bounds = CGRectMake(0, 0, size.width, size.height);
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];
+//    label.text = [NSString stringWithFormat:@"Fullscreen View for cell at index %d", index];
+//    label.textAlignment = UITextAlignmentCenter;
+//    label.backgroundColor = [UIColor clearColor];
+//    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    
+//    label.font = [UIFont boldSystemFontOfSize:20];
+//    
+//    [fullView addSubview:label];
+//    
+//    
+//    return fullView;
+//}
+//
+//- (void)GMGridView:(GMGridView *)gridView didStartTransformingCell:(GMGridViewCell *)cell
+//{
+//    [UIView animateWithDuration:0.5 
+//                          delay:0 
+//                        options:UIViewAnimationOptionAllowUserInteraction 
+//                     animations:^{
+//                         //cell.contentView.backgroundColor = [UIColor blueColor];
+//                         cell.contentView.layer.shadowOpacity = 0.7;
+//                     } 
+//                     completion:nil];
+//}
+//
+//- (void)GMGridView:(GMGridView *)gridView didEndTransformingCell:(GMGridViewCell *)cell
+//{
+//    [UIView animateWithDuration:0.5 
+//                          delay:0 
+//                        options:UIViewAnimationOptionAllowUserInteraction 
+//                     animations:^{
+//                         //cell.contentView.backgroundColor = [UIColor redColor];
+//                         cell.contentView.layer.shadowOpacity = 0;
+//                     } 
+//                     completion:nil];
+//}
+//
+//- (void)GMGridView:(GMGridView *)gridView didEnterFullSizeForCell:(UIView *)cell
+//{
+//    
+//}
+//
 
 
 

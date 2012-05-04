@@ -44,6 +44,7 @@
 }
 
 -(void) updateData;
+-(void) layoutGrid;
 -(void) reloadItemGridAnimated:(BOOL)inOrOut;
 -(NSString*)biographicalShortName;
 

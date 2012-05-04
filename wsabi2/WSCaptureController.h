@@ -30,6 +30,7 @@
     BOOL frontVisible;
     
     UIActionSheet *annotateClearActionSheet;
+    UIActionSheet *deleteConfirmActionSheet;
     
     UIImage *dataImage;
 }

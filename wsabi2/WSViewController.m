@@ -123,6 +123,10 @@
 #pragma mark - Notification action methods
 -(void) presentSensorWalkthrough:(NSNotification*)notification
 {
+    //start by deselecting everything in the current row.
+    WSPersonTableViewCell *row = (WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [row deselectAllItems:nil];
+    
     BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
     if (shouldStartFromDevice) {
         //only show the walkthrough from device selection onwards.
@@ -313,9 +317,9 @@
     //NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
     
     if ([indexPath compare:selectedIndex] == NSOrderedSame) {
-        return 264 + (124.0 * numRows);
+        return 224 + ((kItemCellSize + kItemCellSizeVerticalAddition + kItemCellSpacing) * numRows);
     }
-    else return 40.0 + (124.0 * numRows);
+    else return 40.0 + ((kItemCellSize + kItemCellSizeVerticalAddition + kItemCellSpacing) * numRows);
 }
 
 - (void)configureCell:(WSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -468,14 +472,24 @@
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     UITableView *aTableView = self.tableView;
-    
+    NSMutableArray *reloadPaths;
+
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
             break;
             
         case NSFetchedResultsChangeDelete:
+            [aTableView beginUpdates];
             [aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            
+            //reload everything after that.
+            reloadPaths = [[NSMutableArray alloc] init];
+            for (int i = indexPath.row+1; i < [self.fetchedResultsController.fetchedObjects count]; i++) {
+                [reloadPaths addObject:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
+            }
+            [aTableView reloadRowsAtIndexPaths:reloadPaths withRowAnimation:UITableViewRowAnimationFade];
+            [aTableView endUpdates];
             //Show or hide the big plus button
             self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
             break;

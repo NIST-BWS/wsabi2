@@ -12,6 +12,8 @@
 
 @synthesize item;
 @synthesize imageView;
+@synthesize placeholderView;
+@synthesize placeholderLabel;
 @synthesize shadowView;
 @synthesize annotationView;
 @synthesize active;
@@ -57,6 +59,66 @@
     return NO;
 }
 
+-(void) configureView
+{
+    //this may be called from inside the setItem method, so use the ivar, not the property.
+    if (item.data) {
+        self.imageView.image = [UIImage imageWithData:item.thumbnail];
+        self.placeholderView.image = nil;
+        self.placeholderView.hidden = YES;
+    }
+    else {
+        self.imageView.image = nil;
+        
+        NSString *imageName = nil;
+        switch ([WSModalityMap modalityForString:item.modality]) {
+            case kModalityFinger:
+                imageName = @"modality-finger";
+                break;
+            case kModalityFace:
+                imageName = @"modality-face";
+                break;
+            case kModalityIris:
+                imageName = @"modality-iris";
+                break;
+            
+            default:
+                break;
+        }
+                
+        if (imageName) {
+            self.placeholderView.image = [UIImage imageNamed:imageName];
+            self.placeholderView.hidden = NO;
+        }
+        else {
+            //hide the placeholder for now
+            self.placeholderView.image = nil;
+            self.placeholderView.hidden = YES;
+            self.placeholderLabel.hidden = YES;
+        }
+    }
+    
+    //configure the submodality label
+    self.placeholderLabel.text = item.submodality ? item.submodality : @"";
+    
+    //store the annotation array locally for performance.
+    if (item.annotations) {
+        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
+    }
+    else {
+        //If there isn't an annotation array, create and fill one.
+        int maximumAnnotations = 4;
+        currentAnnotationArray = [[NSMutableArray alloc] initWithCapacity:maximumAnnotations]; //the largest (current) submodality
+        for (int i = 0; i < maximumAnnotations; i++) {
+            [currentAnnotationArray addObject:[NSNumber numberWithBool:NO]];
+        }
+    }
+    
+    //update the annotation view
+    self.annotationView.hidden = ![self hasAnnotationOrNotes];
+
+}
+
 -(void) layoutSubviews
 {
     if (!initialLayoutComplete) {
@@ -75,11 +137,29 @@
         self.contentView = view;
         
         self.shadowView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"item-cell-shadow-normal"] stretchableImageWithLeftCapWidth:34 topCapHeight:34]];
-        self.shadowView.frame = CGRectInset(view.bounds, -12, -12); //make this bigger than the cell.
+        self.shadowView.frame = CGRectInset(view.bounds, -12, (kItemCellSizeVerticalAddition/2.0) -12); //make this bigger than the cell.
+        self.shadowView.center = CGPointMake(self.contentView.center.x, self.contentView.center.y - kItemCellSizeVerticalAddition);
         [self.contentView addSubview:self.shadowView];
         
-        self.imageView.frame = view.bounds;
+        self.imageView.frame = CGRectMake(0,0,self.contentView.bounds.size.width, self.contentView.bounds.size.height - kItemCellSizeVerticalAddition);
+        self.imageView.center = self.shadowView.center;
         [self.contentView addSubview:self.imageView];
+        
+        self.placeholderView = [[UIImageView alloc] initWithFrame:self.contentView.bounds];
+        self.placeholderView.contentMode = UIViewContentModeCenter;
+        self.placeholderView.center = self.shadowView.center;
+        [self.contentView addSubview:self.placeholderView];
+        
+        self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.contentView.bounds, 12, 47)];
+        self.placeholderLabel.backgroundColor = [UIColor clearColor];
+        self.placeholderLabel.textAlignment = UITextAlignmentCenter;
+        self.placeholderLabel.textColor = [UIColor whiteColor];
+        self.placeholderLabel.font = [UIFont systemFontOfSize:12];
+        //position this below the placeholder view.
+        self.placeholderLabel.center = CGPointMake(self.shadowView.center.x, 
+                                                   self.contentView.bounds.size.height - self.placeholderLabel.bounds.size.height/2.0);
+        
+        [self.contentView addSubview:self.placeholderLabel];
         
         self.annotationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning-small"]];
         self.annotationView.frame = CGRectMake(80,0,34,34);
@@ -95,6 +175,8 @@
         //enable logging for this object.
         //self.touchLoggingEnabled = YES;
         
+        [self configureView];
+        
         initialLayoutComplete = YES;
     }
 
@@ -107,28 +189,7 @@
     
     item = newItem;
 
-    if (newItem.data) {
-        self.imageView.image = [UIImage imageWithData:newItem.thumbnail];
-    }
-    else {
-        self.imageView.image = nil;
-    }
-    
-    //store the annotation array locally for performance.
-    if (item.annotations) {
-        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
-    }
-    else {
-        //If there isn't an annotation array, create and fill one.
-        int maximumAnnotations = 4;
-        currentAnnotationArray = [[NSMutableArray alloc] initWithCapacity:maximumAnnotations]; //the largest (current) submodality
-        for (int i = 0; i < maximumAnnotations; i++) {
-            [currentAnnotationArray addObject:[NSNumber numberWithBool:NO]];
-        }
-    }
-
-    //update the annotation view
-    self.annotationView.hidden = ![self hasAnnotationOrNotes];
+    [self configureView];
 }
 
 -(void) setSelected:(BOOL)sel

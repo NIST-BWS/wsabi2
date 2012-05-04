@@ -10,6 +10,7 @@
 #define wsabi2_constants_h
 
 #define kItemCellSize 114
+#define kItemCellSizeVerticalAddition 20
 #define kItemCellCornerRadius 18
 #define kItemCellSpacing 10
 

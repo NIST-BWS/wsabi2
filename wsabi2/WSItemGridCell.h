@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GMGridViewCell.h"
 #import "GMGridViewCell+Extended.h"
+#import "WSModalityMap.h"
 #import "UIView+GMGridViewAdditions.h"
 #import "WSCDItem.h"
 #import "constants.h"
@@ -29,8 +30,12 @@
 
 //@property (nonatomic, unsafe_unretained) id<WSItemGridCellDelegate> delegate;
 
+-(void) configureView;
+
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *placeholderView;
+@property (nonatomic, strong) UILabel *placeholderLabel;
 @property (nonatomic, strong) UIImageView *shadowView;
 @property (nonatomic, strong) UIImageView *annotationView;
 

@@ -350,17 +350,15 @@
 {
     if (actionSheet == annotateClearActionSheet && buttonIndex != actionSheet.cancelButtonIndex) {
         if (buttonIndex == actionSheet.destructiveButtonIndex) {
-            //This is the clear button. Remove data and set the capture button state.
-            self.item.data = nil;
-            self.item.dataContentType = nil;
             
-            //Post a notification that this item has changed
-            NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                                      [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                                object:self
-                                                              userInfo:userInfo];
-            self.captureButton.state = WSCaptureButtonStateCapture;
+            //show another action sheet to confirm the deletion
+            deleteConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear this data?"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Cancel"
+                                                     destructiveButtonTitle:@"Clear"
+                                                          otherButtonTitles:nil];
+            [deleteConfirmActionSheet showInView:self.view];
+            
         }
         else {
             //just flip to the annotation.
@@ -372,6 +370,22 @@
 //                            }];
             [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
         }
+    }
+    
+    else if (actionSheet == deleteConfirmActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
+    {
+        //This is the clear button. Remove data and set the capture button state.
+        self.item.data = nil;
+        self.item.dataContentType = nil;
+        
+        //Post a notification that this item has changed
+        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                            object:self
+                                                          userInfo:userInfo];
+        self.captureButton.state = WSCaptureButtonStateCapture;
+
     }
 }
 
@@ -430,9 +444,16 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     NSError *error = [info objectForKey:@"error"];
-    
-    self.captureButton.state = WSCaptureButtonStateWarning;
-    self.captureButton.warningMessage = error.description;
+    //IF the capture button is visible:
+    if (self.captureButton.state != WSCaptureButtonStateInactive) {
+        self.captureButton.state = WSCaptureButtonStateWarning;
+        self.captureButton.warningMessage = error.description;
+    }
+    else {
+        //Log the error but don't change the UI
+        NSLog(@"Ran into a failed sensor sequence: %@",error.description);
+    }
+
 }
 
 -(void) handleSensorSequenceFailed:(NSNotification *)notification
@@ -447,15 +468,24 @@
 //        
         NSString *message = [info objectForKey:kDictKeyMessage];
         
-        SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
+        //SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
 //        
 //        if (seq == kSensorSequenceConfigCaptureDownload ||
 //            seq == kSensorSequenceCaptureDownload ||
 //            seq == kSensorSequenceFull 
 //            ) {
-            //This is a failed capture notification, so change our button state.
-            self.captureButton.warningMessage = message ? message : @"Hmmmm... something's up.";
-            self.captureButton.state = WSCaptureButtonStateWarning;
+    
+    //IF the capture button is visible:
+    if (self.captureButton.state != WSCaptureButtonStateInactive) {
+        //This is a failed capture notification, so change our button state.
+        self.captureButton.warningMessage = message ? message : @"Hmmmm... something's up.";
+        self.captureButton.state = WSCaptureButtonStateWarning;
+    }
+    else {
+        //Log the error but don't change the UI
+        NSLog(@"Ran into a failed sensor sequence: %@",message);
+    }
+
 //        }
 //    }
 }
