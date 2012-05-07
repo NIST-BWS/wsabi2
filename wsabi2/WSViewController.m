@@ -127,11 +127,16 @@
     WSPersonTableViewCell *row = (WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [row deselectAllItems:nil];
     
+    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+
+    //figure out whether we should restore the capture popover later.
+    //NOTE: do so unless we came from the add-new-item button.
+    shouldRestoreCapturePopover = (item.managedObjectContext != nil);
+    
     BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
     if (shouldStartFromDevice) {
         //only show the walkthrough from device selection onwards.
         WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
-        WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
         chooser.item = item;
 
         //FIXME: Set the modality/submodality either here or in the chooser automatically
@@ -149,7 +154,7 @@
     else {
         //show the full selection walkthrough
         WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
-        chooser.item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+        chooser.item = item;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
@@ -169,6 +174,13 @@
     //get the currently active record and add the item.
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [person addItemsObject:sourceItem];
+
+    //If necessary, show the popover.
+    if (shouldRestoreCapturePopover) {
+        [(WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]] 
+                showCapturePopoverForItem:sourceItem];
+        shouldRestoreCapturePopover = NO;
+    }
     
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
@@ -178,7 +190,14 @@
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification
 {
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
-    
+
+    //If necessary, show the popover.
+    if (shouldRestoreCapturePopover) {
+        [(WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]] 
+         showCapturePopoverForItem:sourceItem];
+        shouldRestoreCapturePopover = NO;
+    }
+
 }
 
 

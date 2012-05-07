@@ -27,6 +27,8 @@
     NSIndexPath *selectedIndex;
     NSMutableDictionary *sensorLinks;
     NSIndexPath *previousSelectedIndex;
+    
+    BOOL shouldRestoreCapturePopover;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;

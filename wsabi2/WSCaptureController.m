@@ -121,12 +121,12 @@
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
     
     //add swipe listeners to the capture button to switch between items.
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeRight];
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeLeft];
+//    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
+//    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+//    [self.view addGestureRecognizer:swipeRight];
+//    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
+//    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+//    [self.view addGestureRecognizer:swipeLeft];
 
     //Start with the button in the "ready to capture" state
     self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
