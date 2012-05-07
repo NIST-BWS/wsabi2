@@ -480,6 +480,8 @@
             break;
             
         case NSFetchedResultsChangeDelete:
+            selectedIndex = nil;
+            
             [aTableView beginUpdates];
             [aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
             
