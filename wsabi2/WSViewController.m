@@ -581,6 +581,7 @@
             item.dataContentType = nil;
             item.captureMetadata = nil;
             item.annotations = nil;
+            item.notes = nil;
         }
         
         //Save the context

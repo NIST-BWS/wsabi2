@@ -18,7 +18,7 @@
 
 @interface WSDeviceChooserController : UITableViewController
 {
-    NSArray *recentSensors;
+    NSMutableArray *recentSensors;
 }
 
 -(IBAction) cancelButtonPressed:(id)sender;

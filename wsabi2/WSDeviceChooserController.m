@@ -81,13 +81,29 @@
     [request setSortDescriptors:sortDescriptors];
     
     NSError *error = nil;
-    recentSensors = [moc executeFetchRequest:request error:&error];
-    if (recentSensors == nil)
+    NSArray *rawRecentSensors = [moc executeFetchRequest:request error:&error];
+    if (rawRecentSensors == nil)
     {
         NSLog(@"Couldn't get a list of recent sensors, error was: %@",[error description]);
     }
     
-    NSLog(@"Found %d recent sensors matching these criteria",[recentSensors count]);
+    //NOTE: Not speedy. O(n^2)ish.
+    recentSensors = [[NSMutableArray alloc] init];
+    for (WSCDDeviceDefinition *dev in rawRecentSensors) {
+        BOOL unique = YES;
+        //if this isn't in the pruned recent sensors list already, add it.
+        for (WSCDDeviceDefinition *existingDev in recentSensors) {
+            if ([existingDev.uri isEqualToString:dev.uri] && [existingDev.name isEqualToString:dev.name]) {
+                //this isn't unique, so don't add it.
+                unique = NO;
+            }
+        }
+        if (unique) {
+            [recentSensors addObject:dev];
+        }
+    }
+    
+    NSLog(@"Found %d unique recent sensors matching these criteria",[recentSensors count]);
 }
 
 - (void)viewDidUnload
