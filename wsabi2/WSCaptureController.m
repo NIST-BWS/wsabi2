@@ -327,7 +327,7 @@
 
     //Update our state (temporarily, just cycle states).
     //self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
-    self.captureButton.state = WSCaptureButtonStateStop;
+    self.captureButton.state = WSCaptureButtonStateWaiting;
 }
                                        
 #pragma mark - Gesture recognizer handlers

@@ -56,8 +56,8 @@
         [self.activityIndicator stopAnimating];
         [[UIActivityIndicatorView appearance] setColor:[UIColor darkTextColor]];
         
-        //center the activity indicator at 1/4 of the way down the button.
-        self.activityIndicator.center = CGPointMake(self.center.x, self.bounds.size.height/4.0);
+        //center the activity indicator below the label
+        self.activityIndicator.center = CGPointMake(self.center.x, self.center.y + 70);
         [self.activityIndicator startAnimating];
         
         [self addSubview:self.activityIndicator];
@@ -92,47 +92,42 @@
      WSCaptureButtonStateWaiting,
      WSCaptureButtonStateWaitingRestartCapture,
      */
-    
+    self.backgroundColor = [UIColor clearColor];
+
     self.userInteractionEnabled = (newState != WSCaptureButtonStateInactive);
      switch (newState) {
          case WSCaptureButtonStateInactive:
              [self setImage:self.inactiveImage forState:UIControlStateNormal];
              [self setTitle:self.inactiveMessage forState:UIControlStateNormal];
-             self.backgroundColor = [UIColor clearColor];
              [self.activityIndicator stopAnimating]; //stop and hide the spinner.
              [self.delayedMessageTimer invalidate];
              break;
          case WSCaptureButtonStateCapture:
              [self setImage:self.captureImage forState:UIControlStateNormal];
              [self setTitle:self.captureMessage forState:UIControlStateNormal];
-             self.backgroundColor = [UIColor clearColor];
              [self.activityIndicator stopAnimating]; //stop and hide the spinner.
              [self.delayedMessageTimer invalidate];
              break;
          case WSCaptureButtonStateStop:
              [self setImage:self.stopImage forState:UIControlStateNormal];
              [self setTitle:self.stopMessage forState:UIControlStateNormal];
-             self.backgroundColor = [UIColor clearColor];
              [self.activityIndicator stopAnimating]; //stop and hide the spinner.
              [self.delayedMessageTimer invalidate];
              break;
          case WSCaptureButtonStateWarning:
              [self setImage:self.warningImage forState:UIControlStateNormal];
              [self setTitle:self.warningMessage forState:UIControlStateNormal];
-             self.backgroundColor = [UIColor clearColor];
              [self.activityIndicator stopAnimating]; //stop and hide the spinner.
              [self.delayedMessageTimer invalidate];
              break;
          case WSCaptureButtonStateWaiting:
              [self setImage:self.waitingImage forState:UIControlStateNormal];
              [self setTitle:nil forState:UIControlStateNormal]; //clear the title to start
-             self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
              [self setWaitingIndicatorState:YES withMessage:self.waitingMessage messageDelay:4.0]; //wait 4 seconds, then display the waiting message
              break;
          case WSCaptureButtonStateWaitingRestartCapture:
              [self setImage:self.waitingRestartCaptureImage forState:UIControlStateNormal];
              [self setTitle:nil forState:UIControlStateNormal]; //clear the title to start
-             self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
              [self setWaitingIndicatorState:YES withMessage:self.waitingRestartCaptureMessage messageDelay:2.0]; //wait 2 seconds, then display the waiting-with-restart message
              break;
 
