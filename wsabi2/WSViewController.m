@@ -348,6 +348,7 @@
     cell.popoverController = self.popoverController;
     cell.person = person;
     [cell.itemGridView reloadData];
+    [cell layoutGrid]; //adjust the frame if necessary
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

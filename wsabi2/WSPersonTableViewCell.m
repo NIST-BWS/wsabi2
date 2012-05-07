@@ -316,6 +316,7 @@
     float part1Duration = kFastFadeAnimationDuration;
     float part2Duration = kMediumFadeAnimationDuration;
     
+    
     //animate a reload of the data
     [UIView animateWithDuration:part1Duration
                           delay:0 
@@ -325,7 +326,7 @@
                          self.itemGridView.alpha = 0.5;
                      }
                      completion:^(BOOL completed) {
-                         [self.itemGridView reloadData];
+                         [self.itemGridView reloadData];    
                          [UIView animateWithDuration:part2Duration
                                                delay:0
                                              options:UIViewAnimationCurveEaseOut
