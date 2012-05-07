@@ -50,8 +50,14 @@
     
     self.fetchedResultsController.delegate = self;
 
+    //add a drop shadow to the add button
     self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
 
+    self.addFirstButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.addFirstButton.layer.shadowOffset = CGSizeMake(0,4);
+    self.addFirstButton.layer.shadowOpacity = 0.7;
+    self.addFirstButton.layer.shadowRadius = 10;
+    
     //initialize the sensor link dictionary, which will connect WSCDItems to sensor link objects.
     sensorLinks = [[NSMutableDictionary alloc] init];
     

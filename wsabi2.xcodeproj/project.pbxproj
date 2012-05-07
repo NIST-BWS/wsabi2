@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */; };
+		EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE11558622500B838E3 /* plus-circle-button.png */; };
+		EA0CEFE41558622500B838E3 /* plus-circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */; };
 		EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
 		EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
 		EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AD1536162000693D86 /* UIImage+Resize.m */; };
@@ -144,7 +146,6 @@
 		EA65DFEC154870FA006C826E /* capture-button-annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE8154870F9006C826E /* capture-button-annotation.png */; };
 		EA65DFED154870FA006C826E /* capture-button-annotation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE9154870FA006C826E /* capture-button-annotation@2x.png */; };
 		EA8A046714C752B000199FF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8A046614C752B000199FF8 /* QuartzCore.framework */; };
-		EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A046B14C7599A00199FF8 /* plus-button.png */; };
 		EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */; };
 		EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */; };
 		EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */; };
@@ -263,6 +264,8 @@
 /* Begin PBXFileReference section */
 		EA045284154EBA63007577B6 /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
 		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
+		EA0CEFE11558622500B838E3 /* plus-circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-circle-button.png"; sourceTree = "<group>"; };
+		EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-circle-button@2x.png"; sourceTree = "<group>"; };
 		EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		EA0DB8AC1536162000693D86 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -426,7 +429,6 @@
 		EA65DFE8154870F9006C826E /* capture-button-annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation.png"; sourceTree = "<group>"; };
 		EA65DFE9154870FA006C826E /* capture-button-annotation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture-button-annotation@2x.png"; sourceTree = "<group>"; };
 		EA8A046614C752B000199FF8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		EA8A046B14C7599A00199FF8 /* plus-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-button.png"; sourceTree = "<group>"; };
 		EA8A050F14C877FE00199FF8 /* glossyButton-black-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-disabled.png"; sourceTree = "<group>"; };
 		EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-highlighted.png"; sourceTree = "<group>"; };
 		EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glossyButton-black-normal.png"; sourceTree = "<group>"; };
@@ -758,7 +760,8 @@
 				EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */,
 				EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */,
 				EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */,
-				EA8A046B14C7599A00199FF8 /* plus-button.png */,
+				EA0CEFE11558622500B838E3 /* plus-circle-button.png */,
+				EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */,
 				EA65DFCE15483769006C826E /* symbol-notok.png */,
 				EA65DFCF15483769006C826E /* symbol-notok@2x.png */,
 				EA65DFD015483769006C826E /* symbol-ok.png */,
@@ -1066,7 +1069,6 @@
 				EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */,
 				EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */,
 				EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */,
-				EA8A046C14C7599A00199FF8 /* plus-button.png in Resources */,
 				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
@@ -1153,6 +1155,8 @@
 				EAD284E315544F980005DCD4 /* modality-finger@2x.png in Resources */,
 				EAD284E7155452950005DCD4 /* modality-face.png in Resources */,
 				EAD284E9155452950005DCD4 /* modality-face@2x.png in Resources */,
+				EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */,
+				EA0CEFE41558622500B838E3 /* plus-circle-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
