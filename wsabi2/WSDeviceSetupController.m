@@ -127,16 +127,20 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    //disconnect the sensor link's delegate in case any long-running operations
+    //come through later.
+    currentLink.delegate = nil;
+
     //whatever the reason for disappearing, cancel all of our network operations
-    [currentLink cancelAllOperations];
+    [currentLink cancelAllOperations];    
+    
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
+
+ }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
