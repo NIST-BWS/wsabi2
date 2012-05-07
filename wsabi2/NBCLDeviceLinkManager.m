@@ -129,7 +129,7 @@
     //Post a notification about the completed operation!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      sourceID, kDictKeySourceID,
-                                     result, @"result",
+                                     result, kDictKeyCurrentResult,
                                      nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkOperationCompleted
@@ -170,7 +170,7 @@
                                      nil];
     
     if (result) {
-        [userInfo setObject:result forKey:@"result"];
+        [userInfo setObject:result forKey:kDictKeyCurrentResult];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConnectSequenceCompleted
@@ -190,7 +190,7 @@
                                      sourceID, kDictKeySourceID,
                                      nil];
     if (result) {
-        [userInfo setObject:result forKey:@"result"];
+        [userInfo setObject:result forKey:kDictKeyCurrentResult];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConfigureSequenceCompleted
@@ -211,7 +211,7 @@
                                      sourceID, kDictKeySourceID,
                                      nil];
     if (result) {
-        [userInfo setObject:result forKey:@"result"];
+        [userInfo setObject:result forKey:kDictKeyCurrentResult];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConnectConfigureSequenceCompleted
@@ -276,7 +276,7 @@
                                      sourceID, kDictKeySourceID,
                                      nil];
     if (result) {
-        [userInfo setObject:result forKey:@"result"];
+        [userInfo setObject:result forKey:kDictKeyCurrentResult];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkDisconnectSequenceCompleted
@@ -306,7 +306,7 @@
                                      [WSBDResult stringForStatusValue:result.status], kDictKeyMessage,
                                      nil];
     if (result) {
-        [userInfo setObject:result forKey:@"result"];
+        [userInfo setObject:result forKey:kDictKeyCurrentResult];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkSequenceFailed

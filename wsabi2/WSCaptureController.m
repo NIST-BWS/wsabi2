@@ -466,7 +466,8 @@
 //    //Make sure this applies to us.
 //    if (self.item == targetItem) {
 //        
-        NSString *message = [info objectForKey:kDictKeyMessage];
+    WSBDResult *result = (WSBDResult*)[info objectForKey:kDictKeyCurrentResult];
+    NSString *resultString = [NSString stringWithFormat:@"Sensor problem: %@", result.message ? result.message : [WSBDResult stringForStatusValue:result.status]];   
         
         //SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
 //        
@@ -478,12 +479,12 @@
     //IF the capture button is visible:
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         //This is a failed capture notification, so change our button state.
-        self.captureButton.warningMessage = message ? message : @"Hmmmm... something's up.";
+        self.captureButton.warningMessage = resultString;
         self.captureButton.state = WSCaptureButtonStateWarning;
     }
     else {
         //Log the error but don't change the UI
-        NSLog(@"Ran into a failed sensor sequence: %@",message);
+        NSLog(@"Ran into a failed sensor sequence: %@",resultString);
     }
 
 //        }

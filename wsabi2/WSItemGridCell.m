@@ -162,7 +162,7 @@
         [self.contentView addSubview:self.placeholderLabel];
         
         self.annotationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning-small"]];
-        self.annotationView.frame = CGRectMake(80,0,34,34);
+        self.annotationView.frame = CGRectMake(80,-12,34,34); //the shadow view is actually larger than the cell; align this with the shadow view, not the content.
         [self.contentView addSubview:self.annotationView];
         self.annotationView.hidden = ![self hasAnnotationOrNotes];
         

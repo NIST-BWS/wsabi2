@@ -26,13 +26,14 @@
 @end
 
 @interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
-                                                    GMGridViewTransformationDelegate, GMGridViewActionDelegate,
+                                                     GMGridViewActionDelegate,
                                                     WSBiographicalDataDelegate, WSCaptureDelegate,
                                                     UIPopoverControllerDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSMutableArray *orderedItems;
     int deletableItem;
+    NSDateFormatter *dateFormatter;
     
     UIActionSheet *deletePersonSheet;
     UIActionSheet *deleteItemSheet;
@@ -54,7 +55,6 @@
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
 
--(void) performItemDeletionAtIndex:(int) index;
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
@@ -70,6 +70,8 @@
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
 @property (nonatomic, strong) IBOutlet UIButton *biographicalDataButton;
 @property (nonatomic, strong) IBOutlet UILabel *biographicalDataInactiveLabel;
+@property (nonatomic, strong) IBOutlet UILabel *timestampLabel;
+@property (nonatomic, strong) IBOutlet UILabel *timestampInactiveLabel;
 @property (nonatomic, strong) IBOutlet UIButton *editButton;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton *addButton;

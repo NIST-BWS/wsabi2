@@ -35,6 +35,7 @@
 #define kDictKeyTargetItem @"targetItem"
 #define kDictKeySourceID @"sourceObjectID"
 #define kDictKeySequenceType @"sequenceType"
+#define kDictKeyCurrentResult @"result"
 #define kDictKeyMessage @"message"
 #define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"
 

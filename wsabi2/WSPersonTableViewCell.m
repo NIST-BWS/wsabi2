@@ -16,7 +16,7 @@
 @synthesize popoverController;
 @synthesize person;
 @synthesize itemGridView;
-@synthesize biographicalDataButton, biographicalDataInactiveLabel;
+@synthesize biographicalDataButton, biographicalDataInactiveLabel, timestampLabel, timestampInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize shadowUpView, shadowDownView, customSelectedBackgroundView;
 @synthesize inactiveOverlayView, separatorView;
@@ -65,6 +65,9 @@
         
         deletableItem = -1;
         selectedIndex = -1;
+        
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MMM d, yyyy h:mm a";
         
         //configure UI elements
         normalBGColor = [UIColor clearColor];
@@ -146,15 +149,16 @@
     }
     
     //Make sure the labels are right.
-    self.biographicalDataInactiveLabel.text = [self biographicalShortName];
-    [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
-
-    if (!self.selected && (self.person.firstName || self.person.middleName || self.person.lastName)) {
-        self.biographicalDataInactiveLabel.alpha = 1.0;
+    if (self.person.firstName || self.person.middleName || self.person.lastName) {
+        self.biographicalDataInactiveLabel.text = [self biographicalShortName];
     }
     else {
-        self.biographicalDataInactiveLabel.alpha = 0.0;
+        self.biographicalDataInactiveLabel.text = nil;
     }
+    self.timestampLabel.text = [NSString stringWithFormat:@"Created: %@",[dateFormatter stringFromDate:self.person.timeStampCreated]];
+    self.timestampInactiveLabel.text = [NSString stringWithFormat:@"Created: %@",[dateFormatter stringFromDate:self.person.timeStampCreated]];
+    
+    [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
     self.itemGridView.alpha = self.selected ? 1.0 : 0.3;
@@ -180,7 +184,9 @@
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
             self.shadowUpView.alpha = 1.0;
             self.shadowDownView.alpha = 1.0;
+            self.timestampLabel.alpha = 1.0;
             self.biographicalDataButton.alpha = 1.0;
+            self.timestampInactiveLabel.alpha = 0.0;
             self.biographicalDataInactiveLabel.alpha = 0.0;
             self.duplicateRowButton.alpha = 1.0;
             self.addButton.alpha = 1.0;
@@ -209,14 +215,10 @@
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
             self.shadowUpView.alpha = 0.0;
             self.shadowDownView.alpha = 0.0;
+            self.timestampLabel.alpha = 0.0;
             self.biographicalDataButton.alpha = 0.0;
-            //only show the smaller label if there's a name
-            if (self.person.firstName || self.person.middleName || self.person.lastName) {
-                self.biographicalDataInactiveLabel.alpha = 1.0;
-            }
-            else {
-                self.biographicalDataInactiveLabel.alpha = 0.0;
-            }
+            self.timestampInactiveLabel.alpha = 1.0;
+            self.biographicalDataInactiveLabel.alpha = 1.0;
             self.duplicateRowButton.alpha = 0.0;
             self.addButton.alpha = 0.0;
             self.editButton.alpha = 0.0;
