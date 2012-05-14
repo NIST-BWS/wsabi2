@@ -15,6 +15,7 @@
 #import "WSDeviceConfigDelegate.h"
 #import "WSPersonTableViewCell.h"
 #import "WSModalityChooserController.h"
+#import "WSPopoverBackgroundView.h"
 
 #import "NBCLDeviceLink.h"
 #import "NBCLDeviceLinkConstants.h"

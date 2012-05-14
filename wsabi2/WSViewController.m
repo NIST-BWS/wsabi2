@@ -46,6 +46,7 @@
     
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
+    self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
     self.popoverController.delegate = self;
     
     self.fetchedResultsController.delegate = self;
