@@ -167,7 +167,7 @@
         self.annotationView.hidden = ![self hasAnnotationOrNotes];
         
         self.deleteButtonIcon = [UIImage imageNamed:@"DeleteRed"];
-        self.deleteButtonOffset = CGPointMake(37, 37);
+        self.deleteButtonOffset = CGPointMake(37, 28);
         self.deleteButton.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.deleteButton.layer.shadowOpacity = 0.7;
         self.deleteButton.layer.shadowOffset = CGSizeMake(0,2);
