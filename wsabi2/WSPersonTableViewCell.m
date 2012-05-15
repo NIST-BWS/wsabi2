@@ -345,6 +345,10 @@
 #pragma mark - Button Action Methods
 -(IBAction)biographicalDataButtonPressed:(id)sender
 {
+    
+    //cancel edit mode if we're in it.
+    [self setEditing:NO];
+    
     WSBiographicalDataController *cap = [[WSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
     cap.person = self.person;
     cap.delegate = self;

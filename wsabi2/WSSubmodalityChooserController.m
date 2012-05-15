@@ -46,7 +46,9 @@
     
     //If we have a valid stored modality and it matches, show the "keep it" button.
     if (self.item.managedObjectContext && self.item.submodality 
-        && (self.modality == [WSModalityMap modalityForString:self.item.modality])) {
+        && (self.modality == [WSModalityMap modalityForString:self.item.modality])
+        && self.modality != kCaptureTypeNotSet
+        ) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.submodality]
                                                               style:UIBarButtonItemStyleDone
                                                              target:self action:@selector(currentButtonPressed:)];
