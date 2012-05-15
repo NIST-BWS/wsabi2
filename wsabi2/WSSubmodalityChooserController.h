@@ -17,7 +17,10 @@
     NSArray *submodalities;
 }
 
+-(IBAction) currentButtonPressed:(id)sender;
+
 @property (nonatomic) WSSensorModalityType modality;
 @property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) UIBarButtonItem *currentButton;
 
 @end

@@ -16,8 +16,11 @@
 @interface WSModalityChooserController : UITableViewController
 
 -(IBAction) cancelButtonPressed:(id)sender;
+-(IBAction) currentButtonPressed:(id)sender;
 
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, unsafe_unretained) id<WSDeviceConfigDelegate> walkthroughDelegate;
+
+@property (nonatomic, strong) UIBarButtonItem *currentButton;
 
 @end

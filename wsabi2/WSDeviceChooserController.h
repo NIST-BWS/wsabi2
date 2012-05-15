@@ -22,12 +22,14 @@
 }
 
 -(IBAction) cancelButtonPressed:(id)sender;
+-(IBAction) currentButtonPressed:(id)sender;
 
 @property (nonatomic) BOOL autodiscoveryEnabled;
 @property (nonatomic) WSSensorCaptureType submodality;
 @property (nonatomic) WSSensorModalityType modality;
 
 @property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) UIBarButtonItem *currentButton;
 
 @property (nonatomic, unsafe_unretained) id<WSDeviceConfigDelegate> walkthroughDelegate;
 @end

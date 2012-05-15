@@ -11,6 +11,7 @@
 @implementation WSSubmodalityChooserController
 @synthesize modality;
 @synthesize item;
+@synthesize currentButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -42,6 +43,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //If we have a valid stored modality and it matches, show the "keep it" button.
+    if (self.item.managedObjectContext && self.item.submodality 
+        && (self.modality == [WSModalityMap modalityForString:self.item.modality])) {
+        self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.submodality]
+                                                              style:UIBarButtonItemStyleDone
+                                                             target:self action:@selector(currentButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = self.currentButton;
+    }
+
     
 }
 
@@ -83,6 +94,18 @@
 {
     modality = newModality;
     submodalities = [WSModalityMap captureTypesForModality:modality];
+}
+
+-(IBAction) currentButtonPressed:(id)sender
+{
+    //Push a new controller to choose the device.
+    WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+    subChooser.item = self.item; //pass the data object to the next step in the walkthrough
+    subChooser.modality = [WSModalityMap modalityForString:self.item.modality];
+    subChooser.submodality = [WSModalityMap captureTypeForString:self.item.submodality]; 
+    
+    [self.navigationController pushViewController:subChooser animated:YES];
+    
 }
 
 

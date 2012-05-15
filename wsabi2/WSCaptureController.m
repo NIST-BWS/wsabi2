@@ -148,24 +148,24 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleDownloadPosted:) 
                                                  name:kSensorLinkDownloadPosted
-                                               object:self];
+                                               object:nil];
     //Catch an item change
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleItemChanged:) 
                                                  name:kChangedWSCDItemNotification
-                                               object:self];
+                                               object:nil];
 
     //Catch a failed sensor operation
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleSensorOperationFailed:) 
                                                  name:kSensorLinkOperationFailed
-                                               object:self];
+                                               object:nil];
 
     //Catch a failed sensor sequence
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleSensorSequenceFailed:) 
                                                  name:kSensorLinkSequenceFailed
-                                               object:self];
+                                               object:nil];
     
     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];

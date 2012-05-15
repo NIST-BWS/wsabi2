@@ -11,6 +11,7 @@
 @implementation WSModalityChooserController
 @synthesize item;
 @synthesize walkthroughDelegate;
+@synthesize currentButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,6 +47,13 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
     
     self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    if (self.item.managedObjectContext && self.item.modality) {
+        self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.modality]
+                                                              style:UIBarButtonItemStyleDone
+                                                             target:self action:@selector(currentButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = self.currentButton;
+    }
 }
 
 - (void)viewDidUnload
@@ -92,6 +100,17 @@
                                                       userInfo:userInfo];
 }
 
+-(IBAction) currentButtonPressed:(id)sender
+{
+    //Push a new controller to choose the submodality.
+    WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
+    subChooser.modality = [WSModalityMap modalityForString:self.item.modality];
+
+    subChooser.item = self.item; //pass the data object
+    
+    [self.navigationController pushViewController:subChooser animated:YES];
+
+}
 
 #pragma mark - Table view data source
 

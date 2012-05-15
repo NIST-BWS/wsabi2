@@ -16,6 +16,7 @@
 @synthesize item;
 @synthesize autodiscoveryEnabled;
 @synthesize walkthroughDelegate;
+@synthesize currentButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -104,6 +105,18 @@
     }
     
     NSLog(@"Found %d unique recent sensors matching these criteria",[recentSensors count]);
+    
+    //Set up the current sensor button
+    if (self.item.managedObjectContext && self.item.deviceConfig
+        && (self.modality == [WSModalityMap modalityForString:self.item.modality])
+        && (self.submodality == [WSModalityMap captureTypeForString:self.item.submodality])) {
+        self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Use current settings"]
+                                                              style:UIBarButtonItemStyleDone
+                                                             target:self action:@selector(currentButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = self.currentButton;
+    }
+    
+
 }
 
 - (void)viewDidUnload
@@ -149,6 +162,36 @@
                                                       userInfo:userInfo];
 
     [self dismissModalViewControllerAnimated:YES];
+}
+
+-(IBAction) currentButtonPressed:(id)sender
+{
+    //Push a new controller to configure the device.
+    WSDeviceSetupController *subChooser = [[WSDeviceSetupController alloc] initWithNibName:@"WSDeviceSetupController" bundle:nil];
+    
+    subChooser.item = self.item; //pass the data object
+    subChooser.modality = self.modality;
+    subChooser.submodality = self.submodality;
+ 
+    //NOTE: We can't use cloneInContext here, because we have no context to clone into (or at least we might not). Copy manually.
+    //Create a new temporary item and fill it.
+    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+    WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    newDef.inactivityTimeout = self.item.deviceConfig.inactivityTimeout;
+    newDef.modalities = self.item.deviceConfig.modalities;
+    newDef.mostRecentSessionId = self.item.deviceConfig.mostRecentSessionId;
+    newDef.name = self.item.deviceConfig.name;
+    newDef.parameterDictionary = self.item.deviceConfig.parameterDictionary;
+    newDef.submodalities = self.item.deviceConfig.submodalities;
+    newDef.uri = self.item.deviceConfig.uri;
+    
+    newDef.timeStampLastEdit = [NSDate date];
+    subChooser.deviceDefinition = newDef;
+
+      
+    [self.navigationController pushViewController:subChooser animated:YES];
+    
 }
 
 #pragma mark - Table view data source
