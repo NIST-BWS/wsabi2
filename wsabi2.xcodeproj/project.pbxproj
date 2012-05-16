@@ -121,6 +121,11 @@
 		EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
+		EA3B00061563CD9400DA78D8 /* modality-finger-rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */; };
+		EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */; };
+		EA3B000B1563D86600DA78D8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00091563D86600DA78D8 /* Default.png */; };
+		EA3B000C1563D86600DA78D8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B000A1563D86600DA78D8 /* Default@2x.png */; };
+		EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */; };
 		EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA65DF741546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */; };
@@ -409,6 +414,12 @@
 		EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureButton.h; sourceTree = "<group>"; };
 		EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureButton.m; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
+		EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated.png"; sourceTree = "<group>"; };
+		EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated@2x.png"; sourceTree = "<group>"; };
+		EA3B00091563D86600DA78D8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		EA3B000A1563D86600DA78D8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		EA3B000D1563DB2D00DA78D8 /* UIViewController+PopoverSizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PopoverSizing.h"; sourceTree = "<group>"; };
+		EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PopoverSizing.m"; sourceTree = "<group>"; };
 		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLXMLMap.h; sourceTree = "<group>"; };
 		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLXMLMap.m; sourceTree = "<group>"; };
 		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
@@ -781,6 +792,8 @@
 				EA939D13153DF159005BDA47 /* item-cell-shadow-normal@2x.png */,
 				EA939D24153DFBC4005BDA47 /* item-cell-shadow-selected.png */,
 				EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */,
+				EA3B00091563D86600DA78D8 /* Default.png */,
+				EA3B000A1563D86600DA78D8 /* Default@2x.png */,
 				EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */,
 				EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */,
 				EA0CEFE11558622500B838E3 /* plus-circle-button.png */,
@@ -833,6 +846,8 @@
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
 				EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */,
 				EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */,
+				EA3B000D1563DB2D00DA78D8 /* UIViewController+PopoverSizing.h */,
+				EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -916,6 +931,8 @@
 				EAD284E6155452950005DCD4 /* modality-face@2x.png */,
 				EAD284DF15544F980005DCD4 /* modality-finger.png */,
 				EAD284E015544F980005DCD4 /* modality-finger@2x.png */,
+				EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */,
+				EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */,
 				EAD284D915544E230005DCD4 /* modality-iris.png */,
 				EAD284DA15544E230005DCD4 /* modality-iris@2x.png */,
 			);
@@ -1202,6 +1219,10 @@
 				EA8F401E15617A8400AC9A5A /* popover-arrow-mediumgray-180@2x.png in Resources */,
 				EA8F401F15617A8400AC9A5A /* popover-arrow-mediumgray-270.png in Resources */,
 				EA8F402015617A8400AC9A5A /* popover-arrow-mediumgray-270@2x.png in Resources */,
+				EA3B00061563CD9400DA78D8 /* modality-finger-rotated.png in Resources */,
+				EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */,
+				EA3B000B1563D86600DA78D8 /* Default.png in Resources */,
+				EA3B000C1563D86600DA78D8 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,6 +1355,7 @@
 				EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
+				EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,7 +73,7 @@
         NSString *imageName = nil;
         switch ([WSModalityMap modalityForString:item.modality]) {
             case kModalityFinger:
-                imageName = @"modality-finger";
+                imageName = @"modality-finger-rotated";
                 break;
             case kModalityFace:
                 imageName = @"modality-face";

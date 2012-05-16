@@ -362,7 +362,7 @@
     self.popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
     [self.popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
                                        inView:self.superview 
-                     permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) 
+                     permittedArrowDirections:(UIPopoverArrowDirectionLeft) 
                                      animated:YES];
     //log this
     [self logPopoverShownFrom:self.biographicalDataButton];

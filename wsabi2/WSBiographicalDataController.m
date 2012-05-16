@@ -67,6 +67,11 @@
 	return YES;
 }
 
+-(CGSize) contentSizeForViewInPopover
+{
+    return CGSizeMake(320, 600);
+}
+
 #pragma mark - Property setters
 -(void) setPerson:(WSCDPerson *)newPerson 
 {
@@ -96,6 +101,7 @@
 #pragma mark - Notification handlers
 -(void) keyboardDidShow:(NSNotification*)notification
 {
+    
     //find first responder, scroll it to visible.
     UIView *fr = [self.bioDataTable findFirstResponder];
     [self.bioDataTable scrollRectToVisible:[self.bioDataTable convertRect:fr.frame fromView:fr.superview] animated:YES];
@@ -533,8 +539,12 @@
 {
     ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
+    //make sure this cell is visible
+    [self.bioDataTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+    
     //Log this.
-    [[textCell rightTextField] logTextFieldStarted:indexPath];
+    if (textCell)
+        [[textCell rightTextField] logTextFieldStarted:indexPath];
 }
 
 -(void) textFieldDidEndEditingWithIndexPath:(NSIndexPath *)indexPath
@@ -542,7 +552,8 @@
     ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
     //Log this.
-    [[textCell rightTextField] logTextFieldEnded:indexPath];
+    if (textCell)
+        [[textCell rightTextField] logTextFieldEnded:indexPath];
 }
 
 
@@ -694,28 +705,33 @@
 #pragma mark - UITextField delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [textField logTextFieldStarted:nil];
+    if (textField)
+        [textField logTextFieldStarted:nil];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [textField logTextFieldEnded:nil];
+    if (textField)
+        [textField logTextFieldEnded:nil];
 }
 
 #pragma mark - UITextView delegate
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    [textView logTextViewStarted:nil];
+    if (textView) 
+        [textView logTextViewStarted:nil];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    self.person.notes = textView.text;
+    if (textView)
+        self.person.notes = textView.text;
 }
 
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
-    [textView logTextViewEnded:nil];
+    if (textView)
+        [textView logTextViewEnded:nil];
 }
 
 #pragma mark - UIScrollView delegate
