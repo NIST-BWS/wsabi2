@@ -279,21 +279,7 @@
     newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
-    
-    //create a new capture item
-    WSCDItem *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDItem" inManagedObjectContext:self.managedObjectContext];
-    newItem.index = [NSNumber numberWithInt:0]; //this is the first item in the record
-    newItem.timeStampCreated = now;
-    newItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
-    
-    //add a device config to that item.
-    WSCDDeviceDefinition *deviceDef = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDDeviceDefinition" inManagedObjectContext:self.managedObjectContext];
-    deviceDef.timeStampLastEdit = now;
-    newItem.deviceConfig = deviceDef;
-    
-    //add that item to the person's record.
-    [newPerson addItemsObject:newItem];
-    
+        
     //Save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
@@ -302,13 +288,21 @@
     [self.tableView selectRowAtIndexPath:newPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
     [self tableView:self.tableView didSelectRowAtIndexPath:newPath]; //fire this manually, as the previous call doesn't do it.
     
+    //Create a temporary item
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.managedObjectContext];
+    WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    
+    //insert this item at the beginning of the list.
+    newCaptureItem.index = [NSNumber numberWithInt:0]; 
+    newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
+    
     //fade the button out
     [UIView animateWithDuration:0.3 animations:^{
         ((UIButton*)sender).alpha = 0;
     }];
     
     //display the sensor walkthrough (by posting a notification)
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newItem forKey:kDictKeyTargetItem];
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
     [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];

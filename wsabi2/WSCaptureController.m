@@ -191,6 +191,10 @@
 	return YES;
 }
 
+-(CGSize) contentSizeForViewInPopover
+{
+    return CGSizeMake(480, 408);
+}
 
 #pragma mark - Property accessors
 -(void) setItem:(WSCDItem *)newItem

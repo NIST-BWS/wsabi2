@@ -360,6 +360,9 @@
     self.popoverController.contentViewController = tempNav;
      
     self.popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
+    
+    self.popoverController.passthroughViews = nil; //clear any existing passthrough views.
+    
     [self.popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
                                        inView:self.superview 
                      permittedArrowDirections:(UIPopoverArrowDirectionLeft) 
