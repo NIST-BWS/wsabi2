@@ -230,9 +230,10 @@
     //If the link is either not registered or not initialized,
     //run the full sequence (through downloading)
     BOOL startedOK;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
+                                   [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]];
     if (!link.registered || !link.initialized) {
-        startedOK = [link beginFullSequenceWithConfigurationParams:
-         [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
+        startedOK = [link beginFullSequenceWithConfigurationParams:params
                                            withMaxSize:kMaxImageSize sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
@@ -242,7 +243,7 @@
     else
     {
         startedOK = [link beginConfigCaptureDownloadSequence:link.currentSessionId
-                             configurationParams:[NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]
+                             configurationParams:params
                                      withMaxSize:kMaxImageSize
                                    sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {

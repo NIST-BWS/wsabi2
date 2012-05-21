@@ -57,6 +57,8 @@
         BOOL sequenceStarted = [link beginConnectSequenceWithSourceObjectID:nil];
         if (!sequenceStarted) {
             NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
+            //this failed.
+            //[self sequenceDidFail:kSensorSequenceConnect fromLink:link withResult:nil sourceObjectID:nil];
         }
         else {
             NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
@@ -71,6 +73,8 @@
             BOOL sequenceStarted = [link beginConnectSequenceWithSourceObjectID:nil];
             if (!sequenceStarted) {
                 NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
+                //this failed.
+                //[self sequenceDidFail:kSensorSequenceConnect fromLink:link withResult:nil sourceObjectID:nil];
             }
             else {
                 NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);

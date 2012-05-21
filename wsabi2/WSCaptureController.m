@@ -367,6 +367,7 @@
                                                           cancelButtonTitle:@"Cancel"
                                                      destructiveButtonTitle:@"Clear"
                                                           otherButtonTitles:nil];
+            deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
             [deleteConfirmActionSheet showInView:self.view];
             
         }
@@ -395,6 +396,20 @@
                                                             object:self
                                                           userInfo:userInfo];
         self.captureButton.state = WSCaptureButtonStateCapture;
+
+    }
+    
+    else if (actionSheet == deleteConfirmActionSheet && buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        //go back to the previous action sheet.
+        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                 destructiveButtonTitle:@"Clear this item"
+                                                      otherButtonTitles:@"Annotate", nil];
+        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        
+        [annotateClearActionSheet showInView:self.view];
 
     }
 }

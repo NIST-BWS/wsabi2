@@ -246,173 +246,173 @@
             
             //Finger
         case kCaptureTypeRightThumbRolled:
-            return @"rightThumbRolled";
+            return @"RightThumbRolled";
             break;
         case kCaptureTypeRightIndexRolled:
-            return @"rightIndexRolled";
+            return @"RightIndexRolled";
             break;
         case kCaptureTypeRightMiddleRolled:
-            return @"rightMiddleRolled";
+            return @"RightMiddleRolled";
             break;
         case kCaptureTypeRightRingRolled:
-            return @"rightRingRolled";
+            return @"RightRingRolled";
             break;
         case kCaptureTypeRightLittleRolled:
-            return @"rightLittleRolled";
+            return @"RightLittleRolled";
             break;
             
         case kCaptureTypeRightThumbFlat:
-            return @"rightLittleFlat";
+            return @"RightLittleFlat";
             break;
         case kCaptureTypeRightIndexFlat:
-            return @"rightIndexFlat";
+            return @"RightIndexFlat";
             break;
         case kCaptureTypeRightMiddleFlat:
-            return @"rightMiddleFlat";
+            return @"RightMiddleFlat";
             break;
         case kCaptureTypeRightRingFlat:
-            return @"rightRingFlat";
+            return @"RightRingFlat";
             break;
         case kCaptureTypeRightLittleFlat:
-            return @"rightLittleFlat";
+            return @"RightLittleFlat";
             break;
 
         case kCaptureTypeLeftThumbRolled:
-            return @"leftThumbRolled";
+            return @"LeftThumbRolled";
             break;
         case kCaptureTypeLeftIndexRolled:
-            return @"leftIndexRolled";
+            return @"LeftIndexRolled";
             break;
         case kCaptureTypeLeftMiddleRolled:
-            return @"leftMiddleRolled";
+            return @"LeftMiddleRolled";
             break;
         case kCaptureTypeLeftRingRolled:
-            return @"leftRingRolled";
+            return @"LeftRingRolled";
             break;
         case kCaptureTypeLeftLittleRolled:
-            return @"leftLittleRolled";
+            return @"LeftLittleRolled";
             break;
             
         case kCaptureTypeLeftThumbFlat:
-            return @"leftLittleFlat";
+            return @"LeftLittleFlat";
             break;
         case kCaptureTypeLeftIndexFlat:
-            return @"leftIndexFlat";
+            return @"LeftIndexFlat";
             break;
         case kCaptureTypeLeftMiddleFlat:
-            return @"leftMiddleFlat";
+            return @"LeftMiddleFlat";
             break;
         case kCaptureTypeLeftRingFlat:
-            return @"leftRingFlat";
+            return @"LeftRingFlat";
             break;
         case kCaptureTypeLeftLittleFlat:
-            return @"leftLittleFlat";
+            return @"LeftLittleFlat";
             break;
 
             
         case kCaptureTypeLeftSlap:
-            return @"leftSlap";
+            return @"LeftSlap";
             break;
         case kCaptureTypeRightSlap:
-            return @"rightSlap";
+            return @"RightSlap";
             break;
         case kCaptureTypeThumbsSlap:
-            return @"thumbsSlap";
+            return @"ThumbsSlap";
             break;
             
             //Iris
         case kCaptureTypeLeftIris:
-            return @"leftIris";
+            return @"LeftIris";
             break;
         case kCaptureTypeRightIris:
-            return @"rightIris";
+            return @"RightIris";
             break;
         case kCaptureTypeBothIrises:
-            return @"bothIrises";
+            return @"BothIrises";
             break;
             
             //Face
         case kCaptureTypeFace2d:
-            return @"face2d";
+            return @"Face2d";
             break;
         case kCaptureTypeFace3d:
-            return @"face3d";
+            return @"Face3d";
             break;
             
             //Ear
         case kCaptureTypeLeftEar:
-            return @"leftEar";
+            return @"LeftEar";
             break;
         case kCaptureTypeRightEar:
-            return @"rightEar";
+            return @"RightEar";
             break;
         case kCaptureTypeBothEars:
-            return @"bothEars";
+            return @"BothEars";
             break;
             
             //Vein
         case kCaptureTypeLeftVein:
-            return @"leftVein";
+            return @"LeftVein";
             break;
         case kCaptureTypeRightVein:
-            return @"rightVein";
+            return @"RightVein";
             break;
         case kCaptureTypePalm:
-            return @"palm";
+            return @"Palm";
             break;
         case kCaptureTypeBackOfHand:
-            return @"backOfHand";
+            return @"BackOfHand";
             break;
         case kCaptureTypeWrist:
-            return @"wrist";
+            return @"Wrist";
             break;
             
             //Retina
         case kCaptureTypeLeftRetina:
-            return @"leftRetina";
+            return @"LeftRetina";
             break;
         case kCaptureTypeRightRetina:
-            return @"rightRetina";
+            return @"RightRetina";
             break;
         case kCaptureTypeBothRetinas:
-            return @"bothRetinas";
+            return @"BothRetinas";
             break;
             
             //Foot
         case kCaptureTypeLeftFoot:
-            return @"leftFoot";
+            return @"LeftFoot";
             break;
         case kCaptureTypeRightFoot:
-            return @"rightFoot";
+            return @"RightFoot";
             break;
         case kCaptureTypeBothFeet:
-            return @"bothFeet";
+            return @"BothFeet";
             break;
             
             //Single items
         case kCaptureTypeScent:
-            return @"scent";
+            return @"Scent";
             break;
         case kCaptureTypeDNA:
-            return @"dna";
+            return @"Dna";
             break;
         case kCaptureTypeHandGeometry:
-            return @"handGeometry";
+            return @"HandGeometry";
             break;
         case kCaptureTypeVoice:
-            return @"voice";
+            return @"Voice";
             break;
         case kCaptureTypeGait:
-            return @"gait";
+            return @"Gait";
             break;
         case kCaptureTypeKeystroke:
-            return @"keystroke";
+            return @"Keystroke";
             break;
         case kCaptureTypeLipMovement:
-            return @"lipMovement";
+            return @"LipMovement";
             break;
         case kCaptureTypeSignatureSign:
-            return @"signature";
+            return @"Signature";
             break;
             
         default:

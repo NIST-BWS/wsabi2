@@ -204,6 +204,7 @@
     self.sequenceInProgress = kSensorSequenceRecovery;
 
     //Figure out where we need to go.
+    //FIXME: We need to handle all potential status values here!
     switch (self.currentWSBDResult.status) {
         case StatusInvalidId:
             //need to re-register
@@ -218,6 +219,10 @@
             [self beginInitialize:self.currentSessionId sourceObjectID:sourceObjectID];
             break;
         case StatusSensorNeedsConfiguration:
+            //We need to run configuration again.
+            [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:sourceObjectID];
+            break;
+        case StatusNoSuchParameter:
             //We need to run configuration again.
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:sourceObjectID];
             break;
@@ -493,13 +498,14 @@
 	if (params) {
         for(NSString* key in params)
         {
-            [messageBody appendFormat:@"<item><key>%@</key><value i:type=\"xs:string\">%@</value></item>", key, [params objectForKey:key]];
+            //[messageBody appendFormat:@"<item><key>%@</key><value i:type=\"xs:string\">%@</value></item>", key, [params objectForKey:key]];
+            //Use the new XML conversion methods
+            NSLog(@"Setting a parameter for the configure step");
+            [messageBody appendFormat:@"<item><key>%@</key>%@</item>", key, [NBCLXMLMap xmlElementForObject:[params objectForKey:key] withElementName:@"value"]];
         }
     }
-	[messageBody appendString:@"</configuration>"];
-
-//    NSString *messageBody = @"<WsbdDictionary xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://itl.nist.gov/wsbd/L1\"><item><key>submodality</key><value xmlns:d3p1=\"http://www.w3.org/2001/XMLSchema\" i:type=\"d3p1:string\">rightThumb</value></item></WsbdDictionary>";
-  
+    [messageBody appendString:@"</configuration>"];
+    
 	//build the request
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/configure/%@",self.uri, sessionId]]];
 	request.requestMethod = @"POST";
@@ -1543,8 +1549,10 @@
 		return NO;
 	}
 	
-	//TESTING ONLY: Do a raw data dump.
-	//NSLog(@"Raw data is:\n%@",[[[NSString alloc] initWithData:parseableData encoding:NSUTF8StringEncoding] autorelease] );
+	//TESTING ONLY: Do a raw data dump (unless this is a reeeeally large call)
+    if ([parseableData length] < 5000) {
+        NSLog(@"Raw data is:\n%@",[[NSString alloc] initWithData:parseableData encoding:NSUTF8StringEncoding] );
+    }
 	
 	//Parse the returned XML and place it in the parseResult object
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:parseableData];

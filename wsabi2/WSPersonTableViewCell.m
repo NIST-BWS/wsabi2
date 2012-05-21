@@ -642,21 +642,19 @@
                 
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
-
-        //**FIXME: Make sure this doesn't cause a race condition where the notification is posted before the
-        //capture controller is instantiated and listening for it!
         
         NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:cap.item.deviceConfig.uri];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
+                                       [NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]];
         if (link.initialized) {
             //grab the lock and try to configure the sensor
             [link beginConfigureSequence:link.currentSessionId 
-                     configurationParams:[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
+                     configurationParams:params
                            sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         else {
             //Something's up, and the sensor was not properly initialized. Try again, starting from reconnecting.
-            [link beginConnectConfigureSequenceWithConfigurationParams:
-             [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]]
+            [link beginConnectConfigureSequenceWithConfigurationParams:params
                             sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         

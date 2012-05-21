@@ -254,6 +254,13 @@
     //to the current modality and submodality. This could be expanded for multiple modalities later.
     self.deviceDefinition.modalities = self.item.modality;
     self.deviceDefinition.submodalities = self.item.submodality;
+
+    //also store these in the parameter dictionary (this is probably something that should be resolved rather than duplicated)
+    //NOTE: This uses the parameter form of the submodality, rather than the pretty-printed form.
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [params setObject:self.item.modality forKey:@"modality"];
+    [params setObject:[WSModalityMap parameterNameForCaptureType:self.submodality] forKey:@"submodality"];
+    self.deviceDefinition.parameterDictionary = [NSKeyedArchiver archivedDataWithRootObject:params];
     
     //If necessary, insert both the item and its device definition into the real context, which
     //we'll have to get from the app delegate.
