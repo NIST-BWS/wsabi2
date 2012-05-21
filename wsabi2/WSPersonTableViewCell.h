@@ -22,7 +22,7 @@
 
 -(void) didRequestDuplicatePerson:(WSCDPerson*)person;
 -(void) didRequestDeletePerson:(WSCDPerson*)person;
-
+-(void) didChangeEditingStatusForPerson:(WSCDPerson*)person newStatus:(BOOL)onOrOff;
 @end
 
 @interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    

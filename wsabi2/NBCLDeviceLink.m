@@ -226,6 +226,10 @@
             //We need to run configuration again.
             [self beginConfigure:self.currentSessionId withParameters:pendingConfiguration sourceObjectID:sourceObjectID];
             break;
+        case StatusSensorFailure:
+            //try to reinitialize.
+            [self beginInitialize:self.currentSessionId sourceObjectID:sourceObjectID];
+            break;
         default:
             break;
     }
@@ -1304,6 +1308,7 @@
             numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
             for (NSString *capId in self.currentWSBDResult.captureIds) {
                 [self beginDownload:capId withMaxSize:downloadMaxSize sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
+                //[self beginDownload:capId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
             }
         }
     }

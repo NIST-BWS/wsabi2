@@ -720,7 +720,7 @@
 		EA2D1D5B14FC17D4007CB41F /* Network communication */ = {
 			isa = PBXGroup;
 			children = (
-				EA2D1D7114FC1E24007CB41F /* AVCam Demo */,
+				EA2D1D7114FC1E24007CB41F /* AVCam Demo (used for Internal Camera link only) */,
 				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
 				EA2D1D6114FC18E1007CB41F /* NBCLInternalCameraSensorLink.h */,
@@ -742,13 +742,13 @@
 			name = "Network communication";
 			sourceTree = "<group>";
 		};
-		EA2D1D7114FC1E24007CB41F /* AVCam Demo */ = {
+		EA2D1D7114FC1E24007CB41F /* AVCam Demo (used for Internal Camera link only) */ = {
 			isa = PBXGroup;
 			children = (
 				EA2D1D6D14FC1E1F007CB41F /* AVCamDemoCaptureManager.h */,
 				EA2D1D6E14FC1E1F007CB41F /* AVCamDemoCaptureManager.m */,
 			);
-			name = "AVCam Demo";
+			name = "AVCam Demo (used for Internal Camera link only)";
 			sourceTree = "<group>";
 		};
 		EA2D1D8414FD1F8D007CB41F /* Symbolicons */ = {

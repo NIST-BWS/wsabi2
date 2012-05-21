@@ -199,6 +199,7 @@
             self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
             self.inactiveOverlayView.alpha = 0.0;
             self.separatorView.alpha = 0.0;
+
             [self layoutGrid];
 
         }];
@@ -238,7 +239,8 @@
         ];
         
         //make sure we're not in edit mode
-        [self setEditing:NO];
+        //[self setEditing:NO];
+        
     }
 
     self.itemGridView.userInteractionEnabled = selected;
@@ -261,13 +263,8 @@
 
     self.itemGridView.editing = newEditingStatus;
     
-//    //propogate this down to the contained grid cells
-//    for (UIView *v in self.cellGridView.subviews) {
-//        if ([v isKindOfClass:[WSItemGridCell class]]) {
-//            //mark this cell with the same editing properties as the parent.
-//            ((WSItemGridCell*)v).editing = newEditingStatus;
-//        }
-//    }
+    //notify the delegate
+    [delegate didChangeEditingStatusForPerson:self.person newStatus:newEditingStatus];
 }
 
 -(NSString*)biographicalShortName
@@ -408,13 +405,15 @@
 
 -(IBAction)duplicateRowButtonPressed:(id)sender
 {
+    //make sure we're not editing anything, then notify the delegate that
+    //we want to duplicate this row.
+    [self setEditing:NO];
     [delegate didRequestDuplicatePerson:self.person];
 }
 
 -(IBAction)editButtonPressed:(id)sender
 {
     [self setEditing:!self.editing];
-
 }
 
 -(IBAction)deleteButtonPressed:(id)sender
@@ -634,7 +633,7 @@
         self.popoverController.popoverContentSize = cap.view.bounds.size;
 
         //allow the user to interact with anything in this cell's grid view while the popover is active, as well
-        //as the add-new-item button.
+        //as the add-new-item button. Dismiss if the background is tapped.
         NSMutableArray *passthrough = [NSMutableArray arrayWithArray:self.itemGridView.subviews];
         [passthrough addObject:self.addButton];
         
@@ -700,6 +699,7 @@
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
     //for now, do nothing.
+    NSLog(@"Empty space tapped.");
 }
 
 // Called when the delete-button has been pressed. Required to enable editing mode.

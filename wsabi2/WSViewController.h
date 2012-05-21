@@ -30,6 +30,8 @@
     NSIndexPath *previousSelectedIndex;
     
     BOOL shouldRestoreCapturePopover;
+    
+    WSCDPerson* personBeingEdited;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;

@@ -351,6 +351,9 @@
     cell.person = person;
     [cell.itemGridView reloadData];
     [cell layoutGrid]; //adjust the frame if necessary
+    
+    //change editing status if necessary.
+    [cell setEditing:(person == personBeingEdited)];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -623,6 +626,19 @@
         [self.managedObjectContext deleteObject:oldPerson];
     }
 }
+
+-(void) didChangeEditingStatusForPerson:(WSCDPerson*)person newStatus:(BOOL)onOrOff
+{
+    if (onOrOff) {
+        //set the personBeingEdited variable.
+        personBeingEdited = person;
+    }
+    else {
+        //set the person being edited to nil.
+        personBeingEdited = nil;
+    }
+}
+
 #pragma mark - Device Config walkthrough delegate (OBSOLETED??)
 -(void) didCancelDeviceConfigWalkthrough:(WSCDItem*)sourceItem
 {

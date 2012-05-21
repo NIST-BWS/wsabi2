@@ -33,6 +33,8 @@
     UIActionSheet *deleteConfirmActionSheet;
     
     UIImage *dataImage;
+    
+    NSArray *storedPassthroughViews;
 }
 
 -(IBAction)annotateButtonPressed:(id)sender;

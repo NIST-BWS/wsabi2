@@ -368,7 +368,9 @@
                                                      destructiveButtonTitle:@"Clear"
                                                           otherButtonTitles:nil];
             deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+            
             [deleteConfirmActionSheet showInView:self.view];
+            
             
         }
         else {
@@ -411,6 +413,9 @@
         
         [annotateClearActionSheet showInView:self.view];
 
+    }
+    else {
+        [actionSheet dismissWithClickedButtonIndex:actionSheet.cancelButtonIndex animated:YES];
     }
 }
 
