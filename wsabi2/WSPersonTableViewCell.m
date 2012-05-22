@@ -621,7 +621,8 @@
         
         //This is intentionally naïve; if there's no controller here,
         //we have a problem.
-        [self.popoverController setContentViewController:cap animated:NO];
+        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
+        self.popoverController.delegate = self;
         
         //give the capture controller a reference to its containing popover.
         cap.popoverController = self.popoverController;
@@ -690,7 +691,6 @@
         [self deselectAllItems:nil];
     }
     else {
-        
         [self showCapturePopoverAtIndex:position];
     }
 }
@@ -867,6 +867,18 @@
 //}
 //
 
+#pragma mark - UIPopoverController Delegate
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+{
+    //disable the grid while we're animating.
+//    self.itemGridView.userInteractionEnabled = NO;
+//    return YES;
+}
 
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+//    //re-enable user interaction now that we've closed the popover.
+//    self.itemGridView.userInteractionEnabled = YES;
+}
 
 @end

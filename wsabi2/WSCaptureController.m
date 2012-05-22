@@ -141,7 +141,14 @@
     
     self.backNavBarTitleItem.title = self.item.submodality;
     self.annotationNotesTableView.alwaysBounceVertical = NO;
-    
+        
+    //enable touch logging
+    [self.view startAutomaticGestureLogging:YES];
+
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
     //add notification listeners
     
     //Catch a posted download
@@ -154,28 +161,28 @@
                                              selector:@selector(handleItemChanged:) 
                                                  name:kChangedWSCDItemNotification
                                                object:nil];
-
+    
     //Catch a failed sensor operation
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleSensorOperationFailed:) 
                                                  name:kSensorLinkOperationFailed
                                                object:nil];
-
+    
     //Catch a failed sensor sequence
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleSensorSequenceFailed:) 
                                                  name:kSensorLinkSequenceFailed
                                                object:nil];
-    
-    //enable touch logging
-    [self.view startAutomaticGestureLogging:YES];
 
 }
 
-- (void) viewWillUnload
+- (void) viewWillDisappear:(BOOL)animated
 {
     //remove observers
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    //empty our delegate
+    self.delegate = nil;
 }
 
 - (void)viewDidUnload

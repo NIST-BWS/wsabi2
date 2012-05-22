@@ -670,7 +670,7 @@
         for (NSString *mod in serviceModalityAllowed) {
             if ([mod localizedCaseInsensitiveCompare:
                  [WSModalityMap stringForModality:self.modality]] 
-                != NSOrderedSame)
+                == NSOrderedSame)
             {
                 modalityOK = YES;
                 break; //we found something, no need to continue.
