@@ -639,7 +639,7 @@
     }
 }
 
-#pragma mark - Device Config walkthrough delegate (OBSOLETED??)
+#pragma mark - Device Config walkthrough delegate - OBSOLETED (and not called)
 -(void) didCancelDeviceConfigWalkthrough:(WSCDItem*)sourceItem
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];

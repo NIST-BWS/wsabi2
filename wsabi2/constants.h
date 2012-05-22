@@ -32,6 +32,7 @@
 
 #define kChangedWSCDItemNotification @"changedWSCDItem"
 
+#define kDictKeySourceLink @"sourceLink"
 #define kDictKeyTargetItem @"targetItem"
 #define kDictKeySourceID @"sourceObjectID"
 #define kDictKeySequenceType @"sequenceType"

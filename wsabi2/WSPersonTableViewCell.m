@@ -171,6 +171,11 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    if ([super isSelected] == selected) {
+        //nothing to change.
+        return;
+    }
+    
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
@@ -614,13 +619,16 @@
 
         //Move the highlight to this new cell
         [self deselectAllItems:activeCell];
+
+        //if there was an existing popover, hide it.
+        if (self.popoverController && self.popoverController.isPopoverVisible) {
+            [self.popoverController dismissPopoverAnimated:YES];
+        }
         
         WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
         cap.delegate = self;
         cap.item = [orderedItems objectAtIndex:index];
         
-        //This is intentionally naïve; if there's no controller here,
-        //we have a problem.
         self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
         self.popoverController.delegate = self;
         
@@ -698,8 +706,9 @@
 // Tap on space without any items
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
-    //for now, do nothing.
-    NSLog(@"Empty space tapped.");
+    //just hide any current selection.
+    [self.popoverController dismissPopoverAnimated:YES];
+    [self deselectAllItems:nil];
 }
 
 // Called when the delete-button has been pressed. Required to enable editing mode.
@@ -872,13 +881,17 @@
 {
     //disable the grid while we're animating.
 //    self.itemGridView.userInteractionEnabled = NO;
-//    return YES;
+    return YES;
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
 //    //re-enable user interaction now that we've closed the popover.
 //    self.itemGridView.userInteractionEnabled = YES;
+    
+    //make sure nothing is selected.
+    [self deselectAllItems:nil];
+
 }
 
 @end

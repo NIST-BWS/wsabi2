@@ -72,19 +72,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    if (self.item) {
-        //Get a reference to the sensor link for this object.
-        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
-        
-        //put the button in the default state.
-        self.captureButton.state = WSCaptureButtonStateInactive;
-        
-        if (self.item.data) {
-            dataImage = [UIImage imageWithData:self.item.data];
-            self.itemDataView.image = dataImage;
-        }
-    }
-    
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
     
@@ -120,6 +107,31 @@
     self.captureButton.layer.shadowRadius = 6;
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
     
+    ///Load data from the network and Core Data
+    if (self.item) {
+        //Get a reference to the sensor link for this object.
+        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+        
+        if (currentLink.sequenceInProgress) {
+            //set the capture button to the waiting state
+            self.captureButton.state = WSCaptureButtonStateWaiting;
+        }
+        else {
+            //put the button in the correct normal state.
+            self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+        }
+        
+        if (self.item.data) {
+            dataImage = [UIImage imageWithData:self.item.data];
+            self.itemDataView.image = dataImage;
+        }
+    }
+    else {
+        //put the button in the inactive state.
+        self.captureButton.state = WSCaptureButtonStateInactive;
+    }
+    
+
     //add swipe listeners to the capture button to switch between items.
 //    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
 //    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
@@ -127,9 +139,6 @@
 //    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
 //    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self.view addGestureRecognizer:swipeLeft];
-
-    //Start with the button in the "ready to capture" state
-    self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
     
     //configure the annotation button and panel
     if ([self hasAnnotationOrNotes]) {
@@ -145,11 +154,13 @@
     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
 
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
     //add notification listeners
+    
+    //Catch a newly connected sensor
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleConnectCompleted:) 
+                                                 name:kSensorLinkConnectSequenceCompleted
+                                               object:nil];
     
     //Catch a posted download
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -173,10 +184,10 @@
                                              selector:@selector(handleSensorSequenceFailed:) 
                                                  name:kSensorLinkSequenceFailed
                                                object:nil];
-
+    
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (void) viewWillUnload:(BOOL)animated
 {
     //remove observers
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -501,6 +512,20 @@
 }
 
 #pragma mark - Notification handlers
+-(void) handleConnectCompleted:(NSNotification *)notification
+{
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    
+    NSLog(@"userInfo for connect sequence is %@",info.description);
+    
+    NBCLDeviceLink *sourceLink = [info objectForKey:kDictKeySourceLink];
+    
+    //If this applies to us, change our capture state.
+    if (currentLink == sourceLink) {
+        self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+    }
+}
+
 -(void) handleItemChanged:(NSNotification*)notification
 {
     //At the moment, this is mainly used to catch a deletion, but may also be used to catch any time

@@ -311,6 +311,7 @@
                sourceObjectID:(NSURL*)sourceID
 {
     if (self.sequenceInProgress) {
+        
         //don't start another sequence if one is in progress
         return NO;
     }
@@ -801,6 +802,7 @@
         }
         //if this call is part of a sequence, call the next step.
         if (seq == kSensorSequenceConnect ||
+            seq == kSensorSequenceConnectConfigure ||
             seq == kSensorSequenceFull)
         {
             [self beginInitialize:self.currentSessionId sourceObjectID:[request.userInfo objectForKey:kDictKeySourceID]];
@@ -1202,7 +1204,8 @@
         }
         
         //if this call is part of a sequence, call the next step.
-        if (seq == kSensorSequenceConfigCaptureDownload ||
+        if (seq == kSensorSequenceCaptureDownload ||
+            seq == kSensorSequenceConfigCaptureDownload ||
             seq == kSensorSequenceFull
             ) 
         {
@@ -1766,10 +1769,10 @@
 		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"LockHeldByAnother"] == NSOrderedSame) {
 			tempValue = StatusLockHeldByAnother;
 		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorNeedsInitialization"] == NSOrderedSame) {
+		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"initializationNeeded"] == NSOrderedSame) {
 			tempValue = StatusSensorNeedsInitialization;
 		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorNeedsConfiguration"] == NSOrderedSame) {
+		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"configurationNeeded"] == NSOrderedSame) {
 			tempValue = StatusSensorNeedsConfiguration;
 		}
 		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorBusy"] == NSOrderedSame) {

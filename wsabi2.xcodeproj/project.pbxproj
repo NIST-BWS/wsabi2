@@ -136,8 +136,6 @@
 		EA65DF7E1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */; };
 		EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */; };
 		EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */; };
-		EA65DF861546FF7A006C826E /* WSAnnotationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DF841546FF7A006C826E /* WSAnnotationController.m */; };
-		EA65DF871546FF7A006C826E /* WSAnnotationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF851546FF7A006C826E /* WSAnnotationController.xib */; };
 		EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */; };
 		EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */; };
 		EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC91548239D006C826E /* WSCDPerson.m */; };
@@ -211,40 +209,6 @@
 		EA8AA247156BB51C007D213A /* button_red.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA210156BB51C007D213A /* button_red.png */; };
 		EA8AA248156BB51C007D213A /* button_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA211156BB51C007D213A /* button_red@2x.png */; };
 		EA8AA249156BB51C007D213A /* button_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA211156BB51C007D213A /* button_red@2x.png */; };
-		EA8AA251156BB73A007D213A /* RDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA250156BB73A007D213A /* RDActionSheet.m */; };
-		EA8AA252156BB73A007D213A /* RDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA250156BB73A007D213A /* RDActionSheet.m */; };
-		EA8AA263156BB75D007D213A /* SheetBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA253156BB75C007D213A /* SheetBackground.png */; };
-		EA8AA264156BB75D007D213A /* SheetBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA253156BB75C007D213A /* SheetBackground.png */; };
-		EA8AA265156BB75D007D213A /* SheetBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA254156BB75C007D213A /* SheetBackground@2x.png */; };
-		EA8AA266156BB75D007D213A /* SheetBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA254156BB75C007D213A /* SheetBackground@2x.png */; };
-		EA8AA267156BB75D007D213A /* SheetButtonDestroy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA255156BB75C007D213A /* SheetButtonDestroy@2x.png */; };
-		EA8AA268156BB75D007D213A /* SheetButtonDestroy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA255156BB75C007D213A /* SheetButtonDestroy@2x.png */; };
-		EA8AA269156BB75D007D213A /* SheetButtonDestroyTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA256156BB75C007D213A /* SheetButtonDestroyTouch@2x.png */; };
-		EA8AA26A156BB75D007D213A /* SheetButtonDestroyTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA256156BB75C007D213A /* SheetButtonDestroyTouch@2x.png */; };
-		EA8AA26B156BB75D007D213A /* SheetButtonDismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA257156BB75C007D213A /* SheetButtonDismiss.png */; };
-		EA8AA26C156BB75D007D213A /* SheetButtonDismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA257156BB75C007D213A /* SheetButtonDismiss.png */; };
-		EA8AA26D156BB75D007D213A /* SheetButtonDismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA258156BB75C007D213A /* SheetButtonDismiss@2x.png */; };
-		EA8AA26E156BB75D007D213A /* SheetButtonDismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA258156BB75C007D213A /* SheetButtonDismiss@2x.png */; };
-		EA8AA26F156BB75D007D213A /* SheetButtonDismissTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA259156BB75C007D213A /* SheetButtonDismissTouch.png */; };
-		EA8AA270156BB75D007D213A /* SheetButtonDismissTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA259156BB75C007D213A /* SheetButtonDismissTouch.png */; };
-		EA8AA271156BB75D007D213A /* SheetButtonDismissTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25A156BB75C007D213A /* SheetButtonDismissTouch@2x.png */; };
-		EA8AA272156BB75D007D213A /* SheetButtonDismissTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25A156BB75C007D213A /* SheetButtonDismissTouch@2x.png */; };
-		EA8AA273156BB75D007D213A /* SheetButtonGeneric.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25B156BB75D007D213A /* SheetButtonGeneric.png */; };
-		EA8AA274156BB75D007D213A /* SheetButtonGeneric.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25B156BB75D007D213A /* SheetButtonGeneric.png */; };
-		EA8AA275156BB75D007D213A /* SheetButtonGeneric@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25C156BB75D007D213A /* SheetButtonGeneric@2x.png */; };
-		EA8AA276156BB75D007D213A /* SheetButtonGeneric@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25C156BB75D007D213A /* SheetButtonGeneric@2x.png */; };
-		EA8AA277156BB75D007D213A /* SheetButtonGenericTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25D156BB75D007D213A /* SheetButtonGenericTouch.png */; };
-		EA8AA278156BB75D007D213A /* SheetButtonGenericTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25D156BB75D007D213A /* SheetButtonGenericTouch.png */; };
-		EA8AA279156BB75D007D213A /* SheetButtonGenericTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25E156BB75D007D213A /* SheetButtonGenericTouch@2x.png */; };
-		EA8AA27A156BB75D007D213A /* SheetButtonGenericTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25E156BB75D007D213A /* SheetButtonGenericTouch@2x.png */; };
-		EA8AA27B156BB75D007D213A /* SheetButtonPrimary.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25F156BB75D007D213A /* SheetButtonPrimary.png */; };
-		EA8AA27C156BB75D007D213A /* SheetButtonPrimary.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA25F156BB75D007D213A /* SheetButtonPrimary.png */; };
-		EA8AA27D156BB75D007D213A /* SheetButtonPrimary@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA260156BB75D007D213A /* SheetButtonPrimary@2x.png */; };
-		EA8AA27E156BB75D007D213A /* SheetButtonPrimary@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA260156BB75D007D213A /* SheetButtonPrimary@2x.png */; };
-		EA8AA27F156BB75D007D213A /* SheetButtonPrimaryTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA261156BB75D007D213A /* SheetButtonPrimaryTouch.png */; };
-		EA8AA280156BB75D007D213A /* SheetButtonPrimaryTouch.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA261156BB75D007D213A /* SheetButtonPrimaryTouch.png */; };
-		EA8AA281156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA262156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png */; };
-		EA8AA282156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8AA262156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png */; };
 		EA8AA28B156BC391007D213A /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA284156BC391007D213A /* BlockActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA8AA28C156BC391007D213A /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA284156BC391007D213A /* BlockActionSheet.m */; };
 		EA8AA28D156BC391007D213A /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA286156BC391007D213A /* BlockAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -528,9 +492,6 @@
 		EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
 		EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button-selected@2x.png"; sourceTree = "<group>"; };
 		EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button@2x.png"; sourceTree = "<group>"; };
-		EA65DF831546FF7A006C826E /* WSAnnotationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAnnotationController.h; sourceTree = "<group>"; };
-		EA65DF841546FF7A006C826E /* WSAnnotationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAnnotationController.m; sourceTree = "<group>"; };
-		EA65DF851546FF7A006C826E /* WSAnnotationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSAnnotationController.xib; sourceTree = "<group>"; };
 		EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FlipTransition.h"; sourceTree = "<group>"; };
 		EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlipTransition.m"; sourceTree = "<group>"; };
 		EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "wsabi2-4.25.2012.0817.xcdatamodel"; sourceTree = "<group>"; };
@@ -582,24 +543,6 @@
 		EA8AA20F156BB51C007D213A /* button_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_grey@2x.png"; sourceTree = "<group>"; };
 		EA8AA210156BB51C007D213A /* button_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_red.png; sourceTree = "<group>"; };
 		EA8AA211156BB51C007D213A /* button_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red@2x.png"; sourceTree = "<group>"; };
-		EA8AA24F156BB73A007D213A /* RDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDActionSheet.h; sourceTree = "<group>"; };
-		EA8AA250156BB73A007D213A /* RDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDActionSheet.m; sourceTree = "<group>"; };
-		EA8AA253156BB75C007D213A /* SheetBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetBackground.png; sourceTree = "<group>"; };
-		EA8AA254156BB75C007D213A /* SheetBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetBackground@2x.png"; sourceTree = "<group>"; };
-		EA8AA255156BB75C007D213A /* SheetButtonDestroy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonDestroy@2x.png"; sourceTree = "<group>"; };
-		EA8AA256156BB75C007D213A /* SheetButtonDestroyTouch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonDestroyTouch@2x.png"; sourceTree = "<group>"; };
-		EA8AA257156BB75C007D213A /* SheetButtonDismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonDismiss.png; sourceTree = "<group>"; };
-		EA8AA258156BB75C007D213A /* SheetButtonDismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonDismiss@2x.png"; sourceTree = "<group>"; };
-		EA8AA259156BB75C007D213A /* SheetButtonDismissTouch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonDismissTouch.png; sourceTree = "<group>"; };
-		EA8AA25A156BB75C007D213A /* SheetButtonDismissTouch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonDismissTouch@2x.png"; sourceTree = "<group>"; };
-		EA8AA25B156BB75D007D213A /* SheetButtonGeneric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonGeneric.png; sourceTree = "<group>"; };
-		EA8AA25C156BB75D007D213A /* SheetButtonGeneric@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonGeneric@2x.png"; sourceTree = "<group>"; };
-		EA8AA25D156BB75D007D213A /* SheetButtonGenericTouch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonGenericTouch.png; sourceTree = "<group>"; };
-		EA8AA25E156BB75D007D213A /* SheetButtonGenericTouch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonGenericTouch@2x.png"; sourceTree = "<group>"; };
-		EA8AA25F156BB75D007D213A /* SheetButtonPrimary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonPrimary.png; sourceTree = "<group>"; };
-		EA8AA260156BB75D007D213A /* SheetButtonPrimary@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonPrimary@2x.png"; sourceTree = "<group>"; };
-		EA8AA261156BB75D007D213A /* SheetButtonPrimaryTouch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SheetButtonPrimaryTouch.png; sourceTree = "<group>"; };
-		EA8AA262156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SheetButtonPrimaryTouch@2x.png"; sourceTree = "<group>"; };
 		EA8AA283156BC391007D213A /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
 		EA8AA284156BC391007D213A /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
 		EA8AA285156BC391007D213A /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
@@ -1075,31 +1018,6 @@
 			path = AlertView;
 			sourceTree = "<group>";
 		};
-		EA8AA24E156BB729007D213A /* RDActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				EA8AA24F156BB73A007D213A /* RDActionSheet.h */,
-				EA8AA250156BB73A007D213A /* RDActionSheet.m */,
-				EA8AA253156BB75C007D213A /* SheetBackground.png */,
-				EA8AA254156BB75C007D213A /* SheetBackground@2x.png */,
-				EA8AA255156BB75C007D213A /* SheetButtonDestroy@2x.png */,
-				EA8AA256156BB75C007D213A /* SheetButtonDestroyTouch@2x.png */,
-				EA8AA257156BB75C007D213A /* SheetButtonDismiss.png */,
-				EA8AA258156BB75C007D213A /* SheetButtonDismiss@2x.png */,
-				EA8AA259156BB75C007D213A /* SheetButtonDismissTouch.png */,
-				EA8AA25A156BB75C007D213A /* SheetButtonDismissTouch@2x.png */,
-				EA8AA25B156BB75D007D213A /* SheetButtonGeneric.png */,
-				EA8AA25C156BB75D007D213A /* SheetButtonGeneric@2x.png */,
-				EA8AA25D156BB75D007D213A /* SheetButtonGenericTouch.png */,
-				EA8AA25E156BB75D007D213A /* SheetButtonGenericTouch@2x.png */,
-				EA8AA25F156BB75D007D213A /* SheetButtonPrimary.png */,
-				EA8AA260156BB75D007D213A /* SheetButtonPrimary@2x.png */,
-				EA8AA261156BB75D007D213A /* SheetButtonPrimaryTouch.png */,
-				EA8AA262156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png */,
-			);
-			name = RDActionSheet;
-			sourceTree = "<group>";
-		};
 		EA8E447014BC9C05007D9B43 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1163,7 +1081,6 @@
 		EAA6FF7314C7137D00006BCB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				EA8AA24E156BB729007D213A /* RDActionSheet */,
 				EA8AA1DD156BB19B007D213A /* Block ActionSheet/AlertView replacement */,
 				EA2D1D2914FBD4CD007CB41F /* asi-http-request (no ARC yet) */,
 				EA2779C014DACD32002484CF /* ActionSheetPicker */,
@@ -1241,9 +1158,6 @@
 				EA2D1D5B14FC17D4007CB41F /* Network communication */,
 				EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */,
 				EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */,
-				EA65DF831546FF7A006C826E /* WSAnnotationController.h */,
-				EA65DF841546FF7A006C826E /* WSAnnotationController.m */,
-				EA65DF851546FF7A006C826E /* WSAnnotationController.xib */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
 				EA2D105214D7344300C23365 /* WSBiographicalDataController.h */,
@@ -1435,7 +1349,6 @@
 				EA65DF7E1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png in Resources */,
 				EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */,
 				EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */,
-				EA65DF871546FF7A006C826E /* WSAnnotationController.xib in Resources */,
 				EA65DFD215483769006C826E /* symbol-notok.png in Resources */,
 				EA65DFD315483769006C826E /* symbol-notok@2x.png in Resources */,
 				EA65DFD415483769006C826E /* symbol-ok.png in Resources */,
@@ -1499,22 +1412,6 @@
 				EA8AA244156BB51C007D213A /* button_grey@2x.png in Resources */,
 				EA8AA246156BB51C007D213A /* button_red.png in Resources */,
 				EA8AA248156BB51C007D213A /* button_red@2x.png in Resources */,
-				EA8AA263156BB75D007D213A /* SheetBackground.png in Resources */,
-				EA8AA265156BB75D007D213A /* SheetBackground@2x.png in Resources */,
-				EA8AA267156BB75D007D213A /* SheetButtonDestroy@2x.png in Resources */,
-				EA8AA269156BB75D007D213A /* SheetButtonDestroyTouch@2x.png in Resources */,
-				EA8AA26B156BB75D007D213A /* SheetButtonDismiss.png in Resources */,
-				EA8AA26D156BB75D007D213A /* SheetButtonDismiss@2x.png in Resources */,
-				EA8AA26F156BB75D007D213A /* SheetButtonDismissTouch.png in Resources */,
-				EA8AA271156BB75D007D213A /* SheetButtonDismissTouch@2x.png in Resources */,
-				EA8AA273156BB75D007D213A /* SheetButtonGeneric.png in Resources */,
-				EA8AA275156BB75D007D213A /* SheetButtonGeneric@2x.png in Resources */,
-				EA8AA277156BB75D007D213A /* SheetButtonGenericTouch.png in Resources */,
-				EA8AA279156BB75D007D213A /* SheetButtonGenericTouch@2x.png in Resources */,
-				EA8AA27B156BB75D007D213A /* SheetButtonPrimary.png in Resources */,
-				EA8AA27D156BB75D007D213A /* SheetButtonPrimary@2x.png in Resources */,
-				EA8AA27F156BB75D007D213A /* SheetButtonPrimaryTouch.png in Resources */,
-				EA8AA281156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1584,22 +1481,6 @@
 				EA8AA245156BB51C007D213A /* button_grey@2x.png in Resources */,
 				EA8AA247156BB51C007D213A /* button_red.png in Resources */,
 				EA8AA249156BB51C007D213A /* button_red@2x.png in Resources */,
-				EA8AA264156BB75D007D213A /* SheetBackground.png in Resources */,
-				EA8AA266156BB75D007D213A /* SheetBackground@2x.png in Resources */,
-				EA8AA268156BB75D007D213A /* SheetButtonDestroy@2x.png in Resources */,
-				EA8AA26A156BB75D007D213A /* SheetButtonDestroyTouch@2x.png in Resources */,
-				EA8AA26C156BB75D007D213A /* SheetButtonDismiss.png in Resources */,
-				EA8AA26E156BB75D007D213A /* SheetButtonDismiss@2x.png in Resources */,
-				EA8AA270156BB75D007D213A /* SheetButtonDismissTouch.png in Resources */,
-				EA8AA272156BB75D007D213A /* SheetButtonDismissTouch@2x.png in Resources */,
-				EA8AA274156BB75D007D213A /* SheetButtonGeneric.png in Resources */,
-				EA8AA276156BB75D007D213A /* SheetButtonGeneric@2x.png in Resources */,
-				EA8AA278156BB75D007D213A /* SheetButtonGenericTouch.png in Resources */,
-				EA8AA27A156BB75D007D213A /* SheetButtonGenericTouch@2x.png in Resources */,
-				EA8AA27C156BB75D007D213A /* SheetButtonPrimary.png in Resources */,
-				EA8AA27E156BB75D007D213A /* SheetButtonPrimary@2x.png in Resources */,
-				EA8AA280156BB75D007D213A /* SheetButtonPrimaryTouch.png in Resources */,
-				EA8AA282156BB75D007D213A /* SheetButtonPrimaryTouch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1684,7 +1565,6 @@
 				EA28CF1F153C4E7900A2F558 /* GMGridViewLayoutStrategies.m in Sources */,
 				EA28CF21153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF23153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
-				EA65DF861546FF7A006C826E /* WSAnnotationController.m in Sources */,
 				EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */,
 				EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */,
 				EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */,
@@ -1692,7 +1572,6 @@
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
 				EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */,
-				EA8AA251156BB73A007D213A /* RDActionSheet.m in Sources */,
 				EA8AA28B156BC391007D213A /* BlockActionSheet.m in Sources */,
 				EA8AA28D156BC391007D213A /* BlockAlertView.m in Sources */,
 				EA8AA28F156BC391007D213A /* BlockBackground.m in Sources */,
@@ -1741,7 +1620,6 @@
 				EA28CF20153C4E7900A2F558 /* GMGridViewLayoutStrategies.m in Sources */,
 				EA28CF22153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF24153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
-				EA8AA252156BB73A007D213A /* RDActionSheet.m in Sources */,
 				EA8AA28C156BC391007D213A /* BlockActionSheet.m in Sources */,
 				EA8AA28E156BC391007D213A /* BlockAlertView.m in Sources */,
 				EA8AA290156BC391007D213A /* BlockBackground.m in Sources */,

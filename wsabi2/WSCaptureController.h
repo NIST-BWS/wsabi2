@@ -11,7 +11,6 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
 #import "WSCaptureButton.h"
-#import "WSAnnotationController.h"
 #import "NBCLDeviceLinkManager.h"
 #import "constants.h"
 #import "UIView+FlipTransition.h"
@@ -50,6 +49,7 @@
 -(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
 
 //Notification handlers
+-(void) handleConnectCompleted:(NSNotification*)notification;
 -(void) handleDownloadPosted:(NSNotification*)notification;
 -(void) handleItemChanged:(NSNotification*)notification;
 -(void) handleSensorOperationFailed:(NSNotification*)notification;

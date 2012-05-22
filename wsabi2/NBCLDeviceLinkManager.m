@@ -169,13 +169,14 @@
 -(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result sourceObjectID:(NSURL *)sourceID
 {
     //Post a notification about the completed sequence!
-    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
-                                     nil];
-    
-    if (result) {
+    NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] init];
+
+    if (sourceID)
+        [userInfo setObject:sourceID forKey:kDictKeySourceID];
+    if (link)
+        [userInfo setObject:link forKey:kDictKeySourceLink];
+    if (result) 
         [userInfo setObject:result forKey:kDictKeyCurrentResult];
-    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkConnectSequenceCompleted
                                                         object:self
@@ -320,6 +321,10 @@
     //add this result to the WS-BD Result cache (at the top)
     NSLog(@"Link at %@ failed to complete a series of operations", link.uri);
 
+    //If this sequence fails, for now, go all the way back and start over.
+    link.registered = NO;
+    link.initialized = NO;
+    
 }
 
 @end
