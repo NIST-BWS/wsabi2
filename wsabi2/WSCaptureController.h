@@ -16,6 +16,10 @@
 #import "constants.h"
 #import "UIView+FlipTransition.h"
 
+#import "BlockAlertView.h"
+#import "BlockActionSheet.h"
+#import "BlockTextPromptAlertView.h"
+
 @protocol WSCaptureDelegate <NSObject>
 
 -(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem;
@@ -29,8 +33,8 @@
     NSMutableArray *currentAnnotationArray;
     BOOL frontVisible;
     
-    UIActionSheet *annotateClearActionSheet;
-    UIActionSheet *deleteConfirmActionSheet;
+//    UIActionSheet *annotateClearActionSheet;
+//    UIActionSheet *deleteConfirmActionSheet;
     
     UIImage *dataImage;
     
