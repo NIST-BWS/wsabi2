@@ -105,4 +105,12 @@
 		
 to every file.
 
+##Useful Links
+* An extremely good development process walkthrough from Apple: https://developer.apple.com/library/ios/#documentation/Xcode/Conceptual/ios_development_workflow/00-About_the_iOS_Application_Development_Workflow/introduction.html
+	* (NOTE: This will require you to log in w/ our development account, which is nistbcl, in order to see it.)
 
+* The main iOS Provisioning Portal, where all of the authorization stuff happens: https://developer.apple.com/ios/manage/overview/index.action
+	* This also contains a link to their "Assistant", which can help with the process.
+
+* Erica Sadun has written a very good beginning-Objective-C-level iOS book: http://www.amazon.com/The-iOS-Developers-Cookbook-ebook/dp/B006WNDW1I
+    * Pretty sure this is available through SafariBooks as well.

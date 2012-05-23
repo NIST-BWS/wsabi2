@@ -385,15 +385,15 @@
     WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 
     //insert this item at the beginning of the list.
-    newCaptureItem.index = [NSNumber numberWithInt:0]; 
+    newCaptureItem.index = [NSNumber numberWithInt:[self.person.items count]]; 
     newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
 
-    //Update the indices of everything in the existing array to make room for the new item.
-    for (int i = 0; i < [orderedItems count]; i++) {
-        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
-        tempItem.index = [NSNumber numberWithInt:[tempItem.index intValue] + 1];
-    }
-    
+//    //Update the indices of everything in the existing array to make room for the new item.
+//    for (int i = 0; i < [orderedItems count]; i++) {
+//        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+//        tempItem.index = [NSNumber numberWithInt:[tempItem.index intValue] + 1];
+//    }
+//    
     //leave edit mode if we're in it.
     [self setEditing:NO];
 
@@ -427,7 +427,9 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete this person"
                                                     otherButtonTitles:nil];
+    
     [deletePersonSheet showFromRect:self.deleteButton.frame inView:self animated:YES];
+    
     //Log the action sheet
     [((UIView*)sender) logActionSheetShown:YES];
 }
@@ -436,8 +438,20 @@
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet == deletePersonSheet && buttonIndex != actionSheet.cancelButtonIndex) {
-        //request a deletion
-        [delegate didRequestDeletePerson:self.person];
+        
+        //show another alert to confirm the deletion
+        BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Delete this person?" message:nil];
+        deleteAlert.vignetteBackground = YES;
+        deleteAlert.animateHorizontal = YES;
+        
+        [deleteAlert setCancelButtonWithTitle:@"Cancel" block:nil];
+        [deleteAlert setDestructiveButtonWithTitle:@"Delete" block:^{
+            //request a deletion
+            [delegate didRequestDeletePerson:self.person];            
+        }];
+        
+        [deleteAlert show];
+
     }
     else if (actionSheet == deleteItemSheet && buttonIndex != actionSheet.cancelButtonIndex && deletableItem >= 0) {
         //Having confirmed the deletion, perform it.
@@ -592,6 +606,7 @@
         //turn on gesture logging for new cells
         [cell startAutomaticGestureLogging:YES];
     }
+
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
     cell.selected = (index == selectedIndex);
