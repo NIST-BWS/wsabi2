@@ -16,6 +16,7 @@
 #import "WSCaptureController.h"
 #import "WSItemGridCell.h"
 #import "WSModalityChooserController.h"
+#import "WSPopoverBackgroundView.h"
 #import "constants.h"
 
 @protocol WSPersonTableViewCellDelegate <NSObject>

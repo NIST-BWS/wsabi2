@@ -630,6 +630,8 @@
         cap.item = [orderedItems objectAtIndex:index];
         
         self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
+        //configure this popover's appearance.
+        self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
         self.popoverController.delegate = self;
         
         //give the capture controller a reference to its containing popover.

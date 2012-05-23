@@ -62,7 +62,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// Also, only keep up to 8 archived log files around at any given time.
 	// We don't want to take up too much disk space.
 	
-	fileLogger.maximumFileSize = 1024 * 1024;    // 512 KB
+	fileLogger.maximumFileSize = 1024 * 1024;    // 1024 KB
 	fileLogger.rollingFrequency = 60 * 60 * 24; //  24 Hours
 	
 	fileLogger.logFileManager.maximumNumberOfLogFiles = 8;
