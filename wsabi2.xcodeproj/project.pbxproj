@@ -116,16 +116,14 @@
 		EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */; };
 		EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
 		EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
-		EA2D1D8C14FD4F06007CB41F /* Connectivity design.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8B14FD4F05007CB41F /* Connectivity design.md */; };
-		EA2D1D8D14FD4F06007CB41F /* Connectivity design.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8B14FD4F05007CB41F /* Connectivity design.md */; };
 		EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
+		EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA3B00061563CD9400DA78D8 /* modality-finger-rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */; };
 		EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */; };
 		EA3B000B1563D86600DA78D8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00091563D86600DA78D8 /* Default.png */; };
 		EA3B000C1563D86600DA78D8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B000A1563D86600DA78D8 /* Default@2x.png */; };
-		EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */; };
 		EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
 		EA65DF741546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */; };
@@ -475,16 +473,14 @@
 		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture-single-tap.png"; sourceTree = "<group>"; };
-		EA2D1D8B14FD4F05007CB41F /* Connectivity design.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Connectivity design.md"; sourceTree = "<group>"; };
 		EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureButton.h; sourceTree = "<group>"; };
 		EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureButton.m; sourceTree = "<group>"; };
+		EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "wsabi walkthrough.md"; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated.png"; sourceTree = "<group>"; };
 		EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated@2x.png"; sourceTree = "<group>"; };
 		EA3B00091563D86600DA78D8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EA3B000A1563D86600DA78D8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		EA3B000D1563DB2D00DA78D8 /* UIViewController+PopoverSizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PopoverSizing.h"; sourceTree = "<group>"; };
-		EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PopoverSizing.m"; sourceTree = "<group>"; };
 		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLXMLMap.h; sourceTree = "<group>"; };
 		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLXMLMap.m; sourceTree = "<group>"; };
 		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
@@ -947,8 +943,6 @@
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
 				EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */,
 				EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */,
-				EA3B000D1563DB2D00DA78D8 /* UIViewController+PopoverSizing.h */,
-				EA3B000E1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1112,6 +1106,7 @@
 		EAF0F96714BC7B8C00544416 = {
 			isa = PBXGroup;
 			children = (
+				EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */,
 				EAF0F97C14BC7B8C00544416 /* wsabi2 */,
 				EAF0F99A14BC7B8C00544416 /* wsabi2Tests */,
 				EAF0F97514BC7B8C00544416 /* Frameworks */,
@@ -1152,7 +1147,6 @@
 		EAF0F97C14BC7B8C00544416 /* wsabi2 */ = {
 			isa = PBXGroup;
 			children = (
-				EA2D1D8B14FD4F05007CB41F /* Connectivity design.md */,
 				EA8A051514C8936900199FF8 /* Categories */,
 				EA8A046814C7583A00199FF8 /* Images */,
 				EA202D7314C74F6600776BF3 /* constants.h */,
@@ -1305,7 +1299,6 @@
 				EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */,
 				EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */,
 				EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */,
-				EA2D1D8C14FD4F06007CB41F /* Connectivity design.md in Resources */,
 				EA2A78E214FEB47800EE9339 /* warning-alert.png in Resources */,
 				EA2A78E314FEB47800EE9339 /* warning-alert@2x.png in Resources */,
 				EA2A78E614FEB63800EE9339 /* stop-sign.png in Resources */,
@@ -1415,6 +1408,7 @@
 				EA8AA244156BB51C007D213A /* button_grey@2x.png in Resources */,
 				EA8AA246156BB51C007D213A /* button_red.png in Resources */,
 				EA8AA248156BB51C007D213A /* button_red@2x.png in Resources */,
+				EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1424,7 +1418,6 @@
 			files = (
 				EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */,
 				EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */,
-				EA2D1D8D14FD4F06007CB41F /* Connectivity design.md in Resources */,
 				EA2A89801504F32C0056E02C /* README.txt in Resources */,
 				EA939CCD153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png in Resources */,
 				EA939CCF153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png in Resources */,
@@ -1571,7 +1564,6 @@
 				EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
-				EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */,
 				EA8AA28B156BC391007D213A /* BlockActionSheet.m in Sources */,
 				EA8AA28D156BC391007D213A /* BlockAlertView.m in Sources */,
 				EA8AA28F156BC391007D213A /* BlockBackground.m in Sources */,
