@@ -137,9 +137,6 @@
 		EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */; };
 		EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */; };
 		EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */; };
-		EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */; };
-		EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC91548239D006C826E /* WSCDPerson.m */; };
-		EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFCC1548239D006C826E /* WSCDItem.m */; };
 		EA65DFD215483769006C826E /* symbol-notok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCE15483769006C826E /* symbol-notok.png */; };
 		EA65DFD315483769006C826E /* symbol-notok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCF15483769006C826E /* symbol-notok@2x.png */; };
 		EA65DFD415483769006C826E /* symbol-ok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD015483769006C826E /* symbol-ok.png */; };
@@ -217,6 +214,12 @@
 		EA8AA290156BC391007D213A /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA288156BC391007D213A /* BlockBackground.m */; };
 		EA8AA291156BC391007D213A /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA28A156BC391007D213A /* BlockTextPromptAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA8AA292156BC391007D213A /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA28A156BC391007D213A /* BlockTextPromptAlertView.m */; };
+		EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */; };
+		EA8AA297156D142D007D213A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */; };
+		EA8AA29A156D142E007D213A /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA299156D142E007D213A /* WSCDItem.m */; };
+		EA8AA29B156D142E007D213A /* WSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA299156D142E007D213A /* WSCDItem.m */; };
+		EA8AA29E156D142E007D213A /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA29D156D142E007D213A /* WSCDPerson.m */; };
+		EA8AA29F156D142E007D213A /* WSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA29D156D142E007D213A /* WSCDPerson.m */; };
 		EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */; };
 		EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
 		EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
@@ -495,12 +498,6 @@
 		EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FlipTransition.h"; sourceTree = "<group>"; };
 		EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlipTransition.m"; sourceTree = "<group>"; };
 		EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "wsabi2-4.25.2012.0817.xcdatamodel"; sourceTree = "<group>"; };
-		EA65DFC51548239D006C826E /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
-		EA65DFC81548239D006C826E /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
-		EA65DFC91548239D006C826E /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
-		EA65DFCB1548239D006C826E /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
-		EA65DFCC1548239D006C826E /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
 		EA65DFCE15483769006C826E /* symbol-notok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok.png"; sourceTree = "<group>"; };
 		EA65DFCF15483769006C826E /* symbol-notok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok@2x.png"; sourceTree = "<group>"; };
 		EA65DFD015483769006C826E /* symbol-ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-ok.png"; sourceTree = "<group>"; };
@@ -552,6 +549,12 @@
 		EA8AA289156BC391007D213A /* BlockTextPromptAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTextPromptAlertView.h; sourceTree = "<group>"; };
 		EA8AA28A156BC391007D213A /* BlockTextPromptAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTextPromptAlertView.m; sourceTree = "<group>"; };
 		EA8AA293156BC39A007D213A /* BlockUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUI.h; sourceTree = "<group>"; };
+		EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA8AA298156D142E007D213A /* WSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDItem.h; sourceTree = "<group>"; };
+		EA8AA299156D142E007D213A /* WSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDItem.m; sourceTree = "<group>"; };
+		EA8AA29C156D142E007D213A /* WSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCDPerson.h; sourceTree = "<group>"; };
+		EA8AA29D156D142E007D213A /* WSCDPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCDPerson.m; sourceTree = "<group>"; };
 		EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi2.xcdatamodel; sourceTree = "<group>"; };
 		EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindUIViewController.h"; sourceTree = "<group>"; };
 		EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindUIViewController.m"; sourceTree = "<group>"; };
@@ -1033,13 +1036,13 @@
 		EA8E447214BC9C18007D9B43 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				EA65DFCB1548239D006C826E /* WSCDItem.h */,
-				EA65DFCC1548239D006C826E /* WSCDItem.m */,
-				EA65DFC81548239D006C826E /* WSCDPerson.h */,
-				EA65DFC91548239D006C826E /* WSCDPerson.m */,
-				EA65DFC51548239D006C826E /* WSCDDeviceDefinition.h */,
-				EA65DFC61548239D006C826E /* WSCDDeviceDefinition.m */,
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
+				EA8AA29C156D142E007D213A /* WSCDPerson.h */,
+				EA8AA29D156D142E007D213A /* WSCDPerson.m */,
+				EA8AA298156D142E007D213A /* WSCDItem.h */,
+				EA8AA299156D142E007D213A /* WSCDItem.m */,
+				EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */,
+				EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -1566,9 +1569,6 @@
 				EA28CF21153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF23153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
 				EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */,
-				EA65DFC71548239D006C826E /* WSCDDeviceDefinition.m in Sources */,
-				EA65DFCA1548239D006C826E /* WSCDPerson.m in Sources */,
-				EA65DFCD1548239D006C826E /* WSCDItem.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
 				EA3B000F1563DB2D00DA78D8 /* UIViewController+PopoverSizing.m in Sources */,
@@ -1576,6 +1576,9 @@
 				EA8AA28D156BC391007D213A /* BlockAlertView.m in Sources */,
 				EA8AA28F156BC391007D213A /* BlockBackground.m in Sources */,
 				EA8AA291156BC391007D213A /* BlockTextPromptAlertView.m in Sources */,
+				EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
+				EA8AA29A156D142E007D213A /* WSCDItem.m in Sources */,
+				EA8AA29E156D142E007D213A /* WSCDPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1624,6 +1627,9 @@
 				EA8AA28E156BC391007D213A /* BlockAlertView.m in Sources */,
 				EA8AA290156BC391007D213A /* BlockBackground.m in Sources */,
 				EA8AA292156BC391007D213A /* BlockTextPromptAlertView.m in Sources */,
+				EA8AA297156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
+				EA8AA29B156D142E007D213A /* WSCDItem.m in Sources */,
+				EA8AA29F156D142E007D213A /* WSCDPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

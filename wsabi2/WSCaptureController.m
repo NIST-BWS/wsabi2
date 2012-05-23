@@ -278,6 +278,7 @@
         //Post a notification that this item has changed
         NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
                                   [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
                                                             object:self
                                                           userInfo:userInfo];
