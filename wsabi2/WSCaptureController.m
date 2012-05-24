@@ -732,16 +732,14 @@
         
         cell.textLabel.text = titleString;
         
-        NSString *imageName = nil;
         if ([[currentAnnotationArray objectAtIndex:indexPath.row] boolValue]) {
             //if there is an annotation, use the "Not OK" symbol.
-            imageName = @"symbol-notok";
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol-notok"]];
         }
         else {
-            imageName = @"symbol-ok";
+            cell.accessoryView = nil;
         }
         
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         
         return cell;
     }
