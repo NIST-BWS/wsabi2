@@ -88,6 +88,7 @@
      */
 
     self.captureButton.inactiveImage = [UIImage imageNamed:@"Blank"];
+    self.captureButton.inactiveMessage = @"";
 
     self.captureButton.captureImage = [UIImage imageNamed:@"gesture-single-tap"];
     
@@ -95,7 +96,7 @@
     self.captureButton.stopMessage = @"Stop capture";
     
     self.captureButton.warningImage = [UIImage imageNamed:@"warning-alert"];
-    self.captureButton.warningMessage = @"Hmmmm... something's up.";
+    self.captureButton.warningMessage = @"There's a problem communicating with the sensor.";
     
     self.captureButton.waitingMessage = @"Waiting for sensor";
     

@@ -158,6 +158,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">20</double>
+								<double key="IBUIContentEdgeInsets.bottom">20</double>
+								<double key="IBUIContentEdgeInsets.left">20</double>
+								<double key="IBUIContentEdgeInsets.right">20</double>
 								<double key="IBUITitleEdgeInsets.top">0.0</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
 								<double key="IBUITitleEdgeInsets.left">10</double>
@@ -168,7 +172,7 @@
 								<double key="IBUIImageEdgeInsets.right">10</double>
 								<int key="IBUILineBreakMode">0</int>
 								<string key="IBUITitleShadowOffset">{0, 1}</string>
-								<string key="IBUINormalTitle">Stop Capture</string>
+								<string key="IBUINormalTitle">Here's a really really long title about nothing at all so we can test how things wrap around. alkjsdflkjsldakfjlksjdflkjsldfkjlskjdflkjslkdfjlskjdflkjsldkjflkjsdlkjflskjdflkjsldkjflksjldkfjlskjdlfksjlskjdflkjsdlkfjslksdlkfjlskdjflkjsdlkjflkjsdlkjflksjdlkjflkjdslkjdfslkjsdlkfjsldkjflkjsdlkjfslkjdlfkjsldkjlfksjlskjdflksj</string>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -180,7 +184,7 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">stop-sign.png</string>
+									<string key="NSResourceName">warning-alert.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="139007759">
 									<int key="type">2</int>
@@ -198,6 +202,7 @@
 								<string key="NSFrame">{{239, 361}, {241, 47}}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -582,8 +587,8 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.CustomClassName">WSCaptureButton</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="13.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
-				<real value="3" key="13.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="13.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
+				<real value="0.0" key="13.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -717,7 +722,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">stop-sign.png</string>
+			<string key="NS.key.0">warning-alert.png</string>
 			<string key="NS.object.0">{72, 72}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
