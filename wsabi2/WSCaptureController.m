@@ -86,6 +86,11 @@
      WSCaptureButtonStateWaiting,
      WSCaptureButtonStateWaitingRestartCapture,
      */
+    
+//    //add a mostly-opaque white background behind the capture button's label and image.
+//    UIView *capBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)]; //arbitrary size, this will be set later inside the button.
+//    capBG.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7]; 
+//    self.captureButton.titleBackgroundView = capBG;
 
     self.captureButton.inactiveImage = [UIImage imageNamed:@"Blank"];
     self.captureButton.inactiveMessage = @"";
@@ -113,7 +118,7 @@
         //Get a reference to the sensor link for this object.
         currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
         
-        if (currentLink.sequenceInProgress) {
+        if (currentLink.sequenceInProgress && !self.item.data) {
             //set the capture button to the waiting state
             self.captureButton.state = WSCaptureButtonStateWaiting;
         }
@@ -283,7 +288,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
                                                             object:self
                                                           userInfo:userInfo];
-        self.captureButton.state = WSCaptureButtonStateCapture;
+        self.captureButton.state = currentLink.sequenceInProgress ? WSCaptureButtonStateWaiting : WSCaptureButtonStateCapture; //be optimistic about our capture state.
         
     }];
     [deleteAlert show];

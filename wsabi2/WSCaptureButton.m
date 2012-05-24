@@ -14,6 +14,8 @@
 @synthesize activityIndicator;
 @synthesize delayedMessageTimer;
 
+//@synthesize titleBackgroundView;
+
 @synthesize inactiveImage;
 @synthesize captureImage;
 @synthesize stopImage;
@@ -80,6 +82,17 @@
         [self.activityIndicator stopAnimating];
     }
 }
+
+//-(void) setTitleBackgroundView:(UIView *)newView
+//{
+//    //if there was a previous view, remove it.
+//    if (titleBackgroundView) {
+//        [titleBackgroundView removeFromSuperview];
+//    }
+//    
+//    titleBackgroundView = newView;
+//    [self insertSubview:titleBackgroundView belowSubview:self.titleLabel];
+//}
 
 -(void) setState:(WSCaptureButtonState)newState
 {
@@ -150,6 +163,11 @@
         self.imageView.transform = CGAffineTransformIdentity;
         [self.imageView.layer removeAllAnimations];
     }
+    
+//    //size the title background view to enclose the image and title.
+//    if (self.titleBackgroundView) {
+//        self.titleBackgroundView.frame = CGRectInset(CGRectUnion(self.imageView.frame, self.titleLabel.frame), -10, -10);
+//    }
     
     state = newState;
 

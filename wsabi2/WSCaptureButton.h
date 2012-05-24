@@ -20,6 +20,8 @@
  WSCaptureButtonStateWaitingRestartCapture,
  */
 
+//@property (nonatomic, strong) UIView *titleBackgroundView;
+
 @property (nonatomic, strong) UIImage *inactiveImage;
 @property (nonatomic, strong) UIImage *captureImage;
 @property (nonatomic, strong) UIImage *stopImage;
