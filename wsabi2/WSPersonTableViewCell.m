@@ -359,6 +359,7 @@
 
     //This is intentionally naïve; if there's no controller here,
     //we have a problem.
+    self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
     self.popoverController.contentViewController = tempNav;
      
     self.popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
