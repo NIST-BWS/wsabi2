@@ -117,7 +117,13 @@
         self.itemGridView.style = GMGridViewStylePush;
         self.itemGridView.itemSpacing = kItemCellSpacing;
         self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(kItemCellSpacing, kItemCellSpacing, kItemCellSpacing, kItemCellSpacing);
-        //self.itemGridView.minEdgeInsets = UIEdgeInsetsMake(2*kItemCellSpacing, 92, kItemCellSpacing, kItemCellSpacing);
+        
+        // set extra space buffers for cell dragging.
+        self.itemGridView.dragBufferTop = 84;
+        self.itemGridView.dragBufferLeft = 25;
+        self.itemGridView.dragBufferRight = 12;
+        self.itemGridView.dragBufferBottom = 22;
+        
         self.itemGridView.actionDelegate = self;
         self.itemGridView.sortingDelegate = self;
         //self.itemGridView.transformDelegate = self;

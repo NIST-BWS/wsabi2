@@ -83,6 +83,12 @@ typedef enum
 @property (nonatomic) BOOL centerGrid;                                // Default is YES
 @property (nonatomic) UIEdgeInsets minEdgeInsets;                     // Default is (5, 5, 5, 5)
 @property (nonatomic) CFTimeInterval minimumPressDuration;            // Default is 0.2; if set to 0, the view wont be scrollable
+// These define the extra space that will be added to the grid's size before stopping a cell reorder drag operation at the edges.
+@property (nonatomic) CGFloat dragBufferLeft;                        
+@property (nonatomic) CGFloat dragBufferTop;                        
+@property (nonatomic) CGFloat dragBufferRight;                        
+@property (nonatomic) CGFloat dragBufferBottom;     
+
 @property (nonatomic) BOOL showFullSizeViewWithAlphaWhenTransforming; // Default is YES - not working right now
 
 @property (nonatomic, readonly) UIScrollView *scrollView __attribute__((deprecated)); // The grid now inherits directly from UIScrollView

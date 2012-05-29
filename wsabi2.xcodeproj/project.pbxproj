@@ -119,6 +119,7 @@
 		EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */; };
+		EA2FAEBA1574EACD00E06D8E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB91574EACD00E06D8E /* README.txt */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA3B00061563CD9400DA78D8 /* modality-finger-rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */; };
 		EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */; };
@@ -476,6 +477,7 @@
 		EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureButton.h; sourceTree = "<group>"; };
 		EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureButton.m; sourceTree = "<group>"; };
 		EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "wsabi walkthrough.md"; sourceTree = "<group>"; };
+		EA2FAEB91574EACD00E06D8E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated.png"; sourceTree = "<group>"; };
 		EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger-rotated@2x.png"; sourceTree = "<group>"; };
@@ -1041,9 +1043,10 @@
 			name = "Data Model";
 			sourceTree = "<group>";
 		};
-		EA8F482614D1A1BE00503E9C /* GMGridView */ = {
+		EA8F482614D1A1BE00503E9C /* GMGridView (modified, see included README) */ = {
 			isa = PBXGroup;
 			children = (
+				EA2FAEB91574EACD00E06D8E /* README.txt */,
 				EA8F483814D1A1D500503E9C /* close_x.png */,
 				EA28CF0F153C4E7900A2F558 /* GMGridView-Constants.h */,
 				EA28CF10153C4E7900A2F558 /* GMGridView.h */,
@@ -1058,7 +1061,7 @@
 				EA28CF19153C4E7900A2F558 /* UIView+GMGridViewAdditions.h */,
 				EA28CF1A153C4E7900A2F558 /* UIView+GMGridViewAdditions.m */,
 			);
-			name = GMGridView;
+			name = "GMGridView (modified, see included README)";
 			path = API;
 			sourceTree = "<group>";
 		};
@@ -1082,7 +1085,7 @@
 				EA2D1D2914FBD4CD007CB41F /* asi-http-request (no ARC yet) */,
 				EA2779C014DACD32002484CF /* ActionSheetPicker */,
 				EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */,
-				EA8F482614D1A1BE00503E9C /* GMGridView */,
+				EA8F482614D1A1BE00503E9C /* GMGridView (modified, see included README) */,
 				EA2A89601504F32C0056E02C /* Lumberjack */,
 			);
 			name = Dependencies;
@@ -1409,6 +1412,7 @@
 				EA8AA246156BB51C007D213A /* button_red.png in Resources */,
 				EA8AA248156BB51C007D213A /* button_red@2x.png in Resources */,
 				EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */,
+				EA2FAEBA1574EACD00E06D8E /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

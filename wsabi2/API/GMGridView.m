@@ -142,6 +142,7 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 @synthesize minimumPressDuration;
 @synthesize centerGrid = _centerGrid;
 @synthesize minEdgeInsets = _minEdgeInsets;
+@synthesize dragBufferLeft, dragBufferTop, dragBufferRight, dragBufferBottom;
 @synthesize showFullSizeViewWithAlphaWhenTransforming;
 @synthesize editing = _editing;
 
@@ -580,7 +581,24 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
             CGPoint offset = translation;
             CGPoint locationInScroll = [panGesture locationInView:self];
             
+            //Perform the translation, but revert it if the move puts us outside the grid's bounds rect
+            CGAffineTransform storedTransform = _sortMovingItem.transform;
             _sortMovingItem.transform = CGAffineTransformMakeTranslation(offset.x, offset.y);
+            
+            //make sure the new frame is within the grid bounds (with an additional size buffer)
+            //FIXME: This is completely wsabi-specific, and should really be taken from a property.
+            CGRect sizeBufferedRect = CGRectMake(self.bounds.origin.x - self.dragBufferLeft, 
+                                                 self.bounds.origin.y - self.dragBufferTop,
+                                                 self.bounds.size.width + self.dragBufferLeft + self.dragBufferRight,
+                                                 self.bounds.size.height + self.dragBufferBottom + self.dragBufferTop);            
+            
+            if (!CGRectContainsRect(sizeBufferedRect,
+                                    [self convertRect:_sortMovingItem.frame fromView:_sortMovingItem.superview])) {
+                //revert the change.
+                _sortMovingItem.transform = storedTransform;
+            }
+            
+
             [self sortingMoveDidContinueToPoint:locationInScroll];
             
             break;
@@ -860,7 +878,9 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
             }
             
             CGPoint translate = [panGesture translationInView:self];
+
             [_transformingItem.contentView setCenter:CGPointMake(_transformingItem.contentView.center.x + translate.x, _transformingItem.contentView.center.y + translate.y)];
+            
             [panGesture setTranslation:CGPointZero inView:self];
             
             break;
