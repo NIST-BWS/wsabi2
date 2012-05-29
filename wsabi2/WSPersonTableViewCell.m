@@ -690,7 +690,14 @@
                             sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         
-        [self.popoverController presentPopoverFromRect:[self.superview convertRect:activeCell.bounds fromView:activeCell] 
+        //Adjust the original cell's rect so that we're showing the popover a little closer to the item.
+        CGRect originalRect = [self.superview convertRect:activeCell.bounds fromView:activeCell];
+        CGRect targetRect = CGRectMake(originalRect.origin.x, 
+                                       originalRect.origin.y, 
+                                       originalRect.size.width, 
+                                       originalRect.size.height - 14);
+        
+        [self.popoverController presentPopoverFromRect:targetRect
                                            inView:self.superview 
                          permittedArrowDirections:direction 
                                          animated:YES];
