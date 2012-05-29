@@ -671,6 +671,7 @@
         [passthrough addObject:self.addButton];
         
         self.popoverController.passthroughViews = passthrough;
+        ((UITableView*)self.superview).scrollEnabled = NO;
         
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
@@ -920,6 +921,8 @@
 //    //re-enable user interaction now that we've closed the popover.
 //    self.itemGridView.userInteractionEnabled = YES;
     
+    ((UITableView*)self.superview).scrollEnabled = YES;
+
     //make sure nothing is selected.
     [self deselectAllItems:nil];
 
