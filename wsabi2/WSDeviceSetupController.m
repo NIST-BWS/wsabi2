@@ -655,7 +655,7 @@
                   serviceModalityDefault);
         }
         else if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
-                 [WSModalityMap stringForCaptureType:self.submodality]] 
+                 [WSModalityMap parameterNameForCaptureType:self.submodality]] 
                 != NSOrderedSame)
         {
             //This sensor doesn't support the requested submodality.
