@@ -125,6 +125,13 @@
 
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    //work around a bug in iOS – adding a white activity indicator in Interface Builder, the indicator doesn't stay
+    //white.
+    self.checkingActivity.color = [UIColor whiteColor];
+}
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     //disconnect the sensor link's delegate in case any long-running operations
