@@ -239,7 +239,7 @@
             //Finally, fade everything partially out.
             self.itemGridView.alpha = 0.3;
             self.customSelectedBackgroundView.backgroundColor = normalBGColor;
-            [self deselectAllItems:nil];
+            [self selectItem:nil];
             selectedIndex = -1;
             self.inactiveOverlayView.alpha = 1.0;
             self.separatorView.alpha = 1.0;
@@ -514,7 +514,14 @@
     
     //NSLog(@"Item %@ was changed",item.description);
         
-    [self.itemGridView reloadObjectAtIndex:[orderedItems indexOfObject:item] animated:YES];
+    //NOTE: it would be better just to reload the single cell, but for some reason,
+    //even though all variables seem to be in place, reloading the single cell
+    //results in the updated cell being deselected even when it ought to be selected.
+    //Calling reloadData behaves as expected, and there doesn't seem to be a noticeable
+    //performance hit.
+    
+//    [self.itemGridView reloadObjectAtIndex:[orderedItems indexOfObject:item] animated:YES];
+    [self.itemGridView reloadData];
 }
 
 -(void) handleDownloadPosted:(NSNotification*)notification
@@ -563,7 +570,7 @@
 }
 
 #pragma mark - Called by external classes to clear the selection
--(void) deselectAllItems:(WSItemGridCell*)exceptThisOne
+-(void) selectItem:(WSItemGridCell*)exceptThisOne
 {
     if(!exceptThisOne) {
         //we're deselecting everything
@@ -640,7 +647,7 @@
     if (activeCell) {
 
         //Move the highlight to this new cell
-        [self deselectAllItems:activeCell];
+        [self selectItem:activeCell];
 
         //if there was an existing popover, hide it.
         if (self.popoverController && self.popoverController.isPopoverVisible) {
@@ -728,7 +735,7 @@
     if (currentCell.selected) {
         //just hide this.
         [self.popoverController dismissPopoverAnimated:YES];
-        [self deselectAllItems:nil];
+        [self selectItem:nil];
     }
     else {
         [self showCapturePopoverAtIndex:position];
@@ -740,7 +747,7 @@
 {
     //just hide any current selection.
     [self.popoverController dismissPopoverAnimated:YES];
-    [self deselectAllItems:nil];
+    [self selectItem:nil];
 }
 
 // Called when the delete-button has been pressed. Required to enable editing mode.
@@ -833,7 +840,7 @@
     }
     
     //deselect everything
-    [self deselectAllItems:nil];
+    [self selectItem:nil];
     
 }
 
@@ -924,7 +931,7 @@
     ((UITableView*)self.superview).scrollEnabled = YES;
 
     //make sure nothing is selected.
-    [self deselectAllItems:nil];
+    [self selectItem:nil];
 
 }
 

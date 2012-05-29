@@ -132,7 +132,7 @@
 {
     //start by deselecting everything in the current row.
     WSPersonTableViewCell *row = (WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [row deselectAllItems:nil];
+    [row selectItem:nil];
     
     WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
 
@@ -657,7 +657,7 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell deselectAllItems:nil]; //clear selection
+    [activeCell selectItem:nil]; //clear selection
     [self.view logPopoverHidden];
 }
 

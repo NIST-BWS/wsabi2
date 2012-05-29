@@ -59,7 +59,7 @@
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
--(void) deselectAllItems:(WSItemGridCell*)exceptThisOne;
+-(void) selectItem:(WSItemGridCell*)exceptThisOne;
 
 //Notification handlers
 -(void) didChangeItem:(NSNotification*)notification;
