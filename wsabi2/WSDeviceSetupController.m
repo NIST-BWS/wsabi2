@@ -683,13 +683,6 @@
             checkingSensor = NO;
             return; //skip the other checks
         }
-        else {
-            //We're good.
-            self.sensorCheckStatus = kStatusSuccessful;
-            checkingSensor = NO;
-            return;
-        }
-
         
         BOOL submodalityOK = NO;
         for (NSString *smod in serviceSubmodalityAllowed) {

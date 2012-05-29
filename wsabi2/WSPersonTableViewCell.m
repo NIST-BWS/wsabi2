@@ -671,7 +671,7 @@
         [passthrough addObject:self.addButton];
         
         self.popoverController.passthroughViews = passthrough;
-                
+        
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
         
