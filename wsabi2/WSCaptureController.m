@@ -590,7 +590,7 @@
     //IF the capture button is visible:
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         self.captureButton.state = WSCaptureButtonStateWarning;
-        self.captureButton.warningMessage = error.description;
+        self.captureButton.warningMessage = error.localizedDescription;
     }
     else {
         //Log the error but don't change the UI
