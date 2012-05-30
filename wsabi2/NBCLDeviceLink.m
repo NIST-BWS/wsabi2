@@ -231,6 +231,9 @@
             [self beginInitialize:self.currentSessionId sourceObjectID:sourceObjectID];
             break;
         default:
+            //don't recover
+            self.sequenceInProgress = kSensorSequenceNone;
+            [delegate sensorOperationDidFail:kSensorSequenceRecovery fromLink:self sourceObjectID:sourceObjectID withError:nil];
             break;
     }
 

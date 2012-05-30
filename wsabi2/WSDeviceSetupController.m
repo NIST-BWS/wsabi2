@@ -641,9 +641,9 @@
     WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
     WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
     
+    //Check modality
     if (serviceModalityParam.readOnly) {
         NSString *serviceModalityDefault = serviceModalityParam.defaultValue;
-        NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
         
         if([serviceModalityDefault localizedCaseInsensitiveCompare:
             [WSModalityMap stringForModality:self.modality]] 
@@ -654,14 +654,6 @@
             NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
                   serviceModalityDefault);
         }
-        else if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
-                 [WSModalityMap parameterNameForCaptureType:self.submodality]] 
-                != NSOrderedSame)
-        {
-            //This sensor doesn't support the requested submodality.
-            self.sensorCheckStatus = kStatusBadSubmodality;
-            NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
-        }
         else {
             //We're good.
             self.sensorCheckStatus = kStatusSuccessful;
@@ -671,7 +663,6 @@
     else {
         //This has to look at allowedValues, not defaultValue!!
         NSArray *serviceModalityAllowed = serviceModalityParam.allowedValues;
-        NSArray *serviceSubmodalityAllowed = serviceSubmodalityParam.allowedValues;
         
         BOOL modalityOK = NO;
         for (NSString *mod in serviceModalityAllowed) {
@@ -687,9 +678,31 @@
         if (!modalityOK) {
             //This sensor doesn't support the requested modality.
             self.sensorCheckStatus = kStatusBadModality;
-            checkingSensor = NO;
-            return; //skip the other checks
         }
+        
+    }
+    
+    //Check submodality
+    if (serviceSubmodalityParam.readOnly) {
+        NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
+        
+        if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
+            [WSModalityMap parameterNameForCaptureType:self.submodality]] 
+           != NSOrderedSame)
+        {
+            //This sensor doesn't support the requested submodality.
+            self.sensorCheckStatus = kStatusBadSubmodality;
+            NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
+        }
+        else {
+            //We're good.
+            self.sensorCheckStatus = kStatusSuccessful;
+        }
+        
+    }
+    else {
+        //This has to look at allowedValues, not defaultValue!!
+        NSArray *serviceSubmodalityAllowed = serviceSubmodalityParam.allowedValues;
         
         BOOL submodalityOK = NO;
         for (NSString *smod in serviceSubmodalityAllowed) {
@@ -705,17 +718,16 @@
         if (!submodalityOK) {
             //This sensor doesn't support the requested modality.
             self.sensorCheckStatus = kStatusBadSubmodality;
-            checkingSensor = NO;
-            return; //skip the other checks
         }
         else {
             //We're good.
             self.sensorCheckStatus = kStatusSuccessful;
-            checkingSensor = NO;
-            return;
         }
-
+        
     }
+
+    checkingSensor = NO; //done checking.
+
 
 }
 #pragma mark - Empty NBCLDeviceLink delegate methods

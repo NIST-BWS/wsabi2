@@ -605,6 +605,16 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     NSError *error = [info objectForKey:@"error"];
+    WSCDItem *targetItem;
+    
+    if ([info objectForKey:kDictKeySourceID]) {
+        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    }
+    
+    if (targetItem && item != targetItem) {
+        return; //this doesn't apply to us.
+    }
+    
     //IF the capture button is visible:
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         self.captureButton.state = WSCaptureButtonStateWarning;
@@ -630,13 +640,16 @@
     WSBDResult *result = (WSBDResult*)[info objectForKey:kDictKeyCurrentResult];
     NSString *resultString = [NSString stringWithFormat:@"Sensor problem: %@", result.message ? result.message : [WSBDResult stringForStatusValue:result.status]];   
         
-        //SensorSequenceType seq = [[info objectForKey:kDictKeySequenceType] intValue];
-//        
-//        if (seq == kSensorSequenceConfigCaptureDownload ||
-//            seq == kSensorSequenceCaptureDownload ||
-//            seq == kSensorSequenceFull 
-//            ) {
+    WSCDItem *targetItem;
     
+    if ([info objectForKey:kDictKeySourceID]) {
+        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    }
+    
+    if (targetItem && item != targetItem) {
+        return; //this doesn't apply to us.
+    }
+
     //IF the capture button is visible:
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         //This is a failed capture notification, so change our button state.
