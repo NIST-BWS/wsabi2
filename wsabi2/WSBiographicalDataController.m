@@ -551,6 +551,8 @@
 {
     ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
+    [self updateTextLabelAtIndexPath:indexPath string:[textCell.rightTextField text]];
+    
     //Log this.
     if (textCell)
         [[textCell rightTextField] logTextFieldEnded:indexPath];

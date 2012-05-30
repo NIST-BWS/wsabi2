@@ -171,6 +171,10 @@
         [chooser.view startAutomaticGestureLogging:YES];
 
     }
+    
+    //scroll the thing to visible if it's not, in case we come back and need to show the capture popover.
+    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+
 }
 
 -(void) didCompleteSensorWalkthrough:(NSNotification*)notification
@@ -185,7 +189,7 @@
     //FIXME: Unfortunately, launching the capture popover from here results in a popover that WILL NOT
     //be dismissed when a grid cell is tapped. I have no idea why this is. To avoid it during testing,
     //we're removing this call. Uncomment and fix whenever possible.
-    
+        
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
         NSLog(@"Asking current cell to show capture popover");
@@ -199,8 +203,7 @@
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
-    //scroll the thing to visible if it's not.
-    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+ 
     
     
 }
