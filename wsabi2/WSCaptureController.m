@@ -66,6 +66,77 @@
 }
 
 #pragma mark - View lifecycle
+-(void) configureView
+{
+    //We may have to set our properties before everything is loaded, or after.
+    //Encapsulate everything here.
+    
+    if (!self.item) {
+        //put the button in the inactive state.
+        self.captureButton.state = WSCaptureButtonStateInactive;
+
+        return; //nothing else to update.
+    }
+    
+    ///Load data from the network and Core Data
+
+    //Get a reference to the sensor link for this object.
+    currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+    
+    if (currentLink.sequenceInProgress && !self.item.data) {
+        //set the capture button to the waiting state
+        self.captureButton.state = WSCaptureButtonStateWaiting;
+    }
+    else {
+        //put the button in the correct normal state.
+        self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+    }
+    
+    //configure the annotation button and panel
+    //store the annotation array locally for performance.
+    if (item.annotations) {
+        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
+    }
+    else {
+        //If there isn't an annotation array, create and fill one.
+        int maximumAnnotations = 4;
+        currentAnnotationArray = [[NSMutableArray alloc] initWithCapacity:maximumAnnotations]; //the largest (current) submodality
+        for (int i = 0; i < maximumAnnotations; i++) {
+            [currentAnnotationArray addObject:[NSNumber numberWithBool:NO]];
+        }
+    }
+    //reload the table view
+    [self.annotationTableView reloadData];
+
+    if ([self hasAnnotationOrNotes]) {
+        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
+    }
+    
+    if (self.item.data) {
+        dataImage = [UIImage imageWithData:self.item.data];
+        self.itemDataView.image = dataImage;
+    }    
+    else {
+        self.itemDataView.image = nil;
+    }
+    
+    [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
+    
+    [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
+    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
+    
+    self.backNavBarTitleItem.title = self.item.submodality;
+    self.annotationNotesTableView.alwaysBounceVertical = NO;
+    
+    //if the back view is showing, flip it with a 0 duration.
+    if (!backContainer.hidden) {
+        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:0 completion:nil];
+    }
+
+}
 
 - (void)viewDidLoad
 {
@@ -121,6 +192,9 @@
      //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
 
+    //update from Core Data
+    [self configureView];
+    
     //add notification listeners
     
     //Catch a newly connected sensor
@@ -154,50 +228,6 @@
     
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    ///Load data from the network and Core Data
-    if (self.item) {
-        //Get a reference to the sensor link for this object.
-        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
-        
-        if (currentLink.sequenceInProgress && !self.item.data) {
-            //set the capture button to the waiting state
-            self.captureButton.state = WSCaptureButtonStateWaiting;
-        }
-        else {
-            //put the button in the correct normal state.
-            self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
-        }
-        
-        //configure the annotation button and panel
-        if ([self hasAnnotationOrNotes]) {
-            [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-        }
-        else {
-            [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-        }
-        
-        if (self.item.data) {
-            dataImage = [UIImage imageWithData:self.item.data];
-            self.itemDataView.image = dataImage;
-        }
-    }
-    else {
-        //put the button in the inactive state.
-        self.captureButton.state = WSCaptureButtonStateInactive;
-    }
-    
-
-    [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
-    
-    [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
-    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
-
-    self.backNavBarTitleItem.title = self.item.submodality;
-    self.annotationNotesTableView.alwaysBounceVertical = NO;
-    
-}
 
 - (void) viewWillUnload:(BOOL)animated
 {
@@ -231,26 +261,7 @@
 {
     item = newItem;
     
-    //store the annotation array locally for performance.
-    if (item.annotations) {
-        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
-    }
-    else {
-        //If there isn't an annotation array, create and fill one.
-        int maximumAnnotations = 4;
-        currentAnnotationArray = [[NSMutableArray alloc] initWithCapacity:maximumAnnotations]; //the largest (current) submodality
-        for (int i = 0; i < maximumAnnotations; i++) {
-            [currentAnnotationArray addObject:[NSNumber numberWithBool:NO]];
-        }
-    }
-    //configure the annotation button
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
-
+    [self configureView];
 }
 
 

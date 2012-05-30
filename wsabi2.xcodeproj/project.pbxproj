@@ -387,7 +387,6 @@
 		EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCellWide.h; sourceTree = "<group>"; };
 		EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCellWide.m; sourceTree = "<group>"; };
 		EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BreadcrumbButton.png; sourceTree = "<group>"; };
-		EA277AD214E2B09E002484CF /* WSDeviceConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceConfigDelegate.h; sourceTree = "<group>"; };
 		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBlue.png; sourceTree = "<group>"; };
 		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
 		EA277B0D14EADA59002484CF /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blank.png; sourceTree = "<group>"; };
@@ -711,7 +710,6 @@
 		EA277AB914DC5C72002484CF /* Device Config Process */ = {
 			isa = PBXGroup;
 			children = (
-				EA277AD214E2B09E002484CF /* WSDeviceConfigDelegate.h */,
 				EA277AAC14DC3EE5002484CF /* WSModalityChooserController.h */,
 				EA277AAD14DC3EE5002484CF /* WSModalityChooserController.m */,
 				EA277AAE14DC3EE5002484CF /* WSModalityChooserController.xib */,

@@ -44,6 +44,7 @@
     
     int selectedIndex;
     
+    UIPopoverController *capturePopover;
     UIPopoverController *biographicalPopover;
 }
 
@@ -58,7 +59,6 @@
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
 
--(void) handleShowCaptureNotification:(NSNotification*)notification;
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
@@ -67,8 +67,6 @@
 //Notification handlers
 -(void) didChangeItem:(NSNotification*)notification;
 -(void) handleDownloadPosted:(NSNotification*)notification;
-
-@property (nonatomic, strong) UIPopoverController *popoverController;
 
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;

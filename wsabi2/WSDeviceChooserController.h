@@ -12,7 +12,6 @@
 #import "WSModalityMap.h"
 #import "WSCDItem.h"
 #import "WSDeviceSetupController.h"
-#import "WSDeviceConfigDelegate.h"
 
 #define NUM_RECENT_SENSORS 5
 
@@ -31,5 +30,4 @@
 @property (nonatomic, strong) WSCDItem *item;
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
 
-@property (nonatomic, unsafe_unretained) id<WSDeviceConfigDelegate> walkthroughDelegate;
 @end

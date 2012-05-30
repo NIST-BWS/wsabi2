@@ -41,6 +41,8 @@
     NSArray *storedPassthroughViews;
 }
 
+-(void) configureView;
+
 -(IBAction)annotateButtonPressed:(id)sender;
 -(IBAction)doneButtonPressed:(id)sender;
 -(IBAction)modalityButtonPressed:(id)sender;

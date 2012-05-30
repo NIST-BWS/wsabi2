@@ -188,10 +188,11 @@
     
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
-        NSDictionary* userInfo = [NSDictionary dictionaryWithObject:sourceItem forKey:kDictKeyTargetItem];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kShowCapturePopoverNotification
-                                                            object:self
-                                                          userInfo:userInfo];
+        NSLog(@"Asking current cell to show capture popover");
+        WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
+        [activeCell showCapturePopoverForItem:sourceItem];
+        
         shouldRestoreCapturePopover = NO;
     }
     
@@ -204,16 +205,11 @@
 {
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
 
-    //FIXME: Unfortunately, launching the capture popover from here results in a popover that WILL NOT
-    //be dismissed when a grid cell is tapped. I have no idea why this is. To avoid it during testing,
-    //we're removing this call. Uncomment and fix whenever possible.
-
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
-        NSDictionary* userInfo = [NSDictionary dictionaryWithObject:sourceItem forKey:kDictKeyTargetItem];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kShowCapturePopoverNotification
-                                                            object:self
-                                                          userInfo:userInfo];
+        WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        [activeCell showCapturePopoverForItem:sourceItem];
+
         shouldRestoreCapturePopover = NO;
     }
 
@@ -359,7 +355,6 @@
 {
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.popoverController = self.popoverController;
     cell.person = person;
     [cell.itemGridView reloadData];
     [cell layoutGrid]; //adjust the frame if necessary
@@ -435,7 +430,7 @@
        
     //If this is a currently deselected row, scroll to it.
     if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
     previousSelectedIndex = selectedIndex;
 }
@@ -650,20 +645,6 @@
         personBeingEdited = nil;
     }
 }
-
-#pragma mark - Device Config walkthrough delegate - OBSOLETED (and not called)
--(void) didCancelDeviceConfigWalkthrough:(WSCDItem*)sourceItem
-{
-    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell showCapturePopoverForItem:sourceItem];
-}
-
--(void) didCompleteDeviceConfigWalkthrough:(WSCDItem*)sourceItem
-{
-    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [activeCell showCapturePopoverForItem:sourceItem];
-    
- }
 
 #pragma mark - UIPopoverController delegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController

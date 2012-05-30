@@ -10,7 +10,6 @@
 
 @implementation WSModalityChooserController
 @synthesize item;
-@synthesize walkthroughDelegate;
 @synthesize currentButton;
 
 - (id)initWithStyle:(UITableViewStyle)style

@@ -42,8 +42,6 @@
 //Table view stuff
 @synthesize tableView;
 
-@synthesize walkthroughDelegate;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

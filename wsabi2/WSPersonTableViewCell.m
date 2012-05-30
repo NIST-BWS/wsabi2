@@ -13,7 +13,6 @@
 #define GRID_CELL_OFFSET 1000
 
 @implementation WSPersonTableViewCell
-@synthesize popoverController;
 @synthesize captureController;
 @synthesize person;
 @synthesize itemGridView;
@@ -147,11 +146,6 @@
                                                      name:kChangedWSCDItemNotification
                                                    object:nil];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleShowCaptureNotification:)
-                                                     name:kShowCapturePopoverNotification
-                                                   object:nil];
-
         initialLayoutComplete = YES;
     }
     
@@ -179,6 +173,12 @@
     
     //make sure the separator stays visible.
     [self bringSubviewToFront:self.separatorView];
+}
+
+-(void) dealloc
+{
+    //we need to remove observers here.
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -269,17 +269,6 @@
 {
     person = newPerson;
     [self updateData];
-    self.captureController = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
-    self.captureController.delegate = self;    
-
-    //if there's no popover controller, create one.
-    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.captureController];
-    //configure this popover's appearance.
-    self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
-    self.popoverController.delegate = self;
-    
-    //keep a reference to the popover inside the capture controller.
-    self.captureController.popoverController = self.popoverController;
 
 }
 
@@ -376,8 +365,8 @@
     [self setEditing:NO];
     
     //hide any capture controllers that are visible
-    if (self.popoverController) {
-        [self.popoverController dismissPopoverAnimated:YES];
+    if (capturePopover) {
+        [capturePopover dismissPopoverAnimated:YES];
     }
     
     //We're going to put this in a secondary popover controller.
@@ -432,7 +421,7 @@
     [self setEditing:NO];
 
     //dismiss the capture popover
-    [self.popoverController dismissPopoverAnimated:YES];
+    [capturePopover dismissPopoverAnimated:YES];
     
     //launch the sensor walkthrough for this item.
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
@@ -574,17 +563,6 @@
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
--(void) handleShowCaptureNotification:(NSNotification *)notification
-{
-    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
-    WSCDItem *targetItem = (WSCDItem*) [info objectForKey:kDictKeyTargetItem];
-
-    if ([orderedItems containsObject:targetItem]) {
-        [self showCapturePopoverForItem:targetItem];
-    }
-    
-}
-
 #pragma mark - Capture Controller delegate
 -(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem
 {
@@ -679,11 +657,8 @@
 
 -(void) showCapturePopoverAtIndex:(int) index
 {
-//    //if there was an existing popover, hide it.
-//    if (self.popoverController && self.popoverController.isPopoverVisible) {
-//        [self.popoverController dismissPopoverAnimated:YES];
-//    }
-
+    NSLog(@"Asking to show popover for item at index %d",index);
+    
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
     //If we found a valid item, launch the capture popover from it.
@@ -695,6 +670,28 @@
         //Find the item we want to edit.
         WSCDItem *targetItem = [orderedItems objectAtIndex:index];
 
+        //make sure we've got a valid capture controller.
+        if (!self.captureController) {
+            self.captureController = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
+            self.captureController.delegate = self;    
+            
+            //if there's no popover controller, create one.
+            if (!capturePopover) {
+                capturePopover = [[UIPopoverController alloc] initWithContentViewController:self.captureController];
+                //configure this popover's appearance.
+                capturePopover.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
+                capturePopover.delegate = self;
+            }
+            else {
+                capturePopover.contentViewController = self.captureController;
+            }
+
+        }
+        
+        //keep a reference to the popover inside the capture controller.
+        self.captureController.popoverController = capturePopover;
+
+        
         //give the capture controller a reference to the correct item
         self.captureController.item = targetItem;
         
@@ -702,14 +699,14 @@
         UIPopoverArrowDirectionAny;
         
         //make sure we have the right content size (may be reset elsewhere)
-        self.popoverController.popoverContentSize = CGSizeMake(480,408);
+        capturePopover.popoverContentSize = CGSizeMake(480,408);
 
         //allow the user to interact with anything in this cell's grid view while the popover is active, as well
         //as the add-new-item button. Dismiss if the background is tapped.
         NSMutableArray *passthrough = [NSMutableArray arrayWithArray:self.itemGridView.subviews];
         [passthrough addObject:self.addButton];
         
-        self.popoverController.passthroughViews = passthrough;
+        capturePopover.passthroughViews = passthrough;
         ((UITableView*)self.superview).scrollEnabled = NO;
         
         //The sensor associated with this capturer is, hopefully, initialized.
@@ -738,7 +735,7 @@
                                        originalRect.size.height - 14);
         
         
-        [self.popoverController presentPopoverFromRect:targetRect
+        [capturePopover presentPopoverFromRect:targetRect
                                            inView:self 
                          permittedArrowDirections:direction 
                                          animated:YES];
@@ -767,7 +764,8 @@
     
     if (currentCell.selected) {
         //just hide this.
-        [self.popoverController dismissPopoverAnimated:YES];
+        [capturePopover dismissPopoverAnimated:YES];
+        ((UITableView*)self.superview).scrollEnabled = YES;
         [self selectItem:nil];
     }
     else {
@@ -779,7 +777,7 @@
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
     //just hide any current selection.
-    [self.popoverController dismissPopoverAnimated:YES];
+    [capturePopover dismissPopoverAnimated:YES];
     [self selectItem:nil];
 }
 
@@ -821,7 +819,7 @@
     ((UITableView*)self.superview).scrollEnabled = NO;
     
     //hide the popover if it's showing
-    [self.popoverController dismissPopoverAnimated:YES];
+    [capturePopover dismissPopoverAnimated:YES];
     
     [UIView animateWithDuration:0.3 
                           delay:0 

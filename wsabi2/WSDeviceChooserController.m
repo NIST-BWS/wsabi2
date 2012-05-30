@@ -15,7 +15,6 @@
 @synthesize modality;
 @synthesize item;
 @synthesize autodiscoveryEnabled;
-@synthesize walkthroughDelegate;
 @synthesize currentButton;
 
 - (id)initWithStyle:(UITableViewStyle)style

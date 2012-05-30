@@ -12,7 +12,6 @@
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
-#import "WSDeviceConfigDelegate.h"
 #import "WSPersonTableViewCell.h"
 #import "WSModalityChooserController.h"
 #import "WSPopoverBackgroundView.h"
@@ -22,7 +21,7 @@
 
 @interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
                                                 UIPopoverControllerDelegate,
-                                                WSPersonTableViewCellDelegate, WSDeviceConfigDelegate, 
+                                                WSPersonTableViewCellDelegate, 
                                                 NSFetchedResultsControllerDelegate>
 {
     NSIndexPath *selectedIndex;

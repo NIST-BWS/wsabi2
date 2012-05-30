@@ -15,7 +15,6 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSCDItem.h"
 #import "ELCTextfieldCellWide.h"
-#import "WSDeviceConfigDelegate.h"
 #import "WSModalityChooserController.h"
 #import "WSSubmodalityChooserController.h"
 
@@ -79,7 +78,5 @@ typedef enum {
 
 //Table view stuff
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-
-@property (nonatomic, unsafe_unretained) id<WSDeviceConfigDelegate> walkthroughDelegate;
 
 @end
