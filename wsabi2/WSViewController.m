@@ -529,6 +529,8 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
+            //update data, then reload
+            [(WSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] updateData];
             [self configureCell:(WSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             

@@ -190,6 +190,8 @@
     WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.modality = self.modality;
     subChooser.submodality = [[submodalities objectAtIndex:indexPath.row] intValue];
+    NSLog(@"Walkthrough setting submodality to %@",[WSModalityMap stringForCaptureType:subChooser.submodality]);
+
 //    //set the item's submodality
 //    self.item.submodality = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
     

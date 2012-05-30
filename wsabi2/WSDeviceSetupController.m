@@ -250,6 +250,8 @@
     self.item.modality = [WSModalityMap stringForModality:self.modality];
     self.item.submodality = [WSModalityMap stringForCaptureType:self.submodality];
     
+    NSLog(@"About to store an item with modality %@ and submodality %@",[WSModalityMap stringForModality:self.modality],[WSModalityMap stringForCaptureType:self.submodality]);
+    
     UITextField *networkField = (UITextField*)[self.tableView viewWithTag:TAG_NETWORK_ADDRESS];
     self.deviceDefinition.uri = networkField.text;
     UITextField *nameField = (UITextField*)[self.tableView viewWithTag:TAG_NAME];

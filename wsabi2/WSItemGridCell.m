@@ -61,9 +61,10 @@
 
 -(void) configureView
 {
+    NSLog(@"Configuring a cell with modality %@ and submodality %@",self.item.modality,self.item.submodality);
     //this may be called from inside the setItem method, so use the ivar, not the property.
-    if (item.data) {
-        self.imageView.image = [UIImage imageWithData:item.thumbnail];
+    if (self.item.data) {
+        self.imageView.image = [UIImage imageWithData:self.item.thumbnail];
         self.placeholderView.image = nil;
         self.placeholderView.hidden = YES;
     }
@@ -71,7 +72,7 @@
         self.imageView.image = nil;
         
         NSString *imageName = nil;
-        switch ([WSModalityMap modalityForString:item.modality]) {
+        switch ([WSModalityMap modalityForString:self.item.modality]) {
             case kModalityFinger:
                 imageName = @"modality-finger-rotated";
                 break;
@@ -94,16 +95,15 @@
             //hide the placeholder for now
             self.placeholderView.image = nil;
             self.placeholderView.hidden = YES;
-            self.placeholderLabel.hidden = YES;
         }
     }
     
     //configure the submodality label
-    self.placeholderLabel.text = item.submodality ? item.submodality : @"";
+    self.placeholderLabel.text = self.item.submodality ? self.item.submodality : @"";
     
     //store the annotation array locally for performance.
-    if (item.annotations) {
-        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:item.annotations]];
+    if (self.item.annotations) {
+        currentAnnotationArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:self.item.annotations]];
     }
     else {
         //If there isn't an annotation array, create and fill one.
@@ -182,6 +182,7 @@
 
 //    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
 //    self.layer.borderWidth = self.active ? 4.0 : 1.0;
+    [self configureView];
 }
 
 -(void) setItem:(WSCDItem *)newItem
@@ -189,7 +190,7 @@
     
     item = newItem;
 
-    [self configureView];
+    [self setNeedsDisplay];
 }
 
 -(void) setSelected:(BOOL)sel

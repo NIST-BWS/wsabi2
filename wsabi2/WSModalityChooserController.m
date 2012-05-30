@@ -190,6 +190,7 @@
     WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
     subChooser.modality = indexPath.row;
     
+    NSLog(@"Walkthrough setting modality to %@",[WSModalityMap stringForModality:subChooser.modality]);
 //    //set the item's modality string to match the chosen object
 //    self.item.modality = [WSModalityMap stringForModality:indexPath.row];
     
