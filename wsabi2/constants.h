@@ -31,6 +31,7 @@
 #define kStopCaptureNotification @"stopCapture"
 
 #define kChangedWSCDItemNotification @"changedWSCDItem"
+#define kShowCapturePopoverNotification @"showCapturePopover"
 
 #define kDictKeySourceLink @"sourceLink"
 #define kDictKeyTargetItem @"targetItem"

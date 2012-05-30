@@ -73,10 +73,6 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
-    [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
-    
-    [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
-    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
     
     //Configure the capture button.
     /*	WSCaptureButtonStateInactive,
@@ -113,30 +109,6 @@
     self.captureButton.layer.shadowRadius = 6;
     self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
     
-    ///Load data from the network and Core Data
-    if (self.item) {
-        //Get a reference to the sensor link for this object.
-        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
-        
-        if (currentLink.sequenceInProgress && !self.item.data) {
-            //set the capture button to the waiting state
-            self.captureButton.state = WSCaptureButtonStateWaiting;
-        }
-        else {
-            //put the button in the correct normal state.
-            self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
-        }
-        
-        if (self.item.data) {
-            dataImage = [UIImage imageWithData:self.item.data];
-            self.itemDataView.image = dataImage;
-        }
-    }
-    else {
-        //put the button in the inactive state.
-        self.captureButton.state = WSCaptureButtonStateInactive;
-    }
-    
 
     //add swipe listeners to the capture button to switch between items.
 //    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
@@ -146,18 +118,7 @@
 //    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self.view addGestureRecognizer:swipeLeft];
     
-    //configure the annotation button and panel
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
-    
-    self.backNavBarTitleItem.title = self.item.submodality;
-    self.annotationNotesTableView.alwaysBounceVertical = NO;
-        
-    //enable touch logging
+     //enable touch logging
     [self.view startAutomaticGestureLogging:YES];
 
     //add notification listeners
@@ -190,6 +151,51 @@
                                              selector:@selector(handleSensorSequenceFailed:) 
                                                  name:kSensorLinkSequenceFailed
                                                object:nil];
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    ///Load data from the network and Core Data
+    if (self.item) {
+        //Get a reference to the sensor link for this object.
+        currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+        
+        if (currentLink.sequenceInProgress && !self.item.data) {
+            //set the capture button to the waiting state
+            self.captureButton.state = WSCaptureButtonStateWaiting;
+        }
+        else {
+            //put the button in the correct normal state.
+            self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+        }
+        
+        //configure the annotation button and panel
+        if ([self hasAnnotationOrNotes]) {
+            [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
+        }
+        else {
+            [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
+        }
+        
+        if (self.item.data) {
+            dataImage = [UIImage imageWithData:self.item.data];
+            self.itemDataView.image = dataImage;
+        }
+    }
+    else {
+        //put the button in the inactive state.
+        self.captureButton.state = WSCaptureButtonStateInactive;
+    }
+    
+
+    [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
+    
+    [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
+    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
+
+    self.backNavBarTitleItem.title = self.item.submodality;
+    self.annotationNotesTableView.alwaysBounceVertical = NO;
     
 }
 
@@ -406,7 +412,7 @@
                                                       userInfo:userInfo];
 
     //close the popover
-    [self.popoverController dismissPopoverAnimated:YES];
+    //[self.popoverController dismissPopoverAnimated:YES];
 }
 
 -(IBAction)deviceButtonPressed:(id)sender
@@ -435,7 +441,7 @@
                                                       userInfo:userInfo];
 
     //Update our state (temporarily, just cycle states).
-    //self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
+    self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
     self.captureButton.state = WSCaptureButtonStateWaiting;
 }
                                        

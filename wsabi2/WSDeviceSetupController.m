@@ -660,7 +660,7 @@
         {
             //This sensor doesn't support the requested submodality.
             self.sensorCheckStatus = kStatusBadSubmodality;
-            NSLog(@"Expected submodality %@, got %@",[WSModalityMap stringForCaptureType:self.submodality], serviceSubmodalityDefault);
+            NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
         }
         else {
             //We're good.
@@ -694,7 +694,7 @@
         BOOL submodalityOK = NO;
         for (NSString *smod in serviceSubmodalityAllowed) {
             if ([smod localizedCaseInsensitiveCompare:
-                 [WSModalityMap stringForModality:self.submodality]] 
+                 [WSModalityMap parameterNameForCaptureType:self.submodality]] 
                 != NSOrderedSame)
             {
                 submodalityOK = YES;

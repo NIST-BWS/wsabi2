@@ -14,6 +14,7 @@
 
 @implementation WSPersonTableViewCell
 @synthesize popoverController;
+@synthesize captureController;
 @synthesize person;
 @synthesize itemGridView;
 @synthesize biographicalDataButton, biographicalDataInactiveLabel, timestampLabel, timestampInactiveLabel;
@@ -146,6 +147,11 @@
                                                      name:kChangedWSCDItemNotification
                                                    object:nil];
 
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleShowCaptureNotification:)
+                                                     name:kShowCapturePopoverNotification
+                                                   object:nil];
+
         initialLayoutComplete = YES;
     }
     
@@ -263,6 +269,18 @@
 {
     person = newPerson;
     [self updateData];
+    self.captureController = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
+    self.captureController.delegate = self;    
+
+    //if there's no popover controller, create one.
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.captureController];
+    //configure this popover's appearance.
+    self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
+    self.popoverController.delegate = self;
+    
+    //keep a reference to the popover inside the capture controller.
+    self.captureController.popoverController = self.popoverController;
+
 }
 
 -(void) setEditing:(BOOL)newEditingStatus
@@ -357,23 +375,32 @@
     //cancel edit mode if we're in it.
     [self setEditing:NO];
     
+    //hide any capture controllers that are visible
+    if (self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+    }
+    
+    //We're going to put this in a secondary popover controller.
     WSBiographicalDataController *cap = [[WSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
     cap.person = self.person;
     cap.delegate = self;
     
     UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:cap];
 
-    //This is intentionally naïve; if there's no controller here,
-    //we have a problem.
-    self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
-    self.popoverController.contentViewController = tempNav;
+    if (!biographicalPopover) {
+        biographicalPopover = [[UIPopoverController alloc] initWithContentViewController:tempNav];
+    }
+    else {
+        biographicalPopover.contentViewController = tempNav;
+    }
+
+    biographicalPopover.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
+    biographicalPopover.contentViewController = tempNav;
      
-    self.popoverController.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
-    
-    self.popoverController.passthroughViews = nil; //clear any existing passthrough views.
-    
-    [self.popoverController presentPopoverFromRect:[self.superview convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
-                                       inView:self.superview 
+    biographicalPopover.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
+        
+    [biographicalPopover presentPopoverFromRect:[self convertRect:self.biographicalDataButton.bounds fromView:self.biographicalDataButton] 
+                                       inView:self 
                      permittedArrowDirections:(UIPopoverArrowDirectionLeft) 
                                      animated:YES];
     //log this
@@ -547,6 +574,17 @@
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
+-(void) handleShowCaptureNotification:(NSNotification *)notification
+{
+    NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
+    WSCDItem *targetItem = (WSCDItem*) [info objectForKey:kDictKeyTargetItem];
+
+    if ([orderedItems containsObject:targetItem]) {
+        [self showCapturePopoverForItem:targetItem];
+    }
+    
+}
+
 #pragma mark - Capture Controller delegate
 -(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem
 {
@@ -641,6 +679,11 @@
 
 -(void) showCapturePopoverAtIndex:(int) index
 {
+//    //if there was an existing popover, hide it.
+//    if (self.popoverController && self.popoverController.isPopoverVisible) {
+//        [self.popoverController dismissPopoverAnimated:YES];
+//    }
+
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
     //If we found a valid item, launch the capture popover from it.
@@ -648,29 +691,18 @@
 
         //Move the highlight to this new cell
         [self selectItem:activeCell];
+  
+        //Find the item we want to edit.
+        WSCDItem *targetItem = [orderedItems objectAtIndex:index];
 
-        //if there was an existing popover, hide it.
-        if (self.popoverController && self.popoverController.isPopoverVisible) {
-            [self.popoverController dismissPopoverAnimated:YES];
-        }
+        //give the capture controller a reference to the correct item
+        self.captureController.item = targetItem;
         
-        WSCaptureController *cap = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
-        cap.delegate = self;
-        cap.item = [orderedItems objectAtIndex:index];
-        
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:cap];
-        //configure this popover's appearance.
-        self.popoverController.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
-        self.popoverController.delegate = self;
-        
-        //give the capture controller a reference to its containing popover.
-        cap.popoverController = self.popoverController;
-        
-        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait(cap.interfaceOrientation) ? 
-        (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait(self.captureController.interfaceOrientation) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
         UIPopoverArrowDirectionAny;
         
-        self.popoverController.popoverContentSize = cap.view.bounds.size;
+        //make sure we have the right content size (may be reset elsewhere)
+        self.popoverController.popoverContentSize = CGSizeMake(480,408);
 
         //allow the user to interact with anything in this cell's grid view while the popover is active, as well
         //as the add-new-item button. Dismiss if the background is tapped.
@@ -683,9 +715,9 @@
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
         
-        NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:cap.item.deviceConfig.uri];
+        NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:targetItem.deviceConfig.uri];
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
-                                       [NSKeyedUnarchiver unarchiveObjectWithData:cap.item.deviceConfig.parameterDictionary]];
+                                       [NSKeyedUnarchiver unarchiveObjectWithData:targetItem.deviceConfig.parameterDictionary]];
         if (link.initialized) {
             //grab the lock and try to configure the sensor
             [link beginConfigureSequence:link.currentSessionId 
@@ -699,14 +731,15 @@
         }
         
         //Adjust the original cell's rect so that we're showing the popover a little closer to the item.
-        CGRect originalRect = [self.superview convertRect:activeCell.bounds fromView:activeCell];
+        CGRect originalRect = [self convertRect:activeCell.bounds fromView:activeCell];
         CGRect targetRect = CGRectMake(originalRect.origin.x, 
                                        originalRect.origin.y, 
                                        originalRect.size.width, 
                                        originalRect.size.height - 14);
         
+        
         [self.popoverController presentPopoverFromRect:targetRect
-                                           inView:self.superview 
+                                           inView:self 
                          permittedArrowDirections:direction 
                                          animated:YES];
         //log this

@@ -43,6 +43,8 @@
     UIColor *selectedBGColor;
     
     int selectedIndex;
+    
+    UIPopoverController *biographicalPopover;
 }
 
 -(void) updateData;
@@ -56,6 +58,7 @@
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
 
+-(void) handleShowCaptureNotification:(NSNotification*)notification;
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
@@ -77,6 +80,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton *addButton;
 @property (nonatomic, strong) IBOutlet UIButton *duplicateRowButton;
+
+@property (nonatomic, strong) IBOutlet WSCaptureController *captureController;
 
 @property (nonatomic, strong) IBOutlet UIView *customSelectedBackgroundView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowUpView;
