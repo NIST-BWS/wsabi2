@@ -199,6 +199,10 @@
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
+    //scroll the thing to visible if it's not.
+    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+    
+    
 }
 
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification

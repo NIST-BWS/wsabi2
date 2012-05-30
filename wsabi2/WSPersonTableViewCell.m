@@ -422,7 +422,9 @@
 
     //dismiss the capture popover
     [capturePopover dismissPopoverAnimated:YES];
-    
+
+    ((UITableView*)self.superview).scrollEnabled = YES;
+
     //launch the sensor walkthrough for this item.
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:newCaptureItem forKey:kDictKeyTargetItem];
     [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
@@ -436,7 +438,9 @@
     //make sure we're not editing anything, then notify the delegate that
     //we want to duplicate this row.
     [self setEditing:NO];
+    ((UITableView*)self.superview).scrollEnabled = YES;
     [delegate didRequestDuplicatePerson:self.person];
+    
 }
 
 -(IBAction)editButtonPressed:(id)sender
