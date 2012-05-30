@@ -107,6 +107,7 @@
     }
     //reload the table view
     [self.annotationTableView reloadData];
+    [self.annotationNotesTableView reloadData];
 
     if ([self hasAnnotationOrNotes]) {
         [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
