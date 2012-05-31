@@ -3,7 +3,7 @@
 //  wsabi2
 //
 //  Created by Matt Aronoff on 4/30/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+ 
 //
 
 //NOTE: Taken almost verbatim from http://forrst.com/posts/Delayed_Blocks_in_Objective_C-0Fn

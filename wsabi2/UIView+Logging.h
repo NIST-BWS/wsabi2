@@ -3,7 +3,6 @@
 //  wsabi
 //
 //  Created by Matt Aronoff on 9/15/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 // This class logs touch data. It makes use of the Lumberjack framework (https://github.com/robbiehanson/CocoaLumberjack ),

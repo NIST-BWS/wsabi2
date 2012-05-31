@@ -3,7 +3,7 @@
 //  wsabi2
 //
 //  Created by Matt Aronoff on 1/19/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+ 
 //
 
 //This is taken from http://stackoverflow.com/a/7613406 
