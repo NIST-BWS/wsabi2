@@ -40,8 +40,13 @@
 
 ###Dependencies
 * This is (nearly) all of the third-party code we're using. It contains groups for each project.
+* [GMGridView](https://github.com/gmoledina/GMGridView) is the internal grid used to lay out and rearrange individual biometric items. It has been modified a teeny bit according to the README file included in that directory.
 * asi-http-request is the library used to handle network communication. It hadn't been updated to ARC-compatibility, so we've turned off ARC for those files
-* Lumberjack is used for logging
+* ActionSheetPicker is used for the biographical data panels choice items (hair color, etc.)
+* [ELCTextFieldCell](https://github.com/elc/ELCTextFieldCell)
+    * MODIFICATION NOTE: Had to update this for ARC compatibility
+	* Added delegate calls for greater interaction with the right text field.
+* [Lumberjack](https://github.com/robbiehanson/CocoaLumberjack) is used for logging
 
 ###Data Model
 * This contains the Core Data model (`wsabi2.xcdatamodeld`) and the generated classes from that model (so that we can enforce typing and method names on the classes in the data model)

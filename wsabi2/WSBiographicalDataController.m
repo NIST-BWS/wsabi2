@@ -606,6 +606,7 @@
                     break;
                 case kRowOtherName:
                     self.person.otherName = string;
+                    [delegate didUpdateDisplayName]; //update the UI
                     break;
                 case kRowAlias:
                     //For now, we're only allowing one alias.

@@ -307,6 +307,11 @@
         [result appendFormat:@"%@", self.person.lastName];
         foundSomething = YES;
     }
+    
+    if (result.length == 0 && self.person.otherName.length > 0) {
+        [result appendFormat:@"%@", self.person.otherName];
+        foundSomething = YES;
+    }
 
     if (foundSomething) {
         return result;
