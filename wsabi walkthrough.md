@@ -12,7 +12,7 @@
 	* e.g.1, When a download arrives, the link manager fires a notification with the image included and a pointer to the data item that initially requested that download. All of the little grid cells check to see if they match the item, and if so, they use the image.
 	* e.g.2, when the user wants to edit sensor properties, rather than bringing up the sensor configuration walkthrough directly, a notification is fired. The main view controller catches it, performs some cleanup, and then brings up the sensor walkthrough. This prevents any other class that wants to call the walkthrough from having to include a whole bunch of extra include files and logic.
 * It's an optimistic UI. The intent is to avoid notifying the user of issues until it's something that directly affects their workflow.
-
+* Debugging note: NSZombie is ENABLED for the wsabi app target. That means that if the app tries to access a deallocated object, rather than just crashing, XCode will tell you and show you what the message was that triggered the error. This is awesome, but hits performance, so turn it off once you're building a release build.
 * `constants.h` has... constants.
 
 ###Categories

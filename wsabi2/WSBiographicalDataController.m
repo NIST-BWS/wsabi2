@@ -177,6 +177,7 @@
             
             //start with an empty cell with no accessory
             cell.leftLabel.font = [UIFont systemFontOfSize:14];
+
             cell.rightTextField.text = nil;
             cell.rightTextField.placeholder = @"";
             cell.accessoryType = UITableViewCellAccessoryNone;
