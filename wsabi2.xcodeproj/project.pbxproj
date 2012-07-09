@@ -72,7 +72,6 @@
 		EA2A897C1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896D1504F32C0056E02C /* ContextFilterLogFormatter.m */; };
 		EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
 		EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
-		EA2A897F1504F32C0056E02C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2A89701504F32C0056E02C /* README.txt */; };
 		EA2A89801504F32C0056E02C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2A89701504F32C0056E02C /* README.txt */; };
 		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
 		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
@@ -1304,7 +1303,6 @@
 				EA2A78E314FEB47800EE9339 /* warning-alert@2x.png in Resources */,
 				EA2A78E614FEB63800EE9339 /* stop-sign.png in Resources */,
 				EA2A78E714FEB63800EE9339 /* stop-sign@2x.png in Resources */,
-				EA2A897F1504F32C0056E02C /* README.txt in Resources */,
 				EA939C75153C8ED3005BDA47 /* Delete.png in Resources */,
 				EA939C76153C8ED3005BDA47 /* Delete@2x.png in Resources */,
 				EA939C77153C8ED3005BDA47 /* DeleteRed.png in Resources */,
