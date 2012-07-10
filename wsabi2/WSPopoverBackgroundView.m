@@ -8,8 +8,8 @@
 
 #import "WSPopoverBackgroundView.h"
 
-#define ARROW_WIDTH 35.0
-#define ARROW_HEIGHT 19.0
+#define ARROW_WIDTH 50.0
+#define ARROW_HEIGHT 35.0
 
 #define TOP_CONTENT_INSET 5
 #define LEFT_CONTENT_INSET 5
