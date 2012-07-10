@@ -500,7 +500,7 @@
             }
             
             //animate a reload of the data
-            [self reloadItemGridAnimated:YES];
+            //[self reloadItemGridAnimated:YES];
 
             //Save the context
             [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
@@ -741,7 +741,7 @@
         CGRect targetRect = CGRectMake(originalRect.origin.x, 
                                        originalRect.origin.y, 
                                        originalRect.size.width, 
-                                       originalRect.size.height - 14);
+                                       originalRect.size.height - 7);
         
         
         [capturePopover presentPopoverFromRect:targetRect
