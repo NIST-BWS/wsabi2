@@ -110,6 +110,7 @@
                                                                          2*kItemCellSpacing,
                                                                          self.contentView.bounds.size.width - 92 - kItemCellSpacing,
                                                                          self.contentView.bounds.size.height - 3*kItemCellSpacing)];
+	    [self.itemGridView setCenterGrid:NO];
         
         self.itemGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -331,35 +332,52 @@
     
 }
 
--(void) reloadItemGridAnimated:(BOOL)inOrOut
+-(void) removeBackingStoreForItem:(id)userInfo
 {
-    float part1Duration = kFastFadeAnimationDuration;
-    float part2Duration = kMediumFadeAnimationDuration;
+    WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
+	if (foundItem == nil) {
+        NSLog(@"Tried to remove a nonexistent item at index %d", deletableItem);
+        return;
+    }
     
+    //rebuild the ordered collection.
+    [self.person removeItemsObject:foundItem];
+    [self updateData]; 
     
-    //animate a reload of the data
-    [UIView animateWithDuration:part1Duration
-                          delay:0 
-                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationCurveEaseIn
-                     animations:^{
-                         self.itemGridView.transform = inOrOut ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformMakeScale(1.1, 1.1);
-                         self.itemGridView.alpha = 0.5;
-                     }
-                     completion:^(BOOL completed) {
-                         [self.itemGridView reloadData];    
-                         [UIView animateWithDuration:part2Duration
-                                               delay:0
-                                             options:UIViewAnimationCurveEaseOut
-                                          animations:^{
-                                              self.itemGridView.transform = CGAffineTransformIdentity;
-                                              self.itemGridView.alpha = 1.0;
-                                          }
-                                          completion:^(BOOL completed) {
-                                              
-                                          }
-                          ];
-                     }];
+    //update the item indices within the now-updated ordered collection
+    for (NSUInteger i = 0; i < [orderedItems count]; i++) {
+        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+        tempItem.index = [NSNumber numberWithInt:i];
+    }
+    
+    //Save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    deletableItem = -1;
+}
 
+-(void) removeItem:(int)itemIndex animated:(BOOL)animated
+{
+    [self.itemGridView removeObjectAtIndex:deletableItem withAnimation:animated ? 
+     GMGridViewItemAnimationFade | GMGridViewItemAnimationScroll :
+     GMGridViewItemAnimationNone];
+    
+    // GMGridView nests animations within the completion blocks instead
+    // of the animation block.  Because of this, we return to this method
+    // before the animations have ended and then change the data model,
+    // which in turn changes the nested animation.  To fix, wait the duration
+    // of the entirety of the GMGridView animation before changing the
+    // backing store.
+    if (animated)
+        [NSTimer scheduledTimerWithTimeInterval:0.6 // kDefaultAnimationDuration * 2
+                                         target:self
+                                       selector:@selector(removeBackingStoreForItem:) 
+                                       userInfo:nil 
+                                        repeats:NO];
+    
+    //FIXME: make sure we remain in edit mode. This shouldn't be required.
+    //Figure out why we bounce back out of edit mode after a delete.
+    self.editing = YES;
 }
 
 #pragma mark - Button Action Methods
@@ -486,36 +504,7 @@
 
     }
     else if (actionSheet == deleteItemSheet && buttonIndex != actionSheet.cancelButtonIndex && deletableItem >= 0) {
-        //Having confirmed the deletion, perform it.
-        //if we have a valid item, delete it and reload the grid.
-        WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
-        if (foundItem) {
-            [self.person removeItemsObject:foundItem];
-            //rebuild the ordered collection.
-            [self updateData]; 
-            //update the item indices within the now-updated ordered collection
-            for (int i = 0; i < [orderedItems count]; i++) {
-                WSCDItem *tempItem = [orderedItems objectAtIndex:i];
-                tempItem.index = [NSNumber numberWithInt:i];
-            }
-            
-            //animate a reload of the data
-            [self reloadItemGridAnimated:YES];
-
-            //Save the context
-            [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-            
-            //FIXME: make sure we remain in edit mode. This shouldn't be required.
-            //Figure out why we bounce back out of edit mode after a delete.
-            self.editing = YES;
-        }
-        else
-        {
-            NSLog(@"Tried to remove a nonexistent item at index %d",deletableItem);
-        }
-
-        //reset the deletable item index.
-        deletableItem = -1;
+        [self removeItem:deletableItem animated:YES];
     }
 
     //Log the action sheet's closing

@@ -50,7 +50,8 @@
 
 -(void) updateData;
 -(void) layoutGrid;
--(void) reloadItemGridAnimated:(BOOL)inOrOut;
+-(void) removeBackingStoreForItem:(id)userInfo;
+-(void) removeItem:(int)itemIndex animated:(BOOL)animated;
 -(NSString*)biographicalShortName;
 
 -(IBAction)biographicalDataButtonPressed:(id)sender;
