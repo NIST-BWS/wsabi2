@@ -96,6 +96,8 @@
             self.placeholderView.image = nil;
             self.placeholderView.hidden = YES;
         }
+        
+        //if (self.placeholderLabel.text.length 
     }
     
     //configure the submodality label
@@ -114,6 +116,13 @@
         }
     }
     
+    if (self.placeholderLabel.text.length > 11){
+        NSLog(@"%@", self.placeholderLabel.text);
+        self.placeholderLabel.lineBreakMode = UILineBreakModeWordWrap;
+        self.placeholderLabel.numberOfLines = 2;    }
+    else {
+        self.placeholderLabel.numberOfLines = 1;
+    }
     //update the annotation view
     self.annotationView.hidden = ![self hasAnnotationOrNotes];
 
@@ -154,7 +163,7 @@
         self.placeholderLabel.backgroundColor = [UIColor clearColor];
         self.placeholderLabel.textAlignment = UITextAlignmentCenter;
         self.placeholderLabel.textColor = [UIColor whiteColor];
-        self.placeholderLabel.font = [UIFont systemFontOfSize:12];
+        self.placeholderLabel.font = [UIFont systemFontOfSize:15];
         //position this below the placeholder view.
         self.placeholderLabel.center = CGPointMake(self.shadowView.center.x, 
                                                    self.contentView.bounds.size.height - self.placeholderLabel.bounds.size.height/2.0);

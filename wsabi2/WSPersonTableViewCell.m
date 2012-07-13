@@ -730,7 +730,7 @@
         CGRect targetRect = CGRectMake(originalRect.origin.x, 
                                        originalRect.origin.y, 
                                        originalRect.size.width, 
-                                       originalRect.size.height - 14);
+                                       originalRect.size.height - 7);
         
         
         [capturePopover presentPopoverFromRect:targetRect
