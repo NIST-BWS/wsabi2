@@ -59,6 +59,8 @@
 -(IBAction)duplicateRowButtonPressed:(id)sender;
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
+-(IBAction)deletePersonOverlayDeletePersonButtonPressed:(id)sender;
+-(IBAction)deletePersonOverlayCancelButtonPressed:(id)sender;
 
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
@@ -86,7 +88,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *shadowUpView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowDownView;
 
-@property (nonatomic, strong) IBOutlet UIView *inactiveOverlayView;
+@property (nonatomic, strong) IBOutlet UIView *deletePersonOverlayView;
 @property (nonatomic, strong) IBOutlet UIView *separatorView;
 
 

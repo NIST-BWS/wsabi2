@@ -19,7 +19,7 @@
 @synthesize biographicalDataButton, biographicalDataInactiveLabel, timestampLabel, timestampInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize shadowUpView, shadowDownView, customSelectedBackgroundView;
-@synthesize inactiveOverlayView, separatorView;
+@synthesize deletePersonOverlayView, separatorView;
 @synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -153,6 +153,11 @@
     //if this isn't the selected cell, make sure it's not in edit mode.
     if (!self.selected) {
         self.editing = NO;
+        
+        // Handle case where user taps another row before canceling a deletion
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                         animations:^() {[[self deletePersonOverlayView] setAlpha:0.0];}
+                         completion:^(BOOL finished) {[[self deletePersonOverlayView] removeFromSuperview];}];
     }
     
     //Make sure the labels are right.
@@ -168,7 +173,7 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
-    self.itemGridView.alpha = self.selected ? 1.0 : 0.3;
+    self.itemGridView.alpha = (self.selected && (self.deletePersonOverlayView.hidden == YES)) ? 1.0 : 0.3;
     
     [self layoutGrid];
     
@@ -180,6 +185,36 @@
 {
     //we need to remove observers here.
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)setAppearDisabled:(BOOL)yesOrNo animated:(BOOL)animated
+{
+    static const CGFloat kDisabledAlpha = 0.3;
+    CGFloat alphaValue = (yesOrNo == YES ? kDisabledAlpha : 1.0);
+ 
+    void (^animationBlock) (void) = ^(void) {
+        [[self itemGridView] setUserInteractionEnabled:!yesOrNo];
+        [[self itemGridView] setAlpha:alphaValue];
+        
+        [[self addButton] setUserInteractionEnabled:!yesOrNo];
+        [[self addButton] setAlpha:alphaValue];
+        
+        [[self biographicalDataButton] setUserInteractionEnabled:!yesOrNo];
+        [[self biographicalDataButton] setAlpha:alphaValue];
+        
+        [[self editButton] setUserInteractionEnabled:!yesOrNo];
+        [[self editButton] setAlpha:alphaValue];
+        
+        [[self deleteButton] setUserInteractionEnabled:!yesOrNo];
+        [[self deleteButton] setAlpha:alphaValue];
+        
+        [[self timestampLabel] setAlpha:alphaValue];
+    };
+    
+    if (animated)
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:animationBlock];
+    else
+        animationBlock();
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -215,7 +250,8 @@
             self.itemGridView.alpha = 1.0;
             //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
             self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
-            self.inactiveOverlayView.alpha = 0.0;
+            self.deletePersonOverlayView.hidden = YES;
+            self.deletePersonOverlayView.alpha = 0.0;
             self.separatorView.alpha = 0.0;
 
             [self layoutGrid];
@@ -232,6 +268,7 @@
     }
     else {
         [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
+            [self setAppearDisabled:NO animated:NO];
             self.shadowUpView.alpha = 0.0;
             self.shadowDownView.alpha = 0.0;
             self.timestampLabel.alpha = 0.0;
@@ -248,7 +285,7 @@
             self.customSelectedBackgroundView.backgroundColor = normalBGColor;
             [self selectItem:nil];
             selectedIndex = -1;
-            self.inactiveOverlayView.alpha = 1.0;
+            self.deletePersonOverlayView.alpha = 1.0;
             self.separatorView.alpha = 1.0;
             [self layoutGrid];
 
@@ -484,29 +521,61 @@
     [((UIView*)sender) logActionSheetShown:YES];
 }
 
+- (IBAction)deletePersonOverlayDeletePersonButtonPressed:(id)sender
+{
+    // Delete the person while the overlay cell is still visible
+    [delegate didRequestDeletePerson:self.person];
+    
+    [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                     animations:^(void) {
+                         [self setAppearDisabled:NO animated:NO];
+                     }
+                     completion:^(BOOL finished) {
+                         [[self deletePersonOverlayView] removeFromSuperview];
+                     }
+     ];
+}
+
+- (IBAction)deletePersonOverlayCancelButtonPressed:(id)sender
+{
+   [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                    animations:^(void) {
+                        [[self deletePersonOverlayView] setAlpha:0.0];
+                        [self setAppearDisabled:NO animated:NO];
+                    }
+                    completion:^(BOOL finished) {
+                        [[self deletePersonOverlayView] removeFromSuperview];
+                    }
+    ];
+}
+
 #pragma mark - Action Sheet delegate
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet == deletePersonSheet && buttonIndex != actionSheet.cancelButtonIndex) {
+        // Size the overlay to fit within the cell
+        [[self deletePersonOverlayView] setFrame:self.customSelectedBackgroundView.frame];
+        [[self contentView] addSubview:self.deletePersonOverlayView];
+        // Keep duplicate row button on top of overlay
+        [self.contentView bringSubviewToFront:self.duplicateRowButton];
         
-        //show another alert to confirm the deletion
-        BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Delete this person?" message:nil];
-        deleteAlert.vignetteBackground = YES;
-        deleteAlert.animateHorizontal = YES;
+        // The NIB shows this as interaction enabled, but certainly isn't...
+        [[self deletePersonOverlayView] setUserInteractionEnabled:YES];
         
-        [deleteAlert setCancelButtonWithTitle:@"Cancel" block:nil];
-        [deleteAlert setDestructiveButtonWithTitle:@"Delete" block:^{
-            //request a deletion
-            [delegate didRequestDeletePerson:self.person];            
-        }];
-        
-        [deleteAlert show];
-
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration 
+                         animations:^(void) {
+                             [self setAppearDisabled:YES animated:NO];
+                             
+                             // Send in the confirmation overlay
+                             [[self deletePersonOverlayView] setHidden:NO];
+                             [[self deletePersonOverlayView] setAlpha:1.0];
+                         }
+         ];
     }
     else if (actionSheet == deleteItemSheet && buttonIndex != actionSheet.cancelButtonIndex && deletableItem >= 0) {
         [self removeItem:deletableItem animated:YES];
     }
-
+    
     //Log the action sheet's closing
     [self logActionSheetHidden];
 }
