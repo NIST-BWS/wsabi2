@@ -67,7 +67,6 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *annotationTableView;
 @property (nonatomic, strong) IBOutlet UITableView *annotationNotesTableView;
-@property (nonatomic, strong) IBOutlet UIButton *annotateButton;
 
 @property (nonatomic, strong) IBOutlet UIButton *modalityButton;
 @property (nonatomic, strong) IBOutlet UIButton *deviceButton;
