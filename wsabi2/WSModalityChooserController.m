@@ -97,7 +97,7 @@
         CGPoint location = [recognizer locationInView:nil];
         
         // Check if tap was within view
-        if (![self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
             [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
             
             //post a notification to hide the device chooser and return to the previous state
