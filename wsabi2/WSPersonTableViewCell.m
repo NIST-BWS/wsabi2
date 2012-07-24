@@ -506,6 +506,17 @@
 -(IBAction)editButtonPressed:(id)sender
 {
     [self setEditing:![[self editButton] isSelected]];
+
+    // Make and pressed image match the new state of the button
+    if ([[self editButton] isSelected]) {
+        [[self editButton] setTitle:NSLocalizedString(@"Done", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+        UIImage *doneButtonPressed = [[UIImage imageNamed:@"UINavigationBarDoneButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16];
+        [[self editButton] setBackgroundImage:doneButtonPressed forState:UIControlStateSelected|UIControlStateHighlighted];
+    } else {
+        [[self editButton] setTitle:NSLocalizedString(@"Edit", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+        UIImage *silverButtonPressed = [[UIImage imageNamed:@"kb-extended-candidates-segmented-control-button-selected"] stretchableImageWithLeftCapWidth:5 topCapHeight:7];
+        [[self editButton] setBackgroundImage:silverButtonPressed forState:UIControlStateSelected|UIControlStateHighlighted];
+    }
 }
 
 -(IBAction)deleteButtonPressed:(id)sender
