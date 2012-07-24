@@ -20,7 +20,6 @@
 
 @synthesize annotationTableView;
 @synthesize annotationNotesTableView;
-@synthesize annotateButton;
 
 @synthesize modalityButton;
 @synthesize deviceButton;
@@ -108,13 +107,6 @@
     //reload the table view
     [self.annotationTableView reloadData];
     [self.annotationNotesTableView reloadData];
-
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
     
     if (self.item.data) {
         dataImage = [UIImage imageWithData:self.item.data];
@@ -343,14 +335,6 @@
 {
     //make sure we resign first responder.
     [self.view endEditing:YES];
-    
-    //configure the annotation button and panel
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
 
     //just flip to the capture view.
     //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped

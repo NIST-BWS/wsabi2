@@ -256,7 +256,7 @@
 							<object class="IBUIButton" id="891016661">
 								<reference key="NSNextResponder" ref="121354170"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{407, 1}, {72, 44}}</string>
+								<string key="NSFrame">{{407, 3}, {72, 44}}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="489187160"/>
@@ -272,6 +272,10 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="650224837"/>
+								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">capture-button-annotation.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="139007759"/>
 								<reference key="IBUIFont" ref="925333845"/>
 							</object>
@@ -380,14 +384,6 @@
 						<reference key="destination" ref="786471709"/>
 					</object>
 					<int key="connectionID">37</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">annotateButton</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="891016661"/>
-					</object>
-					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -720,10 +716,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">warning-alert.png</string>
-			<string key="NS.object.0">{72, 72}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="capture-button-annotation.png">{72, 44}</string>
+			<string key="warning-alert.png">{72, 72}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>
