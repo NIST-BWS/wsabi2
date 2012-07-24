@@ -20,6 +20,7 @@
 @synthesize deviceDefinition;
 @synthesize modality;
 @synthesize submodality;
+@synthesize tapBehindViewRecognizer;
 
 //Status stuff
 @synthesize sensorCheckStatus;
@@ -123,8 +124,20 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Add recognizer to detect taps outside of the modal view
+    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
+    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+}
+
 -(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     //work around a bug in iOS – adding a white activity indicator in Interface Builder, the indicator doesn't stay
     //white.
     self.checkingActivity.color = [UIColor whiteColor];
@@ -139,18 +152,40 @@
     //whatever the reason for disappearing, cancel all of our network operations
     [currentLink cancelAllOperations];    
     
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
 {
+    [self setTapBehindViewRecognizer:nil];
+    
     [super viewDidUnload];
-
- }
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
 	return YES;
+}
+
+- (IBAction)tappedBehindView:(id)sender
+{
+    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [recognizer locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            [self dismissModalViewControllerAnimated:YES];
+        }
+    }
 }
 
 #pragma mark - Property Getters/Setters

@@ -16,6 +16,7 @@
 			<string>IBUILabel</string>
 			<string>IBUIImageView</string>
 			<string>IBUIActivityIndicatorView</string>
+			<string>IBUITapGestureRecognizer</string>
 			<string>IBUITableView</string>
 			<string>IBUIButton</string>
 		</array>
@@ -348,8 +349,10 @@
 					<reference key="NSCustomColorSpace" ref="250230817"/>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<array key="IBUIGestureRecognizers" id="0"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
+			<object class="IBUITapGestureRecognizer" id="881394836"/>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -459,6 +462,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">tapBehindViewRecognizer</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="881394836"/>
+					</object>
+					<int key="connectionID">41</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="151721332"/>
 						<reference key="destination" ref="841351856"/>
@@ -509,12 +520,20 @@
 					</object>
 					<int key="connectionID">32</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">tappedBehindView:</string>
+						<reference key="source" ref="881394836"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">42</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<array key="object" id="0"/>
+						<reference key="object" ref="0"/>
 						<reference key="children" ref="1000"/>
 						<nil key="parent"/>
 					</object>
@@ -628,6 +647,11 @@
 						<reference key="object" ref="1040492050"/>
 						<reference key="parent" ref="122056587"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">40</int>
+						<reference key="object" ref="881394836"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -647,6 +671,7 @@
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -659,7 +684,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">42</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -672,6 +697,7 @@
 						<string key="cycleButtonPressed:">id</string>
 						<string key="doneButtonPressed:">id</string>
 						<string key="editAddressButtonPressed:">id</string>
+						<string key="tappedBehindView:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="changeCaptureTypeButtonPressed:">
@@ -694,6 +720,10 @@
 							<string key="name">editAddressButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="tappedBehindView:">
+							<string key="name">tappedBehindView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="changeCaptureTypeButton">UIButton</string>
@@ -707,6 +737,7 @@
 						<string key="statusContainerBackgroundView">UIImageView</string>
 						<string key="statusTextButton">UIButton</string>
 						<string key="tableView">UITableView</string>
+						<string key="tapBehindViewRecognizer">UITapGestureRecognizer</string>
 						<string key="warningContainer">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -753,6 +784,10 @@
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>
 							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tapBehindViewRecognizer">
+							<string key="name">tapBehindViewRecognizer</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="warningContainer">
 							<string key="name">warningContainer</string>
