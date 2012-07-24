@@ -33,8 +33,8 @@
     NSMutableArray *currentAnnotationArray;
     BOOL frontVisible;
     
-//    UIActionSheet *annotateClearActionSheet;
-//    UIActionSheet *deleteConfirmActionSheet;
+    UIActionSheet *annotateClearActionSheet;
+    UIActionSheet *deleteConfirmActionSheet;
     
     UIImage *dataImage;
     

@@ -474,7 +474,7 @@
         //show another alert to confirm the deletion
         BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Delete this person?" message:nil];
         deleteAlert.vignetteBackground = YES;
-        deleteAlert.animateHorizontal = YES;
+        deleteAlert.animateHorizontal = YES;        
         
         [deleteAlert setCancelButtonWithTitle:@"Cancel" block:nil];
         [deleteAlert setDestructiveButtonWithTitle:@"Delete" block:^{
