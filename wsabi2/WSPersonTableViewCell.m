@@ -505,7 +505,7 @@
 
 -(IBAction)editButtonPressed:(id)sender
 {
-    [self setEditing:!self.editing];
+    [self setEditing:![[self editButton] isSelected]];
 }
 
 -(IBAction)deleteButtonPressed:(id)sender
