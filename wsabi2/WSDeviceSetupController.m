@@ -155,6 +155,9 @@
     // Remove recognizer when view isn't visible
     [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
     
+    if ([sensorCheckTimer isValid])
+        [sensorCheckTimer invalidate];
+    
     [super viewWillDisappear:animated];
 }
 
