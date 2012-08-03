@@ -13,6 +13,8 @@
 #define GRID_CELL_OFFSET 1000
 
 @implementation WSPersonTableViewCell
+@synthesize deletePersonOverlayViewCancelButton;
+@synthesize deletePersonOverlayViewDeleteButton;
 @synthesize captureController;
 @synthesize person;
 @synthesize itemGridView;
@@ -569,6 +571,18 @@
         [[self contentView] addSubview:self.deletePersonOverlayView];
         // Keep duplicate row button on top of overlay
         [self.contentView bringSubviewToFront:self.duplicateRowButton];
+        
+        // Customize the button appearance
+        UIEdgeInsets insets = UIEdgeInsetsMake(24, 12, 24, 12);
+        [[self deletePersonOverlayViewDeleteButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultDestroyButton"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateNormal];
+        [[self deletePersonOverlayViewDeleteButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultDestroyButtonPressed"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateHighlighted];
+        [[self deletePersonOverlayViewCancelButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultCancelButton"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateNormal];
         
         // The NIB shows this as interaction enabled, but certainly isn't...
         [[self deletePersonOverlayView] setUserInteractionEnabled:YES];

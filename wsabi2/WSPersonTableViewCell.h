@@ -89,6 +89,8 @@
 @property (nonatomic, strong) IBOutlet UIImageView *shadowDownView;
 
 @property (nonatomic, strong) IBOutlet UIView *deletePersonOverlayView;
+@property (weak, nonatomic) IBOutlet UIButton *deletePersonOverlayViewCancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *deletePersonOverlayViewDeleteButton;
 @property (nonatomic, strong) IBOutlet UIView *separatorView;
 
 

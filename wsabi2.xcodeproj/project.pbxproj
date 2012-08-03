@@ -11,6 +11,12 @@
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
+		08F28AEC15C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */; };
+		08F28AED15C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */; };
+		08F28AEE15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */; };
+		08F28AEF15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */; };
+		08F28AF015C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */; };
+		08F28AF115C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */; };
 		EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */; };
 		EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE11558622500B838E3 /* plus-circle-button.png */; };
 		EA0CEFE41558622500B838E3 /* plus-circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */; };
@@ -349,6 +355,12 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultCancelButton.png; sourceTree = "<group>"; };
+		08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultCancelButton@2x.png"; sourceTree = "<group>"; };
+		08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultDestroyButton.png; sourceTree = "<group>"; };
+		08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultDestroyButton@2x.png"; sourceTree = "<group>"; };
+		08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultDestroyButtonPressed.png; sourceTree = "<group>"; };
+		08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultDestroyButtonPressed@2x.png"; sourceTree = "<group>"; };
 		EA045284154EBA63007577B6 /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
 		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
 		EA0CEFE11558622500B838E3 /* plus-circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-circle-button.png"; sourceTree = "<group>"; };
@@ -737,6 +749,12 @@
 			isa = PBXGroup;
 			children = (
 				EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */,
+				08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */,
+				08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */,
+				08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */,
+				08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */,
+				08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */,
+				08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */,
 				EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */,
 				EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */,
 				EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */,
@@ -1425,6 +1443,12 @@
 				088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */,
 				088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */,
 				088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */,
+				08F28AEC15C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png in Resources */,
+				08F28AED15C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png in Resources */,
+				08F28AEE15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png in Resources */,
+				08F28AEF15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png in Resources */,
+				08F28AF015C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png in Resources */,
+				08F28AF115C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
