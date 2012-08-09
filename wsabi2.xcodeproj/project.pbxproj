@@ -11,6 +11,12 @@
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
+		08CC85CD15D43F1C0028890B /* modality-vein@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85C715D43F1C0028890B /* modality-vein@2x.png */; };
+		08CC85CE15D43F1C0028890B /* modality-vein.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85C815D43F1C0028890B /* modality-vein.png */; };
+		08CC85CF15D43F1C0028890B /* modality-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85C915D43F1C0028890B /* modality-foot.png */; };
+		08CC85D015D43F1C0028890B /* modality-foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CA15D43F1C0028890B /* modality-foot@2x.png */; };
+		08CC85D115D43F1C0028890B /* modality-ear.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CB15D43F1C0028890B /* modality-ear.png */; };
+		08CC85D215D43F1C0028890B /* modality-ear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CC15D43F1C0028890B /* modality-ear@2x.png */; };
 		08F28AEC15C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */; };
 		08F28AED15C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */; };
 		08F28AEE15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */; };
@@ -355,6 +361,12 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		08CC85C715D43F1C0028890B /* modality-vein@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-vein@2x.png"; sourceTree = "<group>"; };
+		08CC85C815D43F1C0028890B /* modality-vein.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-vein.png"; sourceTree = "<group>"; };
+		08CC85C915D43F1C0028890B /* modality-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-foot.png"; sourceTree = "<group>"; };
+		08CC85CA15D43F1C0028890B /* modality-foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-foot@2x.png"; sourceTree = "<group>"; };
+		08CC85CB15D43F1C0028890B /* modality-ear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-ear.png"; sourceTree = "<group>"; };
+		08CC85CC15D43F1C0028890B /* modality-ear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-ear@2x.png"; sourceTree = "<group>"; };
 		08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultCancelButton.png; sourceTree = "<group>"; };
 		08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultCancelButton@2x.png"; sourceTree = "<group>"; };
 		08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultDestroyButton.png; sourceTree = "<group>"; };
@@ -1121,14 +1133,20 @@
 		EAD284CB155408670005DCD4 /* Modalities */ = {
 			isa = PBXGroup;
 			children = (
+				08CC85CB15D43F1C0028890B /* modality-ear.png */,
+				08CC85CC15D43F1C0028890B /* modality-ear@2x.png */,
 				EAD284E5155452950005DCD4 /* modality-face.png */,
 				EAD284E6155452950005DCD4 /* modality-face@2x.png */,
-				EAD284DF15544F980005DCD4 /* modality-finger.png */,
-				EAD284E015544F980005DCD4 /* modality-finger@2x.png */,
 				EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */,
 				EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */,
+				EAD284DF15544F980005DCD4 /* modality-finger.png */,
+				EAD284E015544F980005DCD4 /* modality-finger@2x.png */,
+				08CC85C915D43F1C0028890B /* modality-foot.png */,
+				08CC85CA15D43F1C0028890B /* modality-foot@2x.png */,
 				EAD284D915544E230005DCD4 /* modality-iris.png */,
 				EAD284DA15544E230005DCD4 /* modality-iris@2x.png */,
+				08CC85C815D43F1C0028890B /* modality-vein.png */,
+				08CC85C715D43F1C0028890B /* modality-vein@2x.png */,
 			);
 			name = Modalities;
 			sourceTree = "<group>";
@@ -1449,6 +1467,12 @@
 				08F28AEF15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png in Resources */,
 				08F28AF015C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png in Resources */,
 				08F28AF115C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png in Resources */,
+				08CC85CD15D43F1C0028890B /* modality-vein@2x.png in Resources */,
+				08CC85CE15D43F1C0028890B /* modality-vein.png in Resources */,
+				08CC85CF15D43F1C0028890B /* modality-foot.png in Resources */,
+				08CC85D015D43F1C0028890B /* modality-foot@2x.png in Resources */,
+				08CC85D115D43F1C0028890B /* modality-ear.png in Resources */,
+				08CC85D215D43F1C0028890B /* modality-ear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
