@@ -249,7 +249,6 @@
         self.separatorView.alpha = (selected ? 0.0 : 1.0);
             
         if (selected) {
-            [self setAppearDisabled:NO animated:NO];
             self.contentView.alpha = 1.0;
             self.deletePersonOverlayView.hidden = YES;
         }
@@ -270,6 +269,10 @@
             NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
             NSLog(@"Created/grabbed sensor link %@",[link description]);
         }
+        [self setAppearDisabled:NO animated:NO];
+    } else {
+        [self selectItem:nil];
+        selectedIndex = -1;
     }
 }
 
