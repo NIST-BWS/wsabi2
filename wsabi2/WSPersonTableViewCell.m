@@ -221,88 +221,56 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    if ([super isSelected] == selected) {
-        //nothing to change.
+    if ([super isSelected] == selected)
         return;
-    }
     
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
-    self.duplicateRowButton.highlighted = !selected;
-    self.biographicalDataButton.highlighted = !selected;
-    self.addButton.highlighted = !selected;
-    self.editButton.highlighted = !selected;
-    self.deleteButton.highlighted = !selected;
+    void (^toggleSelection)(void) = ^(void) {
+        self.duplicateRowButton.highlighted = !selected;
+        self.biographicalDataButton.highlighted = !selected;
+        self.addButton.highlighted = !selected;
+        self.editButton.highlighted = !selected;
+        self.deleteButton.highlighted = !selected;
+        
+        self.shadowUpView.alpha = (selected ? 1.0 : 0.0);
+        self.shadowDownView.alpha = (selected ? 1.0 : 0.0);
+        self.timestampLabel.alpha = (selected ? 1.0 : 0.0);
+        self.biographicalDataButton.alpha = (selected ? 1.0 : 0.0);
+        self.timestampInactiveLabel.alpha = (selected ? 0.0 : 1.0);
+        self.biographicalDataInactiveLabel.alpha = (selected ? 0.0 : 1.0);
+        self.duplicateRowButton.alpha = (selected ? 1.0 : 0.0);
+        self.addButton.alpha = (selected ? 1.0 : 0.0);
+        self.editButton.alpha = (selected ? 1.0 : 0.0);
+        self.deleteButton.alpha = (selected ? 1.0 : 0.0);
+        self.itemGridView.alpha = (selected ? 1.0 : 0.3);
+        self.customSelectedBackgroundView.backgroundColor = (selected ? selectedBGColor : normalBGColor);
+        self.deletePersonOverlayView.alpha = (selected ? 0.0 : 1.0);
+        self.separatorView.alpha = (selected ? 0.0 : 1.0);
+            
+        if (selected) {
+            [self setAppearDisabled:NO animated:NO];
+            self.contentView.alpha = 1.0;
+            self.deletePersonOverlayView.hidden = YES;
+        }
+    
+        [self layoutGrid];
+        self.itemGridView.userInteractionEnabled = selected;
+    };
+
+    if (animated)
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:toggleSelection];
+    else
+        toggleSelection();
     
     if (selected) {
-        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            self.shadowUpView.alpha = 1.0;
-            self.shadowDownView.alpha = 1.0;
-            self.timestampLabel.alpha = 1.0;
-            self.biographicalDataButton.alpha = 1.0;
-            self.timestampInactiveLabel.alpha = 0.0;
-            self.biographicalDataInactiveLabel.alpha = 0.0;
-            self.duplicateRowButton.alpha = 1.0;
-            self.addButton.alpha = 1.0;
-            self.editButton.alpha = 1.0;
-            self.deleteButton.alpha = 1.0;
-            //Finally, make sure we're fully visible.
-            self.contentView.alpha = 1.0;
-            self.itemGridView.alpha = 1.0;
-            //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
-            self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
-            self.deletePersonOverlayView.hidden = YES;
-            self.deletePersonOverlayView.alpha = 0.0;
-            self.separatorView.alpha = 0.0;
-
-            [self layoutGrid];
-
-        }];
-        
         //Set up sensor links for each item in this person's record.
         //(It's likely that these links will come back initialized.)
         for (WSCDItem *item in self.person.items) {
             NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
             NSLog(@"Created/grabbed sensor link %@",[link description]);
         }
-        
     }
-    else {
-        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            [self setAppearDisabled:NO animated:NO];
-            self.shadowUpView.alpha = 0.0;
-            self.shadowDownView.alpha = 0.0;
-            self.timestampLabel.alpha = 0.0;
-            self.biographicalDataButton.alpha = 0.0;
-            self.timestampInactiveLabel.alpha = 1.0;
-            self.biographicalDataInactiveLabel.alpha = 1.0;
-            self.duplicateRowButton.alpha = 0.0;
-            self.addButton.alpha = 0.0;
-            self.editButton.alpha = 0.0;
-            self.deleteButton.alpha = 0.0;
-
-            //Finally, fade everything partially out.
-            self.itemGridView.alpha = 0.3;
-            self.customSelectedBackgroundView.backgroundColor = normalBGColor;
-            [self selectItem:nil];
-            selectedIndex = -1;
-            self.deletePersonOverlayView.alpha = 1.0;
-            self.separatorView.alpha = 1.0;
-            [self layoutGrid];
-
-        } 
-         
-        ];
-        
-        //make sure we're not in edit mode
-        //[self setEditing:NO];
-        
-    }
-
-    self.itemGridView.userInteractionEnabled = selected;
-    //[self.itemGridView reloadData];
-
 }
 
 -(void) setPerson:(WSCDPerson *)newPerson
