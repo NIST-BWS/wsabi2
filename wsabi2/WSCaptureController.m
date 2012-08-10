@@ -23,6 +23,7 @@
 
 @synthesize modalityButton;
 @synthesize deviceButton;
+@synthesize annotateButton;
 @synthesize itemDataView;
 @synthesize captureButton;
 @synthesize delegate;
@@ -128,7 +129,8 @@
     if (!backContainer.hidden) {
         [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:0 completion:nil];
     }
-
+    
+    [self updateAnnotationLabel];
 }
 
 - (void)viewDidLoad
@@ -247,6 +249,26 @@
 -(CGSize) contentSizeForViewInPopover
 {
     return CGSizeMake(480, 408);
+}
+
+-(void) updateAnnotationLabel
+{
+    NSUInteger annotationCount = 0;
+    for (NSNumber *num in currentAnnotationArray)
+        if ([num boolValue] == YES)
+            annotationCount++;
+    // Note counts as an annotation
+    if (self.item.notes && ![self.item.notes isEqualToString:@""])
+        annotationCount++;
+    
+    if (annotationCount == 0) {
+        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal & UIControlStateHighlighted];
+        [[self annotateButton] setTitle:@"" forState:UIControlStateNormal & UIControlStateHighlighted];
+    } else {
+        // TODO Make a better image
+        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal & UIControlStateHighlighted];
+        [[self annotateButton] setTitle:[NSString stringWithFormat:@"%u", annotationCount] forState:UIControlStateNormal & UIControlStateHighlighted];
+    }
 }
 
 #pragma mark - Property accessors
@@ -369,6 +391,7 @@
                                                       userInfo:userInfo];
     
 
+    [self updateAnnotationLabel];
 }
 
 -(IBAction)modalityButtonPressed:(id)sender

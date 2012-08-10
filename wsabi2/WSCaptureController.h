@@ -50,6 +50,7 @@
 -(IBAction)captureButtonPressed:(id)sender;
 
 -(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
+-(void) updateAnnotationLabel;
 
 //Notification handlers
 -(void) handleConnectCompleted:(NSNotification*)notification;
@@ -70,6 +71,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *modalityButton;
 @property (nonatomic, strong) IBOutlet UIButton *deviceButton;
+@property (nonatomic, weak) IBOutlet UIButton *annotateButton;
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
 @property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
 
