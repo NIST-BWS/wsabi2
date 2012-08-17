@@ -758,7 +758,7 @@
         //give the capture controller a reference to the correct item
         self.captureController.item = targetItem;
         
-        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait(self.captureController.interfaceOrientation) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
         UIPopoverArrowDirectionAny;
         
         //make sure we have the right content size (may be reset elsewhere)
