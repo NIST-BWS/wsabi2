@@ -139,6 +139,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
+    [self.deviceButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButtonEndCap"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     
     //Configure the capture button.
     /*	WSCaptureButtonStateInactive,
