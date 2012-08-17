@@ -399,7 +399,7 @@
 //    [delegate didRequestModalityChangeForItem:self.item];
 
     //Post a notification to show the modality walkthrough
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item, kDictKeyTargetItem, [NSNumber numberWithBool:YES], kDictKeyStartFromSubmodality, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];

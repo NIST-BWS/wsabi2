@@ -139,9 +139,9 @@
     //figure out whether we should restore the capture popover later.
     //NOTE: do so unless we came from the add-new-item button.
     shouldRestoreCapturePopover = (item.managedObjectContext != nil);
-    
-    BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
-    if (shouldStartFromDevice) {
+
+    // Start from device
+    if ([[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue]) {
         //only show the walkthrough from device selection onwards.
         WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
         chooser.item = item;
@@ -153,6 +153,20 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
+        
+        //once they're presented, add logging capabilities.
+        [navigation.navigationBar startAutomaticGestureLogging:YES];
+        [chooser.view startAutomaticGestureLogging:YES];
+    // Start from submodality
+    } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
+        WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
+        chooser.item = item;
+        
+        chooser.modality = [WSModalityMap modalityForString:item.modality];
+        
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:navigation animated:YES];
         
         //once they're presented, add logging capabilities.
         [navigation.navigationBar startAutomaticGestureLogging:YES];
