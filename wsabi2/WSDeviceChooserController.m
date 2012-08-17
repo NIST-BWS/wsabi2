@@ -348,6 +348,7 @@
     
     NSString *titleString = nil;
     NSString *subtitleString = nil;
+    UITableViewCellAccessoryType accessory = UITableViewCellAccessoryDisclosureIndicator;
     // Configure the cell...
     if (self.autodiscoveryEnabled) {
         //Everything
@@ -356,6 +357,10 @@
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    // Cannot use isEquals because of the way the recentSensors array is built
+                    if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
+                        [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]])
+                        accessory = UITableViewCellAccessoryCheckmark;
                     break;
                 case 1:
                     //return the number of autodiscovered sensors found for this modality.
@@ -389,6 +394,10 @@
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    // Cannot use isEquals because of the way the recentSensors array is built
+                    if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
+                        [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]])
+                        accessory = UITableViewCellAccessoryCheckmark;
                     break;
                 case 1:
                     titleString = @"Add a new sensor";
@@ -413,7 +422,7 @@
     
     cell.textLabel.text = titleString;
     cell.detailTextLabel.text = subtitleString;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = accessory;
 
     return cell;
 }
