@@ -42,8 +42,6 @@
     UIColor *normalBGColor;
     UIColor *selectedBGColor;
     
-    int selectedIndex;
-    
     UIPopoverController *capturePopover;
     UIPopoverController *biographicalPopover;
 }
@@ -83,6 +81,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *duplicateRowButton;
 
 @property (nonatomic, strong) IBOutlet WSCaptureController *captureController;
+@property (nonatomic, readonly, assign) int selectedIndex;
 
 @property (nonatomic, strong) IBOutlet UIView *customSelectedBackgroundView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowUpView;

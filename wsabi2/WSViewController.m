@@ -121,10 +121,12 @@
     return YES;
 }
 
--(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    //dismiss any popover controller that's visible.
-    [self.popoverController dismissPopoverAnimated:YES];
+    // Redisplay capture controller if it was visible
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    if ([cell selectedIndex] != -1)
+        [cell showCapturePopoverAtIndex:[cell selectedIndex]];
 }
 
 #pragma mark - Notification action methods

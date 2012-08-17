@@ -16,6 +16,7 @@
 @synthesize deletePersonOverlayViewCancelButton;
 @synthesize deletePersonOverlayViewDeleteButton;
 @synthesize captureController;
+@synthesize selectedIndex;
 @synthesize person;
 @synthesize itemGridView;
 @synthesize biographicalDataButton, biographicalDataInactiveLabel, timestampLabel, timestampInactiveLabel;
@@ -702,7 +703,7 @@
 
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
-    cell.selected = (index == selectedIndex);
+    cell.selected = (index == self.selectedIndex);
     //cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
     cell.tag = GRID_CELL_OFFSET + index;
     return cell;
@@ -721,6 +722,10 @@
 -(void) showCapturePopoverAtIndex:(int) index
 {
     NSLog(@"Asking to show popover for item at index %d",index);
+    
+    // Force a redraw of the popover so that orientation is not reused
+    if ([capturePopover isPopoverVisible])
+        [capturePopover dismissPopoverAnimated:NO];
     
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
