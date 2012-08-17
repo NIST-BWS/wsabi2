@@ -266,8 +266,7 @@
         [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal & UIControlStateHighlighted];
         [[self annotateButton] setTitle:@"" forState:UIControlStateNormal & UIControlStateHighlighted];
     } else {
-        // TODO Make a better image
-        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal & UIControlStateHighlighted];
+        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"annotate_pencil_left"] forState:UIControlStateNormal & UIControlStateHighlighted];
         [[self annotateButton] setTitle:[NSString stringWithFormat:@"%u", annotationCount] forState:UIControlStateNormal & UIControlStateHighlighted];
     }
 }

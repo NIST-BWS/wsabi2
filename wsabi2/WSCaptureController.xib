@@ -202,7 +202,6 @@
 								<string key="NSFrame">{{239, 361}, {243, 47}}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -269,7 +268,7 @@
 								<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 								<double key="IBUIContentEdgeInsets.top">0.0</double>
 								<double key="IBUIContentEdgeInsets.bottom">0.0</double>
-								<double key="IBUIContentEdgeInsets.left">25</double>
+								<double key="IBUIContentEdgeInsets.left">28</double>
 								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="586865040"/>
 								<reference key="IBUIDisabledTitleColor" ref="438293004"/>
