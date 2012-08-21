@@ -169,13 +169,6 @@
     self.captureButton.waitingMessage = @"Waiting for sensor";
     
     self.captureButton.waitingRestartCaptureMessage = @"Reconnecting to the sensor";
-    
-    //put a shadow behind the button
-    self.captureButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.captureButton.layer.shadowOpacity = 0.5;
-    self.captureButton.layer.shadowRadius = 6;
-    self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
-    
 
     //add swipe listeners to the capture button to switch between items.
 //    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];

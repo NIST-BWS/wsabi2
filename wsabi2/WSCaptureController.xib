@@ -171,7 +171,6 @@
 								<double key="IBUIImageEdgeInsets.left">0.0</double>
 								<double key="IBUIImageEdgeInsets.right">10</double>
 								<int key="IBUILineBreakMode">0</int>
-								<string key="IBUITitleShadowOffset">{0, 1}</string>
 								<string key="IBUINormalTitle">Here's a really really long title about nothing at all so we can test how things wrap around. alkjsdflkjsldakfjlksjdflkjsldfkjlskjdflkjslkdfjlskjdflkjsldkjflkjsdlkjflskjdflkjsldkjflksjldkfjlskjdlfksjlskjdflkjsdlkfjslksdlkfjlskdjflkjsdlkjflkjsdlkjflksjdlkjflkjdslkjdfslkjsdlkfjsldkjflkjsdlkjfslkjdlfkjsldkjlfksjlskjdflksj</string>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -202,6 +201,7 @@
 								<string key="NSFrame">{{239, 361}, {243, 47}}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
