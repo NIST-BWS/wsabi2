@@ -330,20 +330,11 @@
                                                  destructiveButtonTitle:@"Clear this image"
                                                       otherButtonTitles:@"Annotate", nil];
         annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        //[annotateClearActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    }
-    else
-    {
-        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Cancel"
-                                                 destructiveButtonTitle:nil
-                                                      otherButtonTitles:@"Annotate", nil];
-        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        //[annotateClearActionSheet dismissWithClickedButtonIndex:0 animated:YES];        
-    }
+    } else
+        //just flip to the annotation.
+        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+    
     [annotateClearActionSheet showInView:self.view];
-
 }
 
 -(IBAction)doneButtonPressed:(id)sender
@@ -462,10 +453,6 @@
                 
                 [deleteConfirmActionSheet showInView:self.view];                        
             
-        }
-        else {
-            //just flip to the annotation.
-            [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
         }
     }
 //    
