@@ -227,41 +227,47 @@
     
     [super setSelected:selected animated:animated];
     
+    void (^preSelectionAnimation)(void) = ^(void) {
+        self.separatorView.alpha = (selected ? 0.0 : 1.0);
+        self.duplicateRowButton.alpha = (selected ? 1.0 : 0.0);
+        self.timestampInactiveLabel.alpha = (selected ? 0.0 : 1.0);
+    };
+    
     void (^toggleSelection)(void) = ^(void) {
-        self.duplicateRowButton.highlighted = !selected;
-        self.biographicalDataButton.highlighted = !selected;
-        self.addButton.highlighted = !selected;
-        self.editButton.highlighted = !selected;
-        self.deleteButton.highlighted = !selected;
-        
         self.shadowUpView.alpha = (selected ? 1.0 : 0.0);
         self.shadowDownView.alpha = (selected ? 1.0 : 0.0);
         self.timestampLabel.alpha = (selected ? 1.0 : 0.0);
         self.biographicalDataButton.alpha = (selected ? 1.0 : 0.0);
-        self.timestampInactiveLabel.alpha = (selected ? 0.0 : 1.0);
         self.biographicalDataInactiveLabel.alpha = (selected ? 0.0 : 1.0);
-        self.duplicateRowButton.alpha = (selected ? 1.0 : 0.0);
         self.addButton.alpha = (selected ? 1.0 : 0.0);
         self.editButton.alpha = (selected ? 1.0 : 0.0);
         self.deleteButton.alpha = (selected ? 1.0 : 0.0);
         self.itemGridView.alpha = (selected ? 1.0 : 0.3);
         self.customSelectedBackgroundView.backgroundColor = (selected ? selectedBGColor : normalBGColor);
         self.deletePersonOverlayView.alpha = (selected ? 0.0 : 1.0);
-        self.separatorView.alpha = (selected ? 0.0 : 1.0);
             
         if (selected) {
             self.contentView.alpha = 1.0;
             self.deletePersonOverlayView.hidden = YES;
         }
+    };
     
+    void (^toggleSelectionCompletion)(BOOL finished) = ^(BOOL finished) {
         [self layoutGrid];
         self.itemGridView.userInteractionEnabled = selected;
     };
-
+    
+    
+    preSelectionAnimation();
     if (animated)
-        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:toggleSelection];
-    else
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                         animations:toggleSelection
+                         completion:toggleSelectionCompletion];
+    else {
         toggleSelection();
+        toggleSelectionCompletion(YES);
+    }
+
     
     if (selected) {
         //Set up sensor links for each item in this person's record.

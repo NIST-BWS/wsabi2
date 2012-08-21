@@ -445,16 +445,19 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
     selectedIndex = indexPath;
     
-    [aTableView beginUpdates];
-    [aTableView endUpdates];
-       
+    [aTableView reloadData];
+
     //If this is a currently deselected row, scroll to it.
     if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
+        
+        // reloadData resets selection (begin/endUpdates doesn't, but animates height change
+        [[aTableView cellForRowAtIndexPath:indexPath] setSelected:YES animated:YES];
+    } else
+        [[aTableView cellForRowAtIndexPath:indexPath] setSelected:YES animated:NO];
+    
     previousSelectedIndex = selectedIndex;
 }
 
