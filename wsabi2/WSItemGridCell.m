@@ -196,11 +196,11 @@
         
         // Badge containing number of annotations + notes
         [self setBadge:[UIButton buttonWithType:UIButtonTypeCustom]];
-        [[self badge] setFrame:CGRectMake(self.contentView.bounds.size.width - 20, -20, 29, 29)];
+        [[self badge] setFrame:CGRectMake(self.contentView.bounds.size.width - 20, -20, 29, 31)];
         [[self badge] setBackgroundImage:[UIImage imageNamed:@"BadgeBackground"] forState:UIControlStateNormal];
         [[[self badge] titleLabel] setTextColor:[UIColor whiteColor]];
         [[[self badge] titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
-        [[self badge] setTitleEdgeInsets:UIEdgeInsetsMake(-1, 0, 1, 0)];
+        [[self badge] setTitleEdgeInsets:UIEdgeInsetsMake(-5, 0, 0, -1)];
         [[self badge] setTitle:[NSString stringWithFormat:@"%u", [currentAnnotationArray count]] forState:UIControlStateNormal];
         
         // XXX: Perhaps the badge should pass the touch event through
