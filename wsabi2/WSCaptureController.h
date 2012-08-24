@@ -42,6 +42,8 @@
 }
 
 -(void) configureView;
+-(void) showFrontSideAnimated:(BOOL)animated;
+-(void) showFlipSideAnimated:(BOOL)animated;
 
 -(IBAction)annotateButtonPressed:(id)sender;
 -(IBAction)doneButtonPressed:(id)sender;
