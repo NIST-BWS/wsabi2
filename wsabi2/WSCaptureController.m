@@ -125,11 +125,9 @@
     
     self.backNavBarTitleItem.title = self.item.submodality;
     self.annotationNotesTableView.alwaysBounceVertical = NO;
-    
-    //if the back view is showing, flip it with a 0 duration.
-    if (!backContainer.hidden) {
-        [self showFlipSideAnimated:NO];
-    }
+
+    [[self backContainer] setHidden:NO];
+    [[self frontContainer] setHidden:NO];
     
     [self updateAnnotationLabel];
 }
@@ -267,7 +265,13 @@
 
 -(void)showFlipSideAnimated:(BOOL)animated
 {
-    [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:(animated == YES ? kFlipAnimationDuration : 0) completion:nil];
+    [UIView transitionFromView:[self frontContainer]
+                        toView:[self backContainer]
+                      duration:(animated ? kFlipAnimationDuration : 0)
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    completion:nil
+     ];
+    
     annotating = YES;
 }
 
@@ -286,18 +290,26 @@
         self.itemDataView.backgroundColor = [UIColor darkGrayColor];
     }
     
-    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:(animated == YES ? kFlipAnimationDuration : 0)
-                        completion:^(BOOL completed) {
-                            if (self.item.data) {
-                                self.itemDataView.alpha = 0;
-                                self.itemDataView.image = dataImage;
-                                [UIView animateWithDuration:0.1 animations:^{
-                                    self.itemDataView.alpha = 1.0;
-                                    self.itemDataView.backgroundColor = [UIColor whiteColor];
-                                }];
-                                
-                            }
-                        }];
+    void (^completion)(BOOL completed) = ^(BOOL completed) {
+        if (self.item.data) {
+            self.itemDataView.alpha = 0;
+            self.itemDataView.image = dataImage;
+            [UIView animateWithDuration:(animated ? 0.1 : 0)
+                             animations:^{
+                                 self.itemDataView.alpha = 1.0;
+                                 self.itemDataView.backgroundColor = [UIColor whiteColor];
+                             }
+             ];
+        }
+    };
+    
+    [UIView transitionFromView:[self backContainer]
+                        toView:[self frontContainer]
+                      duration:(animated ? kFlipAnimationDuration : 0)
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    completion:completion
+     ];
+
     //save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     

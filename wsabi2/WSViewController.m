@@ -121,12 +121,26 @@
     return YES;
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    // Record if the flip side of the CaptureController is presently shown
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
+    
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
     // Redisplay capture controller if it was visible
     WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
-    if ([cell selectedIndex] != -1)
+    if ((cell != nil) && ([cell selectedIndex] != -1)) {
         [cell showCapturePopoverAtIndex:[cell selectedIndex]];
+        if (wasAnnotating)
+            [[cell captureController] showFlipSideAnimated:NO];
+    }
 }
 
 #pragma mark - Notification action methods

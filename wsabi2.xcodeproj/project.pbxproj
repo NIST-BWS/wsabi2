@@ -154,7 +154,6 @@
 		EA65DF7E1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */; };
 		EA65DF811546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */; };
 		EA65DF821546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */; };
-		EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */; };
 		EA65DFD215483769006C826E /* symbol-notok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCE15483769006C826E /* symbol-notok.png */; };
 		EA65DFD315483769006C826E /* symbol-notok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCF15483769006C826E /* symbol-notok@2x.png */; };
 		EA65DFD415483769006C826E /* symbol-ok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD015483769006C826E /* symbol-ok.png */; };
@@ -531,8 +530,6 @@
 		EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
 		EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button-selected@2x.png"; sourceTree = "<group>"; };
 		EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button@2x.png"; sourceTree = "<group>"; };
-		EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FlipTransition.h"; sourceTree = "<group>"; };
-		EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlipTransition.m"; sourceTree = "<group>"; };
 		EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "wsabi2-4.25.2012.0817.xcdatamodel"; sourceTree = "<group>"; };
 		EA65DFCE15483769006C826E /* symbol-notok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok.png"; sourceTree = "<group>"; };
 		EA65DFCF15483769006C826E /* symbol-notok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-notok@2x.png"; sourceTree = "<group>"; };
@@ -994,8 +991,6 @@
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
 				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
-				EA65DFC1154739BD006C826E /* UIView+FlipTransition.h */,
-				EA65DFC2154739BD006C826E /* UIView+FlipTransition.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1641,7 +1636,6 @@
 				EA28CF1F153C4E7900A2F558 /* GMGridViewLayoutStrategies.m in Sources */,
 				EA28CF21153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF23153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
-				EA65DFC3154739BD006C826E /* UIView+FlipTransition.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
 				EA8AA28B156BC391007D213A /* BlockActionSheet.m in Sources */,

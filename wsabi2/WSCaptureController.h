@@ -13,7 +13,6 @@
 #import "WSCaptureButton.h"
 #import "NBCLDeviceLinkManager.h"
 #import "constants.h"
-#import "UIView+FlipTransition.h"
 
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
