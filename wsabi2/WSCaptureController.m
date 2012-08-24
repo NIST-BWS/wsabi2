@@ -130,6 +130,8 @@
     [[self frontContainer] setHidden:NO];
     
     [self updateAnnotationLabel];
+    
+    [self showFrontSideAnimated:NO];
 }
 
 - (void)viewDidLoad
