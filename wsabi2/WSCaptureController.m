@@ -218,21 +218,11 @@
     
 }
 
-
-- (void) viewWillUnload:(BOOL)animated
-{
-    //remove observers
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    //empty our delegate
-    self.delegate = nil;
-}
-
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
