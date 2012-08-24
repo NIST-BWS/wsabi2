@@ -20,6 +20,7 @@
 
 @synthesize annotationTableView;
 @synthesize annotationNotesTableView;
+@synthesize annotating;
 
 @synthesize modalityButton;
 @synthesize deviceButton;
@@ -127,7 +128,7 @@
     
     //if the back view is showing, flip it with a 0 duration.
     if (!backContainer.hidden) {
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:0 completion:nil];
+        [self showFlipSideAnimated:NO];
     }
     
     [self updateAnnotationLabel];
@@ -264,6 +265,54 @@
     }
 }
 
+-(void)showFlipSideAnimated:(BOOL)animated
+{
+    [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:(animated == YES ? kFlipAnimationDuration : 0) completion:nil];
+    annotating = YES;
+}
+
+-(void)showFrontSideAnimated:(BOOL)animated
+{    
+    //make sure we resign first responder.
+    [self.view endEditing:YES];
+    
+    //just flip to the capture view.
+    //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped
+    //and hidden. This works identically when hiding the view using UIView's built-in transition methods. It works identically
+    //when keeping a reference to the contained UIImage as an ivar as when loading it directly from the WSCDItem. It works identically
+    //when setting the UIImageView to clear its contents and not. For the moment, we'll reset the image manually when it appears.
+    if (self.item.data) {
+        //this makes for a smoother transition.
+        self.itemDataView.backgroundColor = [UIColor darkGrayColor];
+    }
+    
+    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:(animated == YES ? kFlipAnimationDuration : 0)
+                        completion:^(BOOL completed) {
+                            if (self.item.data) {
+                                self.itemDataView.alpha = 0;
+                                self.itemDataView.image = dataImage;
+                                [UIView animateWithDuration:0.1 animations:^{
+                                    self.itemDataView.alpha = 1.0;
+                                    self.itemDataView.backgroundColor = [UIColor whiteColor];
+                                }];
+                                
+                            }
+                        }];
+    //save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    //Post a notification that this item has changed
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    
+    [self updateAnnotationLabel];
+    annotating = NO;
+}
+
 #pragma mark - Property accessors
 -(void) setItem:(WSCDItem *)newItem
 {
@@ -285,7 +334,7 @@
         [self showItemClearConfirmationAlert];
     }];
     [alert addButtonWithTitle:@"Annotate" block:^{
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+        [self showFlipSideAnimated:YES];
     }];
     [alert show];
 
@@ -332,50 +381,14 @@
         annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     } else
         //just flip to the annotation.
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
+        [self showFlipSideAnimated:YES];
     
     [annotateClearActionSheet showInView:self.view];
 }
 
 -(IBAction)doneButtonPressed:(id)sender
 {
-    //make sure we resign first responder.
-    [self.view endEditing:YES];
-
-    //just flip to the capture view.
-    //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped
-    //and hidden. This works identically when hiding the view using UIView's built-in transition methods. It works identically
-    //when keeping a reference to the contained UIImage as an ivar as when loading it directly from the WSCDItem. It works identically
-    //when setting the UIImageView to clear its contents and not. For the moment, we'll reset the image manually when it appears.
-    if (self.item.data) {
-        //this makes for a smoother transition.
-        self.itemDataView.backgroundColor = [UIColor darkGrayColor];
-    }
-
-    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:kFlipAnimationDuration 
-                        completion:^(BOOL completed) {
-                            if (self.item.data) {
-                                self.itemDataView.alpha = 0;
-                                self.itemDataView.image = dataImage;
-                                [UIView animateWithDuration:0.1 animations:^{
-                                    self.itemDataView.alpha = 1.0;
-                                    self.itemDataView.backgroundColor = [UIColor whiteColor];
-                                }];
-
-                            }
-                    }];
-    //save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-
-    //Post a notification that this item has changed
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                        object:self
-                                                      userInfo:userInfo];
-    
-
-    [self updateAnnotationLabel];
+    [self showFrontSideAnimated:YES];
 }
 
 -(IBAction)modalityButtonPressed:(id)sender
