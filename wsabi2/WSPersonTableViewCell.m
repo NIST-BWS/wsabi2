@@ -655,18 +655,16 @@
 
 }
 
-#pragma mark - Called by external classes to clear the selection
--(void) selectItem:(WSItemGridCell*)exceptThisOne
+-(void) selectItem:(WSItemGridCell*)cellToSelect
 {
-    if(!exceptThisOne) {
-        //we're deselecting everything
+    // We're deselecting everything
+    if(cellToSelect == nil)
         selectedIndex = -1;
-    }
     
     for (UIView *v in self.itemGridView.subviews) {
         if ([v isKindOfClass:[WSItemGridCell class]]) {
             WSItemGridCell *cell = ((WSItemGridCell*)v);
-            if (cell == exceptThisOne) {
+            if (cell == cellToSelect) {
                 cell.selected = YES;
                 selectedIndex = [orderedItems indexOfObject:cell.item];
             }
