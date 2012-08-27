@@ -319,10 +319,6 @@
 		EAD284DC15544E230005DCD4 /* modality-iris.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284D915544E230005DCD4 /* modality-iris.png */; };
 		EAD284DD15544E230005DCD4 /* modality-iris@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284DA15544E230005DCD4 /* modality-iris@2x.png */; };
 		EAD284DE15544E230005DCD4 /* modality-iris@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284DA15544E230005DCD4 /* modality-iris@2x.png */; };
-		EAD284E115544F980005DCD4 /* modality-finger.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284DF15544F980005DCD4 /* modality-finger.png */; };
-		EAD284E215544F980005DCD4 /* modality-finger.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284DF15544F980005DCD4 /* modality-finger.png */; };
-		EAD284E315544F980005DCD4 /* modality-finger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284E015544F980005DCD4 /* modality-finger@2x.png */; };
-		EAD284E415544F980005DCD4 /* modality-finger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284E015544F980005DCD4 /* modality-finger@2x.png */; };
 		EAD284E7155452950005DCD4 /* modality-face.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284E5155452950005DCD4 /* modality-face.png */; };
 		EAD284E8155452950005DCD4 /* modality-face.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284E5155452950005DCD4 /* modality-face.png */; };
 		EAD284E9155452950005DCD4 /* modality-face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284E6155452950005DCD4 /* modality-face@2x.png */; };
@@ -648,8 +644,6 @@
 		EAD284CD1554097D0005DCD4 /* bright_squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bright_squares.png; sourceTree = "<group>"; };
 		EAD284D915544E230005DCD4 /* modality-iris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-iris.png"; sourceTree = "<group>"; };
 		EAD284DA15544E230005DCD4 /* modality-iris@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-iris@2x.png"; sourceTree = "<group>"; };
-		EAD284DF15544F980005DCD4 /* modality-finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger.png"; sourceTree = "<group>"; };
-		EAD284E015544F980005DCD4 /* modality-finger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-finger@2x.png"; sourceTree = "<group>"; };
 		EAD284E5155452950005DCD4 /* modality-face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-face.png"; sourceTree = "<group>"; };
 		EAD284E6155452950005DCD4 /* modality-face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modality-face@2x.png"; sourceTree = "<group>"; };
 		EAE99C341548785F00104679 /* wsabi-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wsabi-title.png"; sourceTree = "<group>"; };
@@ -1146,8 +1140,6 @@
 				EAD284E6155452950005DCD4 /* modality-face@2x.png */,
 				EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */,
 				EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */,
-				EAD284DF15544F980005DCD4 /* modality-finger.png */,
-				EAD284E015544F980005DCD4 /* modality-finger@2x.png */,
 				08CC85C915D43F1C0028890B /* modality-foot.png */,
 				08CC85CA15D43F1C0028890B /* modality-foot@2x.png */,
 				EAD284D915544E230005DCD4 /* modality-iris.png */,
@@ -1414,8 +1406,6 @@
 				EAD284CE1554097D0005DCD4 /* bright_squares.png in Resources */,
 				EAD284DB15544E230005DCD4 /* modality-iris.png in Resources */,
 				EAD284DD15544E230005DCD4 /* modality-iris@2x.png in Resources */,
-				EAD284E115544F980005DCD4 /* modality-finger.png in Resources */,
-				EAD284E315544F980005DCD4 /* modality-finger@2x.png in Resources */,
 				EAD284E7155452950005DCD4 /* modality-face.png in Resources */,
 				EAD284E9155452950005DCD4 /* modality-face@2x.png in Resources */,
 				EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */,
@@ -1520,8 +1510,6 @@
 				EA939D29153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */,
 				EAD284DC15544E230005DCD4 /* modality-iris.png in Resources */,
 				EAD284DE15544E230005DCD4 /* modality-iris@2x.png in Resources */,
-				EAD284E215544F980005DCD4 /* modality-finger.png in Resources */,
-				EAD284E415544F980005DCD4 /* modality-finger@2x.png in Resources */,
 				EAD284E8155452950005DCD4 /* modality-face.png in Resources */,
 				EAD284EA155452950005DCD4 /* modality-face@2x.png in Resources */,
 				EA8AA213156BB51C007D213A /* action-black-button-selected.png in Resources */,
