@@ -383,11 +383,10 @@
                                                  destructiveButtonTitle:@"Clear this image"
                                                       otherButtonTitles:@"Annotate", nil];
         annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        [annotateClearActionSheet showInView:self.view];
     } else
         //just flip to the annotation.
         [self showFlipSideAnimated:YES];
-    
-    [annotateClearActionSheet showInView:self.view];
 }
 
 -(IBAction)doneButtonPressed:(id)sender
