@@ -376,7 +376,7 @@
 
 -(IBAction)annotateButtonPressed:(id)sender
 {
-    if (self.item.data){
+    if (self.item.data) {
         annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                delegate:self
                                                       cancelButtonTitle:@"Cancel"
@@ -452,57 +452,43 @@
         
 }
 
-
 #pragma mark - UIActionSheet delegate
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (actionSheet == annotateClearActionSheet && buttonIndex != actionSheet.cancelButtonIndex) {
+    // Clear, annotate, cancel
+    if (actionSheet == annotateClearActionSheet) {
+        // Clear image
         if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            // Remove the previous ActionSheet
+            [annotateClearActionSheet dismissWithClickedButtonIndex:actionSheet.destructiveButtonIndex animated:YES];
             
-                //show another action sheet to confirm the deletion
-                deleteConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear this image?"
-                                                                       delegate:self
-                                                              cancelButtonTitle:@"Cancel"
-                                                         destructiveButtonTitle:@"Clear"
-                                                              otherButtonTitles:nil];
-                deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-                
-                [deleteConfirmActionSheet showInView:self.view];                        
+            //show another action sheet to confirm the deletion
+            deleteConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear this image?"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Cancel"
+                                                     destructiveButtonTitle:@"Clear"
+                                                          otherButtonTitles:nil];
+            deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+            [deleteConfirmActionSheet showInView:self.view];
+        // Annotate
+        } else if (buttonIndex == actionSheet.firstOtherButtonIndex)
+            [self showFlipSideAnimated:YES];
+    // Clear, cancel
+    } else if (actionSheet == deleteConfirmActionSheet) {
+        // Clear
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            // Remove data and set the capture button state.
+            self.item.data = nil;
+            self.item.dataContentType = nil;
             
+            //Post a notification that this item has changed
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                                      [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            self.captureButton.state = WSCaptureButtonStateCapture;
         }
-    }
-//    
-    else if (actionSheet == deleteConfirmActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
-    {
-//        //This is the clear button. Remove data and set the capture button state.
-        self.item.data = nil;
-        self.item.dataContentType = nil;
-        
-        //Post a notification that this item has changed
-        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                            object:self
-                                                          userInfo:userInfo];
-        self.captureButton.state = WSCaptureButtonStateCapture;
-//
-    }
-    
-    else if (actionSheet == deleteConfirmActionSheet && buttonIndex == actionSheet.cancelButtonIndex)
-    {
-//        //go back to the previous action sheet.
-//        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                                               delegate:self
-//                                                      cancelButtonTitle:@"Cancel"
-//                                                 destructiveButtonTitle:@"Clear this Item"
-//                                                      otherButtonTitles:@"Annotate", nil];
-//        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//        
-//        [annotateClearActionSheet showInView:self.view];
-//
-    }
-    else {
-        [actionSheet dismissWithClickedButtonIndex:actionSheet.cancelButtonIndex animated:YES];
     }
 }
 
