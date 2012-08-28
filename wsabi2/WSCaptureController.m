@@ -327,52 +327,6 @@
 
 
 #pragma mark - Button Action Methods
--(void) showItemChangeAlert
-{
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Change this item" message:[NSString stringWithFormat:@"(%@ using %@)",self.item.submodality, self.item.deviceConfig.name]];
-    alert.vignetteBackground = YES;
-    alert.animateHorizontal = YES;
-    
-    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert setDestructiveButtonWithTitle:@"Clear this data" block:^{
-        [self showItemClearConfirmationAlert];
-    }];
-    [alert addButtonWithTitle:@"Annotate" block:^{
-        [self showFlipSideAnimated:YES];
-    }];
-    [alert show];
-
-}
-
--(void) showItemClearConfirmationAlert
-{
-    //show another alert to confirm the deletion
-    BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Clear this image?" message:nil];
-    deleteAlert.vignetteBackground = YES;
-    deleteAlert.animateHorizontal = YES;
-    
-    [deleteAlert setCancelButtonWithTitle:@"Cancel" block:^{
-        [self showItemChangeAlert];
-    }];
-    [deleteAlert setDestructiveButtonWithTitle:@"Clear" block:^{
-        //This is the clear button. Remove data and set the capture button state.
-        self.item.data = nil;
-        self.item.dataContentType = nil;
-        
-        //Post a notification that this item has changed
-        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                            object:self
-                                                          userInfo:userInfo];
-        self.captureButton.state = currentLink.sequenceInProgress ? WSCaptureButtonStateWaiting : WSCaptureButtonStateCapture; //be optimistic about our capture state.
-        
-    }];
-    [deleteAlert show];
-    
-
-}
 
 -(IBAction)annotateButtonPressed:(id)sender
 {
