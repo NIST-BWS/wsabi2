@@ -462,8 +462,6 @@
     selectedIndex = indexPath;
     
     [aTableView reloadData];
-    // reloadData causes the row to become deselected, but is necessary to adjust row height
-    [aTableView selectRowAtIndexPath:selectedIndex animated:NO scrollPosition:UITableViewScrollPositionNone];
 
     //If this is a currently deselected row, scroll to it.
     if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
@@ -474,6 +472,8 @@
     } else
         [[aTableView cellForRowAtIndexPath:indexPath] setSelected:YES animated:NO];
     
+    // reloadData causes the row to become deselected, but is necessary to adjust row height
+    [aTableView selectRowAtIndexPath:selectedIndex animated:NO scrollPosition:UITableViewScrollPositionNone];
     previousSelectedIndex = selectedIndex;
 }
 
@@ -550,7 +550,7 @@
 
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
             
         case NSFetchedResultsChangeDelete:
