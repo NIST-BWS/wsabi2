@@ -738,7 +738,17 @@
 
         //Move the highlight to this new cell
         [self selectItem:activeCell];
-  
+        
+        CGRect showPopoverFromRect = [activeCell frame];
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) : UIPopoverArrowDirectionAny;
+        if ((direction == (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown)) || (direction == UIPopoverArrowDirectionDown) || (direction == UIPopoverArrowDirectionUp)) {
+            showPopoverFromRect.origin.x += 92;
+            showPopoverFromRect.origin.y += 85;
+        } else {
+            showPopoverFromRect.origin.x += 100;
+            showPopoverFromRect.origin.y += 72;
+        }
+
         //Find the item we want to edit.
         WSCDItem *targetItem = [orderedItems objectAtIndex:index];
 
@@ -766,10 +776,7 @@
         
         //give the capture controller a reference to the correct item
         self.captureController.item = targetItem;
-        
-        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
-        UIPopoverArrowDirectionAny;
-        
+                
         //make sure we have the right content size (may be reset elsewhere)
         capturePopover.popoverContentSize = CGSizeMake(480,408);
 
@@ -799,18 +806,11 @@
                             sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         
-        //Adjust the original cell's rect so that we're showing the popover a little closer to the item.
-        CGRect originalRect = [self convertRect:activeCell.bounds fromView:activeCell];
-        CGRect targetRect = CGRectMake(originalRect.origin.x, 
-                                       originalRect.origin.y, 
-                                       originalRect.size.width, 
-                                       originalRect.size.height - 7);
+        [capturePopover presentPopoverFromRect:showPopoverFromRect
+                                        inView:self
+                      permittedArrowDirections:direction
+                                      animated:NO];
         
-        
-        [capturePopover presentPopoverFromRect:targetRect
-                                           inView:self 
-                         permittedArrowDirections:direction 
-                                         animated:YES];
         //log this
         [self logPopoverShownFrom:activeCell];
 
@@ -830,9 +830,10 @@
 
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    NSLog(@"Did tap at index %d", position);
+//    NSLog(@"Did tap at index %d", position);
  
     WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
+    NSLog(@"Tapped index %d which is cell %@", position, currentCell);
     
     if (currentCell.selected) {
         //just hide this.
