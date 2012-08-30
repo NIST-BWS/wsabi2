@@ -740,14 +740,7 @@
         [self selectItem:activeCell];
         
         CGRect showPopoverFromRect = [activeCell frame];
-        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) : UIPopoverArrowDirectionAny;
-        if ((direction == (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown)) || (direction == UIPopoverArrowDirectionDown) || (direction == UIPopoverArrowDirectionUp)) {
-            showPopoverFromRect.origin.x += 92;
-            showPopoverFromRect.origin.y += 85;
-        } else {
-            showPopoverFromRect.origin.x += 100;
-            showPopoverFromRect.origin.y += 72;
-        }
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) : (UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight);
 
         //Find the item we want to edit.
         WSCDItem *targetItem = [orderedItems objectAtIndex:index];
@@ -767,7 +760,6 @@
             else {
                 capturePopover.contentViewController = self.captureController;
             }
-
         }
         
         //keep a reference to the popover inside the capture controller.
@@ -806,10 +798,35 @@
                             sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         
+        // No way to know the arrow direction until the popover is shown once,
+        // so show it, capture the direction, dismiss, adjust the rect, reshow.
         [capturePopover presentPopoverFromRect:showPopoverFromRect
                                         inView:self
                       permittedArrowDirections:direction
                                       animated:NO];
+        switch ([capturePopover popoverArrowDirection]) {
+            case UIPopoverArrowDirectionDown:
+                showPopoverFromRect.origin.x += 95;
+                showPopoverFromRect.origin.y += 70;
+                break;
+            case UIPopoverArrowDirectionUp:
+                showPopoverFromRect.origin.x += 92;
+                showPopoverFromRect.origin.y += 85;
+                break;
+            case UIPopoverArrowDirectionLeft:
+                showPopoverFromRect.origin.x += 93;
+                showPopoverFromRect.origin.y += 72;
+                break;
+            case UIPopoverArrowDirectionRight:
+                showPopoverFromRect.origin.x += 90;
+                showPopoverFromRect.origin.y += 72;
+                break;
+        }
+        [capturePopover dismissPopoverAnimated:NO];
+        [capturePopover presentPopoverFromRect:showPopoverFromRect
+                                        inView:self
+                      permittedArrowDirections:direction
+                                      animated:YES];
         
         //log this
         [self logPopoverShownFrom:activeCell];
