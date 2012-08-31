@@ -726,6 +726,7 @@
 -(void) showCapturePopoverAtIndex:(int) index
 {
     NSLog(@"Asking to show popover for item at index %d",index);
+    ((UITableView*)self.superview).scrollEnabled = NO;
     
     // Force a redraw of the popover so that orientation is not reused
     if ([capturePopover isPopoverVisible])
@@ -778,7 +779,6 @@
         [passthrough addObject:self.addButton];
         
         capturePopover.passthroughViews = passthrough;
-        ((UITableView*)self.superview).scrollEnabled = NO;
         
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
@@ -835,6 +835,7 @@
     else
     {
         NSLog(@"Tried to show capture popover for an invalid item index: %d",index);
+        ((UITableView*)self.superview).scrollEnabled = YES;
     }
 }
 
@@ -847,10 +848,8 @@
 
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-//    NSLog(@"Did tap at index %d", position);
- 
+    CGPoint offsetAtTap = [((UITableView *)[self superview]) contentOffset];
     WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
-    NSLog(@"Tapped index %d which is cell %@", position, currentCell);
     
     if (currentCell.selected) {
         //just hide this.
@@ -860,6 +859,8 @@
     }
     else {
         [self showCapturePopoverAtIndex:position];
+        // Correct for scroll animation deceleration
+        [((UITableView*)[self superview]) setContentOffset:offsetAtTap animated:NO];
     }
 }
 
