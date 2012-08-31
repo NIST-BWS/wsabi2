@@ -269,7 +269,8 @@
 }
 
 -(void)showFrontSideAnimated:(BOOL)animated
-{    
+{
+    [[self frontContainer] setFrame:[[self view] frame]];
     //make sure we resign first responder.
     [self.view endEditing:YES];
     
