@@ -257,6 +257,7 @@
 
 -(void)showFlipSideAnimated:(BOOL)animated
 {
+    [[self backContainer] setFrame:[[self view] frame]];
     [UIView transitionFromView:[self frontContainer]
                         toView:[self backContainer]
                       duration:(animated ? kFlipAnimationDuration : 0)
