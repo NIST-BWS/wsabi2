@@ -127,6 +127,10 @@
     WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
     
+    // Scroll the row into visibility
+    if ([[self tableView] indexPathForSelectedRow] != nil)
+        [[self tableView] scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
