@@ -186,6 +186,13 @@
         // Check if tap was within view
         if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
             [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            
+            // Show popover controller that was hidden
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            
             [self dismissModalViewControllerAnimated:YES];
         }
     }

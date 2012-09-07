@@ -361,7 +361,7 @@
                                                       userInfo:userInfo];
 
     //close the popover
-    //[self.popoverController dismissPopoverAnimated:YES];
+    [self.popoverController dismissPopoverAnimated:YES];
 }
 
 -(IBAction)deviceButtonPressed:(id)sender
