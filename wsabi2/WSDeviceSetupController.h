@@ -47,6 +47,7 @@ typedef enum {
 -(IBAction)checkAgainButtonPressed:(id)sender;
 -(IBAction)editAddressButtonPressed:(id)sender;
 -(IBAction)changeCaptureTypeButtonPressed:(id)sender;
+-(IBAction)tappedBehindView:(id)sender;
 
 -(void) dismissKeyboard:(UITapGestureRecognizer*)recog;
 
@@ -78,5 +79,7 @@ typedef enum {
 
 //Table view stuff
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 
 @end

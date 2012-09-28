@@ -13,13 +13,16 @@
 #define GRID_CELL_OFFSET 1000
 
 @implementation WSPersonTableViewCell
+@synthesize deletePersonOverlayViewCancelButton;
+@synthesize deletePersonOverlayViewDeleteButton;
 @synthesize captureController;
+@synthesize selectedIndex;
 @synthesize person;
 @synthesize itemGridView;
 @synthesize biographicalDataButton, biographicalDataInactiveLabel, timestampLabel, timestampInactiveLabel;
 @synthesize editButton, addButton, deleteButton, duplicateRowButton;
 @synthesize shadowUpView, shadowDownView, customSelectedBackgroundView;
-@synthesize inactiveOverlayView, separatorView;
+@synthesize deletePersonOverlayView, separatorView;
 @synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -110,6 +113,7 @@
                                                                          2*kItemCellSpacing,
                                                                          self.contentView.bounds.size.width - 92 - kItemCellSpacing,
                                                                          self.contentView.bounds.size.height - 3*kItemCellSpacing)];
+	    [self.itemGridView setCenterGrid:NO];
         
         self.itemGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -152,6 +156,11 @@
     //if this isn't the selected cell, make sure it's not in edit mode.
     if (!self.selected) {
         self.editing = NO;
+        
+        // Handle case where user taps another row before canceling a deletion
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                         animations:^() {[[self deletePersonOverlayView] setAlpha:0.0];}
+                         completion:^(BOOL finished) {[[self deletePersonOverlayView] removeFromSuperview];}];
     }
     
     //Make sure the labels are right.
@@ -167,7 +176,7 @@
     [self.biographicalDataButton setTitle:[self biographicalShortName] forState:UIControlStateNormal];
 
     //Finally, make sure our alpha is set correctly based on the selectedness of this row.
-    self.itemGridView.alpha = self.selected ? 1.0 : 0.3;
+    self.itemGridView.alpha = (self.selected && (self.deletePersonOverlayView.hidden == YES)) ? 1.0 : 0.3;
     
     [self layoutGrid];
     
@@ -181,88 +190,97 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
+- (void)setAppearDisabled:(BOOL)yesOrNo animated:(BOOL)animated
+{
+    static const CGFloat kDisabledAlpha = 0.3;
+    CGFloat alphaValue = (yesOrNo == YES ? kDisabledAlpha : 1.0);
+ 
+    void (^animationBlock) (void) = ^(void) {
+        [[self itemGridView] setUserInteractionEnabled:!yesOrNo];
+        [[self itemGridView] setAlpha:alphaValue];
+        
+        [[self addButton] setUserInteractionEnabled:!yesOrNo];
+        [[self addButton] setAlpha:alphaValue];
+        
+        [[self biographicalDataButton] setUserInteractionEnabled:!yesOrNo];
+        [[self biographicalDataButton] setAlpha:alphaValue];
+        
+        [[self editButton] setUserInteractionEnabled:!yesOrNo];
+        [[self editButton] setAlpha:alphaValue];
+        
+        [[self deleteButton] setUserInteractionEnabled:!yesOrNo];
+        [[self deleteButton] setAlpha:alphaValue];
+        
+        [[self timestampLabel] setAlpha:alphaValue];
+    };
+    
+    if (animated)
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:animationBlock];
+    else
+        animationBlock();
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    if ([super isSelected] == selected) {
-        //nothing to change.
+    if ([super isSelected] == selected)
         return;
-    }
     
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
-    self.duplicateRowButton.highlighted = !selected;
-    self.biographicalDataButton.highlighted = !selected;
-    self.addButton.highlighted = !selected;
-    self.editButton.highlighted = !selected;
-    self.deleteButton.highlighted = !selected;
+    void (^preSelectionAnimation)(void) = ^(void) {
+        self.separatorView.alpha = (selected ? 0.0 : 1.0);
+        self.duplicateRowButton.alpha = (selected ? 1.0 : 0.0);
+        self.timestampInactiveLabel.alpha = (selected ? 0.0 : 1.0);
+    };
+    
+    void (^toggleSelection)(void) = ^(void) {
+        self.shadowUpView.alpha = (selected ? 1.0 : 0.0);
+        self.shadowDownView.alpha = (selected ? 1.0 : 0.0);
+        self.timestampLabel.alpha = (selected ? 1.0 : 0.0);
+        self.biographicalDataButton.alpha = (selected ? 1.0 : 0.0);
+        self.biographicalDataInactiveLabel.alpha = (selected ? 0.0 : 1.0);
+        self.addButton.alpha = (selected ? 1.0 : 0.0);
+        self.editButton.alpha = (selected ? 1.0 : 0.0);
+        self.deleteButton.alpha = (selected ? 1.0 : 0.0);
+        self.itemGridView.alpha = (selected ? 1.0 : 0.3);
+        self.customSelectedBackgroundView.backgroundColor = (selected ? selectedBGColor : normalBGColor);
+        self.deletePersonOverlayView.alpha = (selected ? 0.0 : 1.0);
+            
+        if (selected) {
+            self.contentView.alpha = 1.0;
+            self.deletePersonOverlayView.hidden = YES;
+        }
+    };
+    
+    void (^toggleSelectionCompletion)(BOOL finished) = ^(BOOL finished) {
+        [self layoutGrid];
+        self.itemGridView.userInteractionEnabled = selected;
+    };
+    
+    
+    preSelectionAnimation();
+    if (animated)
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                         animations:toggleSelection
+                         completion:toggleSelectionCompletion];
+    else {
+        toggleSelection();
+        toggleSelectionCompletion(YES);
+    }
+
     
     if (selected) {
-        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            self.shadowUpView.alpha = 1.0;
-            self.shadowDownView.alpha = 1.0;
-            self.timestampLabel.alpha = 1.0;
-            self.biographicalDataButton.alpha = 1.0;
-            self.timestampInactiveLabel.alpha = 0.0;
-            self.biographicalDataInactiveLabel.alpha = 0.0;
-            self.duplicateRowButton.alpha = 1.0;
-            self.addButton.alpha = 1.0;
-            self.editButton.alpha = 1.0;
-            self.deleteButton.alpha = 1.0;
-            //Finally, make sure we're fully visible.
-            self.contentView.alpha = 1.0;
-            self.itemGridView.alpha = 1.0;
-            //self.customSelectedBackgroundView.backgroundColor = [UIColor colorWithRed:53/255.0 green:96/255.0 blue:98/255.0 alpha:1.0];
-            self.customSelectedBackgroundView.backgroundColor = selectedBGColor;
-            self.inactiveOverlayView.alpha = 0.0;
-            self.separatorView.alpha = 0.0;
-
-            [self layoutGrid];
-
-        }];
-        
         //Set up sensor links for each item in this person's record.
         //(It's likely that these links will come back initialized.)
         for (WSCDItem *item in self.person.items) {
             NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
             NSLog(@"Created/grabbed sensor link %@",[link description]);
         }
-        
+        [self setAppearDisabled:NO animated:NO];
+    } else {
+        [self selectItem:nil];
+        selectedIndex = -1;
     }
-    else {
-        [UIView animateWithDuration:kTableViewContentsAnimationDuration animations:^{
-            self.shadowUpView.alpha = 0.0;
-            self.shadowDownView.alpha = 0.0;
-            self.timestampLabel.alpha = 0.0;
-            self.biographicalDataButton.alpha = 0.0;
-            self.timestampInactiveLabel.alpha = 1.0;
-            self.biographicalDataInactiveLabel.alpha = 1.0;
-            self.duplicateRowButton.alpha = 0.0;
-            self.addButton.alpha = 0.0;
-            self.editButton.alpha = 0.0;
-            self.deleteButton.alpha = 0.0;
-
-            //Finally, fade everything partially out.
-            self.itemGridView.alpha = 0.3;
-            self.customSelectedBackgroundView.backgroundColor = normalBGColor;
-            [self selectItem:nil];
-            selectedIndex = -1;
-            self.inactiveOverlayView.alpha = 1.0;
-            self.separatorView.alpha = 1.0;
-            [self layoutGrid];
-
-        } 
-         
-        ];
-        
-        //make sure we're not in edit mode
-        //[self setEditing:NO];
-        
-    }
-
-    self.itemGridView.userInteractionEnabled = selected;
-    //[self.itemGridView reloadData];
-
 }
 
 -(void) setPerson:(WSCDPerson *)newPerson
@@ -331,35 +349,52 @@
     
 }
 
--(void) reloadItemGridAnimated:(BOOL)inOrOut
+-(void) removeBackingStoreForItem:(id)userInfo
 {
-    float part1Duration = kFastFadeAnimationDuration;
-    float part2Duration = kMediumFadeAnimationDuration;
+    WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
+	if (foundItem == nil) {
+        NSLog(@"Tried to remove a nonexistent item at index %d", deletableItem);
+        return;
+    }
     
+    //rebuild the ordered collection.
+    [self.person removeItemsObject:foundItem];
+    [self updateData]; 
     
-    //animate a reload of the data
-    [UIView animateWithDuration:part1Duration
-                          delay:0 
-                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationCurveEaseIn
-                     animations:^{
-                         self.itemGridView.transform = inOrOut ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformMakeScale(1.1, 1.1);
-                         self.itemGridView.alpha = 0.5;
-                     }
-                     completion:^(BOOL completed) {
-                         [self.itemGridView reloadData];    
-                         [UIView animateWithDuration:part2Duration
-                                               delay:0
-                                             options:UIViewAnimationCurveEaseOut
-                                          animations:^{
-                                              self.itemGridView.transform = CGAffineTransformIdentity;
-                                              self.itemGridView.alpha = 1.0;
-                                          }
-                                          completion:^(BOOL completed) {
-                                              
-                                          }
-                          ];
-                     }];
+    //update the item indices within the now-updated ordered collection
+    for (NSUInteger i = 0; i < [orderedItems count]; i++) {
+        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+        tempItem.index = [NSNumber numberWithInt:i];
+    }
+    
+    //Save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    deletableItem = -1;
+}
 
+-(void) removeItem:(int)itemIndex animated:(BOOL)animated
+{
+    [self.itemGridView removeObjectAtIndex:deletableItem withAnimation:animated ? 
+     GMGridViewItemAnimationFade | GMGridViewItemAnimationScroll :
+     GMGridViewItemAnimationNone];
+    
+    // GMGridView nests animations within the completion blocks instead
+    // of the animation block.  Because of this, we return to this method
+    // before the animations have ended and then change the data model,
+    // which in turn changes the nested animation.  To fix, wait the duration
+    // of the entirety of the GMGridView animation before changing the
+    // backing store.
+    if (animated)
+        [NSTimer scheduledTimerWithTimeInterval:0.6 // kDefaultAnimationDuration * 2
+                                         target:self
+                                       selector:@selector(removeBackingStoreForItem:) 
+                                       userInfo:nil 
+                                        repeats:NO];
+    
+    //FIXME: make sure we remain in edit mode. This shouldn't be required.
+    //Figure out why we bounce back out of edit mode after a delete.
+    self.editing = YES;
 }
 
 #pragma mark - Button Action Methods
@@ -450,7 +485,18 @@
 
 -(IBAction)editButtonPressed:(id)sender
 {
-    [self setEditing:!self.editing];
+    [self setEditing:![[self editButton] isSelected]];
+
+    // Make and pressed image match the new state of the button
+    if ([[self editButton] isSelected]) {
+        [[self editButton] setTitle:NSLocalizedString(@"Done", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+        UIImage *doneButtonPressed = [[UIImage imageNamed:@"UINavigationBarDoneButtonPressed"] stretchableImageWithLeftCapWidth:6 topCapHeight:16];
+        [[self editButton] setBackgroundImage:doneButtonPressed forState:UIControlStateSelected|UIControlStateHighlighted];
+    } else {
+        [[self editButton] setTitle:NSLocalizedString(@"Edit", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+        UIImage *silverButtonPressed = [[UIImage imageNamed:@"kb-extended-candidates-segmented-control-button-selected"] stretchableImageWithLeftCapWidth:5 topCapHeight:7];
+        [[self editButton] setBackgroundImage:silverButtonPressed forState:UIControlStateSelected|UIControlStateHighlighted];
+    }
 }
 
 -(IBAction)deleteButtonPressed:(id)sender
@@ -466,58 +512,73 @@
     [((UIView*)sender) logActionSheetShown:YES];
 }
 
+- (IBAction)deletePersonOverlayDeletePersonButtonPressed:(id)sender
+{
+    // Delete the person while the overlay cell is still visible
+    [delegate didRequestDeletePerson:self.person];
+    
+    [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                     animations:^(void) {
+                         [self setAppearDisabled:NO animated:NO];
+                     }
+                     completion:^(BOOL finished) {
+                         [[self deletePersonOverlayView] removeFromSuperview];
+                     }
+     ];
+}
+
+- (IBAction)deletePersonOverlayCancelButtonPressed:(id)sender
+{
+   [UIView animateWithDuration:kTableViewContentsAnimationDuration
+                    animations:^(void) {
+                        [[self deletePersonOverlayView] setAlpha:0.0];
+                        [self setAppearDisabled:NO animated:NO];
+                    }
+                    completion:^(BOOL finished) {
+                        [[self deletePersonOverlayView] removeFromSuperview];
+                    }
+    ];
+}
+
 #pragma mark - Action Sheet delegate
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet == deletePersonSheet && buttonIndex != actionSheet.cancelButtonIndex) {
+        // Size the overlay to fit within the cell
+        [[self deletePersonOverlayView] setFrame:self.customSelectedBackgroundView.frame];
+        [[self contentView] addSubview:self.deletePersonOverlayView];
+        // Keep duplicate row button on top of overlay
+        [self.contentView bringSubviewToFront:self.duplicateRowButton];
         
-        //show another alert to confirm the deletion
-        BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Delete this person?" message:nil];
-        deleteAlert.vignetteBackground = YES;
-        deleteAlert.animateHorizontal = YES;
+        // Customize the button appearance
+        UIEdgeInsets insets = UIEdgeInsetsMake(24, 12, 24, 12);
+        [[self deletePersonOverlayViewDeleteButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultDestroyButton"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateNormal];
+        [[self deletePersonOverlayViewDeleteButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultDestroyButtonPressed"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateHighlighted];
+        [[self deletePersonOverlayViewCancelButton] setBackgroundImage:[[UIImage imageNamed:@"UIAlertSheetDefaultCancelButton"]
+                                                                        resizableImageWithCapInsets:insets]
+                                                              forState:UIControlStateNormal];
         
-        [deleteAlert setCancelButtonWithTitle:@"Cancel" block:nil];
-        [deleteAlert setDestructiveButtonWithTitle:@"Delete" block:^{
-            //request a deletion
-            [delegate didRequestDeletePerson:self.person];            
-        }];
+        // The NIB shows this as interaction enabled, but certainly isn't...
+        [[self deletePersonOverlayView] setUserInteractionEnabled:YES];
         
-        [deleteAlert show];
-
+        [UIView animateWithDuration:kTableViewContentsAnimationDuration 
+                         animations:^(void) {
+                             [self setAppearDisabled:YES animated:NO];
+                             
+                             // Send in the confirmation overlay
+                             [[self deletePersonOverlayView] setHidden:NO];
+                             [[self deletePersonOverlayView] setAlpha:1.0];
+                         }
+         ];
     }
     else if (actionSheet == deleteItemSheet && buttonIndex != actionSheet.cancelButtonIndex && deletableItem >= 0) {
-        //Having confirmed the deletion, perform it.
-        //if we have a valid item, delete it and reload the grid.
-        WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
-        if (foundItem) {
-            [self.person removeItemsObject:foundItem];
-            //rebuild the ordered collection.
-            [self updateData]; 
-            //update the item indices within the now-updated ordered collection
-            for (int i = 0; i < [orderedItems count]; i++) {
-                WSCDItem *tempItem = [orderedItems objectAtIndex:i];
-                tempItem.index = [NSNumber numberWithInt:i];
-            }
-            
-            //animate a reload of the data
-            //[self reloadItemGridAnimated:YES];
-
-            //Save the context
-            [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-            
-            //FIXME: make sure we remain in edit mode. This shouldn't be required.
-            //Figure out why we bounce back out of edit mode after a delete.
-            self.editing = YES;
-        }
-        else
-        {
-            NSLog(@"Tried to remove a nonexistent item at index %d",deletableItem);
-        }
-
-        //reset the deletable item index.
-        deletableItem = -1;
+        [self removeItem:deletableItem animated:YES];
     }
-
+    
     //Log the action sheet's closing
     [self logActionSheetHidden];
 }
@@ -594,18 +655,16 @@
 
 }
 
-#pragma mark - Called by external classes to clear the selection
--(void) selectItem:(WSItemGridCell*)exceptThisOne
+-(void) selectItem:(WSItemGridCell*)cellToSelect
 {
-    if(!exceptThisOne) {
-        //we're deselecting everything
+    // We're deselecting everything
+    if(cellToSelect == nil)
         selectedIndex = -1;
-    }
     
     for (UIView *v in self.itemGridView.subviews) {
         if ([v isKindOfClass:[WSItemGridCell class]]) {
             WSItemGridCell *cell = ((WSItemGridCell*)v);
-            if (cell == exceptThisOne) {
+            if (cell == cellToSelect) {
                 cell.selected = YES;
                 selectedIndex = [orderedItems indexOfObject:cell.item];
             }
@@ -648,7 +707,7 @@
 
     cell.item = [orderedItems objectAtIndex:index];
     cell.active = self.selected;
-    cell.selected = (index == selectedIndex);
+    cell.selected = (index == self.selectedIndex);
     //cell.tempLabel.text = [NSString stringWithFormat:@"Grid Index %d\nInternal Index %d",index, [cell.item.index intValue]];
     cell.tag = GRID_CELL_OFFSET + index;
     return cell;
@@ -667,6 +726,11 @@
 -(void) showCapturePopoverAtIndex:(int) index
 {
     NSLog(@"Asking to show popover for item at index %d",index);
+    ((UITableView*)self.superview).scrollEnabled = NO;
+    
+    // Force a redraw of the popover so that orientation is not reused
+    if ([capturePopover isPopoverVisible])
+        [capturePopover dismissPopoverAnimated:NO];
     
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
@@ -675,7 +739,10 @@
 
         //Move the highlight to this new cell
         [self selectItem:activeCell];
-  
+        
+        CGRect showPopoverFromRect = [activeCell frame];
+        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) : (UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight);
+
         //Find the item we want to edit.
         WSCDItem *targetItem = [orderedItems objectAtIndex:index];
 
@@ -694,7 +761,6 @@
             else {
                 capturePopover.contentViewController = self.captureController;
             }
-
         }
         
         //keep a reference to the popover inside the capture controller.
@@ -703,10 +769,7 @@
         
         //give the capture controller a reference to the correct item
         self.captureController.item = targetItem;
-        
-        UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait(self.captureController.interfaceOrientation) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) :
-        UIPopoverArrowDirectionAny;
-        
+                
         //make sure we have the right content size (may be reset elsewhere)
         capturePopover.popoverContentSize = CGSizeMake(480,408);
 
@@ -716,7 +779,6 @@
         [passthrough addObject:self.addButton];
         
         capturePopover.passthroughViews = passthrough;
-        ((UITableView*)self.superview).scrollEnabled = NO;
         
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
@@ -736,18 +798,36 @@
                             sourceObjectID:[activeCell.item.objectID URIRepresentation]];
         }
         
-        //Adjust the original cell's rect so that we're showing the popover a little closer to the item.
-        CGRect originalRect = [self convertRect:activeCell.bounds fromView:activeCell];
-        CGRect targetRect = CGRectMake(originalRect.origin.x, 
-                                       originalRect.origin.y, 
-                                       originalRect.size.width, 
-                                       originalRect.size.height - 7);
+        // No way to know the arrow direction until the popover is shown once,
+        // so show it, capture the direction, dismiss, adjust the rect, reshow.
+        [capturePopover presentPopoverFromRect:showPopoverFromRect
+                                        inView:self
+                      permittedArrowDirections:direction
+                                      animated:NO];
+        switch ([capturePopover popoverArrowDirection]) {
+            case UIPopoverArrowDirectionDown:
+                showPopoverFromRect.origin.x += 95;
+                showPopoverFromRect.origin.y += 70;
+                break;
+            case UIPopoverArrowDirectionUp:
+                showPopoverFromRect.origin.x += 92;
+                showPopoverFromRect.origin.y += 85;
+                break;
+            case UIPopoverArrowDirectionLeft:
+                showPopoverFromRect.origin.x += 93;
+                showPopoverFromRect.origin.y += 72;
+                break;
+            case UIPopoverArrowDirectionRight:
+                showPopoverFromRect.origin.x += 90;
+                showPopoverFromRect.origin.y += 72;
+                break;
+        }
+        [capturePopover dismissPopoverAnimated:NO];
+        [capturePopover presentPopoverFromRect:showPopoverFromRect
+                                        inView:self
+                      permittedArrowDirections:direction
+                                      animated:YES];
         
-        
-        [capturePopover presentPopoverFromRect:targetRect
-                                           inView:self 
-                         permittedArrowDirections:direction 
-                                         animated:YES];
         //log this
         [self logPopoverShownFrom:activeCell];
 
@@ -755,6 +835,7 @@
     else
     {
         NSLog(@"Tried to show capture popover for an invalid item index: %d",index);
+        ((UITableView*)self.superview).scrollEnabled = YES;
     }
 }
 
@@ -767,8 +848,7 @@
 
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    NSLog(@"Did tap at index %d", position);
- 
+    CGPoint offsetAtTap = [((UITableView *)[self superview]) contentOffset];
     WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
     
     if (currentCell.selected) {
@@ -779,6 +859,8 @@
     }
     else {
         [self showCapturePopoverAtIndex:position];
+        // Correct for scroll animation deceleration
+        [((UITableView*)[self superview]) setContentOffset:offsetAtTap animated:NO];
     }
 }
 

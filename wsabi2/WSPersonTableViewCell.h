@@ -42,15 +42,14 @@
     UIColor *normalBGColor;
     UIColor *selectedBGColor;
     
-    int selectedIndex;
-    
     UIPopoverController *capturePopover;
     UIPopoverController *biographicalPopover;
 }
 
 -(void) updateData;
 -(void) layoutGrid;
--(void) reloadItemGridAnimated:(BOOL)inOrOut;
+-(void) removeBackingStoreForItem:(id)userInfo;
+-(void) removeItem:(int)itemIndex animated:(BOOL)animated;
 -(NSString*)biographicalShortName;
 
 -(IBAction)biographicalDataButtonPressed:(id)sender;
@@ -58,11 +57,13 @@
 -(IBAction)duplicateRowButtonPressed:(id)sender;
 -(IBAction)editButtonPressed:(id)sender;
 -(IBAction)deleteButtonPressed:(id)sender;
+-(IBAction)deletePersonOverlayDeletePersonButtonPressed:(id)sender;
+-(IBAction)deletePersonOverlayCancelButtonPressed:(id)sender;
 
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
--(void) selectItem:(WSItemGridCell*)exceptThisOne;
+-(void) selectItem:(WSItemGridCell*)cellToSelect;
 
 //Notification handlers
 -(void) didChangeItem:(NSNotification*)notification;
@@ -80,12 +81,15 @@
 @property (nonatomic, strong) IBOutlet UIButton *duplicateRowButton;
 
 @property (nonatomic, strong) IBOutlet WSCaptureController *captureController;
+@property (nonatomic, readonly, assign) int selectedIndex;
 
 @property (nonatomic, strong) IBOutlet UIView *customSelectedBackgroundView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowUpView;
 @property (nonatomic, strong) IBOutlet UIImageView *shadowDownView;
 
-@property (nonatomic, strong) IBOutlet UIView *inactiveOverlayView;
+@property (nonatomic, strong) IBOutlet UIView *deletePersonOverlayView;
+@property (weak, nonatomic) IBOutlet UIButton *deletePersonOverlayViewCancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *deletePersonOverlayViewDeleteButton;
 @property (nonatomic, strong) IBOutlet UIView *separatorView;
 
 

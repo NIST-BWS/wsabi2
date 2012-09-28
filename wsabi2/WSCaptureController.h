@@ -13,11 +13,6 @@
 #import "WSCaptureButton.h"
 #import "NBCLDeviceLinkManager.h"
 #import "constants.h"
-#import "UIView+FlipTransition.h"
-
-#import "BlockAlertView.h"
-#import "BlockActionSheet.h"
-#import "BlockTextPromptAlertView.h"
 
 @protocol WSCaptureDelegate <NSObject>
 
@@ -33,8 +28,8 @@
     NSMutableArray *currentAnnotationArray;
     BOOL frontVisible;
     
-//    UIActionSheet *annotateClearActionSheet;
-//    UIActionSheet *deleteConfirmActionSheet;
+    UIActionSheet *annotateClearActionSheet;
+    UIActionSheet *deleteConfirmActionSheet;
     
     UIImage *dataImage;
     
@@ -42,6 +37,8 @@
 }
 
 -(void) configureView;
+-(void) showFrontSideAnimated:(BOOL)animated;
+-(void) showFlipSideAnimated:(BOOL)animated;
 
 -(IBAction)annotateButtonPressed:(id)sender;
 -(IBAction)doneButtonPressed:(id)sender;
@@ -50,6 +47,7 @@
 -(IBAction)captureButtonPressed:(id)sender;
 
 -(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
+-(void) updateAnnotationLabel;
 
 //Notification handlers
 -(void) handleConnectCompleted:(NSNotification*)notification;
@@ -67,10 +65,11 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *annotationTableView;
 @property (nonatomic, strong) IBOutlet UITableView *annotationNotesTableView;
-@property (nonatomic, strong) IBOutlet UIButton *annotateButton;
+@property (nonatomic, assign, readonly, getter=isAnnotating) BOOL annotating;
 
 @property (nonatomic, strong) IBOutlet UIButton *modalityButton;
 @property (nonatomic, strong) IBOutlet UIButton *deviceButton;
+@property (nonatomic, weak) IBOutlet UIButton *annotateButton;
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
 @property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
 

@@ -20,10 +20,11 @@
 
 @synthesize annotationTableView;
 @synthesize annotationNotesTableView;
-@synthesize annotateButton;
+@synthesize annotating;
 
 @synthesize modalityButton;
 @synthesize deviceButton;
+@synthesize annotateButton;
 @synthesize itemDataView;
 @synthesize captureButton;
 @synthesize delegate;
@@ -108,13 +109,6 @@
     //reload the table view
     [self.annotationTableView reloadData];
     [self.annotationNotesTableView reloadData];
-
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
     
     if (self.item.data) {
         dataImage = [UIImage imageWithData:self.item.data];
@@ -131,12 +125,13 @@
     
     self.backNavBarTitleItem.title = self.item.submodality;
     self.annotationNotesTableView.alwaysBounceVertical = NO;
-    
-    //if the back view is showing, flip it with a 0 duration.
-    if (!backContainer.hidden) {
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:0 completion:nil];
-    }
 
+    [[self backContainer] setHidden:NO];
+    [[self frontContainer] setHidden:NO];
+    
+    [self updateAnnotationLabel];
+    
+    [self showFrontSideAnimated:NO];
 }
 
 - (void)viewDidLoad
@@ -145,6 +140,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
+    [self.deviceButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButtonEndCap"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     
     //Configure the capture button.
     /*	WSCaptureButtonStateInactive,
@@ -174,13 +170,6 @@
     self.captureButton.waitingMessage = @"Waiting for sensor";
     
     self.captureButton.waitingRestartCaptureMessage = @"Reconnecting to the sensor";
-    
-    //put a shadow behind the button
-    self.captureButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.captureButton.layer.shadowOpacity = 0.5;
-    self.captureButton.layer.shadowRadius = 6;
-    self.captureButton.layer.shadowOffset = CGSizeMake(1,1);
-    
 
     //add swipe listeners to the capture button to switch between items.
 //    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
@@ -229,21 +218,11 @@
     
 }
 
-
-- (void) viewWillUnload:(BOOL)animated
-{
-    //remove observers
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    //empty our delegate
-    self.delegate = nil;
-}
-
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -257,6 +236,89 @@
     return CGSizeMake(480, 408);
 }
 
+-(void) updateAnnotationLabel
+{
+    NSUInteger annotationCount = 0;
+    for (NSNumber *num in currentAnnotationArray)
+        if ([num boolValue] == YES)
+            annotationCount++;
+    // Note counts as an annotation
+    if (self.item.notes && ![self.item.notes isEqualToString:@""])
+        annotationCount++;
+    
+    if (annotationCount == 0) {
+        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal & UIControlStateHighlighted];
+        [[self annotateButton] setTitle:@"" forState:UIControlStateNormal & UIControlStateHighlighted];
+    } else {
+        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"annotate_pencil_left"] forState:UIControlStateNormal & UIControlStateHighlighted];
+        [[self annotateButton] setTitle:[NSString stringWithFormat:@"%u", annotationCount] forState:UIControlStateNormal & UIControlStateHighlighted];
+    }
+}
+
+-(void)showFlipSideAnimated:(BOOL)animated
+{
+    [[self backContainer] setFrame:[[self view] frame]];
+    [UIView transitionFromView:[self frontContainer]
+                        toView:[self backContainer]
+                      duration:(animated ? kFlipAnimationDuration : 0)
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    completion:nil
+     ];
+    
+    annotating = YES;
+}
+
+-(void)showFrontSideAnimated:(BOOL)animated
+{
+    [[self frontContainer] setFrame:[[self view] frame]];
+    //make sure we resign first responder.
+    [self.view endEditing:YES];
+    
+    //just flip to the capture view.
+    //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped
+    //and hidden. This works identically when hiding the view using UIView's built-in transition methods. It works identically
+    //when keeping a reference to the contained UIImage as an ivar as when loading it directly from the WSCDItem. It works identically
+    //when setting the UIImageView to clear its contents and not. For the moment, we'll reset the image manually when it appears.
+    if (self.item.data) {
+        //this makes for a smoother transition.
+        self.itemDataView.backgroundColor = [UIColor darkGrayColor];
+    }
+    
+    void (^completion)(BOOL completed) = ^(BOOL completed) {
+        if (self.item.data) {
+            self.itemDataView.alpha = 0;
+            self.itemDataView.image = dataImage;
+            [UIView animateWithDuration:(animated ? 0.1 : 0)
+                             animations:^{
+                                 self.itemDataView.alpha = 1.0;
+                                 self.itemDataView.backgroundColor = [UIColor whiteColor];
+                             }
+             ];
+        }
+    };
+    
+    [UIView transitionFromView:[self backContainer]
+                        toView:[self frontContainer]
+                      duration:(animated ? kFlipAnimationDuration : 0)
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    completion:completion
+     ];
+
+    //save the context
+    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    //Post a notification that this item has changed
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    
+    [self updateAnnotationLabel];
+    annotating = NO;
+}
+
 #pragma mark - Property accessors
 -(void) setItem:(WSCDItem *)newItem
 {
@@ -267,150 +329,25 @@
 
 
 #pragma mark - Button Action Methods
--(void) showItemChangeAlert
-{
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Change this item" message:[NSString stringWithFormat:@"(%@ using %@)",self.item.submodality, self.item.deviceConfig.name]];
-    alert.vignetteBackground = YES;
-    alert.animateHorizontal = YES;
-    
-    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert setDestructiveButtonWithTitle:@"Clear this data" block:^{
-        [self showItemClearConfirmationAlert];
-    }];
-    [alert addButtonWithTitle:@"Annotate" block:^{
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
-    }];
-    [alert show];
-
-}
-
--(void) showItemClearConfirmationAlert
-{
-    //show another alert to confirm the deletion
-    BlockAlertView *deleteAlert = [BlockAlertView alertWithTitle:@"Clear this data?" message:nil];
-    deleteAlert.vignetteBackground = YES;
-    deleteAlert.animateHorizontal = YES;
-    
-    [deleteAlert setCancelButtonWithTitle:@"Cancel" block:^{
-        [self showItemChangeAlert];
-    }];
-    [deleteAlert setDestructiveButtonWithTitle:@"Clear" block:^{
-        //This is the clear button. Remove data and set the capture button state.
-        self.item.data = nil;
-        self.item.dataContentType = nil;
-        
-        //Post a notification that this item has changed
-        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                            object:self
-                                                          userInfo:userInfo];
-        self.captureButton.state = currentLink.sequenceInProgress ? WSCaptureButtonStateWaiting : WSCaptureButtonStateCapture; //be optimistic about our capture state.
-        
-    }];
-    [deleteAlert show];
-    
-
-}
 
 -(IBAction)annotateButtonPressed:(id)sender
 {
     if (self.item.data) {
-//        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                                               delegate:self
-//                                                      cancelButtonTitle:@"Cancel"
-//                                                 destructiveButtonTitle:@"Clear this item"
-//                                                      otherButtonTitles:@"Annotate", nil];
-//        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//        
-//        [annotateClearActionSheet showInView:self.view];
-        
-        [self showItemChangeAlert];
-//        RDActionSheet *actionSheet = [[RDActionSheet alloc] initWithCancelButtonTitle:@"Cancel" primaryButtonTitle:@"Annotate" destroyButtonTitle:@"Clear this data" otherButtonTitles:nil];
-//        actionSheet.callbackBlock = ^(RDActionSheetResult result, NSInteger buttonIndex) {
-//            
-//            if (buttonIndex == 0) {
-//                //The destructive button. Confirm the deletion.
-//                RDActionSheet *actionSheet = [[RDActionSheet alloc] initWithCancelButtonTitle:@"Cancel" primaryButtonTitle:nil destroyButtonTitle:@"Clear" otherButtonTitles:nil];
-//                actionSheet.callbackBlock = ^(RDActionSheetResult result, NSInteger buttonIndex) {
-//                    if (buttonIndex == 0) {
-//                        //This is the clear button. Remove data and set the capture button state.
-//                        self.item.data = nil;
-//                        self.item.dataContentType = nil;
-//                        
-//                        //Post a notification that this item has changed
-//                        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-//                                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-//                                                                            object:self
-//                                                                          userInfo:userInfo];
-//                        self.captureButton.state = WSCaptureButtonStateCapture;
-//                    }
-//                };
-//                [actionSheet showFrom:self.view];
-//            }
-//            else if (buttonIndex == 1) {
-//                //The annotate button
-//                [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
-//            }
-//        };
-//        [actionSheet showFrom:self.view];
-
-
-    }
-    else {
-//        //just flip to the annotation.
-        [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
-    }
+        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                 destructiveButtonTitle:@"Clear this image"
+                                                      otherButtonTitles:@"Annotate", nil];
+        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        [annotateClearActionSheet showInView:self.view];
+    } else
+        //just flip to the annotation.
+        [self showFlipSideAnimated:YES];
 }
 
 -(IBAction)doneButtonPressed:(id)sender
 {
-    //make sure we resign first responder.
-    [self.view endEditing:YES];
-    
-    //configure the annotation button and panel
-    if ([self hasAnnotationOrNotes]) {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation-warning"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.annotateButton setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal];
-    }
-
-    //just flip to the capture view.
-    //NOTE: For a reason I just can't figure out, the contents of the data UIImageView are getting dumped when the view is flipped
-    //and hidden. This works identically when hiding the view using UIView's built-in transition methods. It works identically
-    //when keeping a reference to the contained UIImage as an ivar as when loading it directly from the WSCDItem. It works identically
-    //when setting the UIImageView to clear its contents and not. For the moment, we'll reset the image manually when it appears.
-    if (self.item.data) {
-        //this makes for a smoother transition.
-        self.itemDataView.backgroundColor = [UIColor darkGrayColor];
-    }
-
-    [UIView flipTransitionFromView:self.backContainer toView:self.frontContainer duration:kFlipAnimationDuration 
-                        completion:^(BOOL completed) {
-                            if (self.item.data) {
-                                self.itemDataView.alpha = 0;
-                                self.itemDataView.image = dataImage;
-                                [UIView animateWithDuration:0.1 animations:^{
-                                    self.itemDataView.alpha = 1.0;
-                                    self.itemDataView.backgroundColor = [UIColor whiteColor];
-                                }];
-
-                            }
-                    }];
-    //save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-
-    //Post a notification that this item has changed
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-                                                        object:self
-                                                      userInfo:userInfo];
-    
-
+    [self showFrontSideAnimated:YES];
 }
 
 -(IBAction)modalityButtonPressed:(id)sender
@@ -418,7 +355,7 @@
 //    [delegate didRequestModalityChangeForItem:self.item];
 
     //Post a notification to show the modality walkthrough
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item, kDictKeyTargetItem, [NSNumber numberWithBool:YES], kDictKeyStartFromSubmodality, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kShowWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -471,69 +408,44 @@
         
 }
 
-
 #pragma mark - UIActionSheet delegate
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-//    if (actionSheet == annotateClearActionSheet && buttonIndex != actionSheet.cancelButtonIndex) {
-//        if (buttonIndex == actionSheet.destructiveButtonIndex) {
-//            
-//            //show another action sheet to confirm the deletion
-//            deleteConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear this data?"
-//                                                                   delegate:self
-//                                                          cancelButtonTitle:@"Cancel"
-//                                                     destructiveButtonTitle:@"Clear"
-//                                                          otherButtonTitles:nil];
-//            deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//            
-//            [deleteConfirmActionSheet showInView:self.view];
-//            
-//            
-//        }
-//        else {
-//            //just flip to the annotation.
-////            [UIView transitionFromView:self.frontContainer
-////                                toView:self.backContainer
-////                              duration:kFlipAnimationDuration
-////                               options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionTransitionFlipFromLeft
-////                            completion:^(BOOL finished) {
-////                            }];
-//            [UIView flipTransitionFromView:self.frontContainer toView:self.backContainer duration:kFlipAnimationDuration completion:nil];
-//        }
-//    }
-//    
-//    else if (actionSheet == deleteConfirmActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
-//    {
-//        //This is the clear button. Remove data and set the capture button state.
-//        self.item.data = nil;
-//        self.item.dataContentType = nil;
-//        
-//        //Post a notification that this item has changed
-//        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-//                                  [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
-//                                                            object:self
-//                                                          userInfo:userInfo];
-//        self.captureButton.state = WSCaptureButtonStateCapture;
-//
-//    }
-//    
-//    else if (actionSheet == deleteConfirmActionSheet && buttonIndex == actionSheet.cancelButtonIndex)
-//    {
-//        //go back to the previous action sheet.
-//        annotateClearActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                                               delegate:self
-//                                                      cancelButtonTitle:@"Cancel"
-//                                                 destructiveButtonTitle:@"Clear this data"
-//                                                      otherButtonTitles:@"Annotate", nil];
-//        annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//        
-//        [annotateClearActionSheet showInView:self.view];
-//
-//    }
-//    else {
-//        [actionSheet dismissWithClickedButtonIndex:actionSheet.cancelButtonIndex animated:YES];
-//    }
+    // Clear, annotate, cancel
+    if (actionSheet == annotateClearActionSheet) {
+        // Clear image
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            // Remove the previous ActionSheet
+            [annotateClearActionSheet dismissWithClickedButtonIndex:actionSheet.destructiveButtonIndex animated:YES];
+            
+            //show another action sheet to confirm the deletion
+            deleteConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear this image?"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Cancel"
+                                                     destructiveButtonTitle:@"Clear"
+                                                          otherButtonTitles:nil];
+            deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+            [deleteConfirmActionSheet showInView:self.view];
+        // Annotate
+        } else if (buttonIndex == actionSheet.firstOtherButtonIndex)
+            [self showFlipSideAnimated:YES];
+    // Clear, cancel
+    } else if (actionSheet == deleteConfirmActionSheet) {
+        // Clear
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            // Remove data and set the capture button state.
+            self.item.data = nil;
+            self.item.dataContentType = nil;
+            
+            //Post a notification that this item has changed
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
+                                      [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            self.captureButton.state = WSCaptureButtonStateCapture;
+        }
+    }
 }
 
 #pragma mark - Notification handlers

@@ -11,6 +11,7 @@
 @implementation WSModalityChooserController
 @synthesize item;
 @synthesize currentButton;
+@synthesize tapBehindViewRecognizer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,16 +38,6 @@
     
     self.title = @"Capture type";
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
-    
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    
     if (self.item.managedObjectContext && self.item.modality) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.modality]
                                                               style:UIBarButtonItemStyleDone
@@ -57,9 +48,9 @@
 
 - (void)viewDidUnload
 {
+    [self setTapBehindViewRecognizer:nil];
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,10 +61,18 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Add recognizer to detect taps outside of the modal view
+    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
+    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -88,17 +87,30 @@
 	return YES;
 }
 
-#pragma mark - Button action methods
--(IBAction) cancelButtonPressed:(id)sender
+- (IBAction)tappedBehindView:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
-    //post a notification to hide the device chooser and return to the previous state
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
-                                                        object:self
-                                                      userInfo:userInfo];
+    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [recognizer locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            
+            //post a notification to hide the device chooser and return to the previous state
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            [self dismissModalViewControllerAnimated:YES];
+        }
+    }
 }
 
+#pragma mark - Button action methods
 -(IBAction) currentButtonPressed:(id)sender
 {
     //Push a new controller to choose the submodality.

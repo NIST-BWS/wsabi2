@@ -37,7 +37,7 @@
 @property (nonatomic, strong) UIImageView *placeholderView;
 @property (nonatomic, strong) UILabel *placeholderLabel;
 @property (nonatomic, strong) UIImageView *shadowView;
-@property (nonatomic, strong) UIImageView *annotationView;
+@property (nonatomic, strong) UIButton *badge;
 
 @property (nonatomic) BOOL active;
 @property (nonatomic) BOOL selected;

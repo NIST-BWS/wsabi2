@@ -16,6 +16,8 @@
 @synthesize item;
 @synthesize autodiscoveryEnabled;
 @synthesize currentButton;
+@synthesize tapBehindViewRecognizer;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,21 +43,6 @@
     [super viewDidLoad];
 
     self.title = [WSModalityMap stringForCaptureType:self.submodality];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    //If this is the root view controller, we're launching the config workflow partway through.
-    //We need a way to leave this controller in that case.
-    if (self == [self.navigationController.viewControllers objectAtIndex:0]) {
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
-        
-        self.navigationItem.leftBarButtonItem = cancelButton;
-    }
-    
 
     //Fetch a list of recent sensors from Core Data
     
@@ -120,9 +107,9 @@
 
 - (void)viewDidUnload
 {
+    [self setTapBehindViewRecognizer:nil];
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,10 +120,18 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Add recognizer to detect taps outside of the modal view
+    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
+    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -151,18 +146,31 @@
 	return YES;
 }
 
-#pragma mark - Button action methods
--(IBAction) cancelButtonPressed:(id)sender
+- (IBAction)tappedBehindView:(id)sender
 {
-    //post a notification to hide the device chooser and return to the previous state
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
-                                                        object:self
-                                                      userInfo:userInfo];
-
-    [self dismissModalViewControllerAnimated:YES];
+    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [recognizer locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            
+            //post a notification to hide the device chooser and return to the previous state
+            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
+                                                                object:self
+                                                              userInfo:userInfo];
+            
+            [self dismissModalViewControllerAnimated:YES];
+        }
+    }
 }
 
+#pragma mark - Button action methods
 -(IBAction) currentButtonPressed:(id)sender
 {
     //Push a new controller to configure the device.
@@ -340,6 +348,10 @@
     
     NSString *titleString = nil;
     NSString *subtitleString = nil;
+    UIImage *greenCheckmark = [UIImage imageNamed:@"checkmark-green"];
+    [cell setIndentationWidth:greenCheckmark.size.width + 2];
+    [cell setIndentationLevel:0];
+    
     // Configure the cell...
     if (self.autodiscoveryEnabled) {
         //Everything
@@ -348,6 +360,15 @@
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    if ([[self item] deviceConfig] != nil) {
+                        // Cannot use isEquals because of the way the recentSensors array is built
+                        if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
+                            [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
+                            [[cell imageView] setImage:greenCheckmark];
+                            [cell setIndentationLevel:0];
+                        } else
+                            [cell setIndentationLevel:1];
+                    }
                     break;
                 case 1:
                     //return the number of autodiscovered sensors found for this modality.
@@ -381,6 +402,15 @@
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    if ([[self item] deviceConfig] != nil) {
+                        // Cannot use isEquals because of the way the recentSensors array is built
+                        if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
+                            [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
+                            [[cell imageView] setImage:greenCheckmark];
+                            [cell setIndentationLevel:0];
+                        } else
+                            [cell setIndentationLevel:1];
+                    }
                     break;
                 case 1:
                     titleString = @"Add a new sensor";

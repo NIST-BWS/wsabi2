@@ -262,7 +262,7 @@
             break;
             
         case kCaptureTypeRightThumbFlat:
-            return @"RightLittleFlat";
+            return @"RightThumbFlat";
             break;
         case kCaptureTypeRightIndexFlat:
             return @"RightIndexFlat";
@@ -294,7 +294,7 @@
             break;
             
         case kCaptureTypeLeftThumbFlat:
-            return @"LeftLittleFlat";
+            return @"LeftThumbFlat";
             break;
         case kCaptureTypeLeftIndexFlat:
             return @"LeftIndexFlat";

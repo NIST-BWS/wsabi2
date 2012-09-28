@@ -15,7 +15,7 @@
 @synthesize placeholderView;
 @synthesize placeholderLabel;
 @synthesize shadowView;
-@synthesize annotationView;
+@synthesize badge;
 @synthesize active;
 @synthesize selected;
 
@@ -73,16 +73,29 @@
         
         NSString *imageName = nil;
         switch ([WSModalityMap modalityForString:self.item.modality]) {
-            case kModalityFinger:
-                imageName = @"modality-finger-rotated";
+            case kModalityEar:
+                imageName = @"modality-ear";
                 break;
             case kModalityFace:
                 imageName = @"modality-face";
                 break;
+            case kModalityFinger:
+                imageName = @"modality-finger-rotated";
+                break;
+            case kModalityFoot:
+                imageName = @"modality-foot";
+                break;
             case kModalityIris:
                 imageName = @"modality-iris";
                 break;
-            
+            case kModalityRetina:
+                imageName = @"modality-iris";
+                break;
+            case kModalityVein:
+                imageName = @"modality-vein";
+                break;
+            case kModalityOther:
+                /* FALLTHROUGH */
             default:
                 break;
         }
@@ -123,8 +136,19 @@
     else {
         self.placeholderLabel.numberOfLines = 1;
     }
-    //update the annotation view
-    self.annotationView.hidden = ![self hasAnnotationOrNotes];
+    
+    //
+    // Configure the badge
+    //
+    NSUInteger badgeNumber = 0;
+    for (NSNumber *num in currentAnnotationArray)
+        if ([num boolValue] == YES)
+            badgeNumber++;
+    // Note counts as an annotation
+    if (self.item.notes && ![self.item.notes isEqualToString:@""])
+        badgeNumber++;
+    [[self badge] setTitle:[NSString stringWithFormat:@"%u", badgeNumber] forState:UIControlStateNormal];
+    [[self badge] setHidden:(badgeNumber == 0)];
 
 }
 
@@ -170,10 +194,20 @@
         
         [self.contentView addSubview:self.placeholderLabel];
         
-        self.annotationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning-small"]];
-        self.annotationView.frame = CGRectMake(80,-12,34,34); //the shadow view is actually larger than the cell; align this with the shadow view, not the content.
-        [self.contentView addSubview:self.annotationView];
-        self.annotationView.hidden = ![self hasAnnotationOrNotes];
+        // Badge containing number of annotations + notes
+        [self setBadge:[UIButton buttonWithType:UIButtonTypeCustom]];
+        [[self badge] setFrame:CGRectMake(self.contentView.bounds.size.width - 20, -20, 29, 31)];
+        [[self badge] setBackgroundImage:[UIImage imageNamed:@"BadgeBackground"] forState:UIControlStateNormal];
+        [[[self badge] titleLabel] setTextColor:[UIColor whiteColor]];
+        [[[self badge] titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
+        [[self badge] setTitleEdgeInsets:UIEdgeInsetsMake(-5, 0, 0, -1)];
+        [[self badge] setTitle:[NSString stringWithFormat:@"%u", [currentAnnotationArray count]] forState:UIControlStateNormal];
+        
+        // XXX: Perhaps the badge should pass the touch event through
+        [[self badge] setUserInteractionEnabled:NO];
+        
+        [[self badge] setHidden:![self hasAnnotationOrNotes]];
+        [[self contentView] addSubview:self.badge];
         
         self.deleteButtonIcon = [UIImage imageNamed:@"DeleteRed"];
         self.deleteButtonOffset = CGPointMake(37, 28);

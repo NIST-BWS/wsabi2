@@ -121,10 +121,26 @@
     return YES;
 }
 
--(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    //dismiss any popover controller that's visible.
-    [self.popoverController dismissPopoverAnimated:YES];
+    // Record if the flip side of the CaptureController is presently shown
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
+    
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
+    // Redisplay capture controller if it was visible
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    if ((cell != nil) && ([cell selectedIndex] != -1)) {
+        [cell showCapturePopoverAtIndex:[cell selectedIndex]];
+        if (wasAnnotating)
+            [[cell captureController] showFlipSideAnimated:NO];
+    }
 }
 
 #pragma mark - Notification action methods
@@ -139,9 +155,9 @@
     //figure out whether we should restore the capture popover later.
     //NOTE: do so unless we came from the add-new-item button.
     shouldRestoreCapturePopover = (item.managedObjectContext != nil);
-    
-    BOOL shouldStartFromDevice = [[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue];
-    if (shouldStartFromDevice) {
+
+    // Start from device
+    if ([[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue]) {
         //only show the walkthrough from device selection onwards.
         WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
         chooser.item = item;
@@ -153,6 +169,20 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
+        
+        //once they're presented, add logging capabilities.
+        [navigation.navigationBar startAutomaticGestureLogging:YES];
+        [chooser.view startAutomaticGestureLogging:YES];
+    // Start from submodality
+    } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
+        WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
+        chooser.item = item;
+        
+        chooser.modality = [WSModalityMap modalityForString:item.modality];
+        
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:navigation animated:YES];
         
         //once they're presented, add logging capabilities.
         [navigation.navigationBar startAutomaticGestureLogging:YES];
@@ -429,16 +459,21 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
     selectedIndex = indexPath;
     
-    [aTableView beginUpdates];
-    [aTableView endUpdates];
-       
+    [aTableView reloadData];
+
     //If this is a currently deselected row, scroll to it.
     if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
+        
+        // reloadData resets selection (begin/endUpdates doesn't, but animates height change
+        [[aTableView cellForRowAtIndexPath:indexPath] setSelected:YES animated:YES];
+    } else
+        [[aTableView cellForRowAtIndexPath:indexPath] setSelected:YES animated:NO];
+    
+    // reloadData causes the row to become deselected, but is necessary to adjust row height
+    [aTableView selectRowAtIndexPath:selectedIndex animated:NO scrollPosition:UITableViewScrollPositionNone];
     previousSelectedIndex = selectedIndex;
 }
 
@@ -515,7 +550,7 @@
 
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -627,12 +662,11 @@
         
         //Save the context
         [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-        
+
         //select and scroll to the new position.
         NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
-        [self tableView:self.tableView didSelectRowAtIndexPath:newPath]; //fire this manually, as the previous call doesn't do it.
-        [self.tableView selectRowAtIndexPath:newPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
+        [self tableView:self.tableView didSelectRowAtIndexPath:newPath];
     }
 }
 

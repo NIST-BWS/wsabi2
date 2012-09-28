@@ -40,6 +40,8 @@
 #define kDictKeyCurrentResult @"result"
 #define kDictKeyMessage @"message"
 #define kDictKeyStartFromDevice @"startWalkthroughFromDeviceSelection"
+/// Key for the submodality section of the device configuration walkthrough
+static NSString * const kDictKeyStartFromSubmodality = @"startWalkthroughFromSubmodality";
 
 #define kStringDelimiter @"|"
 

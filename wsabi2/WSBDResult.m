@@ -45,52 +45,52 @@
      */
     switch (value) {
         case StatusSuccess:
-            result = @"Success";
+            result = @"success";
             break;
         case StatusFailure:
-            result = @"Failure";
+            result = @"failure";
             break;
         case StatusInvalidId:
-            result = @"Invalid ID";
+            result = @"invalid ID";
             break;
         case StatusCancelled:
-            result = @"Cancelled";
+            result = @"cancelled";
             break;
         case StatusCancelledWithSensorFailure:
-            result = @"Cancelled with Sensor Failure";
+            result = @"cancelled with sensor failure";
             break;
         case StatusSensorFailure:
-            result = @"Sensor Failure";
+            result = @"sensor failure";
             break;
         case StatusLockNotHeld:
-            result = @"Lock Not Held";
+            result = @"lock not held";
             break;
         case StatusLockHeldByAnother:
-            result = @"Lock Held by Another";
+            result = @"lock held by another";
             break;
         case StatusSensorNeedsInitialization:
-            result = @"Sensor Needs Initialization";
+            result = @"sensor needs initialization";
             break;
         case StatusSensorNeedsConfiguration:
-            result = @"Sensor Needs Configuration";
+            result = @"sensor needs configuration";
             break;
         case StatusSensorBusy:
-            result = @"Sensor Busy";
+            result = @"sensor busy";
             break;
         case StatusSensorTimeout:
-            result = @"Sensor Timeout";
+            result = @"sensor timeout";
             break;
         case StatusUnsupported:
-            result = @"Unsupported";
+            result = @"unsupported";
             break;
         case StatusBadValue:
-            result = @"Bad Value";
+            result = @"bad value";
             break;
         case StatusNoSuchParameter:
-            result = @"No Such Parameter";
+            result = @"no such parameter";
             break;
         case StatusPreparingDownload:
-            result = @"Preparing Download";
+            result = @"preparing download";
             break;
         default:
             break;

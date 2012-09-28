@@ -20,6 +20,7 @@
 @synthesize deviceDefinition;
 @synthesize modality;
 @synthesize submodality;
+@synthesize tapBehindViewRecognizer;
 
 //Status stuff
 @synthesize sensorCheckStatus;
@@ -123,8 +124,20 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Add recognizer to detect taps outside of the modal view
+    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
+    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+}
+
 -(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     //work around a bug in iOS – adding a white activity indicator in Interface Builder, the indicator doesn't stay
     //white.
     self.checkingActivity.color = [UIColor whiteColor];
@@ -139,18 +152,43 @@
     //whatever the reason for disappearing, cancel all of our network operations
     [currentLink cancelAllOperations];    
     
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    if ([sensorCheckTimer isValid])
+        [sensorCheckTimer invalidate];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
 {
+    [self setTapBehindViewRecognizer:nil];
+    
     [super viewDidUnload];
-
- }
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
 	return YES;
+}
+
+- (IBAction)tappedBehindView:(id)sender
+{
+    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [recognizer locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            [self dismissModalViewControllerAnimated:YES];
+        }
+    }
 }
 
 #pragma mark - Property Getters/Setters
@@ -640,6 +678,7 @@
     NSLog(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
     WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
     WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
+    BOOL isSensorOperationCompleted = false;
     
     //Check modality
     if (serviceModalityParam.readOnly) {
@@ -649,13 +688,14 @@
             [WSModalityMap stringForModality:self.modality]] 
            != NSOrderedSame)
         {
-            //This sensor doesn't support the requested modality.
+            //This sensor doesn't support the requested modality. operation complete.
             self.sensorCheckStatus = kStatusBadModality;
             NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
                   serviceModalityDefault);
+            isSensorOperationCompleted = true;
         }
         else {
-            //We're good.
+            //We're good. Continue to check submodality
             self.sensorCheckStatus = kStatusSuccessful;
         }
 
@@ -666,6 +706,9 @@
         
         BOOL modalityOK = NO;
         for (NSString *mod in serviceModalityAllowed) {
+            NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
+                  mod);
+
             if ([mod localizedCaseInsensitiveCompare:
                  [WSModalityMap stringForModality:self.modality]] 
                 == NSOrderedSame)
@@ -678,53 +721,58 @@
         if (!modalityOK) {
             //This sensor doesn't support the requested modality.
             self.sensorCheckStatus = kStatusBadModality;
+            isSensorOperationCompleted = true;
         }
         
     }
     
-    //Check submodality
-    if (serviceSubmodalityParam.readOnly) {
-        NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
-        
-        if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
-            [WSModalityMap parameterNameForCaptureType:self.submodality]] 
-           != NSOrderedSame)
-        {
-            //This sensor doesn't support the requested submodality.
-            self.sensorCheckStatus = kStatusBadSubmodality;
-            NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
-        }
-        else {
-            //We're good.
-            self.sensorCheckStatus = kStatusSuccessful;
-        }
-        
-    }
-    else {
-        //This has to look at allowedValues, not defaultValue!!
-        NSArray *serviceSubmodalityAllowed = serviceSubmodalityParam.allowedValues;
-        
-        BOOL submodalityOK = NO;
-        for (NSString *smod in serviceSubmodalityAllowed) {
-            if ([smod localizedCaseInsensitiveCompare:
-                 [WSModalityMap parameterNameForCaptureType:self.submodality]] 
-                != NSOrderedSame)
+    if (!isSensorOperationCompleted){
+        //Check submodality
+        if (serviceSubmodalityParam.readOnly) {
+            NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
+            
+            if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
+                [WSModalityMap parameterNameForCaptureType:self.submodality]] 
+               != NSOrderedSame)
             {
-                submodalityOK = YES;
-                break; //we found something, no need to continue.
+                //This sensor doesn't support the requested submodality.
+                self.sensorCheckStatus = kStatusBadSubmodality;
+                NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
             }
-        }
-        
-        if (!submodalityOK) {
-            //This sensor doesn't support the requested modality.
-            self.sensorCheckStatus = kStatusBadSubmodality;
+            else {
+                //We're good.
+                self.sensorCheckStatus = kStatusSuccessful;
+            }
+            
         }
         else {
-            //We're good.
-            self.sensorCheckStatus = kStatusSuccessful;
-        }
-        
+            //This has to look at allowedValues, not defaultValue!!
+            NSArray *serviceSubmodalityAllowed = serviceSubmodalityParam.allowedValues;
+            
+            BOOL submodalityOK = NO;
+            for (NSString *smod in serviceSubmodalityAllowed) {
+                NSLog(@"Expected submodality %@, got %@", [WSModalityMap parameterNameForCaptureType:self.submodality], smod);
+                if ([smod localizedCaseInsensitiveCompare:
+                     [WSModalityMap parameterNameForCaptureType:self.submodality]] 
+                    == NSOrderedSame)
+                {
+                    submodalityOK = YES;
+                    break; //we found something, no need to continue.
+                }
+            }
+            
+            if (!submodalityOK) {
+                //This sensor doesn't support the requested modality.
+                self.sensorCheckStatus = kStatusBadSubmodality;
+            }
+            else {
+                //We're good.
+                self.sensorCheckStatus = kStatusSuccessful;
+            }
+            
+        }    
     }
+
 
     checkingSensor = NO; //done checking.
 

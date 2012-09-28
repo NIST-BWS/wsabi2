@@ -31,6 +31,7 @@
     BOOL shouldRestoreCapturePopover;
     
     WSCDPerson* personBeingEdited;
+    BOOL wasAnnotating;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;
