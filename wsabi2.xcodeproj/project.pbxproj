@@ -300,9 +300,9 @@
 		0816043815DECB320055D27F /* annotate_pencil_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = annotate_pencil_left.png; path = Images/annotate_pencil_left.png; sourceTree = "<group>"; };
 		0816043915DECB320055D27F /* annotate_pencil_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "annotate_pencil_left@2x.png"; path = "Images/annotate_pencil_left@2x.png"; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
-		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
-		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
-		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
+		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
+		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
 		08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BadgeBackground@2x.png"; path = "Images/BadgeBackground@2x.png"; sourceTree = "<group>"; };
 		08CC85C715D43F1C0028890B /* modality-vein@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-vein@2x.png"; path = "Images/Modalities/modality-vein@2x.png"; sourceTree = "<group>"; };
 		08CC85C815D43F1C0028890B /* modality-vein.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-vein.png"; path = "Images/Modalities/modality-vein.png"; sourceTree = "<group>"; };
@@ -310,12 +310,12 @@
 		08CC85CA15D43F1C0028890B /* modality-foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-foot@2x.png"; path = "Images/Modalities/modality-foot@2x.png"; sourceTree = "<group>"; };
 		08CC85CB15D43F1C0028890B /* modality-ear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-ear.png"; path = "Images/Modalities/modality-ear.png"; sourceTree = "<group>"; };
 		08CC85CC15D43F1C0028890B /* modality-ear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-ear@2x.png"; path = "Images/Modalities/modality-ear@2x.png"; sourceTree = "<group>"; };
-		08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultCancelButton.png; sourceTree = "<group>"; };
-		08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultCancelButton@2x.png"; sourceTree = "<group>"; };
-		08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultDestroyButton.png; sourceTree = "<group>"; };
-		08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultDestroyButton@2x.png"; sourceTree = "<group>"; };
-		08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIAlertSheetDefaultDestroyButtonPressed.png; sourceTree = "<group>"; };
-		08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIAlertSheetDefaultDestroyButtonPressed@2x.png"; sourceTree = "<group>"; };
+		08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultCancelButton.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultCancelButton.png; sourceTree = "<group>"; };
+		08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultCancelButton@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultCancelButton@2x.png"; sourceTree = "<group>"; };
+		08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultDestroyButton.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButton.png; sourceTree = "<group>"; };
+		08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultDestroyButton@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButton@2x.png"; sourceTree = "<group>"; };
+		08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultDestroyButtonPressed.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButtonPressed.png; sourceTree = "<group>"; };
+		08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultDestroyButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButtonPressed@2x.png"; sourceTree = "<group>"; };
 		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+GCDBlocks.m"; path = "Categories/Sources/NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
 		EA0CEFE11558622500B838E3 /* plus-circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button.png"; path = "Images/plus-circle-button.png"; sourceTree = "<group>"; };
 		EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button@2x.png"; path = "Images/plus-circle-button@2x.png"; sourceTree = "<group>"; };
@@ -360,8 +360,8 @@
 		EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCTextfieldCellWide.h; sourceTree = "<group>"; };
 		EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCTextfieldCellWide.m; sourceTree = "<group>"; };
 		EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButton.png; path = Images/BreadcrumbButton.png; sourceTree = "<group>"; };
-		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBlue.png; sourceTree = "<group>"; };
-		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
+		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBlue.png; path = Images/from_iOS_SDK/PurchaseButtonBlue.png; sourceTree = "<group>"; };
+		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBluePressed.png; path = Images/from_iOS_SDK/PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
 		EA277B0D14EADA59002484CF /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Blank.png; path = Images/Blank.png; sourceTree = "<group>"; };
 		EA277B0F14EBDFB8002484CF /* WSDeviceSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDeviceSetupController.h; sourceTree = "<group>"; };
 		EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDeviceSetupController.m; sourceTree = "<group>"; };
@@ -457,14 +457,14 @@
 		EA3B000A1563D86600DA78D8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = "<group>"; };
 		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLXMLMap.h; sourceTree = "<group>"; };
 		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLXMLMap.m; sourceTree = "<group>"; };
-		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
-		EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentOptionsButtonSilver@2x.png"; sourceTree = "<group>"; };
-		EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonDark@2x.png"; sourceTree = "<group>"; };
-		EA65DF781546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonDarkPressed@2x.png"; sourceTree = "<group>"; };
-		EA65DF791546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonNormal@2x.png"; sourceTree = "<group>"; };
-		EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIPreferencesDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
-		EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button-selected@2x.png"; sourceTree = "<group>"; };
-		EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kb-extended-candidates-segmented-control-button@2x.png"; sourceTree = "<group>"; };
+		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UISegmentOptionsButtonSelectedSilver@2x.png"; path = "Images/from_iOS_SDK/UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
+		EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UISegmentOptionsButtonSilver@2x.png"; path = "Images/from_iOS_SDK/UISegmentOptionsButtonSilver@2x.png"; sourceTree = "<group>"; };
+		EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIPreferencesDeleteButtonDark@2x.png"; path = "Images/from_iOS_SDK/UIPreferencesDeleteButtonDark@2x.png"; sourceTree = "<group>"; };
+		EA65DF781546D923006C826E /* UIPreferencesDeleteButtonDarkPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIPreferencesDeleteButtonDarkPressed@2x.png"; path = "Images/from_iOS_SDK/UIPreferencesDeleteButtonDarkPressed@2x.png"; sourceTree = "<group>"; };
+		EA65DF791546D923006C826E /* UIPreferencesDeleteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIPreferencesDeleteButtonNormal@2x.png"; path = "Images/from_iOS_SDK/UIPreferencesDeleteButtonNormal@2x.png"; sourceTree = "<group>"; };
+		EA65DF7A1546D923006C826E /* UIPreferencesDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIPreferencesDeleteButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UIPreferencesDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
+		EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kb-extended-candidates-segmented-control-button-selected@2x.png"; path = "Images/from_iOS_SDK/kb-extended-candidates-segmented-control-button-selected@2x.png"; sourceTree = "<group>"; };
+		EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kb-extended-candidates-segmented-control-button@2x.png"; path = "Images/from_iOS_SDK/kb-extended-candidates-segmented-control-button@2x.png"; sourceTree = "<group>"; };
 		EA65DFC4154822D9006C826E /* wsabi2-4.25.2012.0817.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "wsabi2-4.25.2012.0817.xcdatamodel"; sourceTree = "<group>"; };
 		EA65DFCE15483769006C826E /* symbol-notok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "symbol-notok.png"; path = "Images/symbol-notok.png"; sourceTree = "<group>"; };
 		EA65DFCF15483769006C826E /* symbol-ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "symbol-ok@2x.png"; path = "Images/symbol-ok@2x.png"; sourceTree = "<group>"; };
@@ -510,16 +510,16 @@
 		EA939C7E153D909B005BDA47 /* black-Linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-Linen.png"; path = "Images/Patterns/black-Linen.png"; sourceTree = "<group>"; };
 		EA939CA3153DAD4C005BDA47 /* personcell-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "personcell-bg-selected.png"; path = "Images/personcell-bg-selected.png"; sourceTree = "<group>"; };
 		EA939CA4153DAD4C005BDA47 /* personcell-bg-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "personcell-bg-selected@2x.png"; path = "Images/personcell-bg-selected@2x.png"; sourceTree = "<group>"; };
-		EA939CC4153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButton@2x.png"; sourceTree = "<group>"; };
-		EA939CC5153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonDark@2x.png"; sourceTree = "<group>"; };
-		EA939CC6153DBF37005BDA47 /* UINavigationBarDoneButtonPressedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonPressedSilver@2x.png"; sourceTree = "<group>"; };
-		EA939CC7153DBF37005BDA47 /* UINavigationBarDoneButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarDoneButtonSilver@2x.png"; sourceTree = "<group>"; };
-		EA939CC8153DBF37005BDA47 /* UINavigationBarRemoveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarRemoveButton@2x.png"; sourceTree = "<group>"; };
-		EA939CC9153DBF37005BDA47 /* UINavigationBarRemoveButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarRemoveButtonDark@2x.png"; sourceTree = "<group>"; };
-		EA939CCA153DBF37005BDA47 /* UINavigationBarSilverButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarSilverButton@2x.png"; sourceTree = "<group>"; };
-		EA939CCB153DBF37005BDA47 /* UINavigationBarSilverButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarSilverButtonPressed@2x.png"; sourceTree = "<group>"; };
-		EA939CDC153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarBlackOpaqueButton@2x.png"; sourceTree = "<group>"; };
-		EA939CDD153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarBlackOpaqueButtonPressed@2x.png"; sourceTree = "<group>"; };
+		EA939CC4153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButton@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButton@2x.png"; sourceTree = "<group>"; };
+		EA939CC5153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonDark@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonDark@2x.png"; sourceTree = "<group>"; };
+		EA939CC6153DBF37005BDA47 /* UINavigationBarDoneButtonPressedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressedSilver@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressedSilver@2x.png"; sourceTree = "<group>"; };
+		EA939CC7153DBF37005BDA47 /* UINavigationBarDoneButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonSilver@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonSilver@2x.png"; sourceTree = "<group>"; };
+		EA939CC8153DBF37005BDA47 /* UINavigationBarRemoveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarRemoveButton@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarRemoveButton@2x.png"; sourceTree = "<group>"; };
+		EA939CC9153DBF37005BDA47 /* UINavigationBarRemoveButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarRemoveButtonDark@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarRemoveButtonDark@2x.png"; sourceTree = "<group>"; };
+		EA939CCA153DBF37005BDA47 /* UINavigationBarSilverButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarSilverButton@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarSilverButton@2x.png"; sourceTree = "<group>"; };
+		EA939CCB153DBF37005BDA47 /* UINavigationBarSilverButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarSilverButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarSilverButtonPressed@2x.png"; sourceTree = "<group>"; };
+		EA939CDC153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarBlackOpaqueButton@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarBlackOpaqueButton@2x.png"; sourceTree = "<group>"; };
+		EA939CDD153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarBlackOpaqueButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarBlackOpaqueButtonPressed@2x.png"; sourceTree = "<group>"; };
 		EA939CE8153DC2FC005BDA47 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = x.png; path = Images/x.png; sourceTree = "<group>"; };
 		EA939CE9153DC2FC005BDA47 /* x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x@2x.png"; path = "Images/x@2x.png"; sourceTree = "<group>"; };
 		EA939CEE153DDCA2005BDA47 /* cell-drop-shadow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-drop-shadow-down.png"; path = "Images/cell-drop-shadow-down.png"; sourceTree = "<group>"; };
@@ -661,13 +661,13 @@
 			isa = PBXGroup;
 			children = (
 				EA65DF7F1546DBCC006C826E /* kb-extended-candidates-segmented-control-button-selected@2x.png */,
+				EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */,
 				08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */,
 				08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */,
 				08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */,
 				08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */,
 				08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */,
 				08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */,
-				EA65DF801546DBCC006C826E /* kb-extended-candidates-segmented-control-button@2x.png */,
 				EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */,
 				EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */,
 				EA939CDC153DC0E1005BDA47 /* UINavigationBarBlackOpaqueButton@2x.png */,
