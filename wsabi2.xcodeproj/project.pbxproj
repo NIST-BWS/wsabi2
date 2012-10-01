@@ -537,11 +537,11 @@
 		EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCaptureController.h; sourceTree = "<group>"; };
 		EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCaptureController.m; sourceTree = "<group>"; };
 		EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSCaptureController.xib; sourceTree = "<group>"; };
-		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSPersonTableViewCell.xib; sourceTree = "<group>"; };
-		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPersonTableViewCell.h; sourceTree = "<group>"; };
-		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPersonTableViewCell.m; sourceTree = "<group>"; };
-		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSItemGridCell.h; sourceTree = "<group>"; };
-		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSItemGridCell.m; sourceTree = "<group>"; };
+		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSPersonTableViewCell.xib; path = TableViewCells/WSPersonTableViewCell.xib; sourceTree = "<group>"; };
+		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPersonTableViewCell.h; path = TableViewCells/WSPersonTableViewCell.h; sourceTree = "<group>"; };
+		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = TableViewCells/WSPersonTableViewCell.m; sourceTree = "<group>"; };
+		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSItemGridCell.h; path = TableViewCells/WSItemGridCell.h; sourceTree = "<group>"; };
+		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSItemGridCell.m; path = TableViewCells/WSItemGridCell.m; sourceTree = "<group>"; };
 		EAD284CD1554097D0005DCD4 /* bright_squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bright_squares.png; path = Images/Patterns/bright_squares.png; sourceTree = "<group>"; };
 		EAD284D915544E230005DCD4 /* modality-iris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-iris.png"; path = "Images/Modalities/modality-iris.png"; sourceTree = "<group>"; };
 		EAD284DA15544E230005DCD4 /* modality-iris@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-iris@2x.png"; path = "Images/Modalities/modality-iris@2x.png"; sourceTree = "<group>"; };
