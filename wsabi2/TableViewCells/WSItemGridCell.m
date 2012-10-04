@@ -147,7 +147,6 @@
     // Note counts as an annotation
     if (self.item.notes && ![self.item.notes isEqualToString:@""])
         badgeNumber++;
-    [[self badge] setTitle:[NSString stringWithFormat:@"%u", badgeNumber] forState:UIControlStateNormal];
     [[self badge] setHidden:(badgeNumber == 0)];
 
 }
@@ -195,13 +194,8 @@
         [self.contentView addSubview:self.placeholderLabel];
         
         // Badge containing number of annotations + notes
-        [self setBadge:[UIButton buttonWithType:UIButtonTypeCustom]];
+	[self setBadge:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blue_info_badge"]]];
         [[self badge] setFrame:CGRectMake(self.contentView.bounds.size.width - 20, -20, 29, 31)];
-        [[self badge] setBackgroundImage:[UIImage imageNamed:@"BadgeBackground"] forState:UIControlStateNormal];
-        [[[self badge] titleLabel] setTextColor:[UIColor whiteColor]];
-        [[[self badge] titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
-        [[self badge] setTitleEdgeInsets:UIEdgeInsetsMake(-5, 0, 0, -1)];
-        [[self badge] setTitle:[NSString stringWithFormat:@"%u", [currentAnnotationArray count]] forState:UIControlStateNormal];
         
         // XXX: Perhaps the badge should pass the touch event through
         [[self badge] setUserInteractionEnabled:NO];
