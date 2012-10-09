@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080C192D162442CD00A8E1AD /* WSMotionNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 080C192C162442CD00A8E1AD /* WSMotionNormalization.m */; };
 		08C7D3F7161E049500A9AC04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C7D3F6161E049500A9AC04 /* UIKit.framework */; };
 		08C7D3F9161E049500A9AC04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C7D3F8161E049500A9AC04 /* Foundation.framework */; };
 		08C7D3FB161E049500A9AC04 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C7D3FA161E049500A9AC04 /* CoreGraphics.framework */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080C192B162442CD00A8E1AD /* WSMotionNormalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSMotionNormalization.h; sourceTree = "<group>"; };
+		080C192C162442CD00A8E1AD /* WSMotionNormalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSMotionNormalization.m; sourceTree = "<group>"; };
 		08C7D3F2161E049500A9AC04 /* CMManagerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMManagerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C7D3F6161E049500A9AC04 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08C7D3F8161E049500A9AC04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 				08C7D40F161E049500A9AC04 /* ViewController.m */,
 				08C7D419161E05AE00A9AC04 /* WSMotionLogger.h */,
 				08C7D41A161E05AE00A9AC04 /* WSMotionLogger.m */,
+				080C192B162442CD00A8E1AD /* WSMotionNormalization.h */,
+				080C192C162442CD00A8E1AD /* WSMotionNormalization.m */,
 				08C7D41E161E0F9200A9AC04 /* WSMotionLoggerDelegate.h */,
 				08C7D411161E049500A9AC04 /* ViewController.xib */,
 				08C7D3FD161E049500A9AC04 /* Supporting Files */,
@@ -188,6 +193,7 @@
 				08C7D407161E049500A9AC04 /* AppDelegate.m in Sources */,
 				08C7D410161E049500A9AC04 /* ViewController.m in Sources */,
 				08C7D41B161E05AE00A9AC04 /* WSMotionLogger.m in Sources */,
+				080C192D162442CD00A8E1AD /* WSMotionNormalization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

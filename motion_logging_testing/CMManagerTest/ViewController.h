@@ -20,5 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *gyroscopeXLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gyroscopeYLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gyroscopeZLabel;
+@property (weak, nonatomic) IBOutlet UILabel *xAxisAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *yAxisAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *zAxisAngleLabel;
 
 @end

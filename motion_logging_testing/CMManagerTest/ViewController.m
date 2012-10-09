@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "WSMotionNormalization.h"
 
 @interface ViewController ()
 
@@ -56,6 +56,10 @@
     [[self accelerometerXLabel] setText:[NSString stringWithFormat:formatString, [accelerometerData acceleration].x]];
     [[self accelerometerYLabel] setText:[NSString stringWithFormat:formatString, [accelerometerData acceleration].y]];
     [[self accelerometerZLabel] setText:[NSString stringWithFormat:formatString, [accelerometerData acceleration].z]];
+    
+    [[self xAxisAngleLabel] setText:[NSString stringWithFormat:formatString, [WSMotionNormalization xAxisAngleFromAccelerometerData:accelerometerData]]];
+    [[self yAxisAngleLabel] setText:[NSString stringWithFormat:formatString, [WSMotionNormalization yAxisAngleFromAccelerometerData:accelerometerData]]];
+    [[self zAxisAngleLabel] setText:[NSString stringWithFormat:formatString, [WSMotionNormalization zAxisAngleFromAccelerometerData:accelerometerData]]];
 }
 
 - (void)gyroscopeWasUpdatedWithGyroscopeData:(CMGyroData *)gyroscopeData error:(NSError *)error
