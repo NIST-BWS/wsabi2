@@ -237,8 +237,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)initializeSettings
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
+    
+    // Default values for settings
+    if ([defaults objectForKey:kSettingsLoggingPanelEnabled] == nil)
+        [defaults setBool:kSettingsLoggingPanelEnabledDefault forKey:kSettingsLoggingPanelEnabled];
+    if ([defaults objectForKey:kSettingsMotionLoggingEnabled] == nil)
+        [defaults setBool:kSettingsMotionLoggingEnabledDefault forKey:kSettingsMotionLoggingEnabled];
+    if ([defaults objectForKey:kSettingsNetworkLoggingEnabled] == nil)
+        [defaults setBool:kSettingsNetworkLoggingEnabledDefault forKey:kSettingsNetworkLoggingEnabled];
+    if ([defaults objectForKey:kSettingsTouchLoggingEnabled] == nil)
+        [defaults setBool:kSettingsTouchLoggingEnabledDefault forKey:kSettingsTouchLoggingEnabled];
+    if ([defaults objectForKey:kSettingsAdvancedOptionsEnabled] == nil)
+        [defaults setBool:NO forKey:kSettingsAdvancedOptionsEnabled];
+    
     // Show or hide the advanced settings button
-    [[NSUserDefaults standardUserDefaults] synchronize];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsAdvancedOptionsEnabled] == YES)
         [[[self viewController] navigationItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:[self viewController] action:@selector(showAdvancedOptionsPopover:)]];
     else

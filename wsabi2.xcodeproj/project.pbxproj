@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		080C19371624747E00A8E1AD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 080C19361624747E00A8E1AD /* Settings.bundle */; };
+		080C193A16247EAD00A8E1AD /* WSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 080C193916247EAC00A8E1AD /* WSSettingsViewController.m */; };
+		080C193C16247ED500A8E1AD /* WSSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 080C193B16247ED400A8E1AD /* WSSettingsView.xib */; };
 		0816042D15DEC5060055D27F /* BreadcrumbButtonEndCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */; };
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
 		0816043A15DECB320055D27F /* annotate_pencil_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043815DECB320055D27F /* annotate_pencil_left.png */; };
@@ -299,6 +301,9 @@
 		0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+DeepCopy.h"; path = "Categories/Headers/NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+GCDBlocks.h"; path = "Categories/Headers/NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
 		080C19361624747E00A8E1AD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Settings/Settings.bundle; sourceTree = "<group>"; };
+		080C193816247EAB00A8E1AD /* WSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSettingsViewController.h; path = MainController/Settings/WSSettingsViewController.h; sourceTree = "<group>"; };
+		080C193916247EAC00A8E1AD /* WSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsViewController.m; path = MainController/Settings/WSSettingsViewController.m; sourceTree = "<group>"; };
+		080C193B16247ED400A8E1AD /* WSSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsView.xib; path = MainController/Settings/WSSettingsView.xib; sourceTree = "<group>"; };
 		0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButtonEndCap.png; path = Images/BreadcrumbButtonEndCap.png; sourceTree = "<group>"; };
 		0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BreadcrumbButtonEndCap@2x.png"; path = "Images/BreadcrumbButtonEndCap@2x.png"; sourceTree = "<group>"; };
 		0816043815DECB320055D27F /* annotate_pencil_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = annotate_pencil_left.png; path = Images/annotate_pencil_left.png; sourceTree = "<group>"; };
@@ -1057,6 +1062,9 @@
 				EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */,
 				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
 				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
+				080C193816247EAB00A8E1AD /* WSSettingsViewController.h */,
+				080C193916247EAC00A8E1AD /* WSSettingsViewController.m */,
+				080C193B16247ED400A8E1AD /* WSSettingsView.xib */,
 				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
 				EA277AB914DC5C72002484CF /* Device Config Process */,
 				EA8E447014BC9C05007D9B43 /* Table View Cells */,
@@ -1292,6 +1300,7 @@
 				08C7D3E1161DFC6000A9AC04 /* blue_info_badge.png in Resources */,
 				08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */,
 				080C19371624747E00A8E1AD /* Settings.bundle in Resources */,
+				080C193C16247ED500A8E1AD /* WSSettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,6 +1428,7 @@
 				EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
 				EA8AA29A156D142E007D213A /* WSCDItem.m in Sources */,
 				EA8AA29E156D142E007D213A /* WSCDPerson.m in Sources */,
+				080C193A16247EAD00A8E1AD /* WSSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

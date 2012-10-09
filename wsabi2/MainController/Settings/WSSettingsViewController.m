@@ -1,0 +1,122 @@
+//
+//  WSSettingsViewController.m
+//  wsabi2
+//
+//  Created by Greg Fiumara on 10/9/12.
+//
+//
+
+#import "WSSettingsViewController.h"
+
+#import "constants.h"
+
+@interface WSSettingsViewController ()
+
+@end
+
+@implementation WSSettingsViewController
+
+#pragma mark - TableView Delegate
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+#pragma mark - TableView Data Source
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * const cellIdentifier = @"SettingsCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    
+    UISwitch *settingSwitch = nil;
+    switch (indexPath.section) {
+        case kWSSettingsSectionLogging:
+            switch (indexPath.row) {
+                case kWSSettingsLoggingTouchLoggingRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingTouchLoggingRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsTouchLoggingEnabled]];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
+                case kWSSettingsLoggingMotionLoggingRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingMotionLoggingRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsMotionLoggingEnabled]];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
+                case kWSSettingsLoggingNetworkLoggingRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingNetworkLoggingRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsNetworkLoggingEnabled]];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
+                case kWSSettingsLoggingShowLoggingPanelRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingShowLoggingPanelRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsLoggingPanelEnabled]];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
+                case kWSSettingsLoggingShowSavedLogsRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingShowSavedLogsRowLabel];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    break;
+            }
+            break;
+            
+        case kWSSettingsSectionSensors:
+            switch (indexPath.row) {
+                case kWSSettingsSensorsShowSensorsRow:
+                    [[cell textLabel] setText:kWSSettingsSensorsShowSensorsRowLabel];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    break;
+            }
+            break;
+    }
+    
+    return (cell);
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return (kWSSettingsSectionsCount);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (section) {
+        case kWSSettingsSectionLogging:
+            return (kWSSettingsLoggingRowsCount);
+        case kWSSettingsSectionSensors:
+            return (kWSSettingsSensorsRowsCount);
+        default:
+            return (0);
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case kWSSettingsSectionLogging:
+            return (NSLocalizedString(kWSSettingsSectionLoggingLabel, nil));
+        case kWSSettingsSectionSensors:
+            return (NSLocalizedString(kWSSettingsSectionSensorsLabel, nil));
+        default:
+            return (@"");
+    }
+}
+
+#pragma mark - Popover Settings
+
+- (CGSize)contentSizeForViewInPopover
+{
+    [[self view] sizeToFit];
+    return ([[self view] frame].size);
+}
+
+@end

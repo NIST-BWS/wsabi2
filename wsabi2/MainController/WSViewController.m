@@ -10,6 +10,7 @@
 
 #import "WSAppDelegate.h"
 #import "NSManagedObject+DeepCopy.h"
+#import "WSSettingsViewController.h"
 
 @implementation WSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -319,7 +320,21 @@
 
 - (IBAction)showAdvancedOptionsPopover:(id)sender
 {
-
+    WSSettingsViewController *settingsVC = [[WSSettingsViewController alloc] initWithNibName:@"WSSettingsView" bundle:nil];
+    
+    // Hide any other popover controller
+    if (popoverController != nil) {
+        if ([[self popoverController] isPopoverVisible] == YES) {
+            [[self popoverController] dismissPopoverAnimated:YES];
+            return;
+        }
+    }
+    
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:settingsVC];
+    [popoverController setPopoverBackgroundViewClass:[WSPopoverBackgroundView class]];
+    [popoverController setDelegate:settingsVC];
+    [popoverController presentPopoverFromBarButtonItem:[[self navigationItem] rightBarButtonItem] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [[[self navigationItem] rightBarButtonItem] setStyle:UIBarButtonItemStyleDone];
 }
 
 #pragma mark - Button Action methods

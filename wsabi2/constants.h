@@ -161,4 +161,21 @@ typedef enum {
 /// Key for showing/hiding the advanced options button
 static NSString * const kSettingsAdvancedOptionsEnabled = @"advancedOptionsEnabled";
 
+/// Key for enabling/disabling touch logging
+static NSString * const kSettingsTouchLoggingEnabled = @"touchLoggingEnabled";
+/// Default value for touch logging
+static const BOOL kSettingsTouchLoggingEnabledDefault = YES;
+/// Key for enabling/disabling motion logging
+static NSString * const kSettingsMotionLoggingEnabled = @"motionLoggingEnabled";
+/// Default value for motion logging
+static const BOOL kSettingsMotionLoggingEnabledDefault = YES;
+/// Key for enabling/disabling network logging
+static NSString * const kSettingsNetworkLoggingEnabled = @"networkLoggingEnabled";
+/// Default value for network loggin
+static const BOOL kSettingsNetworkLoggingEnabledDefault = YES;
+/// Key for showing/hiding logging panel
+static NSString * const kSettingsLoggingPanelEnabled = @"loggingPanelEnabled";
+/// Default value for showing the logging panel
+static const BOOL kSettingsLoggingPanelEnabledDefault = NO;
+
 #endif
