@@ -29,7 +29,7 @@ static const NSUInteger kWSMotionLoggerMinGyroscopeSensitivity = 0;
 // Default number of decimal places for gyroscope
 static const NSUInteger kWSMotionLoggerDefaultGyroscopeSensitivity = 2;
 // Maximum number of decimal places for gyroscope
-static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 2;
+static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 6;
 
 /// A convenience wrapper around CMMotionmanager to obtain device motion
 /// changes for logging
