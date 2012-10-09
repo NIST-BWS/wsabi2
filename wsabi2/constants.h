@@ -156,5 +156,9 @@ typedef enum {
     WSCaptureButtonStateWaiting_COUNT
 } WSCaptureButtonState;
 
+#pragma mark - Settings
+
+/// Key for showing/hiding the advanced options button
+static NSString * const kSettingsAdvancedOptionsEnabled = @"advancedOptionsEnabled";
 
 #endif

@@ -105,7 +105,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      */
     //Log this
     [self.viewController.view logEnterForeground];
-
+    
+    // Show or hide the advanced settings button
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsAdvancedOptionsEnabled] == YES)
+        [[[self viewController] navigationItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:[self viewController] action:@selector(showAdvancedOptionsPopover:)]];
+    else
+        [[[self viewController] navigationItem] setRightBarButtonItem:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

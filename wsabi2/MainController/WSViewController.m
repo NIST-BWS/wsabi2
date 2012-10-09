@@ -317,6 +317,11 @@
     [link beginCancel:link.currentSessionId sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
 }
 
+- (IBAction)showAdvancedOptionsPopover:(id)sender
+{
+
+}
+
 #pragma mark - Button Action methods
 
 -(IBAction)addFirstButtonPressed:(id)sender

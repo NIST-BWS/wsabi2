@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080C19371624747E00A8E1AD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 080C19361624747E00A8E1AD /* Settings.bundle */; };
 		0816042D15DEC5060055D27F /* BreadcrumbButtonEndCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */; };
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
 		0816043A15DECB320055D27F /* annotate_pencil_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043815DECB320055D27F /* annotate_pencil_left.png */; };
@@ -297,6 +298,7 @@
 /* Begin PBXFileReference section */
 		0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+DeepCopy.h"; path = "Categories/Headers/NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+GCDBlocks.h"; path = "Categories/Headers/NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
+		080C19361624747E00A8E1AD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Settings/Settings.bundle; sourceTree = "<group>"; };
 		0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButtonEndCap.png; path = Images/BreadcrumbButtonEndCap.png; sourceTree = "<group>"; };
 		0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BreadcrumbButtonEndCap@2x.png"; path = "Images/BreadcrumbButtonEndCap@2x.png"; sourceTree = "<group>"; };
 		0816043815DECB320055D27F /* annotate_pencil_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = annotate_pencil_left.png; path = Images/annotate_pencil_left.png; sourceTree = "<group>"; };
@@ -1070,6 +1072,7 @@
 				EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */,
 				EAF0F98214BC7B8C00544416 /* main.m */,
 				EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */,
+				080C19361624747E00A8E1AD /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1288,6 +1291,7 @@
 				08BAA04315ED03110050FD88 /* BadgeBackground@2x.png in Resources */,
 				08C7D3E1161DFC6000A9AC04 /* blue_info_badge.png in Resources */,
 				08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */,
+				080C19371624747E00A8E1AD /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
