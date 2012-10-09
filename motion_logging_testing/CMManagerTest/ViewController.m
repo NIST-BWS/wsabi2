@@ -39,6 +39,7 @@
     
     [[self motionLogger] setAccelerometerSensitivity:1];
     [[self motionLogger] setGyroscopeSensitivity:1];
+    [[self motionLogger] setMotionSensitivity:1];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -73,4 +74,21 @@
     [[self gyroscopeZLabel] setText:[NSString stringWithFormat:formatString, [gyroscopeData rotationRate].z]];
 }
 
+- (void)motionWasUpdatedWithMotionData:(CMDeviceMotion *)motionData error:(NSError *)error
+{
+    if (error != NULL)
+        NSAssert(NO == YES, [error localizedDescription]);
+    
+    NSString *formatString = [NSString stringWithFormat:@"%%.%uf", [[self motionLogger] motionSensitivity]];
+    [[self yawLabel] setText:[NSString stringWithFormat:formatString, [WSMotionLogger degreeValue:[motionData attitude].yaw]]];
+    [[self pitchLabel] setText:[NSString stringWithFormat:formatString, [WSMotionLogger degreeValue:[motionData attitude].pitch]]];
+    [[self rollLabel] setText:[NSString stringWithFormat:formatString, [WSMotionLogger degreeValue:[motionData attitude].roll]]];
+}
+
+- (void)viewDidUnload {
+    [self setYawLabel:nil];
+    [self setPitchLabel:nil];
+    [self setRollLabel:nil];
+    [super viewDidUnload];
+}
 @end

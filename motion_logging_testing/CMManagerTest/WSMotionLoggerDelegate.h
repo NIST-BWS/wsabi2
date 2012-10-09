@@ -33,4 +33,13 @@
 /// Not NULL on error.
 - (void)gyroscopeWasUpdatedWithGyroscopeData:(CMGyroData *)gyroscopeData error:(NSError *)error;
 
+/// @brief
+/// Called when an update to device motion was received.
+///
+/// @param motionData
+/// Latest update received.
+/// @param error
+/// Not NULL on error.
+- (void)motionWasUpdatedWithMotionData:(CMDeviceMotion *)motionData error:(NSError *)error;
+
 @end

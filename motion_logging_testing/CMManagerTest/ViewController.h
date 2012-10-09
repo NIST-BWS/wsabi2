@@ -23,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *xAxisAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yAxisAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zAxisAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *yawLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pitchLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rollLabel;
 
 @end

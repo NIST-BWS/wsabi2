@@ -15,6 +15,7 @@
 @property(nonatomic, strong) CMMotionManager *motionManager;
 @property(nonatomic, strong) NSOperationQueue *accelerometerQueue;
 @property(nonatomic, strong) NSOperationQueue *gyroscopeQueue;
+@property(nonatomic, strong) NSOperationQueue *motionQueue;
 
 @end
 
@@ -26,6 +27,7 @@
 @synthesize delegate;
 @synthesize accelerometerSensitivity = _accelerometerSensitivity;
 @synthesize gyroscopeSensitivity = _gyroscopeSensitivity;
+@synthesize motionSensitivity = _motionSensitivity;
 
 #pragma mark -
 
@@ -58,6 +60,12 @@
         return (NO);
     }
     
+    if ([self startLoggingMotionUpdates] == NO) {
+        [self stopLoggingAccelerometerUpdates];
+        [self stopLoggingGyroscopeUpdates];
+        return (NO);
+    }
+    
     return (YES);
 }
 
@@ -65,6 +73,7 @@
 {
     [self stopLoggingAccelerometerUpdates];
     [self stopLoggingGyroscopeUpdates];
+    [self stopLoggingMotionUpdates];
 }
 
 - (BOOL)startLoggingAccelerometerUpdates
@@ -73,7 +82,7 @@
         return (NO);
     
     [self setAccelerometerQueue:[[NSOperationQueue alloc] init]];
-    [[self motionManager] setAccelerometerUpdateInterval:kGyroLoggerAccelerometerUpdateInterval];
+    [[self motionManager] setAccelerometerUpdateInterval:kMotionLoggerAccelerometerUpdateInterval];
     
 //    [[self motionManager] startAccelerometerUpdatesToQueue:[self accelerometerQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
     [[self motionManager] startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
@@ -113,7 +122,7 @@
         return (NO);
     
     [self setGyroscopeQueue:[[NSOperationQueue alloc] init]];
-    [[self motionManager] setGyroUpdateInterval:kGyroLoggerGyroscopeUpdateInterval];
+    [[self motionManager] setGyroUpdateInterval:kMotionLoggerGyroscopeUpdateInterval];
 
 //    [[self motionManager] startGyroUpdatesToQueue:[self gyroscopeQueue] withHandler:^(CMGyroData *gyroscopeData, NSError *error) {
     [[self motionManager] startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroscopeData, NSError *error) {
@@ -147,6 +156,47 @@
     [[self motionManager] stopGyroUpdates];
 }
 
+- (BOOL)startLoggingMotionUpdates
+{
+    if ([[self motionManager] isDeviceMotionAvailable] == NO)
+        return (NO);
+    
+    [self setMotionQueue:[[NSOperationQueue alloc] init]];
+    [[self motionManager] setDeviceMotionUpdateInterval:kMotionLoggerGyroscopeUpdateInterval];
+    
+//    [[self motionManager] startDeviceMotionUpdatesToQueue:[self motionQueue] withHandler:^(CMDeviceMotion *motionData, NSError *error) {
+    [[self motionManager] startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motionData, NSError *error) {
+        // Values that x, y, and z could never be
+        static double lastYaw = -4000;
+        static double lastPitch = -4000;
+        static double lastRoll = -4000;
+        
+        if (error == NULL) {
+            // Only call delegate if the change is of the proper sensitivity
+            double threshold = (1.0 / pow(10.0, [self motionSensitivity]));
+            
+            if ((fabs(lastYaw - [motionData attitude].yaw) >= threshold) ||
+                (fabs(lastPitch - [motionData attitude].pitch) >= threshold) ||
+                (fabs(lastRoll - [motionData attitude].roll) >= threshold)) {
+                [[self delegate] motionWasUpdatedWithMotionData:motionData error:error];
+                
+                lastYaw = [motionData attitude].yaw;
+                lastPitch = [motionData attitude].pitch;
+                lastRoll = [motionData attitude].roll;
+            }
+        } else
+            [[self delegate] motionWasUpdatedWithMotionData:motionData error:error];
+    }];
+    
+    return (YES);
+
+}
+
+- (void)stopLoggingMotionUpdates
+{
+    [[self motionManager] stopDeviceMotionUpdates];
+}
+
 #pragma mark - Setter overloads
 
 - (void)setAccelerometerSensitivity:(NSUInteger)accelerometerSensitivity
@@ -169,6 +219,25 @@
     }
     
     _gyroscopeSensitivity = gyroscopeSensitivity;
+}
+
+- (void)setMotionSensitivity:(NSUInteger)motionSensitivity
+{
+    if ((motionSensitivity < kWSMotionLoggerMinMotionSensitivity) ||
+        (motionSensitivity > kWSMotionLoggerMaxMotionSensitivity)) {
+        NSLog(@"motionSensitivity must be between %u and %u.", kWSMotionLoggerMinMotionSensitivity, kWSMotionLoggerMaxMotionSensitivity);
+        return;
+    }
+    
+    _motionSensitivity = motionSensitivity;
+}
+
+
+#pragma mark - Static Helpers
+
++ (double)degreeValue:(double)radians
+{
+    return ((radians * 180) / M_PI);
 }
 
 #pragma mark - PsuedoSingleton Category

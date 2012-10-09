@@ -12,10 +12,19 @@
 
 #import <CoreMotion/CoreMotion.h>
 
+// How often the motion updates should be polled
+static const NSTimeInterval kMotionLoggerMotionUpdateInterval = 1.0 / 60.0;
 // How often the accelerometer updates should be polled
-static const NSTimeInterval kGyroLoggerAccelerometerUpdateInterval = 1.0 / 60.0;
+static const NSTimeInterval kMotionLoggerAccelerometerUpdateInterval = 1.0 / 60.0;
 // How often the gyroscope updates should be polled
-static const NSTimeInterval kGyroLoggerGyroscopeUpdateInterval = 1.0 / 60.0;
+static const NSTimeInterval kMotionLoggerGyroscopeUpdateInterval = 1.0 / 60.0;
+
+// Minimum number of decimal places for motion
+static const NSUInteger kWSMotionLoggerMinMotionSensitivity = 0;
+// Default number of decimal places for motion
+static const NSUInteger kWSMotionLoggerDefaultMotionSensitivity = 2;
+// Maximum number of decimal places for motion
+static const NSUInteger kWSMotionLoggerMaxMotionSensitivity = 6;
 
 // Minimum number of decimal places for accelerometer
 static const NSUInteger kWSMotionLoggerMinAccelerometerSensitivity = 0;
@@ -44,6 +53,9 @@ static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 6;
 /// The number of decimal places of change that must take place in gyroscope
 /// measurement to trigger an update (rotation).
 @property(nonatomic, assign) NSUInteger gyroscopeSensitivity;
+/// The number of decimal places of change that must take place in motion
+/// measurement to trigger an update (movement + rotation + position).
+@property(nonatomic, assign) NSUInteger motionSensitivity;
 
 /// @brief
 /// Begin measuring information on all supported sensors.
@@ -56,7 +68,7 @@ static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 6;
 - (void)stopLoggingAllMotionUpdates;
 
 /// @brief
-/// Begin gathering information for accelerometer.
+/// Begin gathering information from the accelerometer.
 ///
 /// @return
 /// YES if accelerometer measurement sensing could be started, NO otherwise.
@@ -66,7 +78,7 @@ static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 6;
 - (void)stopLoggingAccelerometerUpdates;
 
 /// @brief
-/// Begin gathering information for gyroscope.
+/// Begin gathering information from the gyroscope.
 ///
 /// @return
 /// YES if gyroscope measurement sensing could be started, NO otherwise.
@@ -74,5 +86,28 @@ static const NSUInteger kWSMotionLoggerMaxGyroscopeSensitivity = 6;
 /// @brief
 /// Stop gathering information from the gyroscope.
 - (void)stopLoggingGyroscopeUpdates;
+
+/// @brief
+/// Begin gathering motion information.
+/// @details
+/// Motion information is derived data from the accelerometer and
+/// the gyroscope and/or magnetometer.
+///
+/// @return
+/// YES if motion measurement sensing could be started, NO otherwise.
+- (BOOL)startLoggingMotionUpdates;
+/// @brief
+/// Stop gathering information from the gyroscope.
+- (void)stopLoggingMotionUpdates;
+
+/// @brief
+/// Convert radian value to degrees.
+///
+/// @param radians
+/// Radian value.
+///
+/// @return
+/// Value of radians in degrees.
++ (double)degreeValue:(double)radians;
 
 @end
