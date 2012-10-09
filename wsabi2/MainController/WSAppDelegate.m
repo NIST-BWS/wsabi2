@@ -11,6 +11,10 @@
 
 #import "WSViewController.h"
 
+@interface WSAppDelegate()
+- (void)initializeSettings;
+@end
+
 @implementation WSAppDelegate
 
 @synthesize window = _window;
@@ -105,13 +109,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      */
     //Log this
     [self.viewController.view logEnterForeground];
-    
-    // Show or hide the advanced settings button
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsAdvancedOptionsEnabled] == YES)
-        [[[self viewController] navigationItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:[self viewController] action:@selector(showAdvancedOptionsPopover:)]];
-    else
-        [[[self viewController] navigationItem] setRightBarButtonItem:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -119,6 +116,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    
+    [self initializeSettings];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -232,6 +231,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         abort();
     }
 
+}
+
+# pragma mark - Settings
+
+- (void)initializeSettings
+{
+    // Show or hide the advanced settings button
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsAdvancedOptionsEnabled] == YES)
+        [[[self viewController] navigationItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:[self viewController] action:@selector(showAdvancedOptionsPopover:)]];
+    else
+        [[[self viewController] navigationItem] setRightBarButtonItem:nil];
 }
 
 #pragma mark - Application's Documents directory
