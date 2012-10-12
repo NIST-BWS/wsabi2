@@ -10,7 +10,19 @@
 
 #import "constants.h"
 
+/// Tag for the switch in the table for touch logging
+static const NSUInteger kWSSettingsLoggingTouchLoggingSwitchTag = 1;
+/// Tag for the switch in the table for motion logging
+static const NSUInteger kWSSettingsLoggingMotionLoggingSwitchTag = 2;
+/// Tag for the switch in the table for network logging
+static const NSUInteger kWSSettingsLoggingNetworkLoggingSwitchTag = 3;
+/// Tag for the switch in the table for showing the logging panel
+static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
+
 @interface WSSettingsViewController ()
+
+/// Persist settings based on switch toggle
+- (IBAction)switchToggledForSwitch:(UISwitch *)sender;
 
 @end
 
@@ -18,10 +30,28 @@
 
 #pragma mark - TableView Delegate
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    switch (indexPath.section) {
+        case kWSSettingsSectionLogging:
+            switch (indexPath.row) {
+                case kWSSettingsLoggingShowSavedLogsRow:
+                    break;
+                default:
+                    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                    break;
+            }
+            break;
+        case kWSSettingsSectionSensors:
+            switch (indexPath.row) {
+                case kWSSettingsSensorsShowSensorsRow:
+                    break;
+                default:
+                    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                    break;
+            }
+            break;
+    }
 }
 
 #pragma mark - TableView Data Source
@@ -42,24 +72,32 @@
                     [[cell textLabel] setText:kWSSettingsLoggingTouchLoggingRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
                     [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsTouchLoggingEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingTouchLoggingSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
                 case kWSSettingsLoggingMotionLoggingRow:
                     [[cell textLabel] setText:kWSSettingsLoggingMotionLoggingRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
                     [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsMotionLoggingEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingMotionLoggingSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
                 case kWSSettingsLoggingNetworkLoggingRow:
                     [[cell textLabel] setText:kWSSettingsLoggingNetworkLoggingRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
                     [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsNetworkLoggingEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingNetworkLoggingSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
                 case kWSSettingsLoggingShowLoggingPanelRow:
                     [[cell textLabel] setText:kWSSettingsLoggingShowLoggingPanelRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
                     [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsLoggingPanelEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingShowLoggingPanelSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
                 case kWSSettingsLoggingShowSavedLogsRow:
@@ -117,6 +155,32 @@
 {
     [[self view] sizeToFit];
     return ([[self view] frame].size);
+}
+
+#pragma mark - Interface events
+
+- (IBAction)switchToggledForSwitch:(UISwitch *)sender
+{
+    NSString *key = nil;
+    
+    switch ([sender tag]) {
+        case kWSSettingsLoggingTouchLoggingSwitchTag:
+            key = kSettingsTouchLoggingEnabled;
+            break;
+        case kWSSettingsLoggingMotionLoggingSwitchTag:
+            key = kSettingsMotionLoggingEnabled;
+            break;
+        case kWSSettingsLoggingNetworkLoggingSwitchTag:
+            key = kSettingsNetworkLoggingEnabled;
+            break;
+        case kWSSettingsLoggingShowLoggingPanelSwitchTag:
+            key = kSettingsLoggingPanelEnabled;
+            break;
+        default:
+            return;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:key];
 }
 
 @end
