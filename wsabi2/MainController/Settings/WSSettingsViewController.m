@@ -9,6 +9,7 @@
 #import "WSSettingsViewController.h"
 
 #import "constants.h"
+#import "WSSettingsShowSensorsViewController.h"
 
 /// Tag for the switch in the table for touch logging
 static const NSUInteger kWSSettingsLoggingTouchLoggingSwitchTag = 1;
@@ -53,8 +54,11 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
             break;
         case kWSSettingsSectionSensors:
             switch (indexPath.row) {
-                case kWSSettingsSensorsShowSensorsRow:
+                case kWSSettingsSensorsShowSensorsRow: {
+                    WSSettingsShowSensorsViewController *sensorsVC = [[WSSettingsShowSensorsViewController alloc] initWithNibName:@"WSSettingsShowSensorsView" bundle:nil];
+                    [[self navigationController] pushViewController:sensorsVC animated:YES];
                     break;
+                }
                 default:
                     [tableView deselectRowAtIndexPath:indexPath animated:NO];
                     break;

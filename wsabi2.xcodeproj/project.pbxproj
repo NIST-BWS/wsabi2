@@ -14,6 +14,8 @@
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
 		0816043A15DECB320055D27F /* annotate_pencil_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043815DECB320055D27F /* annotate_pencil_left.png */; };
 		0816043B15DECB320055D27F /* annotate_pencil_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043915DECB320055D27F /* annotate_pencil_left@2x.png */; };
+		083A12F316286CD300CCF2A7 /* WSSettingsShowSensorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A12F216286CD300CCF2A7 /* WSSettingsShowSensorsViewController.m */; };
+		083A12F616286D5700CCF2A7 /* WSSettingsShowSensorsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 083A12F516286D5700CCF2A7 /* WSSettingsShowSensorsView.xib */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -308,6 +310,9 @@
 		0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BreadcrumbButtonEndCap@2x.png"; path = "Images/BreadcrumbButtonEndCap@2x.png"; sourceTree = "<group>"; };
 		0816043815DECB320055D27F /* annotate_pencil_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = annotate_pencil_left.png; path = Images/annotate_pencil_left.png; sourceTree = "<group>"; };
 		0816043915DECB320055D27F /* annotate_pencil_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "annotate_pencil_left@2x.png"; path = "Images/annotate_pencil_left@2x.png"; sourceTree = "<group>"; };
+		083A12F116286CD300CCF2A7 /* WSSettingsShowSensorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSettingsShowSensorsViewController.h; path = MainController/Settings/WSSettingsShowSensorsViewController.h; sourceTree = "<group>"; };
+		083A12F216286CD300CCF2A7 /* WSSettingsShowSensorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsShowSensorsViewController.m; path = MainController/Settings/WSSettingsShowSensorsViewController.m; sourceTree = "<group>"; };
+		083A12F516286D5700CCF2A7 /* WSSettingsShowSensorsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsShowSensorsView.xib; path = MainController/Settings/WSSettingsShowSensorsView.xib; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -1062,10 +1067,13 @@
 				EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */,
 				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
 				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
+				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
 				080C193816247EAB00A8E1AD /* WSSettingsViewController.h */,
 				080C193916247EAC00A8E1AD /* WSSettingsViewController.m */,
 				080C193B16247ED400A8E1AD /* WSSettingsView.xib */,
-				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
+				083A12F116286CD300CCF2A7 /* WSSettingsShowSensorsViewController.h */,
+				083A12F216286CD300CCF2A7 /* WSSettingsShowSensorsViewController.m */,
+				083A12F516286D5700CCF2A7 /* WSSettingsShowSensorsView.xib */,
 				EA277AB914DC5C72002484CF /* Device Config Process */,
 				EA8E447014BC9C05007D9B43 /* Table View Cells */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
@@ -1301,6 +1309,7 @@
 				08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */,
 				080C19371624747E00A8E1AD /* Settings.bundle in Resources */,
 				080C193C16247ED500A8E1AD /* WSSettingsView.xib in Resources */,
+				083A12F616286D5700CCF2A7 /* WSSettingsShowSensorsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1429,6 +1438,7 @@
 				EA8AA29A156D142E007D213A /* WSCDItem.m in Sources */,
 				EA8AA29E156D142E007D213A /* WSCDPerson.m in Sources */,
 				080C193A16247EAD00A8E1AD /* WSSettingsViewController.m in Sources */,
+				083A12F316286CD300CCF2A7 /* WSSettingsShowSensorsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -178,4 +178,8 @@ static NSString * const kSettingsLoggingPanelEnabled = @"loggingPanelEnabled";
 /// Default value for showing the logging panel
 static const BOOL kSettingsLoggingPanelEnabledDefault = NO;
 
+#pragma mark - CoreData
+
+static NSString * const kWSEntityDeviceDefinition = @"WSCDDeviceDefinition";
+
 #endif
