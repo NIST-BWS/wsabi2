@@ -17,6 +17,9 @@ typedef enum
 /// Number of settings sections
 static const NSUInteger kWSSettingsSectionsCount = 2;
 
+/// Label for the navigation item
+static NSString * const kWSSettingsLabel = @"Settings";
+
 /// Label for logging settings section
 static NSString * const kWSSettingsSectionLoggingLabel = @"Logging";
 /// Label for sensors settings section

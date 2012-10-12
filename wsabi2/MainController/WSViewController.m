@@ -330,7 +330,8 @@
         }
     }
     
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:settingsVC];
+    UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:settingsNavigationController];
     [popoverController setPopoverBackgroundViewClass:[WSPopoverBackgroundView class]];
     [popoverController setDelegate:settingsVC];
     [popoverController presentPopoverFromBarButtonItem:[[self navigationItem] rightBarButtonItem] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

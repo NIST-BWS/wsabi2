@@ -28,6 +28,15 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
 
 @implementation WSSettingsViewController
 
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[self navigationItem] setTitle:NSLocalizedString(kWSSettingsLabel, nil)];
+}
+
 #pragma mark - TableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
