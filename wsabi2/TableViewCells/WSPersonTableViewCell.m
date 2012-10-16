@@ -391,6 +391,8 @@
                                        selector:@selector(removeBackingStoreForItem:) 
                                        userInfo:nil 
                                         repeats:NO];
+    else
+        [self removeBackingStoreForItem:nil];
     
     //FIXME: make sure we remain in edit mode. This shouldn't be required.
     //Figure out why we bounce back out of edit mode after a delete.
