@@ -359,6 +359,7 @@
     
     //rebuild the ordered collection.
     [self.person removeItemsObject:foundItem];
+    [[(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext] deleteObject:foundItem];
     [self updateData]; 
     
     //update the item indices within the now-updated ordered collection
