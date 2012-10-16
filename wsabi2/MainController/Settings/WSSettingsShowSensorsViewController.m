@@ -7,6 +7,8 @@
 //
 
 #import "WSAppDelegate.h"
+#import "WSCDItem.h"
+#import "WSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
 #import "constants.h"
@@ -56,7 +58,7 @@
     
     WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[device name]];
-    [[cell detailTextLabel] setText:[device uri]];
+    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@ %@ (%@)", [device uri], device.item.person.firstName, device.item.person.lastName, device.item.submodality]];
     
     return (cell);
 }
