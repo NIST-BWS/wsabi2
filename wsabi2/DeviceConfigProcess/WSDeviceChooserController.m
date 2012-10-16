@@ -179,22 +179,8 @@
     subChooser.item = self.item; //pass the data object
     subChooser.modality = self.modality;
     subChooser.submodality = self.submodality;
- 
-    //NOTE: We can't use cloneInContext here, because we have no context to clone into (or at least we might not). Copy manually.
-    //Create a new temporary item and fill it.
-    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
-    WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
-    newDef.inactivityTimeout = self.item.deviceConfig.inactivityTimeout;
-    newDef.modalities = self.item.deviceConfig.modalities;
-    newDef.mostRecentSessionId = self.item.deviceConfig.mostRecentSessionId;
-    newDef.name = self.item.deviceConfig.name;
-    newDef.parameterDictionary = self.item.deviceConfig.parameterDictionary;
-    newDef.submodalities = self.item.deviceConfig.submodalities;
-    newDef.uri = self.item.deviceConfig.uri;
-    
-    newDef.timeStampLastEdit = [NSDate date];
-    subChooser.deviceDefinition = newDef;
+    subChooser.deviceDefinition = self.item.deviceConfig;
+    subChooser.deviceDefinition.timeStampLastEdit = [NSDate date];
 
       
     [self.navigationController pushViewController:subChooser animated:YES];
@@ -561,30 +547,40 @@
     //that happens when the user clicks the DONE button in the device setup controller.
     
     //If we need to create a new device def, do so.
+    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
     if (!def && createNewDef) {
         //Create a temporary item
-        NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
         WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
         newDef.timeStampLastEdit = [NSDate date];
         subChooser.deviceDefinition = newDef; 
     }
-    else if (def) {        
-        //NOTE: We can't use cloneInContext here, because we have no context to clone into (or at least we might not). Copy manually.
-        //Create a new temporary item and fill it.
-        NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
-        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
-        newDef.inactivityTimeout = def.inactivityTimeout;
-        newDef.modalities = def.modalities;
-        newDef.mostRecentSessionId = def.mostRecentSessionId;
-        newDef.name = def.name;
-        newDef.parameterDictionary = def.parameterDictionary;
-        newDef.submodalities = def.submodalities;
-        newDef.uri = def.uri;
-        
-        newDef.timeStampLastEdit = [NSDate date];
-        subChooser.deviceDefinition = newDef;
+    else if (def) {
+        // If we select the currently selected and possibly non-unique instance
+        // of this sensor, we need to pass the unique instance of the sensor
+        // so that it is not duplicated but merely updated.  Otherwise,
+        // duplicate the sensor information and have that sensor be associated
+        // with this item.
+        if ([[[tableView cellForRowAtIndexPath:indexPath] imageView] image] != nil) {
+            subChooser.deviceDefinition = self.item.deviceConfig;
+            subChooser.deviceDefinition.timeStampLastEdit = [NSDate date];
+        } else {
+            // Create a new item or update exists
+            WSCDDeviceDefinition *newDef;
+            if (self.item.deviceConfig == nil)
+                newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+            else
+                newDef = self.item.deviceConfig;
+            newDef.inactivityTimeout = def.inactivityTimeout;
+            newDef.modalities = def.modalities;
+            newDef.mostRecentSessionId = def.mostRecentSessionId;
+            newDef.name = def.name;
+            newDef.parameterDictionary = def.parameterDictionary;
+            newDef.submodalities = def.submodalities;
+            newDef.uri = def.uri;
+            newDef.timeStampLastEdit = [NSDate date];
+            subChooser.deviceDefinition = newDef;
+        }
     }
 
     
