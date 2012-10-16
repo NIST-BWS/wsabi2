@@ -131,6 +131,14 @@
     
     [self updateAnnotationLabel];
     
+    if (self.itemDataView.image == nil) {
+        [[self deviceButton] setEnabled:YES];
+        [[self modalityButton] setEnabled:YES];
+    } else {
+        [[self deviceButton] setEnabled:NO];
+        [[self modalityButton] setEnabled:NO];
+    }
+    
     [self showFrontSideAnimated:NO];
 }
 
