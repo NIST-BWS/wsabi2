@@ -11,6 +11,7 @@
 #import "WSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
+#import "WSSettingsAddSensorViewController.h"
 #import "constants.h"
 
 #import "WSSettingsShowSensorsViewController.h"
@@ -24,6 +25,8 @@
 - (NSDictionary *)retrieveAllSensors;
 /// Obtain an array of all sensors, given a modality number
 - (NSArray *)retrieveSensorsForModality:(WSSensorModalityType)modality;
+/// Add a new sensor
+- (IBAction)addSensor:(id)sender;
 
 @end
 
@@ -31,12 +34,30 @@
 
 @synthesize sensors = _sensors;
 
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *addSensorButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSensor:)];
+    [[self navigationItem] setRightBarButtonItem:addSensorButton];
+}
 
-    [[self navigationItem] setTitle:kWSSettingsShowSensorsLabel];
+- (void)viewWillAppear:(BOOL)animated
+{
     [self setSensors:[self retrieveAllSensors]];
+    [[self tableView] reloadData];
+    
+    [super viewWillAppear:animated];
+}
+
+#pragma mark - Events
+
+- (IBAction)addSensor:(id)sender
+{
+    WSSettingsAddSensorViewController *addSensorVC = [[WSSettingsAddSensorViewController alloc] initWithNibName:@"WSSettingsAddSensorView" bundle:nil];
+    [[self navigationController] pushViewController:addSensorVC animated:YES];
 }
 
 #pragma mark - TableView Delegate
