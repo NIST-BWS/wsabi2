@@ -17,6 +17,9 @@
 /// Pressed the save button
 - (IBAction)saveButtonPressed:(id)sender;
 
+/// Enable the save button when fields are populated
+- (IBAction)textFieldContentsDidChange:(UITextField *)sender;
+
 /// Submodality array for the currently selected modality
 @property (nonatomic, strong) NSMutableArray *submodalitiesForSelectedType;
 
@@ -31,6 +34,7 @@
     [super viewDidLoad];
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed:)];
+    [saveButton setEnabled:NO];
     [[self navigationItem] setRightBarButtonItem:saveButton];
     [[self navigationItem] setTitle:kWSSettingsAddSensorVCTitle];
     
@@ -119,6 +123,16 @@
 - (CGSize)contentSizeForViewInPopover
 {
     return (CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height));
+}
+
+#pragma mark - TextField Delegate
+
+- (IBAction)textFieldContentsDidChange:(UITextField *)sender
+{
+    if (([[[self nameField] text] isEqualToString:@""] == NO) && ([[[self addressField] text] isEqualToString:@""] == NO))
+        [[[self navigationItem] rightBarButtonItem] setEnabled:YES];
+    else
+        [[[self navigationItem] rightBarButtonItem] setEnabled:NO];
 }
 
 @end
