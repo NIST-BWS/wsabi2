@@ -345,7 +345,11 @@
             switch (indexPath.section) {
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    if (titleString == nil || [titleString isEqualToString:@""])
+                        titleString = @"<Unnamed>";
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    if (subtitleString == nil || [subtitleString isEqualToString:@""])
+                        subtitleString = @"<No URI>";
                     if ([[self item] deviceConfig] != nil) {
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
@@ -387,7 +391,11 @@
             switch (indexPath.section) {
                 case 0:
                     titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    if (titleString == nil || [titleString isEqualToString:@""])
+                        titleString = @"<Unnamed>";
                     subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    if (subtitleString == nil || [subtitleString isEqualToString:@""])
+                        subtitleString = @"<No URI>";
                     if ([[self item] deviceConfig] != nil) {
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
