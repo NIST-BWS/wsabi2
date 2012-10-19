@@ -115,6 +115,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView beginUpdates];
+        
         // Delete device
         NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
         WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
@@ -122,8 +124,10 @@
         [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
         
         // Reload table
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self setSensors:[self retrieveAllSensors]];
-        [[self tableView] reloadData];
+        
+        [tableView endUpdates];
     }
 }
 
