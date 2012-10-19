@@ -120,7 +120,13 @@
     
     [self.modalityButton setTitle:self.item.submodality forState:UIControlStateNormal];
     
-    [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
+    if (self.item.deviceConfig.name == nil || [self.item.deviceConfig.name isEqualToString:@""]) {
+        if (self.item.deviceConfig.uri == nil || [self.item.deviceConfig.uri isEqualToString:@""])
+            [self.deviceButton setTitle:NSLocalizedString(@"<Unnamed>", @"Name for unnamed sensor") forState:UIControlStateNormal];
+        else
+            [self.deviceButton setTitle:self.item.deviceConfig.uri forState:UIControlStateNormal];
+    } else
+        [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
     self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
     
     self.backNavBarTitleItem.title = self.item.submodality;
