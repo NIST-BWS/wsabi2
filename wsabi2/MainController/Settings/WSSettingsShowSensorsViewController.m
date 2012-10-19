@@ -79,7 +79,14 @@
     
     WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[device name]];
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@ %@ (%@)", [device uri], device.item.person.firstName, device.item.person.lastName, device.item.submodality]];
+    if (device.item == NULL)
+        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@", [device uri], NSLocalizedString(@"Unassociated", @"Not associated with any item")]];
+    else
+        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@ %@ (%@)",
+                                         [device uri],
+                                         device.item.person.firstName != nil ? device.item.person.firstName : @"<NFN>",
+                                         device.item.person.lastName != nil ? device.item.person.lastName : @"<NLN>",
+                                         device.item.submodality]];
     
     return (cell);
 }
