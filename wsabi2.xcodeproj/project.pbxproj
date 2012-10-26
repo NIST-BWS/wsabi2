@@ -109,8 +109,6 @@
 		EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
 		EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
 		EA2A89801504F32C0056E02C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2A89701504F32C0056E02C /* README.txt */; };
-		EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D105314D7344300C23365 /* WSBiographicalDataController.m */; };
-		EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */; };
 		EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2D1D4014FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; };
 		EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -261,8 +259,6 @@
 		EA939D27153DFBC5005BDA47 /* item-cell-shadow-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D24153DFBC4005BDA47 /* item-cell-shadow-selected.png */; };
 		EA939D28153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */; };
 		EA939D29153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */; };
-		EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */; };
-		EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */; };
 		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
 		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
 		EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */; };
@@ -285,8 +281,6 @@
 		EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */; };
 		EAF0F98314BC7B8C00544416 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98214BC7B8C00544416 /* main.m */; };
 		EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */; };
-		EAF0F98A14BC7B8C00544416 /* WSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98914BC7B8C00544416 /* WSViewController.m */; };
-		EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F98B14BC7B8C00544416 /* WSViewController.xib */; };
 		EAF0F99514BC7B8C00544416 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */; };
 		EAF0F99614BC7B8C00544416 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97614BC7B8C00544416 /* UIKit.framework */; };
 		EAF0F99714BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
@@ -435,9 +429,6 @@
 		EA2A896E1504F32C0056E02C /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		EA2A89701504F32C0056E02C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		EA2D105214D7344300C23365 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBiographicalDataController.h; path = MainController/WSBiographicalDataController.h; sourceTree = "<group>"; };
-		EA2D105314D7344300C23365 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBiographicalDataController.m; path = MainController/WSBiographicalDataController.m; sourceTree = "<group>"; };
-		EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSBiographicalDataController.xib; path = MainController/WSBiographicalDataController.xib; sourceTree = "<group>"; };
 		EA2D1D2B14FBD526007CB41F /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		EA2D1D2D14FBD526007CB41F /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -570,9 +561,6 @@
 		EA939D19153DF525005BDA47 /* gloss_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gloss_114@2x.png"; path = "Images/gloss_114@2x.png"; sourceTree = "<group>"; };
 		EA939D24153DFBC4005BDA47 /* item-cell-shadow-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item-cell-shadow-selected.png"; path = "Images/item-cell-shadow-selected.png"; sourceTree = "<group>"; };
 		EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item-cell-shadow-selected@2x.png"; path = "Images/item-cell-shadow-selected@2x.png"; sourceTree = "<group>"; };
-		EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSCaptureController.h; path = MainController/WSCaptureController.h; sourceTree = "<group>"; };
-		EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCaptureController.m; path = MainController/WSCaptureController.m; sourceTree = "<group>"; };
-		EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSCaptureController.xib; path = MainController/WSCaptureController.xib; sourceTree = "<group>"; };
 		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSPersonTableViewCell.xib; path = TableViewCells/WSPersonTableViewCell.xib; sourceTree = "<group>"; };
 		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPersonTableViewCell.h; path = TableViewCells/WSPersonTableViewCell.h; sourceTree = "<group>"; };
 		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = TableViewCells/WSPersonTableViewCell.m; sourceTree = "<group>"; };
@@ -597,9 +585,6 @@
 		EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wsabi2-Prefix.pch"; sourceTree = "<group>"; };
 		EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WSAppDelegate.h; path = MainController/WSAppDelegate.h; sourceTree = "<group>"; };
 		EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WSAppDelegate.m; path = MainController/WSAppDelegate.m; sourceTree = "<group>"; };
-		EAF0F98814BC7B8C00544416 /* WSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WSViewController.h; path = MainController/WSViewController.h; sourceTree = "<group>"; };
-		EAF0F98914BC7B8C00544416 /* WSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WSViewController.m; path = MainController/WSViewController.m; sourceTree = "<group>"; };
-		EAF0F98C14BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WSViewController.xib; sourceTree = "<group>"; };
 		EAF0F99314BC7B8C00544416 /* wsabi2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wsabi2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		EAF0F99C14BC7B8C00544416 /* wsabi2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wsabi2Tests-Info.plist"; sourceTree = "<group>"; };
@@ -1166,19 +1151,10 @@
 				EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
-				EA2D105214D7344300C23365 /* WSBiographicalDataController.h */,
-				EA2D105314D7344300C23365 /* WSBiographicalDataController.m */,
-				EA2D105414D7344300C23365 /* WSBiographicalDataController.xib */,
 				EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */,
 				EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */,
-				EA9FDF0014D337BC00C16BA8 /* WSCaptureController.h */,
-				EA9FDF0114D337BC00C16BA8 /* WSCaptureController.m */,
-				EA9FDF0214D337BC00C16BA8 /* WSCaptureController.xib */,
 				EA8F3FDE15613FDA00AC9A5A /* WSPopoverBackgroundView.h */,
 				EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */,
-				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
-				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
-				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
 				EA8E447014BC9C05007D9B43 /* Table View Cells */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
 			);
@@ -1287,14 +1263,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */,
-				EAF0F98D14BC7B8C00544416 /* WSViewController.xib in Resources */,
 				EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */,
 				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
 				EA8F483914D1A1D500503E9C /* close_x.png in Resources */,
-				EA9FDF0414D337BC00C16BA8 /* WSCaptureController.xib in Resources */,
-				EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */,
 				EA26F70814D972A200BC54F5 /* README in Resources */,
 				EA2779D314DACD5B002484CF /* README.md in Resources */,
 				EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */,
@@ -1484,13 +1457,10 @@
 			files = (
 				EAF0F98314BC7B8C00544416 /* main.m in Sources */,
 				EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */,
-				EAF0F98A14BC7B8C00544416 /* WSViewController.m in Sources */,
 				EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */,
 				EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */,
 				EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */,
 				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
-				EA9FDF0314D337BC00C16BA8 /* WSCaptureController.m in Sources */,
-				EA2D105514D7344300C23365 /* WSBiographicalDataController.m in Sources */,
 				EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */,
 				EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */,
 				EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */,
@@ -1618,14 +1588,6 @@
 				EAF0F98014BC7B8C00544416 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		EAF0F98B14BC7B8C00544416 /* WSViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EAF0F98C14BC7B8C00544416 /* en */,
-			);
-			name = WSViewController.xib;
 			sourceTree = "<group>";
 		};
 		EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */ = {
