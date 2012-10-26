@@ -760,6 +760,22 @@
 			name = headers;
 			sourceTree = "<group>";
 		};
+		082C87A1163ADA6B0049AB59 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */,
+				045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */,
+				EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */,
+				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
+				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
+				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
+				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
+				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
+				EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,24 +1032,16 @@
 		EA8A051514C8936900199FF8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */,
+				082C87A1163ADA6B0049AB59 /* headers */,
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
-				045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */,
 				EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */,
-				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
-				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
-				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
-				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
-				EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */,
-				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
-				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
-				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
-				EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */,
 				EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */,
-				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
+				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
-				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
+				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
+				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
+				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1162,8 +1170,8 @@
 		EAF0F97C14BC7B8C00544416 /* wsabi2 */ = {
 			isa = PBXGroup;
 			children = (
-				082C8733163AD2510049AB59 /* Views and ViewControllers */,
 				EA8A051514C8936900199FF8 /* Categories */,
+				082C8733163AD2510049AB59 /* Views and ViewControllers */,
 				EA8A046814C7583A00199FF8 /* Images */,
 				EA202D7314C74F6600776BF3 /* constants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
