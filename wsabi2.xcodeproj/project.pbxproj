@@ -26,6 +26,12 @@
 		082C8772163AD5F80049AB59 /* WSSettingsAddSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C876F163AD5F80049AB59 /* WSSettingsAddSensorViewController.m */; };
 		082C8773163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8770163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m */; };
 		082C8774163AD5F80049AB59 /* WSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8771163AD5F80049AB59 /* WSSettingsViewController.m */; };
+		082C8784163AD8260049AB59 /* WSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8781163AD8260049AB59 /* WSBiographicalDataController.xib */; };
+		082C8785163AD8260049AB59 /* WSCaptureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8782163AD8260049AB59 /* WSCaptureController.xib */; };
+		082C8786163AD8260049AB59 /* WSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8783163AD8260049AB59 /* WSViewController.xib */; };
+		082C878A163AD8310049AB59 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8787163AD8310049AB59 /* WSBiographicalDataController.m */; };
+		082C878B163AD8310049AB59 /* WSCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8788163AD8310049AB59 /* WSCaptureController.m */; };
+		082C878C163AD8310049AB59 /* WSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8789163AD8310049AB59 /* WSViewController.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -330,6 +336,15 @@
 		082C876F163AD5F80049AB59 /* WSSettingsAddSensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsAddSensorViewController.m; path = views/settings/source/WSSettingsAddSensorViewController.m; sourceTree = "<group>"; };
 		082C8770163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsShowSensorsViewController.m; path = views/settings/source/WSSettingsShowSensorsViewController.m; sourceTree = "<group>"; };
 		082C8771163AD5F80049AB59 /* WSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsViewController.m; path = views/settings/source/WSSettingsViewController.m; sourceTree = "<group>"; };
+		082C8778163AD8000049AB59 /* WSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBiographicalDataController.h; path = views/personList/headers/WSBiographicalDataController.h; sourceTree = "<group>"; };
+		082C8779163AD8000049AB59 /* WSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSCaptureController.h; path = views/personList/headers/WSCaptureController.h; sourceTree = "<group>"; };
+		082C877A163AD8000049AB59 /* WSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSViewController.h; path = views/personList/headers/WSViewController.h; sourceTree = "<group>"; };
+		082C8781163AD8260049AB59 /* WSBiographicalDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSBiographicalDataController.xib; path = views/personList/nibs/WSBiographicalDataController.xib; sourceTree = "<group>"; };
+		082C8782163AD8260049AB59 /* WSCaptureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSCaptureController.xib; path = views/personList/nibs/WSCaptureController.xib; sourceTree = "<group>"; };
+		082C8783163AD8260049AB59 /* WSViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSViewController.xib; path = views/personList/nibs/WSViewController.xib; sourceTree = "<group>"; };
+		082C8787163AD8310049AB59 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBiographicalDataController.m; path = views/personList/source/WSBiographicalDataController.m; sourceTree = "<group>"; };
+		082C8788163AD8310049AB59 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCaptureController.m; path = views/personList/source/WSCaptureController.m; sourceTree = "<group>"; };
+		082C8789163AD8310049AB59 /* WSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSViewController.m; path = views/personList/source/WSViewController.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -646,6 +661,7 @@
 			isa = PBXGroup;
 			children = (
 				EA277AB914DC5C72002484CF /* Device Configuration */,
+				082C8775163AD6200049AB59 /* Person List */,
 				082C8731163AD21A0049AB59 /* Settings */,
 			);
 			name = "Views and ViewControllers";
@@ -689,6 +705,38 @@
 				082C875C163AD56D0049AB59 /* WSDeviceSetupController.xib */,
 				082C875D163AD56D0049AB59 /* WSModalityChooserController.xib */,
 				082C875E163AD56D0049AB59 /* WSSubmodalityChooserController.xib */,
+			);
+			name = NIBs;
+			sourceTree = "<group>";
+		};
+		082C8775163AD6200049AB59 /* Person List */ = {
+			isa = PBXGroup;
+			children = (
+				082C8776163AD6F50049AB59 /* headers */,
+				082C8777163AD6FA0049AB59 /* NIBs */,
+				082C8787163AD8310049AB59 /* WSBiographicalDataController.m */,
+				082C8788163AD8310049AB59 /* WSCaptureController.m */,
+				082C8789163AD8310049AB59 /* WSViewController.m */,
+			);
+			name = "Person List";
+			sourceTree = "<group>";
+		};
+		082C8776163AD6F50049AB59 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				082C8778163AD8000049AB59 /* WSBiographicalDataController.h */,
+				082C8779163AD8000049AB59 /* WSCaptureController.h */,
+				082C877A163AD8000049AB59 /* WSViewController.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
+		082C8777163AD6FA0049AB59 /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+				082C8781163AD8260049AB59 /* WSBiographicalDataController.xib */,
+				082C8782163AD8260049AB59 /* WSCaptureController.xib */,
+				082C8783163AD8260049AB59 /* WSViewController.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -1367,6 +1415,9 @@
 				082C8760163AD56D0049AB59 /* WSDeviceSetupController.xib in Resources */,
 				082C8761163AD56D0049AB59 /* WSModalityChooserController.xib in Resources */,
 				082C8762163AD56D0049AB59 /* WSSubmodalityChooserController.xib in Resources */,
+				082C8784163AD8260049AB59 /* WSBiographicalDataController.xib in Resources */,
+				082C8785163AD8260049AB59 /* WSCaptureController.xib in Resources */,
+				082C8786163AD8260049AB59 /* WSViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,6 +1548,9 @@
 				082C8772163AD5F80049AB59 /* WSSettingsAddSensorViewController.m in Sources */,
 				082C8773163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */,
 				082C8774163AD5F80049AB59 /* WSSettingsViewController.m in Sources */,
+				082C878A163AD8310049AB59 /* WSBiographicalDataController.m in Sources */,
+				082C878B163AD8310049AB59 /* WSCaptureController.m in Sources */,
+				082C878C163AD8310049AB59 /* WSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
