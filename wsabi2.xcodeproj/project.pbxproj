@@ -776,6 +776,17 @@
 			name = headers;
 			sourceTree = "<group>";
 		};
+		082C87A2163B0FDE0049AB59 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
+				EA8AA29C156D142E007D213A /* WSCDPerson.h */,
+				EA8AA298156D142E007D213A /* WSCDItem.h */,
+				EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1049,12 +1060,9 @@
 		EA8E447214BC9C18007D9B43 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
-				EA8AA29C156D142E007D213A /* WSCDPerson.h */,
+				082C87A2163B0FDE0049AB59 /* headers */,
 				EA8AA29D156D142E007D213A /* WSCDPerson.m */,
-				EA8AA298156D142E007D213A /* WSCDItem.h */,
 				EA8AA299156D142E007D213A /* WSCDItem.m */,
-				EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */,
 				EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */,
 			);
 			name = "Data Model";
@@ -1171,11 +1179,11 @@
 			isa = PBXGroup;
 			children = (
 				EA8A051514C8936900199FF8 /* Categories */,
+				EA8E447214BC9C18007D9B43 /* Data Model */,
 				082C8733163AD2510049AB59 /* Views and ViewControllers */,
 				EA8A046814C7583A00199FF8 /* Images */,
 				EA202D7314C74F6600776BF3 /* constants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
-				EA8E447214BC9C18007D9B43 /* Data Model */,
 				EA2D1D5B14FC17D4007CB41F /* Network communication */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
