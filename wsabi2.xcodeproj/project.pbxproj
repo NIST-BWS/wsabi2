@@ -18,6 +18,14 @@
 		082C874E163AD4A80049AB59 /* WSSettingsAddSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C874B163AD4A80049AB59 /* WSSettingsAddSensorViewController.m */; };
 		082C874F163AD4A80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C874C163AD4A80049AB59 /* WSSettingsShowSensorsViewController.m */; };
 		082C8750163AD4A80049AB59 /* WSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C874D163AD4A80049AB59 /* WSSettingsViewController.m */; };
+		082C875F163AD56D0049AB59 /* WSDeviceChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875B163AD56D0049AB59 /* WSDeviceChooserController.xib */; };
+		082C8760163AD56D0049AB59 /* WSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875C163AD56D0049AB59 /* WSDeviceSetupController.xib */; };
+		082C8761163AD56D0049AB59 /* WSModalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875D163AD56D0049AB59 /* WSModalityChooserController.xib */; };
+		082C8762163AD56D0049AB59 /* WSSubmodalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875E163AD56D0049AB59 /* WSSubmodalityChooserController.xib */; };
+		082C876B163AD5CB0049AB59 /* WSDeviceChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8767163AD5CB0049AB59 /* WSDeviceChooserController.m */; };
+		082C876C163AD5CB0049AB59 /* WSDeviceSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8768163AD5CB0049AB59 /* WSDeviceSetupController.m */; };
+		082C876D163AD5CB0049AB59 /* WSModalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8769163AD5CB0049AB59 /* WSModalityChooserController.m */; };
+		082C876E163AD5CB0049AB59 /* WSSubmodalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C876A163AD5CB0049AB59 /* WSSubmodalityChooserController.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -56,13 +64,7 @@
 		EA2779D314DACD5B002484CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2779D214DACD5B002484CF /* README.md */; };
 		EA277AA414DC37FE002484CF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA314DC37FE002484CF /* MapKit.framework */; };
 		EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA514DC3807002484CF /* CoreLocation.framework */; };
-		EA277AAF14DC3EE5002484CF /* WSModalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AAD14DC3EE5002484CF /* WSModalityChooserController.m */; };
-		EA277AB014DC3EE5002484CF /* WSModalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277AAE14DC3EE5002484CF /* WSModalityChooserController.xib */; };
 		EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* WSModalityMap.m */; };
-		EA277AB714DC5787002484CF /* WSSubmodalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB514DC5787002484CF /* WSSubmodalityChooserController.m */; };
-		EA277AB814DC5787002484CF /* WSSubmodalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277AB614DC5787002484CF /* WSSubmodalityChooserController.xib */; };
-		EA277ABD14DC5CD1002484CF /* WSDeviceChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */; };
-		EA277ABE14DC5CD1002484CF /* WSDeviceChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */; };
 		EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC414DC72C9002484CF /* checkmark-green.png */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
 		EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */; };
@@ -70,8 +72,6 @@
 		EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */; };
 		EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */; };
 		EA277B0E14EADA59002484CF /* Blank.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0D14EADA59002484CF /* Blank.png */; };
-		EA277B1214EBDFBA002484CF /* WSDeviceSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */; };
-		EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */; };
 		EA28CF1B153C4E7900A2F558 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28CF11153C4E7900A2F558 /* GMGridView.m */; };
 		EA28CF1C153C4E7900A2F558 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28CF11153C4E7900A2F558 /* GMGridView.m */; };
 		EA28CF1D153C4E7900A2F558 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28CF13153C4E7900A2F558 /* GMGridViewCell.m */; };
@@ -318,6 +318,18 @@
 		082C874B163AD4A80049AB59 /* WSSettingsAddSensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsAddSensorViewController.m; path = views/settings/WSSettingsAddSensorViewController.m; sourceTree = "<group>"; };
 		082C874C163AD4A80049AB59 /* WSSettingsShowSensorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsShowSensorsViewController.m; path = views/settings/WSSettingsShowSensorsViewController.m; sourceTree = "<group>"; };
 		082C874D163AD4A80049AB59 /* WSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsViewController.m; path = views/settings/WSSettingsViewController.m; sourceTree = "<group>"; };
+		082C875B163AD56D0049AB59 /* WSDeviceChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSDeviceChooserController.xib; path = views/deviceConfig/nibs/WSDeviceChooserController.xib; sourceTree = "<group>"; };
+		082C875C163AD56D0049AB59 /* WSDeviceSetupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSDeviceSetupController.xib; path = views/deviceConfig/nibs/WSDeviceSetupController.xib; sourceTree = "<group>"; };
+		082C875D163AD56D0049AB59 /* WSModalityChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSModalityChooserController.xib; path = views/deviceConfig/nibs/WSModalityChooserController.xib; sourceTree = "<group>"; };
+		082C875E163AD56D0049AB59 /* WSSubmodalityChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSubmodalityChooserController.xib; path = views/deviceConfig/nibs/WSSubmodalityChooserController.xib; sourceTree = "<group>"; };
+		082C8763163AD5730049AB59 /* WSDeviceChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceChooserController.h; path = views/deviceConfig/headers/WSDeviceChooserController.h; sourceTree = "<group>"; };
+		082C8764163AD5730049AB59 /* WSDeviceSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceSetupController.h; path = views/deviceConfig/headers/WSDeviceSetupController.h; sourceTree = "<group>"; };
+		082C8765163AD5730049AB59 /* WSModalityChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSModalityChooserController.h; path = views/deviceConfig/headers/WSModalityChooserController.h; sourceTree = "<group>"; };
+		082C8766163AD5730049AB59 /* WSSubmodalityChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSubmodalityChooserController.h; path = views/deviceConfig/headers/WSSubmodalityChooserController.h; sourceTree = "<group>"; };
+		082C8767163AD5CB0049AB59 /* WSDeviceChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSDeviceChooserController.m; path = views/deviceConfig/source/WSDeviceChooserController.m; sourceTree = "<group>"; };
+		082C8768163AD5CB0049AB59 /* WSDeviceSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSDeviceSetupController.m; path = views/deviceConfig/source/WSDeviceSetupController.m; sourceTree = "<group>"; };
+		082C8769163AD5CB0049AB59 /* WSModalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSModalityChooserController.m; path = views/deviceConfig/source/WSModalityChooserController.m; sourceTree = "<group>"; };
+		082C876A163AD5CB0049AB59 /* WSSubmodalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSubmodalityChooserController.m; path = views/deviceConfig/source/WSSubmodalityChooserController.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -364,17 +376,8 @@
 		EA2779D214DACD5B002484CF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		EA277AA314DC37FE002484CF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EA277AA514DC3807002484CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		EA277AAC14DC3EE5002484CF /* WSModalityChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSModalityChooserController.h; path = DeviceConfigProcess/WSModalityChooserController.h; sourceTree = "<group>"; };
-		EA277AAD14DC3EE5002484CF /* WSModalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSModalityChooserController.m; path = DeviceConfigProcess/WSModalityChooserController.m; sourceTree = "<group>"; };
-		EA277AAE14DC3EE5002484CF /* WSModalityChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSModalityChooserController.xib; path = DeviceConfigProcess/WSModalityChooserController.xib; sourceTree = "<group>"; };
 		EA277AB114DC4092002484CF /* WSModalityMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSModalityMap.h; path = NetworkCommunication/Headers/WSModalityMap.h; sourceTree = "<group>"; };
 		EA277AB214DC4092002484CF /* WSModalityMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSModalityMap.m; path = NetworkCommunication/Sources/WSModalityMap.m; sourceTree = "<group>"; };
-		EA277AB414DC5787002484CF /* WSSubmodalityChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSubmodalityChooserController.h; path = DeviceConfigProcess/WSSubmodalityChooserController.h; sourceTree = "<group>"; };
-		EA277AB514DC5787002484CF /* WSSubmodalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSubmodalityChooserController.m; path = DeviceConfigProcess/WSSubmodalityChooserController.m; sourceTree = "<group>"; };
-		EA277AB614DC5787002484CF /* WSSubmodalityChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSubmodalityChooserController.xib; path = DeviceConfigProcess/WSSubmodalityChooserController.xib; sourceTree = "<group>"; };
-		EA277ABA14DC5CD1002484CF /* WSDeviceChooserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceChooserController.h; path = DeviceConfigProcess/WSDeviceChooserController.h; sourceTree = "<group>"; };
-		EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSDeviceChooserController.m; path = DeviceConfigProcess/WSDeviceChooserController.m; sourceTree = "<group>"; };
-		EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSDeviceChooserController.xib; path = DeviceConfigProcess/WSDeviceChooserController.xib; sourceTree = "<group>"; };
 		EA277AC414DC72C9002484CF /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark-green.png"; path = "Images/checkmark-green.png"; sourceTree = "<group>"; };
 		EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FirstResponder.h"; path = "Categories/Headers/UIView+FirstResponder.h"; sourceTree = "<group>"; };
 		EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FirstResponder.m"; path = "Categories/Sources/UIView+FirstResponder.m"; sourceTree = "<group>"; };
@@ -384,9 +387,6 @@
 		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBlue.png; path = Images/from_iOS_SDK/PurchaseButtonBlue.png; sourceTree = "<group>"; };
 		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBluePressed.png; path = Images/from_iOS_SDK/PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
 		EA277B0D14EADA59002484CF /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Blank.png; path = Images/Blank.png; sourceTree = "<group>"; };
-		EA277B0F14EBDFB8002484CF /* WSDeviceSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceSetupController.h; path = DeviceConfigProcess/WSDeviceSetupController.h; sourceTree = "<group>"; };
-		EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSDeviceSetupController.m; path = DeviceConfigProcess/WSDeviceSetupController.m; sourceTree = "<group>"; };
-		EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSDeviceSetupController.xib; path = DeviceConfigProcess/WSDeviceSetupController.xib; sourceTree = "<group>"; };
 		EA28CF0F153C4E7900A2F558 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		EA28CF10153C4E7900A2F558 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		EA28CF11153C4E7900A2F558 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -645,6 +645,7 @@
 		082C8733163AD2510049AB59 /* Views and ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EA277AB914DC5C72002484CF /* Device Configuration */,
 				082C8731163AD21A0049AB59 /* Settings */,
 			);
 			name = "Views and ViewControllers";
@@ -668,6 +669,28 @@
 				082C8744163AD4840049AB59 /* WSSettingsViewController.h */,
 			);
 			name = headers;
+			sourceTree = "<group>";
+		};
+		082C8751163AD4DE0049AB59 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				082C8763163AD5730049AB59 /* WSDeviceChooserController.h */,
+				082C8764163AD5730049AB59 /* WSDeviceSetupController.h */,
+				082C8765163AD5730049AB59 /* WSModalityChooserController.h */,
+				082C8766163AD5730049AB59 /* WSSubmodalityChooserController.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
+		082C8752163AD4E20049AB59 /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+				082C875B163AD56D0049AB59 /* WSDeviceChooserController.xib */,
+				082C875C163AD56D0049AB59 /* WSDeviceSetupController.xib */,
+				082C875D163AD56D0049AB59 /* WSModalityChooserController.xib */,
+				082C875E163AD56D0049AB59 /* WSSubmodalityChooserController.xib */,
+			);
+			name = NIBs;
 			sourceTree = "<group>";
 		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
@@ -699,23 +722,17 @@
 			name = ActionSheetPicker;
 			sourceTree = "<group>";
 		};
-		EA277AB914DC5C72002484CF /* Device Config Process */ = {
+		EA277AB914DC5C72002484CF /* Device Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				EA277AAC14DC3EE5002484CF /* WSModalityChooserController.h */,
-				EA277AAD14DC3EE5002484CF /* WSModalityChooserController.m */,
-				EA277AAE14DC3EE5002484CF /* WSModalityChooserController.xib */,
-				EA277AB414DC5787002484CF /* WSSubmodalityChooserController.h */,
-				EA277AB514DC5787002484CF /* WSSubmodalityChooserController.m */,
-				EA277AB614DC5787002484CF /* WSSubmodalityChooserController.xib */,
-				EA277ABA14DC5CD1002484CF /* WSDeviceChooserController.h */,
-				EA277ABB14DC5CD1002484CF /* WSDeviceChooserController.m */,
-				EA277ABC14DC5CD1002484CF /* WSDeviceChooserController.xib */,
-				EA277B0F14EBDFB8002484CF /* WSDeviceSetupController.h */,
-				EA277B1014EBDFB9002484CF /* WSDeviceSetupController.m */,
-				EA277B1114EBDFB9002484CF /* WSDeviceSetupController.xib */,
+				082C8751163AD4DE0049AB59 /* headers */,
+				082C8752163AD4E20049AB59 /* NIBs */,
+				082C8767163AD5CB0049AB59 /* WSDeviceChooserController.m */,
+				082C8768163AD5CB0049AB59 /* WSDeviceSetupController.m */,
+				082C8769163AD5CB0049AB59 /* WSModalityChooserController.m */,
+				082C876A163AD5CB0049AB59 /* WSSubmodalityChooserController.m */,
 			);
-			name = "Device Config Process";
+			name = "Device Configuration";
 			sourceTree = "<group>";
 		};
 		EA277B0114EABF2E002484CF /* from iOS SDK */ = {
@@ -1114,7 +1131,6 @@
 				EAF0F98814BC7B8C00544416 /* WSViewController.h */,
 				EAF0F98914BC7B8C00544416 /* WSViewController.m */,
 				EAF0F98B14BC7B8C00544416 /* WSViewController.xib */,
-				EA277AB914DC5C72002484CF /* Device Config Process */,
 				EA8E447014BC9C05007D9B43 /* Table View Cells */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
 			);
@@ -1233,15 +1249,11 @@
 				EA2D105614D7344300C23365 /* WSBiographicalDataController.xib in Resources */,
 				EA26F70814D972A200BC54F5 /* README in Resources */,
 				EA2779D314DACD5B002484CF /* README.md in Resources */,
-				EA277AB014DC3EE5002484CF /* WSModalityChooserController.xib in Resources */,
-				EA277AB814DC5787002484CF /* WSSubmodalityChooserController.xib in Resources */,
-				EA277ABE14DC5CD1002484CF /* WSDeviceChooserController.xib in Resources */,
 				EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */,
 				EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */,
 				EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */,
 				EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */,
 				EA277B0E14EADA59002484CF /* Blank.png in Resources */,
-				EA277B1314EBDFBA002484CF /* WSDeviceSetupController.xib in Resources */,
 				EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */,
 				EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */,
 				EA2A78E214FEB47800EE9339 /* warning-alert.png in Resources */,
@@ -1351,6 +1363,10 @@
 				082C8748163AD4930049AB59 /* WSSettingsAddSensorView.xib in Resources */,
 				082C8749163AD4930049AB59 /* WSSettingsShowSensorsView.xib in Resources */,
 				082C874A163AD4930049AB59 /* WSSettingsView.xib in Resources */,
+				082C875F163AD56D0049AB59 /* WSDeviceChooserController.xib in Resources */,
+				082C8760163AD56D0049AB59 /* WSDeviceSetupController.xib in Resources */,
+				082C8761163AD56D0049AB59 /* WSModalityChooserController.xib in Resources */,
+				082C8762163AD56D0049AB59 /* WSSubmodalityChooserController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1430,13 +1446,9 @@
 				EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */,
 				EA2779CF14DACD44002484CF /* ActionSheetStringPicker.m in Sources */,
 				EA2779D014DACD44002484CF /* DistancePickerView.m in Sources */,
-				EA277AAF14DC3EE5002484CF /* WSModalityChooserController.m in Sources */,
 				EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */,
-				EA277AB714DC5787002484CF /* WSSubmodalityChooserController.m in Sources */,
-				EA277ABD14DC5CD1002484CF /* WSDeviceChooserController.m in Sources */,
 				EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */,
 				EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */,
-				EA277B1214EBDFBA002484CF /* WSDeviceSetupController.m in Sources */,
 				EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */,
 				EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */,
 				EA2D1D4314FBD526007CB41F /* ASIDataDecompressor.m in Sources */,
@@ -1481,6 +1493,10 @@
 				082C874E163AD4A80049AB59 /* WSSettingsAddSensorViewController.m in Sources */,
 				082C874F163AD4A80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */,
 				082C8750163AD4A80049AB59 /* WSSettingsViewController.m in Sources */,
+				082C876B163AD5CB0049AB59 /* WSDeviceChooserController.m in Sources */,
+				082C876C163AD5CB0049AB59 /* WSDeviceSetupController.m in Sources */,
+				082C876D163AD5CB0049AB59 /* WSModalityChooserController.m in Sources */,
+				082C876E163AD5CB0049AB59 /* WSSubmodalityChooserController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
