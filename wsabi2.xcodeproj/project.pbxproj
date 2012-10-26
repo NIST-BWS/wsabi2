@@ -32,6 +32,12 @@
 		082C878A163AD8310049AB59 /* WSBiographicalDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8787163AD8310049AB59 /* WSBiographicalDataController.m */; };
 		082C878B163AD8310049AB59 /* WSCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8788163AD8310049AB59 /* WSCaptureController.m */; };
 		082C878C163AD8310049AB59 /* WSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8789163AD8310049AB59 /* WSViewController.m */; };
+		082C8796163AD9CC0049AB59 /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8795163AD9CC0049AB59 /* WSPersonTableViewCell.xib */; };
+		082C879C163AD9D70049AB59 /* ELCTextfieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8797163AD9D70049AB59 /* ELCTextfieldCellWide.m */; };
+		082C879D163AD9D70049AB59 /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8798163AD9D70049AB59 /* WSCaptureButton.m */; };
+		082C879E163AD9D70049AB59 /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8799163AD9D70049AB59 /* WSItemGridCell.m */; };
+		082C879F163AD9D70049AB59 /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */; };
+		082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -73,7 +79,6 @@
 		EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* WSModalityMap.m */; };
 		EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC414DC72C9002484CF /* checkmark-green.png */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
-		EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */; };
 		EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */; };
 		EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */; };
 		EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */; };
@@ -149,8 +154,6 @@
 		EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */; };
 		EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
 		EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
-		EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
-		EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */; };
 		EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */; };
 		EA2FAEBA1574EACD00E06D8E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB91574EACD00E06D8E /* README.txt */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
@@ -190,7 +193,6 @@
 		EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */; };
 		EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
 		EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */; };
-		EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */; };
 		EA8F400B156173B600AC9A5A /* popover-background-mediumgray.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8F4009156173B600AC9A5A /* popover-background-mediumgray.png */; };
 		EA8F400C156173B600AC9A5A /* popover-background-mediumgray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8F400A156173B600AC9A5A /* popover-background-mediumgray@2x.png */; };
 		EA8F40131561787300AC9A5A /* popover-arrow-mediumgray.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8F40111561787300AC9A5A /* popover-arrow-mediumgray.png */; };
@@ -259,9 +261,6 @@
 		EA939D27153DFBC5005BDA47 /* item-cell-shadow-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D24153DFBC4005BDA47 /* item-cell-shadow-selected.png */; };
 		EA939D28153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */; };
 		EA939D29153DFBC5005BDA47 /* item-cell-shadow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */; };
-		EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */; };
-		EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */; };
-		EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */; };
 		EAD284CE1554097D0005DCD4 /* bright_squares.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284CD1554097D0005DCD4 /* bright_squares.png */; };
 		EAD284DB15544E230005DCD4 /* modality-iris.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284D915544E230005DCD4 /* modality-iris.png */; };
 		EAD284DC15544E230005DCD4 /* modality-iris.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD284D915544E230005DCD4 /* modality-iris.png */; };
@@ -339,6 +338,17 @@
 		082C8787163AD8310049AB59 /* WSBiographicalDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBiographicalDataController.m; path = views/personList/source/WSBiographicalDataController.m; sourceTree = "<group>"; };
 		082C8788163AD8310049AB59 /* WSCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCaptureController.m; path = views/personList/source/WSCaptureController.m; sourceTree = "<group>"; };
 		082C8789163AD8310049AB59 /* WSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSViewController.m; path = views/personList/source/WSViewController.m; sourceTree = "<group>"; };
+		082C8790163AD9C50049AB59 /* ELCTextfieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextfieldCellWide.h; path = views/interfaceElements/headers/ELCTextfieldCellWide.h; sourceTree = "<group>"; };
+		082C8791163AD9C50049AB59 /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSCaptureButton.h; path = views/interfaceElements/headers/WSCaptureButton.h; sourceTree = "<group>"; };
+		082C8792163AD9C50049AB59 /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSItemGridCell.h; path = views/interfaceElements/headers/WSItemGridCell.h; sourceTree = "<group>"; };
+		082C8793163AD9C50049AB59 /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPersonTableViewCell.h; path = views/interfaceElements/headers/WSPersonTableViewCell.h; sourceTree = "<group>"; };
+		082C8794163AD9C50049AB59 /* WSPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPopoverBackgroundView.h; path = views/interfaceElements/headers/WSPopoverBackgroundView.h; sourceTree = "<group>"; };
+		082C8795163AD9CC0049AB59 /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSPersonTableViewCell.xib; path = views/interfaceElements/nibs/WSPersonTableViewCell.xib; sourceTree = "<group>"; };
+		082C8797163AD9D70049AB59 /* ELCTextfieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextfieldCellWide.m; path = views/interfaceElements/sources/ELCTextfieldCellWide.m; sourceTree = "<group>"; };
+		082C8798163AD9D70049AB59 /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCaptureButton.m; path = views/interfaceElements/sources/WSCaptureButton.m; sourceTree = "<group>"; };
+		082C8799163AD9D70049AB59 /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSItemGridCell.m; path = views/interfaceElements/sources/WSItemGridCell.m; sourceTree = "<group>"; };
+		082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = views/interfaceElements/sources/WSPersonTableViewCell.m; sourceTree = "<group>"; };
+		082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPopoverBackgroundView.m; path = views/interfaceElements/sources/WSPopoverBackgroundView.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -390,8 +400,6 @@
 		EA277AC414DC72C9002484CF /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark-green.png"; path = "Images/checkmark-green.png"; sourceTree = "<group>"; };
 		EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FirstResponder.h"; path = "Categories/Headers/UIView+FirstResponder.h"; sourceTree = "<group>"; };
 		EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FirstResponder.m"; path = "Categories/Sources/UIView+FirstResponder.m"; sourceTree = "<group>"; };
-		EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextfieldCellWide.h; path = MainController/ELCTextfieldCellWide.h; sourceTree = "<group>"; };
-		EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextfieldCellWide.m; path = MainController/ELCTextfieldCellWide.m; sourceTree = "<group>"; };
 		EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButton.png; path = Images/BreadcrumbButton.png; sourceTree = "<group>"; };
 		EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBlue.png; path = Images/from_iOS_SDK/PurchaseButtonBlue.png; sourceTree = "<group>"; };
 		EA277B0314EABF48002484CF /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseButtonBluePressed.png; path = Images/from_iOS_SDK/PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
@@ -473,8 +481,6 @@
 		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gesture-single-tap.png"; path = "Images/gesture-single-tap.png"; sourceTree = "<group>"; };
-		EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSCaptureButton.h; path = MainController/WSCaptureButton.h; sourceTree = "<group>"; };
-		EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCaptureButton.m; path = MainController/WSCaptureButton.m; sourceTree = "<group>"; };
 		EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "wsabi walkthrough.md"; sourceTree = "<group>"; };
 		EA2FAEB91574EACD00E06D8E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = InsetGrayBackground.png; path = Images/InsetGrayBackground.png; sourceTree = "<group>"; };
@@ -515,8 +521,6 @@
 		EA8E447D14BC9E6B007D9B43 /* wsabi2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi2.xcdatamodel; sourceTree = "<group>"; };
 		EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FindUIViewController.h"; path = "Categories/Headers/UIView+FindUIViewController.h"; sourceTree = "<group>"; };
 		EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FindUIViewController.m"; path = "Categories/Sources/UIView+FindUIViewController.m"; sourceTree = "<group>"; };
-		EA8F3FDE15613FDA00AC9A5A /* WSPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPopoverBackgroundView.h; path = MainController/WSPopoverBackgroundView.h; sourceTree = "<group>"; };
-		EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPopoverBackgroundView.m; path = MainController/WSPopoverBackgroundView.m; sourceTree = "<group>"; };
 		EA8F4009156173B600AC9A5A /* popover-background-mediumgray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popover-background-mediumgray.png"; path = "Images/popover-background-mediumgray.png"; sourceTree = "<group>"; };
 		EA8F400A156173B600AC9A5A /* popover-background-mediumgray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popover-background-mediumgray@2x.png"; path = "Images/popover-background-mediumgray@2x.png"; sourceTree = "<group>"; };
 		EA8F40111561787300AC9A5A /* popover-arrow-mediumgray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popover-arrow-mediumgray.png"; path = "Images/popover-arrow-mediumgray.png"; sourceTree = "<group>"; };
@@ -561,11 +565,6 @@
 		EA939D19153DF525005BDA47 /* gloss_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gloss_114@2x.png"; path = "Images/gloss_114@2x.png"; sourceTree = "<group>"; };
 		EA939D24153DFBC4005BDA47 /* item-cell-shadow-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item-cell-shadow-selected.png"; path = "Images/item-cell-shadow-selected.png"; sourceTree = "<group>"; };
 		EA939D25153DFBC4005BDA47 /* item-cell-shadow-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item-cell-shadow-selected@2x.png"; path = "Images/item-cell-shadow-selected@2x.png"; sourceTree = "<group>"; };
-		EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSPersonTableViewCell.xib; path = TableViewCells/WSPersonTableViewCell.xib; sourceTree = "<group>"; };
-		EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPersonTableViewCell.h; path = TableViewCells/WSPersonTableViewCell.h; sourceTree = "<group>"; };
-		EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = TableViewCells/WSPersonTableViewCell.m; sourceTree = "<group>"; };
-		EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSItemGridCell.h; path = TableViewCells/WSItemGridCell.h; sourceTree = "<group>"; };
-		EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSItemGridCell.m; path = TableViewCells/WSItemGridCell.m; sourceTree = "<group>"; };
 		EAD284CD1554097D0005DCD4 /* bright_squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bright_squares.png; path = Images/Patterns/bright_squares.png; sourceTree = "<group>"; };
 		EAD284D915544E230005DCD4 /* modality-iris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-iris.png"; path = "Images/Modalities/modality-iris.png"; sourceTree = "<group>"; };
 		EAD284DA15544E230005DCD4 /* modality-iris@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-iris@2x.png"; path = "Images/Modalities/modality-iris@2x.png"; sourceTree = "<group>"; };
@@ -646,6 +645,7 @@
 			isa = PBXGroup;
 			children = (
 				EA277AB914DC5C72002484CF /* Device Configuration */,
+				082C878D163AD9A50049AB59 /* Interface Elements */,
 				082C8775163AD6200049AB59 /* Person List */,
 				082C8731163AD21A0049AB59 /* Settings */,
 			);
@@ -724,6 +724,40 @@
 				082C8783163AD8260049AB59 /* WSViewController.xib */,
 			);
 			name = NIBs;
+			sourceTree = "<group>";
+		};
+		082C878D163AD9A50049AB59 /* Interface Elements */ = {
+			isa = PBXGroup;
+			children = (
+				082C878F163AD9B60049AB59 /* headers */,
+				082C878E163AD9B20049AB59 /* NIBs */,
+				082C8797163AD9D70049AB59 /* ELCTextfieldCellWide.m */,
+				082C8798163AD9D70049AB59 /* WSCaptureButton.m */,
+				082C8799163AD9D70049AB59 /* WSItemGridCell.m */,
+				082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */,
+				082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */,
+			);
+			name = "Interface Elements";
+			sourceTree = "<group>";
+		};
+		082C878E163AD9B20049AB59 /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+				082C8795163AD9CC0049AB59 /* WSPersonTableViewCell.xib */,
+			);
+			name = NIBs;
+			sourceTree = "<group>";
+		};
+		082C878F163AD9B60049AB59 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				082C8790163AD9C50049AB59 /* ELCTextfieldCellWide.h */,
+				082C8791163AD9C50049AB59 /* WSCaptureButton.h */,
+				082C8792163AD9C50049AB59 /* WSItemGridCell.h */,
+				082C8793163AD9C50049AB59 /* WSPersonTableViewCell.h */,
+				082C8794163AD9C50049AB59 /* WSPopoverBackgroundView.h */,
+			);
+			name = headers;
 			sourceTree = "<group>";
 		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
@@ -1004,18 +1038,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		EA8E447014BC9C05007D9B43 /* Table View Cells */ = {
-			isa = PBXGroup;
-			children = (
-				EAA6FF9214C71C7400006BCB /* WSPersonTableViewCell.h */,
-				EAA6FF9314C71C7400006BCB /* WSPersonTableViewCell.m */,
-				EAA6FF9014C71C5C00006BCB /* WSPersonTableViewCell.xib */,
-				EAA6FF9E14C7289A00006BCB /* WSItemGridCell.h */,
-				EAA6FF9F14C7289A00006BCB /* WSItemGridCell.m */,
-			);
-			name = "Table View Cells";
-			sourceTree = "<group>";
-		};
 		EA8E447214BC9C18007D9B43 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,15 +1169,8 @@
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				EA2D1D5B14FC17D4007CB41F /* Network communication */,
-				EA277AC914DC7E08002484CF /* ELCTextfieldCellWide.h */,
-				EA277ACA14DC7E09002484CF /* ELCTextfieldCellWide.m */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
-				EA2D1D9614FE6224007CB41F /* WSCaptureButton.h */,
-				EA2D1D9714FE6224007CB41F /* WSCaptureButton.m */,
-				EA8F3FDE15613FDA00AC9A5A /* WSPopoverBackgroundView.h */,
-				EA8F3FDF15613FDA00AC9A5A /* WSPopoverBackgroundView.m */,
-				EA8E447014BC9C05007D9B43 /* Table View Cells */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
 			);
 			path = wsabi2;
@@ -1263,7 +1278,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */,
-				EAA6FF9114C71C5C00006BCB /* WSPersonTableViewCell.xib in Resources */,
 				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
@@ -1391,6 +1405,7 @@
 				082C8784163AD8260049AB59 /* WSBiographicalDataController.xib in Resources */,
 				082C8785163AD8260049AB59 /* WSCaptureController.xib in Resources */,
 				082C8786163AD8260049AB59 /* WSViewController.xib in Resources */,
+				082C8796163AD9CC0049AB59 /* WSPersonTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1458,8 +1473,6 @@
 				EAF0F98314BC7B8C00544416 /* main.m in Sources */,
 				EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */,
 				EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */,
-				EAA6FF9414C71C7400006BCB /* WSPersonTableViewCell.m in Sources */,
-				EAA6FFA014C7289A00006BCB /* WSItemGridCell.m in Sources */,
 				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
 				EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */,
 				EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */,
@@ -1469,7 +1482,6 @@
 				EA2779D014DACD44002484CF /* DistancePickerView.m in Sources */,
 				EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */,
 				EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */,
-				EA277ACB14DC7E09002484CF /* ELCTextfieldCellWide.m in Sources */,
 				EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */,
 				EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */,
 				EA2D1D4314FBD526007CB41F /* ASIDataDecompressor.m in Sources */,
@@ -1486,7 +1498,6 @@
 				EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
 				EA2D1D7614FC1FB5007CB41F /* UIView+Logging.m in Sources */,
 				EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
-				EA2D1D9814FE6225007CB41F /* WSCaptureButton.m in Sources */,
 				EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA2A89711504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */,
 				EA2A89731504F32C0056E02C /* DDASLLogger.m in Sources */,
@@ -1507,7 +1518,6 @@
 				EA28CF21153C4E7900A2F558 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				EA28CF23153C4E7900A2F558 /* UIView+GMGridViewAdditions.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
-				EA8F3FE015613FDA00AC9A5A /* WSPopoverBackgroundView.m in Sources */,
 				EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
 				EA8AA29A156D142E007D213A /* WSCDItem.m in Sources */,
 				EA8AA29E156D142E007D213A /* WSCDPerson.m in Sources */,
@@ -1521,6 +1531,11 @@
 				082C878A163AD8310049AB59 /* WSBiographicalDataController.m in Sources */,
 				082C878B163AD8310049AB59 /* WSCaptureController.m in Sources */,
 				082C878C163AD8310049AB59 /* WSViewController.m in Sources */,
+				082C879C163AD9D70049AB59 /* ELCTextfieldCellWide.m in Sources */,
+				082C879D163AD9D70049AB59 /* WSCaptureButton.m in Sources */,
+				082C879E163AD9D70049AB59 /* WSItemGridCell.m in Sources */,
+				082C879F163AD9D70049AB59 /* WSPersonTableViewCell.m in Sources */,
+				082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1545,7 +1560,6 @@
 				EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
 				EA2D1D7714FC1FB5007CB41F /* UIView+Logging.m in Sources */,
 				EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
-				EA2D1D9914FE6225007CB41F /* WSCaptureButton.m in Sources */,
 				EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA2A89721504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */,
 				EA2A89741504F32C0056E02C /* DDASLLogger.m in Sources */,
