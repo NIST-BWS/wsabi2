@@ -38,6 +38,8 @@
     [super viewDidLoad];
     
     self.title = [WSModalityMap stringForModality:self.modality];
+    [self.view setAccessibilityLabel:@"Device Walkthrough -- Submodality View"];
+    [self.view logViewPresented];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -137,7 +139,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
                                                                 object:self
                                                               userInfo:userInfo];
-							      
+            
+            [self.view logViewDismissedViaTapAtPoint:location];
             [self dismissModalViewControllerAnimated:YES];
         }
     }

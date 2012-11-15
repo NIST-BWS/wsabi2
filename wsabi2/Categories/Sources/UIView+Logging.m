@@ -280,6 +280,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogError(resultString);
 }
 
+//
+// FIXME: There only needs to be one method (-logEvent:) and many constants
+//
+
 #pragma mark Popover logging
 -(void) logPopoverShownFrom:(UIView*)source
 {
@@ -350,6 +354,30 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSString *resultString = [self baseLogString:@"app entered foreground" 
                                   withLocalPoint:[self dummyPoint]
                                  withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+-(void) logViewPresented
+{
+    NSString *resultString = [self baseLogString:@"view presented"
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+-(void) logViewDismissed
+{
+    NSString *resultString = [self baseLogString:@"view dismissed"
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:[self dummyPoint]];
+    DDLogError(resultString);
+}
+
+-(void) logViewDismissedViaTapAtPoint:(CGPoint)point
+{
+    NSString *resultString = [self baseLogString:@"view dismissed via tap"
+                                  withLocalPoint:[self dummyPoint]
+                                 withWindowPoint:point];
     DDLogError(resultString);
 }
 

@@ -13,6 +13,19 @@
 #import "DDLog.h"
 #import "UIView+FindUIViewController.h"
 
+//
+// Events
+//
+static NSString * const UIViewLoggingAppEnteredForeground = @"app entered foreground";
+static NSString * const UIViewLoggingAppEnteredBackground = @"app entered background";
+
+static NSString * const UIViewLoggingActionSheetShown = @"action sheet opened";
+static NSString * const UIViewLoggingActionSheetShownInPopover = @"action sheet opened in popover";
+static NSString * const UIViewLoggingActionSheetClosed = @"action sheet closed";
+
+static NSString * const UIViewLoggingPopoverShown = @"popover opened";
+static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
+
 @interface UIView (Logging)
 
 -(UIImage*) screenshot;
@@ -43,4 +56,9 @@
 
 -(void) logEnterBackground;
 -(void) logEnterForeground;
+
+-(void) logViewPresented;
+-(void) logViewDismissed;
+-(void) logViewDismissedViaTapAtPoint:(CGPoint)point;
+
 @end

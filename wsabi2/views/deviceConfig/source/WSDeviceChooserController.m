@@ -43,6 +43,8 @@
     [super viewDidLoad];
 
     self.title = [WSModalityMap stringForCaptureType:self.submodality];
+    [self.view setAccessibilityLabel:@"Device Walkthrough -- Choose Sensor"];
+    [self.view logViewPresented];
 
     //Fetch a list of recent sensors from Core Data
     
@@ -165,6 +167,7 @@
                                                                 object:self
                                                               userInfo:userInfo];
             
+            [self.view logViewDismissedViaTapAtPoint:location];
             [self dismissModalViewControllerAnimated:YES];
         }
     }

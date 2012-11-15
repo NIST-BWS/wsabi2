@@ -37,6 +37,9 @@
     [super viewDidLoad];
     
     self.title = @"Capture type";
+    [self.view setAccessibilityLabel:@"Device Walkthrough -- Modality View"];
+    [self.view logViewPresented];
+
 
     if (self.item.managedObjectContext && self.item.modality) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.modality]
@@ -105,6 +108,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
                                                                 object:self
                                                               userInfo:userInfo];
+            
+            [self.view logViewDismissedViaTapAtPoint:location];
             [self dismissModalViewControllerAnimated:YES];
         }
     }

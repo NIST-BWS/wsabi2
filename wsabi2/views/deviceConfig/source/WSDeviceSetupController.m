@@ -65,7 +65,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
         
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
     doneButton.enabled = NO;
@@ -77,6 +76,8 @@
     else {
         self.title = @"New Sensor";
     }
+    [self.view setAccessibilityLabel:@"Device Walkthrough -- Sensor Properties"];
+    [self.view logViewPresented];
 
     self.statusContainerBackgroundView.image = [[UIImage imageNamed:@"InsetGrayBackground"] stretchableImageWithLeftCapWidth:5 topCapHeight:33];
     
@@ -193,6 +194,7 @@
                                                                 object:self
                                                               userInfo:userInfo];
             
+            [self.view logViewDismissedViaTapAtPoint:location];
             [self dismissModalViewControllerAnimated:YES];
         }
     }
@@ -336,6 +338,7 @@
                                                         object:self
                                                       userInfo:userInfo];
     
+    [self.view logViewDismissed];
 }
 
 -(IBAction)cycleButtonPressed:(id)sender
