@@ -72,6 +72,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *annotateButton;
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
 @property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
+@property (weak, nonatomic) IBOutlet UIImageView *annotationPresentImageView;
 
 @property (nonatomic, unsafe_unretained) id<WSCaptureDelegate> delegate;
 

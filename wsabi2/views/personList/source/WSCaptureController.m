@@ -260,13 +260,11 @@
     if (self.item.notes && ![self.item.notes isEqualToString:@""])
         annotationCount++;
     
-    if (annotationCount == 0) {
-        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"capture-button-annotation"] forState:UIControlStateNormal & UIControlStateHighlighted];
-        [[self annotateButton] setTitle:@"" forState:UIControlStateNormal & UIControlStateHighlighted];
-    } else {
-        [[self annotateButton] setBackgroundImage:[UIImage imageNamed:@"annotate_pencil_left"] forState:UIControlStateNormal & UIControlStateHighlighted];
-        [[self annotateButton] setTitle:[NSString stringWithFormat:@"%u", annotationCount] forState:UIControlStateNormal & UIControlStateHighlighted];
-    }
+    if (annotationCount == 0)
+        [[self annotationPresentImageView] setHidden:YES];
+    else
+        [[self annotationPresentImageView] setHidden:NO];
+
 }
 
 -(void)showFlipSideAnimated:(BOOL)animated
