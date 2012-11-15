@@ -82,7 +82,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSString *logString = [NSString stringWithFormat:@"%@::%@,%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f", 
                            vcIdentifier,
-                           [self class], 
+                           [self accessibilityLabel],
                            eventType,
                            convertedFrame.origin.x,
                            convertedFrame.origin.y,
