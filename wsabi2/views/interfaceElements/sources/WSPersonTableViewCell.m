@@ -428,6 +428,7 @@
 
     biographicalPopover.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
     biographicalPopover.contentViewController = tempNav;
+    biographicalPopover.delegate = self;
      
     biographicalPopover.popoverContentSize = CGSizeMake(cap.view.bounds.size.width, cap.view.bounds.size.height + 36); //leave room for the nav bar
         
@@ -1058,6 +1059,7 @@
     //make sure nothing is selected.
     [self selectItem:nil];
 
+    [self logPopoverHidden];
 }
 
 @end
