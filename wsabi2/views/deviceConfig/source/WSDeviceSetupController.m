@@ -77,7 +77,6 @@
         self.title = @"New Sensor";
     }
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Sensor Properties"];
-    [self.view logViewPresented];
 
     self.statusContainerBackgroundView.image = [[UIImage imageNamed:@"InsetGrayBackground"] stretchableImageWithLeftCapWidth:5 topCapHeight:33];
     
@@ -133,6 +132,8 @@
     [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
     [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [self.view logViewPresented];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -158,6 +159,8 @@
     
     if ([sensorCheckTimer isValid])
         [sensorCheckTimer invalidate];
+    
+    [self.view logViewDismissed];
     
     [super viewWillDisappear:animated];
 }
@@ -337,8 +340,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kCompleteWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];
-    
-    [self.view logViewDismissed];
 }
 
 -(IBAction)cycleButtonPressed:(id)sender

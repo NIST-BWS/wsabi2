@@ -38,8 +38,6 @@
     
     self.title = @"Capture type";
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Modality View"];
-    [self.view logViewPresented];
-
 
     if (self.item.managedObjectContext && self.item.modality) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.modality]
@@ -69,6 +67,8 @@
     [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
     [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [self.view logViewPresented];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -81,6 +81,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self.view logViewDismissed];
+    
     [super viewDidDisappear:animated];
 }
 

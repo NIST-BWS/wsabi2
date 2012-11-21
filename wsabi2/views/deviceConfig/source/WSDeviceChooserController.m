@@ -44,7 +44,6 @@
 
     self.title = [WSModalityMap stringForCaptureType:self.submodality];
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Choose Sensor"];
-    [self.view logViewPresented];
 
     //Fetch a list of recent sensors from Core Data
     
@@ -127,18 +126,22 @@
     [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
     [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [self.view logViewPresented];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     // Remove recognizer when view isn't visible
     [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-    
+        
     [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self.view logViewDismissed];
+
     [super viewDidDisappear:animated];
 }
 

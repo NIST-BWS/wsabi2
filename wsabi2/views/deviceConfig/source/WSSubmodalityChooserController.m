@@ -39,7 +39,6 @@
     
     self.title = [WSModalityMap stringForModality:self.modality];
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Submodality View"];
-    [self.view logViewPresented];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,6 +80,8 @@
     [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
     [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [self.view logViewPresented];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -93,6 +94,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self.view logViewDismissed];
+    
     [super viewDidDisappear:animated];
 }
 
