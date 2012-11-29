@@ -57,7 +57,7 @@
 		08F28AEF15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */; };
 		08F28AF015C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */; };
 		08F28AF115C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */; };
-		08FBD6411667B49800C01708 /* UIView+BWSLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FBD6401667B49800C01708 /* UIView+BWSLogging.m */; };
+		08FBD6431667F24300C01708 /* UIView+BWSInterfaceLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */; };
 		EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */; };
 		EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE11558622500B838E3 /* plus-circle-button.png */; };
 		EA0CEFE41558622500B838E3 /* plus-circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */; };
@@ -369,8 +369,8 @@
 		08F28AE915C01A3600025C3E /* UIAlertSheetDefaultDestroyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultDestroyButton@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButton@2x.png"; sourceTree = "<group>"; };
 		08F28AEA15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultDestroyButtonPressed.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButtonPressed.png; sourceTree = "<group>"; };
 		08F28AEB15C01A3600025C3E /* UIAlertSheetDefaultDestroyButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultDestroyButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButtonPressed@2x.png"; sourceTree = "<group>"; };
-		08FBD63F1667B48800C01708 /* UIView+BWSLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+BWSLogging.h"; path = "Categories/Headers/UIView+BWSLogging.h"; sourceTree = "<group>"; };
-		08FBD6401667B49800C01708 /* UIView+BWSLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+BWSLogging.m"; path = "Categories/Sources/UIView+BWSLogging.m"; sourceTree = "<group>"; };
+		08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+BWSInterfaceLogging.m"; path = "Categories/Sources/UIView+BWSInterfaceLogging.m"; sourceTree = "<group>"; };
+		08FBD6441667F27200C01708 /* UIView+BWSInterfaceLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+BWSInterfaceLogging.h"; path = "Categories/Headers/UIView+BWSInterfaceLogging.h"; sourceTree = "<group>"; };
 		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+GCDBlocks.m"; path = "Categories/Sources/NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
 		EA0CEFE11558622500B838E3 /* plus-circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button.png"; path = "Images/plus-circle-button.png"; sourceTree = "<group>"; };
 		EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button@2x.png"; path = "Images/plus-circle-button@2x.png"; sourceTree = "<group>"; };
@@ -772,7 +772,7 @@
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
 				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
 				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
-				08FBD63F1667B48800C01708 /* UIView+BWSLogging.h */,
+				08FBD6441667F27200C01708 /* UIView+BWSInterfaceLogging.h */,
 				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
 				EA2D1D7214FC1FB5007CB41F /* UIView+Logging.h */,
@@ -1054,7 +1054,7 @@
 				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
-				08FBD6401667B49800C01708 /* UIView+BWSLogging.m */,
+				08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */,
 				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
 				EA2D1D7314FC1FB5007CB41F /* UIView+Logging.m */,
@@ -1557,7 +1557,7 @@
 				082C879E163AD9D70049AB59 /* WSItemGridCell.m in Sources */,
 				082C879F163AD9D70049AB59 /* WSPersonTableViewCell.m in Sources */,
 				082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */,
-				08FBD6411667B49800C01708 /* UIView+BWSLogging.m in Sources */,
+				08FBD6431667F24300C01708 /* UIView+BWSInterfaceLogging.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
