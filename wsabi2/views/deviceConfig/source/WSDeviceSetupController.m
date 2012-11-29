@@ -504,8 +504,9 @@
                 cell.rightTextField.delegate = nil; //don't listen for changes from this field.
             }
         }
-        return cell;
         
+        cell.accessibilityLabel = cell.textLabel.text;
+        return cell;
     }
     else {
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:OtherCell];
@@ -515,16 +516,15 @@
         }
         
         // Configure the cell...
-        
+        cell.accessibilityLabel = cell.textLabel.text;
         return cell;
-        
     }    
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle ==  UITableViewCellEditingStyleDelete)
-        [[tableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
+        [[aTableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
 
 /*

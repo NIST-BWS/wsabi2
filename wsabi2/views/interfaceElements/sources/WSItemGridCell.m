@@ -116,6 +116,7 @@
     
     //configure the submodality label
     self.placeholderLabel.text = self.item.submodality ? self.item.submodality : @"";
+    self.accessibilityLabel = self.placeholderLabel.text;
     
     //store the annotation array locally for performance.
     if (self.item.annotations) {

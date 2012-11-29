@@ -133,7 +133,7 @@
 								<string key="NSFrameSize">{480, 360}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="800380787"/>
+								<reference key="NSNextKeyView" ref="891016661"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="438293004">
 									<int key="NSColorSpace">3</int>
@@ -147,12 +147,15 @@
 							<object class="IBUIButton" id="800380787">
 								<reference key="NSNextResponder" ref="121354170"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrameSize">{480, 360}</string>
+								<string key="NSFrame">{{0, -1}, {480, 360}}</string>
 								<reference key="NSSuperview" ref="121354170"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="891016661"/>
+								<reference key="NSNextKeyView" ref="958403067"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">Capture Biometric</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -206,6 +209,9 @@
 									<bytes key="NSWhite">MC42NzMwMDkwNzI2AA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">Edit Sensor</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<bool key="IBUIEnabled">NO</bool>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -236,6 +242,9 @@
 									<bytes key="NSWhite">MCAwAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">Edit Submodality</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -262,6 +271,9 @@
 								<reference key="NSNextKeyView" ref="777262176"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">Annotate Image</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -304,7 +316,7 @@
 						<string key="NSFrameSize">{480, 408}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="958403067"/>
+						<reference key="NSNextKeyView" ref="800380787"/>
 						<string key="NSReuseIdentifierKey">_NS:10</string>
 						<reference key="IBUIBackgroundColor" ref="586865040"/>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>

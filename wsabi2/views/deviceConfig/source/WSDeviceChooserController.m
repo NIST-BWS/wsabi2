@@ -436,6 +436,7 @@
     
     cell.textLabel.text = titleString;
     cell.detailTextLabel.text = subtitleString;
+    cell.accessibilityLabel = cell.textLabel.text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;

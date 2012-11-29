@@ -177,6 +177,7 @@
     
     // Configure the cell...
     cell.textLabel.text = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
+    cell.accessibilityLabel = cell.textLabel.text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;

@@ -247,7 +247,6 @@
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -725,6 +724,7 @@
             cell.accessoryView = nil;
         }
         
+        cell.accessibilityLabel = cell.textLabel.text;
         [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         return cell;
     }

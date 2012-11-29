@@ -407,6 +407,19 @@
     
     //change editing status if necessary.
     [cell setEditing:(person == personBeingEdited)];
+    
+    if (cell.person != nil) {
+        NSString *personName = nil;
+        if (cell.person.firstName != nil && ([cell.person.firstName isEqualToString:@""] == NO))
+            if (cell.person.lastName != nil && ([cell.person.lastName isEqualToString:@""] == NO))
+                personName = [NSString stringWithFormat:@"%@ %@", cell.person.firstName, cell.person.lastName];
+            else
+                personName = cell.person.firstName;
+        else
+            personName = @"Unnamed Person";
+        cell.accessibilityLabel = [NSString stringWithFormat:@"Record for %@", personName];
+    } else
+        cell.accessibilityLabel = @"Record for Inactive Person";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
