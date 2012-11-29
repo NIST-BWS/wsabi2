@@ -4,55 +4,55 @@
 
 #import <UIKit/UIKit.h>
 
-/// Types of events that can be tracked by this category.
+/// Types of interface events that can be tracked by this category.
 typedef enum
 {
     /// Tap
-    kBWSEventTypeTap,
+    kBWSInterfaceEventTypeTap,
     /// Scroll began
-    kBWSEventTypeScrollBegan,
+    kBWSInterfaceEventTypeScrollBegan,
     /// Scroll ended
-    kBWSEventTypeScrollEnded,
+    kBWSInterfaceEventTypeScrollEnded,
     /// Long press began
-    kBWSEventTypeLongPressBegan,
+    kBWSInterfaceEventTypeLongPressBegan,
     /// Long press ended
-    kBWSEventTypeLongPressEnded,
+    kBWSInterfaceEventTypeLongPressEnded,
     /// Pinch began
-    kBWSEventTypePinchBegan,
+    kBWSInterfaceEventTypePinchBegan,
     /// Pinch ended
-    kBWSEventTypePinchEnded
-} BWSEventType;
+    kBWSInterfaceEventTypePinchEnded
+} BWSInterfaceEventType;
 
 //
-// Textual descrptions of BWSEventTypes
+// Textual descrptions of BWSInterfaceEventTypes
 //
 
 /// Tap
-static NSString * const kBWSEventTypeTapDescription = @"tap";
+static NSString * const kBWSInterfaceEventTypeTapDescription = @"tap";
 /// Scroll began
-static NSString * const kBWSEventTypeScrollBeganDescription = @"scrollBegin";
+static NSString * const kBWSInterfaceEventTypeScrollBeganDescription = @"scrollBegin";
 /// Scroll ended
-static NSString * const kBWSEventTypeScrollEndedDescription = @"scrollEnd";
+static NSString * const kBWSInterfaceEventTypeScrollEndedDescription = @"scrollEnd";
 /// Long press began
-static NSString * const kBWSEventTypeLongPressBeganDescription = @"lpBegin";
+static NSString * const kBWSInterfaceEventTypeLongPressBeganDescription = @"lpBegin";
 /// Long press ended
-static NSString * const kBWSEventTypeLongPressEndedDescription = @"lpEnd";
+static NSString * const kBWSInterfaceEventTypeLongPressEndedDescription = @"lpEnd";
 /// Pinch began
-static NSString * const kBWSEventTypePinchBeganDescription = @"pinchBegin";
+static NSString * const kBWSInterfaceEventTypePinchBeganDescription = @"pinchBegin";
 /// Pinch ended
-static NSString * const kBWSEventTypePinchEndedDescription = @"pinchEnd";
+static NSString * const kBWSInterfaceEventTypePinchEndedDescription = @"pinchEnd";
 /// Unknown event
-static NSString * const kBWSEventTypeUnknown = @"unknown";
+static NSString * const kBWSInterfaceEventTypeUnknown = @"unknown";
 
 /// Log information about user interaction with interface elements
 @interface UIView (BWSLogging)
 
 /// Start logging events for the specified event type.
-- (void)startLoggingBWSEventType:(BWSEventType)eventType;
+- (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
 /// Stop logging all events.
-- (void)stopLoggingBWSEvents;
+- (void)stopLoggingBWSInterfaceEvents;
 
 /// Obtain the textual description of an event type.
-+ (NSString *)stringForBWSEventType:(BWSEventType)eventType;
++ (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
 
 @end

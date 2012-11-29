@@ -2,7 +2,7 @@
 //  UIView+BWSLogging.m
 //
 
-#import "UIView+BWSLogging.h"
+#import "UIView+BWSInterfaceLogging.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -13,7 +13,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //
 
 /// Tap recognizer callback
-- (void)BWSEventTapDetected:(UITapGestureRecognizer *)recognizer;
+- (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer;
 
 /// @brief
 /// Obtain a string describing a tap event
@@ -22,13 +22,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 /// Item Description (Item Class), Event Type, (Local Touch Coordinate of Tap)
 /// [Global Touch Coordinate of Tap], Dimensions of Tapped Object
 /// (Top-Left Coordinate of Tapped Object)
-- (NSString *)logBWSEventTapAtPoint:(CGPoint)point;
+- (NSString *)logBWSInterfaceEventTapAtPoint:(CGPoint)point;
 
 @end
 
 @implementation UIView (BWSLogging)
 
-- (NSString *)logBWSEventTapAtPoint:(CGPoint)point
+- (NSString *)logBWSInterfaceEventTapAtPoint:(CGPoint)point
 {
     CGPoint pointInWindow = [self convertPoint:point toView:nil];
     CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
@@ -36,7 +36,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return ([NSString stringWithFormat:@"********** %@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
                            [self accessibilityLabel],
                            [self class],
-                           [UIView stringForBWSEventType:kBWSEventTypeTap],
+                           [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypeTap],
                            point.x,
                            point.y,
                            pointInWindow.x,
@@ -49,23 +49,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 #pragma mark - Recognizer Callbacks
 
-- (void)BWSEventTapDetected:(UITapGestureRecognizer *)recognizer
+- (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer
 {
-    DDLogError([self logBWSEventTapAtPoint:[recognizer locationInView:self]]);
+    DDLogError([self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
 }
 
 #pragma mark - Start/Stop
 
-- (void)startLoggingBWSEventType:(BWSEventType)eventType
+- (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType
 {
     UIGestureRecognizer *recognizer = nil;
     
     switch (eventType) {
-        case kBWSEventTypeTap:
-            recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(BWSEventTapDetected:)];
+        case kBWSInterfaceEventTypeTap:
+            recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventTapDetected:)];
             break;
         default:
-            DDLogError(@"%@ logging currently unsupported", [UIView stringForBWSEventType:eventType]);
+            DDLogError(@"%@ logging currently unsupported", [UIView stringForBWSInterfaceEventType:eventType]);
             break;
     }
     
@@ -75,34 +75,34 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 
-- (void)stopLoggingBWSEvents
+- (void)stopLoggingBWSInterfaceEvents
 {
     for (UIGestureRecognizer *recognizer in [self gestureRecognizers])
         [self removeGestureRecognizer:recognizer];
 }
 
-#pragma mark - BWSEventType
+#pragma mark - BWSInterfaceEventType
 
-+ (NSString *)stringForBWSEventType:(BWSEventType)eventType
++ (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType
 {
     switch (eventType) {
-        case kBWSEventTypeTap:
-            return (kBWSEventTypeTapDescription);
-        case kBWSEventTypeScrollBegan:
-            return (kBWSEventTypeScrollBeganDescription);
-        case kBWSEventTypeScrollEnded:
-            return (kBWSEventTypeScrollEndedDescription);
-        case kBWSEventTypeLongPressBegan:
-            return (kBWSEventTypeLongPressBeganDescription);
-        case kBWSEventTypeLongPressEnded:
-            return (kBWSEventTypeLongPressBeganDescription);
-        case kBWSEventTypePinchBegan:
-            return (kBWSEventTypePinchBeganDescription);
-        case kBWSEventTypePinchEnded:
-            return (kBWSEventTypePinchEndedDescription);
+        case kBWSInterfaceEventTypeTap:
+            return (kBWSInterfaceEventTypeTapDescription);
+        case kBWSInterfaceEventTypeScrollBegan:
+            return (kBWSInterfaceEventTypeScrollBeganDescription);
+        case kBWSInterfaceEventTypeScrollEnded:
+            return (kBWSInterfaceEventTypeScrollEndedDescription);
+        case kBWSInterfaceEventTypeLongPressBegan:
+            return (kBWSInterfaceEventTypeLongPressBeganDescription);
+        case kBWSInterfaceEventTypeLongPressEnded:
+            return (kBWSInterfaceEventTypeLongPressBeganDescription);
+        case kBWSInterfaceEventTypePinchBegan:
+            return (kBWSInterfaceEventTypePinchBeganDescription);
+        case kBWSInterfaceEventTypePinchEnded:
+            return (kBWSInterfaceEventTypePinchEndedDescription);
     }
     
-    return (kBWSEventTypeUnknown);
+    return (kBWSInterfaceEventTypeUnknown);
 }
 
 @end
