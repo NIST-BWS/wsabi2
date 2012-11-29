@@ -97,27 +97,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return logString;
 }
 
--(void) startAutomaticGestureLogging:(BOOL)recursive
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
-    tap.cancelsTouchesInView = NO;
-    [self addGestureRecognizer:tap];
-        
-    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchDetected:)];
-    pinch.cancelsTouchesInView = NO;
-    [self addGestureRecognizer:pinch];
-    
-    if (recursive) {
-        for (UIView *v in self.subviews) {
-            if (![v isKindOfClass:[UITextField class]] && 
-                ![v isKindOfClass:[UITextView class]]) {
-                [v startAutomaticGestureLogging:YES];
-            }
-        }
-    }
-    
-}
-
 -(void) addLongPressGestureLogging:(BOOL)recursive withThreshold:(float)seconds
 {
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressDetected:)];

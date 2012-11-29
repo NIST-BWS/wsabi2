@@ -99,22 +99,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self addFirstButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+    
+    [[self tableView] stopLoggingBWSInterfaceEvents];
+    [[self addFirstButton] stopLoggingBWSInterfaceEvents];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -174,10 +171,6 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
-        
-        //once they're presented, add logging capabilities.
-        [navigation.navigationBar startAutomaticGestureLogging:YES];
-        [chooser.view startAutomaticGestureLogging:YES];
     // Start from submodality
     } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
         WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
@@ -188,10 +181,6 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];
-        
-        //once they're presented, add logging capabilities.
-        [navigation.navigationBar startAutomaticGestureLogging:YES];
-        [chooser.view startAutomaticGestureLogging:YES];
     }
     else {
         //show the full selection walkthrough
@@ -200,11 +189,6 @@
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navigation animated:YES];    
-
-        //once they're presented, add logging capabilities.
-        [navigation.navigationBar startAutomaticGestureLogging:YES];
-        [chooser.view startAutomaticGestureLogging:YES];
-
     }
     
     //scroll the thing to visible if it's not, in case we come back and need to show the capture popover.
@@ -436,12 +420,17 @@
         
         cell = [nibViews objectAtIndex: 0];
         cell.delegate = self;
-        //turn on gesture logging for new cells
-        [cell startAutomaticGestureLogging:YES];
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle ==  UITableViewCellEditingStyleDelete)
+        [[aTableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
 
 /*

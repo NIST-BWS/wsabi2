@@ -69,6 +69,7 @@
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
     
     [self.view logViewPresented];
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -82,6 +83,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self.view logViewDismissed];
+    [[self tableView] stopLoggingBWSInterfaceEvents];
     
     [super viewDidDisappear:animated];
 }
@@ -151,8 +153,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //enable touch logging for new cells
-        [cell startAutomaticGestureLogging:YES];
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     
     // Configure the cell...
@@ -160,6 +161,12 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle ==  UITableViewCellEditingStyleDelete)
+        [[tableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
 
 /*

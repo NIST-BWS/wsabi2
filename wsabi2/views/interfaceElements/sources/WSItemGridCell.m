@@ -25,6 +25,7 @@
     if (self) {
         // Initialization code
         self.imageView = [[UIImageView alloc] init];
+        [self startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     return self;
 
@@ -246,6 +247,11 @@
 {
     [super setEditing:editing animated:animated];
     [super shakeStatus:NO];
+}
+
+- (void)dealloc
+{
+    [self stopLoggingBWSInterfaceEvents];
 }
 
 @end

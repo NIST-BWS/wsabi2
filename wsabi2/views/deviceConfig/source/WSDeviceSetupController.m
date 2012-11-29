@@ -117,11 +117,6 @@
         //Start with a blank status section by default
         self.sensorCheckStatus = kStatusBlank;
     }
-    
-    //enable touch logging for this controller
-    [self.view startAutomaticGestureLogging:YES];
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -134,6 +129,7 @@
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
     
     [self.view logViewPresented];
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -159,10 +155,16 @@
     
     if ([sensorCheckTimer isValid])
         [sensorCheckTimer invalidate];
-    
-    [self.view logViewDismissed];
-    
+        
     [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.view logViewDismissed];
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -471,8 +473,7 @@
         ELCTextfieldCellWide *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
         if (cell == nil) {
             cell = [[ELCTextfieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
-            //enable touch logging for new cells
-            [cell startAutomaticGestureLogging:YES];
+            [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         }
         cell.indexPath = indexPath;
         cell.delegate = self;
@@ -510,8 +511,7 @@
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:OtherCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:OtherCell];
-            //enable touch logging for new cells
-            [cell startAutomaticGestureLogging:YES];
+            [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         }
         
         // Configure the cell...
@@ -519,6 +519,12 @@
         return cell;
         
     }    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle ==  UITableViewCellEditingStyleDelete)
+        [[tableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
 
 /*

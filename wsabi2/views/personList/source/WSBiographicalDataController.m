@@ -45,8 +45,7 @@
     raceStrings = [NSArray arrayWithObjects:@"",@"Unknown",@"Asian",@"Black",@"Native American",@"Caucasian",@"Latino",nil];
     eyeColorStrings = [NSArray arrayWithObjects:@"",@"Brown",@"Blue",@"Green",nil];
     
-    //enable touch logging
-    [self.view startAutomaticGestureLogging:YES];
+    [self.view startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     
     //listen for the keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) 
@@ -166,8 +165,7 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
             }
@@ -234,8 +232,7 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:DatePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DatePickerCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             }
             
             //set up font sizes to match the ELCTextFieldCells
@@ -256,8 +253,7 @@
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
-            //enable touch logging for new cells
-            [cell startAutomaticGestureLogging:YES];
+            [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -275,8 +271,7 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -292,8 +287,7 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -309,8 +303,7 @@
             UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:SimplePickerCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:SimplePickerCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -326,8 +319,7 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
             }
@@ -351,8 +343,7 @@
             ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
                 cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
             }
@@ -386,8 +377,7 @@
                 textView.backgroundColor = [UIColor clearColor];
                 
                 [cell.contentView addSubview:textView];
-                //enable touch logging for new cells
-                [cell startAutomaticGestureLogging:YES];
+                [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 
             }
             else {
@@ -411,6 +401,12 @@
     return nil;
     
  }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle ==  UITableViewCellEditingStyleDelete)
+        [[tableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
+}
 
 /*
  // Override to support conditional editing of the table view.

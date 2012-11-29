@@ -74,8 +74,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// Add our file logger to the logging system.
 	
 	[DDLog addLogger:fileLogger];
-        
-    [self.window.rootViewController.view startAutomaticGestureLogging:YES];
     
     [self.window makeKeyAndVisible];
     return YES;

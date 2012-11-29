@@ -25,6 +25,22 @@
 @synthesize deletePersonOverlayView, separatorView;
 @synthesize delegate;
 
+- (id)init
+{
+    self = [super init];
+    if (self != nil) {
+        [self startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        
+        [[self biographicalDataButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[self editButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[self deleteButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[self addButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[self duplicateRowButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    }
+    
+    return (self);
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -188,6 +204,14 @@
 {
     //we need to remove observers here.
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
+    [self stopLoggingBWSInterfaceEvents];
+    
+    [[self biographicalDataButton] stopLoggingBWSInterfaceEvents];
+    [[self editButton] stopLoggingBWSInterfaceEvents];
+    [[self deleteButton] stopLoggingBWSInterfaceEvents];
+    [[self addButton] stopLoggingBWSInterfaceEvents];
+    [[self duplicateRowButton] stopLoggingBWSInterfaceEvents];
 }
 
 - (void)setAppearDisabled:(BOOL)yesOrNo animated:(BOOL)animated
@@ -705,8 +729,6 @@
         cell.reuseIdentifier = CellIdentifier;
         CGSize theSize = [self GMGridView:gridView sizeForItemsInInterfaceOrientation:UIInterfaceOrientationPortrait];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
-        //turn on gesture logging for new cells
-        [cell startAutomaticGestureLogging:YES];
     }
 
     cell.item = [orderedItems objectAtIndex:index];

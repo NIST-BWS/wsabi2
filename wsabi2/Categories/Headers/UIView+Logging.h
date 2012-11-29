@@ -30,7 +30,6 @@ static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
 
 -(UIImage*) screenshot;
 
--(void) startAutomaticGestureLogging:(BOOL)recursive;
 -(void) addLongPressGestureLogging:(BOOL)recursive withThreshold:(float)seconds;
 
 -(NSString*) baseLogString:(NSString*)eventType withLocalPoint:(CGPoint)localPoint withWindowPoint:(CGPoint)globalPoint;

@@ -192,9 +192,6 @@
 //    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
 //    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self.view addGestureRecognizer:swipeLeft];
-    
-     //enable touch logging
-    [self.view startAutomaticGestureLogging:YES];
 
     //update from Core Data
     [self configureView];
@@ -234,9 +231,37 @@
 
 - (void)viewDidUnload
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [super viewDidUnload];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    // Touch logging
+    [[self modalityButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self deviceButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self annotateButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self modalityButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self captureButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    // Touch logging
+    [[self modalityButton] stopLoggingBWSInterfaceEvents];
+    [[self deviceButton] stopLoggingBWSInterfaceEvents];
+    [[self annotateButton] stopLoggingBWSInterfaceEvents];
+    [[self modalityButton] stopLoggingBWSInterfaceEvents];
+    [[self captureButton] stopLoggingBWSInterfaceEvents];
+    [[self annotationTableView] stopLoggingBWSInterfaceEvents];
+    [[self annotationNotesTableView] stopLoggingBWSInterfaceEvents];
+    
+    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -700,7 +725,7 @@
             cell.accessoryView = nil;
         }
         
-        
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         return cell;
     }
     else if (aTableView == self.annotationNotesTableView) {
@@ -715,9 +740,6 @@
             textView.backgroundColor = [UIColor clearColor];
             
             [cell.contentView addSubview:textView];
-            //enable touch logging for new cells
-            [cell startAutomaticGestureLogging:YES];
-            
         }
         else {
             for (int i = 0; i < [cell.contentView.subviews count]; i++) {
@@ -733,11 +755,18 @@
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         return cell;
     }
 
     return nil;
     
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle ==  UITableViewCellEditingStyleDelete)
+        [[tableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
 
 /*
