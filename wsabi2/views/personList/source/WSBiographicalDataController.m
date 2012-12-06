@@ -551,7 +551,7 @@
     
     //Log this.
     if (textCell)
-        [[textCell rightTextField] logTextFieldStarted:indexPath];
+        [[textCell rightTextField] logTextEntryBegan];
 }
 
 -(void) textFieldDidEndEditingWithIndexPath:(NSIndexPath *)indexPath
@@ -562,7 +562,7 @@
     
     //Log this.
     if (textCell)
-        [[textCell rightTextField] logTextFieldEnded:indexPath];
+        [[textCell rightTextField] logTextEntryEnded];
 }
 
 
@@ -716,20 +716,20 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField)
-        [textField logTextFieldStarted:nil];
+        [textField logTextEntryBegan];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField)
-        [textField logTextFieldEnded:nil];
+        [textField logTextEntryEnded];
 }
 
 #pragma mark - UITextView delegate
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if (textView) 
-        [textView logTextViewStarted:nil];
+        [textView logTextEntryBegan];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -741,7 +741,7 @@
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
     if (textView)
-        [textView logTextViewEnded:nil];
+        [textView logTextEntryEnded];
 }
 
 #pragma mark - UIScrollView delegate

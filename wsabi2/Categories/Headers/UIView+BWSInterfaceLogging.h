@@ -52,6 +52,11 @@ static NSString * const kBWSInterfaceEventTypeUnknown = @"unknown";
 static NSString * const kBWSInterfaceEventDescriptionPresented = @"presented";
 /// View disappeared
 static NSString * const kBWSInterfaceEventDescriptionDismissed = @"dismissed";
+/// Text entry began
+static NSString * const kBWSInterfaceEventDescriptionTextEntryBegan = @"textEntryBegin";
+/// Text entry ended
+static NSString * const kBWSInterfaceEventDescriptionTextEntryEnded = @"textEntryEnd";
+
 
 /// Log information about user interaction with interface elements
 @interface UIView (BWSLogging)
@@ -80,6 +85,11 @@ static NSString * const kBWSInterfaceEventDescriptionDismissed = @"dismissed";
 -(void) logViewDismissed;
 /// Generic view dismissed via tap
 -(void) logViewDismissedViaTapAtPoint:(CGPoint)point;
+
+/// Text field became first responder
+- (void)logTextEntryBegan;
+/// Text field resigned first responder
+- (void)logTextEntryEnded;
 
 
 /// Obtain the textual description of an event type.

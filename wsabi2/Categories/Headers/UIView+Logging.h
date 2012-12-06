@@ -38,11 +38,6 @@ static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
 -(void) pinchDetected:(UIPinchGestureRecognizer*)recog;
 -(void) longPressDetected:(UILongPressGestureRecognizer*)recog;
 
--(void) logTextFieldStarted:(NSIndexPath*)position;
--(void) logTextFieldEnded:(NSIndexPath*)position;
--(void) logTextViewStarted:(NSIndexPath*)position;
--(void) logTextViewEnded:(NSIndexPath*)position;
-
 -(void) logScrollStarted;
 -(void) logScrollEnded;
 

@@ -127,6 +127,24 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                point.y);
 }
 
+#pragma mark - Text Entry Logging
+
+- (void)logTextEntryBegan
+{
+    DDLogError(@"********** %@ (%@), %@",
+               [self accessibilityLabel],
+               [self class],
+               kBWSInterfaceEventDescriptionTextEntryBegan);
+}
+
+- (void)logTextEntryEnded
+{
+    DDLogError(@"********** %@ (%@), %@",
+               [self accessibilityLabel],
+               [self class],
+               kBWSInterfaceEventDescriptionTextEntryEnded);
+}
+
 #pragma mark - Start/Stop
 
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType

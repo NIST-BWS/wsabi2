@@ -204,55 +204,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 
-#pragma mark Text Field & Text View logging
--(void) logTextFieldStarted:(NSIndexPath*)position
-{
-    NSMutableString *resultString = [[self baseLogString:@"text field started editing" 
-                                          withLocalPoint:[self dummyPoint]
-                                         withWindowPoint:[self dummyPoint]] mutableCopy];
-    
-    if (position) {
-        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
-    }
-    DDLogError(resultString);
-}
-
--(void) logTextFieldEnded:(NSIndexPath*)position
-{
-    NSMutableString *resultString = [[self baseLogString:@"text field finished editing" 
-                                    withLocalPoint:[self dummyPoint]
-                                  withWindowPoint:[self dummyPoint]] mutableCopy];
-    
-    if (position) {
-        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
-    }
-    DDLogError(resultString);
-}
-
--(void) logTextViewStarted:(NSIndexPath*)position
-{
-    NSMutableString *resultString = [[self baseLogString:@"text view started editing" 
-                                          withLocalPoint:[self dummyPoint]
-                                         withWindowPoint:[self dummyPoint]] mutableCopy];
-    
-    if (position) {
-        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
-    }
-    DDLogError(resultString);
-}
-
--(void) logTextViewEnded:(NSIndexPath*)position
-{
-    NSMutableString *resultString = [[self baseLogString:@"text view finished editing" 
-                                          withLocalPoint:[self dummyPoint]
-                                         withWindowPoint:[self dummyPoint]] mutableCopy];
-    
-    if (position) {
-        [resultString appendFormat:@",s%d,r%d",position.section, position.row];
-    }
-    DDLogError(resultString);
-}
-
 //
 // FIXME: There only needs to be one method (-logEvent:) and many constants
 //

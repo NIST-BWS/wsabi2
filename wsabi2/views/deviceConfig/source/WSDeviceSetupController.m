@@ -505,7 +505,8 @@
             }
         }
         
-        cell.accessibilityLabel = cell.textLabel.text;
+        cell.accessibilityLabel = cell.leftLabel.text;
+        cell.rightTextField.accessibilityLabel = cell.accessibilityLabel;
         return cell;
     }
     else {
@@ -635,8 +636,14 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [textField logTextEntryBegan];
+}
+
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
+    [textField logTextEntryEnded];
     [textField resignFirstResponder];
 }
 

@@ -830,7 +830,7 @@
 #pragma mark - UITextView delegate
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    [textView logTextViewStarted:nil];
+    [textView logTextEntryBegan];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -841,7 +841,7 @@
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
     [textView resignFirstResponder];
-    [textView logTextViewEnded:nil];
+    [textView logTextEntryEnded];
 }
 
 
