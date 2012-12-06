@@ -224,6 +224,7 @@
                     break;
             }
             [cell setAccessibilityLabel:cell.leftLabel.text];
+            [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
             return cell;
         }
         
@@ -340,7 +341,8 @@
             cell.rightTextField.returnKeyType = UIReturnKeyNext;                    
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-            cell.accessibilityLabel = cell.textLabel.text;
+            cell.accessibilityLabel = cell.leftLabel.text;
+            [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
             
             return cell;
         }
@@ -364,7 +366,8 @@
             
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-            cell.accessibilityLabel = cell.textLabel.text;
+            cell.accessibilityLabel = cell.leftLabel.text;
+            [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
 
             return cell;
         }
@@ -400,6 +403,7 @@
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessibilityLabel = @"Notes";
+            textView.accessibilityLabel = cell.accessibilityLabel;
 
             return cell;
         }
