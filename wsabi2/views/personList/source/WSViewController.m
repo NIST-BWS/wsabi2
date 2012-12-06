@@ -433,7 +433,15 @@
         
         cell = [nibViews objectAtIndex: 0];
         cell.delegate = self;
+        
         [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell biographicalDataButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell editButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell deleteButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell addButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell duplicateRowButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell deletePersonOverlayViewCancelButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+        [[cell deletePersonOverlayViewDeleteButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
