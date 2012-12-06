@@ -101,6 +101,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                kBWSInterfaceEventDescriptionDismissed);
 }
 
+- (void)logViewPresented
+{
+    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+               [self accessibilityLabel],
+               [self class],
+               kBWSInterfaceEventDescriptionPresented);
+}
+
+- (void)logViewDismissed
+{
+    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+               [self accessibilityLabel],
+               [self class],
+               kBWSInterfaceEventDescriptionDismissed);
+}
+
+- (void)logViewDismissedViaTapAtPoint:(CGPoint)point
+{
+    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+               [self accessibilityLabel],
+               [self class],
+               kBWSInterfaceEventDescriptionDismissed,
+               point.x,
+               point.y);
+}
+
 #pragma mark - Start/Stop
 
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType

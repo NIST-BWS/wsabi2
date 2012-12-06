@@ -74,6 +74,13 @@ static NSString * const kBWSInterfaceEventDescriptionDismissed = @"dismissed";
 /// PopoverController dismissed
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController;
 
+/// Generic view presented
+-(void) logViewPresented;
+/// Generic view dismissed
+-(void) logViewDismissed;
+/// Generic view dismissed via tap
+-(void) logViewDismissedViaTapAtPoint:(CGPoint)point;
+
 
 /// Obtain the textual description of an event type.
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;

@@ -282,28 +282,4 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogError(resultString);
 }
 
--(void) logViewPresented
-{
-    NSString *resultString = [self baseLogString:@"view presented"
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
-
--(void) logViewDismissed
-{
-    NSString *resultString = [self baseLogString:@"view dismissed"
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
-
--(void) logViewDismissedViaTapAtPoint:(CGPoint)point
-{
-    NSString *resultString = [self baseLogString:@"view dismissed via tap"
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:point];
-    DDLogError(resultString);
-}
-
 @end
