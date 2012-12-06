@@ -729,7 +729,7 @@
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
-    [self.view logPopoverHidden];
+    [self.view logPopoverControllerDismissed:popoverController];
 }
 
 #pragma mark - UIScrollView delegate (for logging)

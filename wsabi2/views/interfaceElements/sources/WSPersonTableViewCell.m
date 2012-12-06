@@ -442,6 +442,7 @@
     cap.delegate = self;
     
     UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:cap];
+    tempNav.view.accessibilityLabel = @"Biographical Data";
 
     if (!biographicalPopover) {
         biographicalPopover = [[UIPopoverController alloc] initWithContentViewController:tempNav];
@@ -460,8 +461,8 @@
                                        inView:self 
                      permittedArrowDirections:(UIPopoverArrowDirectionLeft) 
                                      animated:YES];
-    //log this
-    [self logPopoverShownFrom:self.biographicalDataButton];
+
+    [self.biographicalDataButton logPopoverControllerPresented:biographicalPopover];
 }
 
 -(IBAction)addItemButtonPressed:(id)sender
@@ -490,6 +491,7 @@
 
     //dismiss the capture popover
     [capturePopover dismissPopoverAnimated:YES];
+    [(UIView *)sender logPopoverControllerDismissed:capturePopover];
 
     ((UITableView*)self.superview).scrollEnabled = YES;
 
@@ -754,8 +756,10 @@
     ((UITableView*)self.superview).scrollEnabled = NO;
     
     // Force a redraw of the popover so that orientation is not reused
-    if ([capturePopover isPopoverVisible])
+    if ([capturePopover isPopoverVisible]) {
+        [self logPopoverControllerDismissed:capturePopover];
         [capturePopover dismissPopoverAnimated:NO];
+    }
     
     WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
@@ -854,8 +858,7 @@
                                       animated:YES];
         
         //log this
-        [self logPopoverShownFrom:activeCell];
-
+        [activeCell logPopoverControllerPresented:capturePopover];
     }
     else
     {
@@ -1077,7 +1080,7 @@
     //make sure nothing is selected.
     [self selectItem:nil];
 
-    [self logPopoverHidden];
+    [self logPopoverControllerDismissed:popoverController];
 }
 
 @end

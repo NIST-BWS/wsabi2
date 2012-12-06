@@ -83,6 +83,24 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                kBWSInterfaceEventDescriptionDismissed);
 }
 
+- (void)logPopoverControllerPresented:(UIPopoverController *)popoverController
+{
+    DDLogError(@"********** %@[<-%@ (%@)] (%@), %@",
+               [[[popoverController contentViewController] view] accessibilityLabel],
+               [self accessibilityLabel],
+               [self class],
+               [popoverController class],
+               kBWSInterfaceEventDescriptionPresented);
+}
+
+- (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController
+{
+    DDLogError(@"********** %@ (%@), %@",
+               [[[popoverController contentViewController] view] accessibilityLabel],
+               [popoverController class],
+               kBWSInterfaceEventDescriptionDismissed);
+}
+
 #pragma mark - Start/Stop
 
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType

@@ -263,41 +263,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 // FIXME: There only needs to be one method (-logEvent:) and many constants
 //
 
-#pragma mark Popover logging
--(void) logPopoverShownFrom:(UIView*)source
-{
-//    //FIXME: Make this more useful!
-//    NSMutableString *resultString = [@"Displaying a popover" mutableCopy];
-//    if (source) {
-//        [resultString appendFormat:@" from %@",[source class]];
-//    }
-    
-    //FIXME: Should we use the source info for something, or does it always
-    //duplicate the calling object?
-    NSString *resultString;
-//    if (source) {
-//        resultString = [self baseLogString:@"popover opened" 
-//                            withLocalPoint:[self dummyPoint]
-//                           withWindowPoint:[self dummyPoint]];
-//
-//    }
-//    else
-//    {
-        resultString = [self baseLogString:@"popover opened" 
-                            withLocalPoint:[self dummyPoint]
-                           withWindowPoint:[self dummyPoint]];
-//    }
-    
-    DDLogError(resultString);
-}
-
--(void) logPopoverHidden
-{
-    NSString *resultString = [self baseLogString:@"popover closed" 
-                        withLocalPoint:[self dummyPoint]
-                       withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
 
 #pragma mark System event logging
 

@@ -69,6 +69,12 @@ static NSString * const kBWSInterfaceEventDescriptionDismissed = @"dismissed";
 /// the same as tapping the invisible "Cancel" button.
 - (void)logActionSheetDismissed:(UIActionSheet *)actionSheet viaButtonAtIndex:(NSInteger)buttonIndex;
 
+/// PopoverController presented
+- (void)logPopoverControllerPresented:(UIPopoverController *)popoverController;
+/// PopoverController dismissed
+- (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController;
+
+
 /// Obtain the textual description of an event type.
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
 
