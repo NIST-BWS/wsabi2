@@ -223,7 +223,7 @@
                 default:
                     break;
             }
-   
+            [cell setAccessibilityLabel:cell.leftLabel.text];
             return cell;
         }
         
@@ -242,6 +242,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
             cell.textLabel.text = @"DOB";
+            cell.accessibilityLabel = @"Date of Birth";
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateStyle = NSDateFormatterMediumStyle;
             cell.detailTextLabel.text = ([datesOfBirth count] > 0) ? [formatter stringFromDate:[datesOfBirth objectAtIndex:0]] : nil;
@@ -262,6 +263,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         cell.textLabel.text = @"Gender";
+        cell.accessibilityLabel = cell.textLabel.text;
         cell.detailTextLabel.text = self.person.gender;
         return cell;
     }
@@ -281,6 +283,7 @@
 
             cell.textLabel.text = @"Hair color";
             cell.detailTextLabel.text = self.person.hairColor;
+            cell.accessibilityLabel = cell.textLabel.text;
             return cell;
         }
         else if (indexPath.row == kRowRace) {
@@ -297,6 +300,7 @@
 
             cell.textLabel.text = @"Race";
             cell.detailTextLabel.text = self.person.race;
+            cell.accessibilityLabel = cell.textLabel.text;
             return cell;
         }
         else if (indexPath.row == kRowEyes) {
@@ -313,6 +317,7 @@
 
             cell.textLabel.text = @"Eye color";
             cell.detailTextLabel.text = self.person.eyeColor;
+            cell.accessibilityLabel = cell.textLabel.text;
             return cell;
         }
         else if (indexPath.row == kRowHeight) {
@@ -335,7 +340,7 @@
             cell.rightTextField.returnKeyType = UIReturnKeyNext;                    
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-
+            cell.accessibilityLabel = cell.textLabel.text;
             
             return cell;
         }
@@ -359,6 +364,7 @@
             
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+            cell.accessibilityLabel = cell.textLabel.text;
 
             return cell;
         }
@@ -393,6 +399,7 @@
 
             //Disables UITableViewCell from accidentally becoming selected.
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessibilityLabel = @"Notes";
 
             return cell;
         }
