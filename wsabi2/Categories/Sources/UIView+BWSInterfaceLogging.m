@@ -54,6 +54,35 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogError([self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
 }
 
+#pragma mark - Presentation/Dismissal Logging
+
+- (void)logActionSheetPresented:(UIActionSheet *)actionSheet
+{
+    NSMutableString *buttonTitles = [[NSMutableString alloc] init];
+    for (NSUInteger i = 0; i < [actionSheet numberOfButtons]; i++) {
+        [buttonTitles appendString:[actionSheet buttonTitleAtIndex:i]];
+        if (i != ([actionSheet numberOfButtons] - 1))
+            [buttonTitles appendString:@", "];
+    }
+    
+    DDLogError(@"********** %@:[%@] (%@->%@ (%@)), %@",
+               [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
+               buttonTitles,
+               [actionSheet class],
+               [self class],
+               [self accessibilityLabel],
+               kBWSInterfaceEventDescriptionPresented);
+}
+
+- (void)logActionSheetDismissed:(UIActionSheet *)actionSheet viaButtonAtIndex:(NSInteger)buttonIndex
+{
+    DDLogError(@"********** %@:[%@] (%@), %@",
+               [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
+               [actionSheet buttonTitleAtIndex:buttonIndex],
+               [actionSheet class],
+               kBWSInterfaceEventDescriptionDismissed);
+}
+
 #pragma mark - Start/Stop
 
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType

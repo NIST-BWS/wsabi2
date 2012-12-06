@@ -44,6 +44,15 @@ static NSString * const kBWSInterfaceEventTypePinchEndedDescription = @"pinchEnd
 /// Unknown event
 static NSString * const kBWSInterfaceEventTypeUnknown = @"unknown";
 
+//
+// Descriptions of other interface events
+//
+
+/// View appeared
+static NSString * const kBWSInterfaceEventDescriptionPresented = @"presented";
+/// View disappeared
+static NSString * const kBWSInterfaceEventDescriptionDismissed = @"dismissed";
+
 /// Log information about user interaction with interface elements
 @interface UIView (BWSLogging)
 
@@ -51,6 +60,14 @@ static NSString * const kBWSInterfaceEventTypeUnknown = @"unknown";
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
 /// Stop logging all events.
 - (void)stopLoggingBWSInterfaceEvents;
+
+/// ActionSheet presented
+- (void)logActionSheetPresented:(UIActionSheet *)actionSheet;
+/// ActionSheet dismissed by tapping a button
+/// @note
+/// On iPad, tapping outside of an ActionSheet within a Popover is reported
+/// the same as tapping the invisible "Cancel" button.
+- (void)logActionSheetDismissed:(UIActionSheet *)actionSheet viaButtonAtIndex:(NSInteger)buttonIndex;
 
 /// Obtain the textual description of an event type.
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
