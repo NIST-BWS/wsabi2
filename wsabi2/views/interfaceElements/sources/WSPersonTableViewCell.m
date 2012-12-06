@@ -536,8 +536,7 @@
     
     [deletePersonSheet showFromRect:self.deleteButton.frame inView:self animated:YES];
     
-    //Log the action sheet
-    [((UIView*)sender) logActionSheetShown:YES];
+    [(UIView *)sender logActionSheetPresented:deletePersonSheet];
 }
 
 - (IBAction)deletePersonOverlayDeletePersonButtonPressed:(id)sender
@@ -608,7 +607,7 @@
     }
     
     //Log the action sheet's closing
-    [self logActionSheetHidden];
+    [self logActionSheetDismissed:actionSheet viaButtonAtIndex:buttonIndex];
 }
 
 #pragma mark - Biographical Data delegate
@@ -915,15 +914,12 @@
     // Might return nil if cell not loaded for the specific index
     if ((activeCell = [self.itemGridView cellForItemAtIndex:index])) { 
         [deleteItemSheet showFromRect:activeCell.bounds inView:activeCell animated:YES];
-        //Log the action sheet
-        [activeCell logActionSheetShown:YES];
+        [activeCell logActionSheetPresented:deleteItemSheet];
     }
     else {
         //default to showing this from the entire view.
         [deleteItemSheet showFromRect:self.bounds inView:self animated:YES];
-        //Log the action sheet
-        [self logActionSheetShown:YES];
-        
+        [self logActionSheetPresented:deleteItemSheet];
     }
 
 }

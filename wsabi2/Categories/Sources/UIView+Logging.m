@@ -299,25 +299,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogError(resultString);
 }
 
-#pragma mark Action Sheet logging
--(void) logActionSheetShown:(BOOL)shownInPopover
-{
-    NSString *sheetType = shownInPopover ? @"action sheet opened in popover" : @"action sheet opened";
-    NSString *resultString = [self baseLogString:sheetType 
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-
-}
-
--(void) logActionSheetHidden
-{
-    NSString *resultString = [self baseLogString:@"action sheet closed" 
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
-
 #pragma mark System event logging
 
 -(void) logEnterBackground

@@ -523,9 +523,8 @@
     }
 
     //Log the action sheet (not shown in a popover)
-    if (didShowActionSheet) {
-        [[aTableView cellForRowAtIndexPath:indexPath] logActionSheetShown:NO];
-    }
+    if (didShowActionSheet)
+        [[aTableView cellForRowAtIndexPath:indexPath] logActionSheetPresented:nil];
 
     //deselect the row afterwards
     [aTableView deselectRowAtIndexPath:indexPath animated:YES];

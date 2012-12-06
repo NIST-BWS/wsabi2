@@ -50,9 +50,6 @@ static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
 -(void) logPopoverShownFrom:(UIView*)source;
 -(void) logPopoverHidden;
 
--(void) logActionSheetShown:(BOOL)shownInPopover;
--(void) logActionSheetHidden;
-
 -(void) logEnterBackground;
 -(void) logEnterForeground;
 

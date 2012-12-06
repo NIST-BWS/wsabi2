@@ -65,7 +65,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [buttonTitles appendString:@", "];
     }
     
-    DDLogError(@"********** %@:[%@] (%@->%@ (%@)), %@",
+    DDLogError(@"********** %@:[%@] (%@<-%@ (%@)), %@",
                [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
                buttonTitles,
                [actionSheet class],
