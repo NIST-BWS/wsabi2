@@ -103,7 +103,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logViewPresented
 {
-    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+    DDLogError(@"********** %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionPresented);
@@ -111,7 +111,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logViewDismissed
 {
-    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+    DDLogError(@"********** %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionDismissed);
