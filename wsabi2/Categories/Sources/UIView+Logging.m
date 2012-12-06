@@ -198,12 +198,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self scrollLogHelper:@"scroll started"];
 }
 
--(void) logScrollChanged
-{
-    [self scrollLogHelper:@"scroll moved"];
-
-}
-
 -(void) logScrollEnded
 {
     [self scrollLogHelper:@"scroll ended"];

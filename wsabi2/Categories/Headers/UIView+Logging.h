@@ -44,7 +44,6 @@ static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
 -(void) logTextViewEnded:(NSIndexPath*)position;
 
 -(void) logScrollStarted;
--(void) logScrollChanged;
 -(void) logScrollEnded;
 
 -(void) logEnterBackground;

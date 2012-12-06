@@ -738,11 +738,6 @@
     [self.tableView logScrollStarted];
 }
 
--(void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.tableView logScrollChanged];
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self.tableView logScrollEnded];
