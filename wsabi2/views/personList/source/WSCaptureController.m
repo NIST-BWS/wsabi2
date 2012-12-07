@@ -376,14 +376,19 @@
                                                       otherButtonTitles:@"Annotate", nil];
         annotateClearActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [annotateClearActionSheet showInView:self.view];
-    } else
+    } else {
         //just flip to the annotation.
         [self showFlipSideAnimated:YES];
+        [self.frontContainer logViewDismissed];
+        [self.backContainer logViewPresented];
+    }
 }
 
 -(IBAction)doneButtonPressed:(id)sender
 {
     [self showFrontSideAnimated:YES];
+    [self.backContainer logViewDismissed];
+    [self.frontContainer logViewPresented];
 }
 
 -(IBAction)modalityButtonPressed:(id)sender
@@ -463,8 +468,11 @@
             deleteConfirmActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
             [deleteConfirmActionSheet showInView:self.view];
         // Annotate
-        } else if (buttonIndex == actionSheet.firstOtherButtonIndex)
+        } else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
             [self showFlipSideAnimated:YES];
+            [self.frontContainer logViewDismissed];
+            [self.backContainer logViewPresented];
+        }
     // Clear, cancel
     } else if (actionSheet == deleteConfirmActionSheet) {
         // Clear
