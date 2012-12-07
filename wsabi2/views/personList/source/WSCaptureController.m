@@ -751,6 +751,7 @@
             } 
         }
         textView.text = self.item.notes;  
+        textView.accessibilityLabel = @"Notes";
         
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
