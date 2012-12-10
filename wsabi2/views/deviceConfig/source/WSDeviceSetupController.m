@@ -493,7 +493,6 @@
             cell.rightTextField.autocorrectionType = UITextAutocorrectionTypeNo;
             cell.rightTextField.keyboardType = UIKeyboardTypeURL;
             cell.rightTextField.tag = TAG_NETWORK_ADDRESS;
-            cell.rightTextField.delegate = self;
         }
         else if (indexPath.row == 1) {
             cell.leftLabel.text = @"Name";
@@ -501,10 +500,10 @@
                 cell.rightTextField.text = self.deviceDefinition.name;
                 cell.rightTextField.tag = TAG_NAME;
                 cell.rightTextField.keyboardType = UIKeyboardTypeAlphabet;
-                cell.rightTextField.delegate = nil; //don't listen for changes from this field.
             }
         }
         
+        cell.rightTextField.delegate = self;
         cell.accessibilityLabel = cell.leftLabel.text;
         cell.rightTextField.accessibilityLabel = cell.accessibilityLabel;
         return cell;
