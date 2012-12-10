@@ -66,9 +66,14 @@
 -(void) raceSelected:(NSNumber *)selectedIndex element:(id)element;
 -(void) eyeColorSelected:(NSNumber *)selectedIndex element:(id)element;
 
+- (IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
+
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet UITableView *bioDataTable;
 
 @property (nonatomic, unsafe_unretained) id<WSBiographicalDataDelegate> delegate;
+
+@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
+@property (nonatomic, assign) UIPopoverController *popoverController;
 
 @end

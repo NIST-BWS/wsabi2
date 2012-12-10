@@ -229,12 +229,6 @@
     
 }
 
-- (void)viewDidUnload
-{
-
-    [super viewDidUnload];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     // Touch logging
@@ -245,6 +239,16 @@
     [[self captureButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -619,6 +623,21 @@
 
 //        }
 //    }
+}
+
+- (IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [sender locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            [self.view logPopoverControllerDismissed:self.popoverController viaTapAtPoint:location];
+        }
+    }
 }
 
 #pragma mark - TableView data source/delegate

@@ -12,6 +12,7 @@
 @synthesize bioDataTable;
 @synthesize person;
 @synthesize delegate;
+@synthesize popoverController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,11 +54,19 @@
 
 }
 
-- (void)viewDidUnload
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // Remove recognizer when view isn't visible
+    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -69,6 +78,21 @@
 -(CGSize) contentSizeForViewInPopover
 {
     return CGSizeMake(320, 600);
+}
+
+- (IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        // Get coordinates in the window of tap
+        CGPoint location = [sender locationInView:nil];
+        
+        // Check if tap was within view
+        if (![self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+            [self.view logPopoverControllerDismissed:self.popoverController viaTapAtPoint:location];
+        }
+    }
 }
 
 #pragma mark - Property setters

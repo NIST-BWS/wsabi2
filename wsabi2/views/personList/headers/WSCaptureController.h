@@ -45,6 +45,7 @@
 -(IBAction)modalityButtonPressed:(id)sender;
 -(IBAction)deviceButtonPressed:(id)sender;
 -(IBAction)captureButtonPressed:(id)sender;
+-(IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
 
 -(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
 -(void) updateAnnotationLabel;
@@ -73,6 +74,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
 @property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
 @property (weak, nonatomic) IBOutlet UIImageView *annotationPresentImageView;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 
 @property (nonatomic, unsafe_unretained) id<WSCaptureDelegate> delegate;
 
