@@ -76,8 +76,13 @@ static NSString * const kBWSInterfaceEventDescriptionTextEntryEnded = @"textEntr
 
 /// PopoverController presented
 - (void)logPopoverControllerPresented:(UIPopoverController *)popoverController;
+/// PopoverController presented and point is known
+- (void)logPopoverControllerPresented:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point;
 /// PopoverController dismissed
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController;
+/// PopoverController dismissed and point is known
+- (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point;
+
 
 /// Generic view presented
 -(void) logViewPresented;

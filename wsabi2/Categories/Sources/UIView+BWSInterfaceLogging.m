@@ -93,12 +93,34 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                kBWSInterfaceEventDescriptionPresented);
 }
 
+- (void)logPopoverControllerPresented:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
+{
+    DDLogError(@"********** %@[<-%@ (%@)] (%@), %@ (%.0f, %.0f)",
+               [[[popoverController contentViewController] view] accessibilityLabel],
+               [self accessibilityLabel],
+               [self class],
+               [popoverController class],
+               kBWSInterfaceEventDescriptionPresented,
+               point.x,
+               point.y);
+}
+
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController
 {
     DDLogError(@"********** %@ (%@), %@",
                [[[popoverController contentViewController] view] accessibilityLabel],
                [popoverController class],
                kBWSInterfaceEventDescriptionDismissed);
+}
+
+- (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
+{
+    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+               [[[popoverController contentViewController] view] accessibilityLabel],
+               [popoverController class],
+               kBWSInterfaceEventDescriptionDismissed,
+               point.x,
+               point.y);
 }
 
 - (void)logViewPresented
