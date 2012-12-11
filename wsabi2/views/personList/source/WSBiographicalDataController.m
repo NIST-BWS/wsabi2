@@ -57,6 +57,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    [[self bioDataTable] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self bioDataTable] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
 
     [super viewDidAppear:animated];
