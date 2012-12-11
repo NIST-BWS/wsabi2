@@ -170,27 +170,4 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 
-//
-// FIXME: There only needs to be one method (-logEvent:) and many constants
-//
-
-
-#pragma mark System event logging
-
--(void) logEnterBackground
-{
-    NSString *resultString = [self baseLogString:@"app entered background" 
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
-
--(void) logEnterForeground
-{
-    NSString *resultString = [self baseLogString:@"app entered foreground" 
-                                  withLocalPoint:[self dummyPoint]
-                                 withWindowPoint:[self dummyPoint]];
-    DDLogError(resultString);
-}
-
 @end

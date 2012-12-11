@@ -38,7 +38,4 @@ static NSString * const UIViewLoggingPopoverClosed = @"popover closed";
 -(void) pinchDetected:(UIPinchGestureRecognizer*)recog;
 -(void) longPressDetected:(UILongPressGestureRecognizer*)recog;
 
--(void) logEnterBackground;
--(void) logEnterForeground;
-
 @end
