@@ -86,6 +86,7 @@
                                              selector:@selector(stopItemCapture:)
                                                  name:kStopCaptureNotification
                                                object:nil];
+    [[self tableView] setAccessibilityLabel:@"Person List"];
 }
 
 - (void)viewDidUnload
