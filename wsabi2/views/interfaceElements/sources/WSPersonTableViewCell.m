@@ -851,6 +851,8 @@
                 showPopoverFromRect.origin.x += 90;
                 showPopoverFromRect.origin.y += 72;
                 break;
+            default:
+                break;
         }
         [capturePopover dismissPopoverAnimated:NO];
         [capturePopover presentPopoverFromRect:showPopoverFromRect
