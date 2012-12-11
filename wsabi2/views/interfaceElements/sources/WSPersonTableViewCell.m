@@ -908,7 +908,7 @@
     deleteItemSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:self
                                          cancelButtonTitle:@"Cancel"
-                                    destructiveButtonTitle:@"Delete Item"
+                                    destructiveButtonTitle:@"Confirm Delete Item"
                                          otherButtonTitles:nil];
     
     deletableItem = index; //mark this cell for deletion if the user confirms the action.
