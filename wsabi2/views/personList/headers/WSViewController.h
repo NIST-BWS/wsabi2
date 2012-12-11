@@ -19,7 +19,7 @@
 #import "NBCLDeviceLink.h"
 #import "NBCLDeviceLinkConstants.h"
 
-@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,
+@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
                                                 UIPopoverControllerDelegate,
                                                 WSPersonTableViewCellDelegate, 
                                                 NSFetchedResultsControllerDelegate>

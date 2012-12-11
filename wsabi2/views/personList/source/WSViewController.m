@@ -85,7 +85,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopItemCapture:)
                                                  name:kStopCaptureNotification
-                                               object:nil];    
+                                               object:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -101,7 +102,6 @@
     
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self addFirstButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
-    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -110,7 +110,6 @@
     
     [[self tableView] stopLoggingBWSInterfaceEvents];
     [[self addFirstButton] stopLoggingBWSInterfaceEvents];
-    [[self tableView] stopLoggingBWSInterfaceEvents];
 }
 
 
@@ -731,6 +730,17 @@
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
     [self.view logPopoverControllerDismissed:aPopoverController];
+}
+
+#pragma mark - UIScrollView delegate (for logging)
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.tableView logScrollStarted];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.tableView logScrollEnded];
 }
 
 @end
