@@ -66,7 +66,7 @@
 								<string key="NSFrameSize">{768, 27}</string>
 								<reference key="NSSuperview" ref="203487457"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="264784661"/>
+								<reference key="NSNextKeyView" ref="968667143"/>
 								<string key="NSReuseIdentifierKey">_NS:569</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<float key="IBUIAlpha">0.0</float>
@@ -344,6 +344,7 @@
 								<string key="NSFrame">{{0, 162}, {768, 1}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -366,7 +367,7 @@
 										<string key="NSFrameSize">{768, 163}</string>
 										<reference key="NSSuperview" ref="968667143"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="144246228"/>
+										<reference key="NSNextKeyView" ref="280117466"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">1</int>
@@ -419,6 +420,7 @@
 												<string key="NSFrame">{{258, 20}, {230, 46}}</string>
 												<reference key="NSSuperview" ref="280117466"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="264784661"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -427,7 +429,7 @@
 												<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 												<int key="IBUIContentHorizontalAlignment">0</int>
 												<int key="IBUIContentVerticalAlignment">0</int>
-												<string key="IBUINormalTitle">Confirm Person Delete</string>
+												<string key="IBUINormalTitle">Confirm Delete Person</string>
 												<reference key="IBUIHighlightedTitleColor" ref="544964475"/>
 												<reference key="IBUINormalTitleColor" ref="544964475"/>
 												<reference key="IBUINormalTitleShadowColor" ref="509247112"/>
@@ -438,6 +440,7 @@
 										<string key="NSFrame">{{150, 39}, {508, 84}}</string>
 										<reference key="NSSuperview" ref="968667143"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="144246228"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="759430010"/>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
