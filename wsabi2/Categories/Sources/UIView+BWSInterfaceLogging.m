@@ -16,6 +16,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer;
 /// Scrolling recognizer callback
 - (void)BWSInterfaceEventScrollDetected:(UIPanGestureRecognizer *)recognizer;
+/// LongPress recognizer callback
+- (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer;
+
 
 /// @brief
 /// Obtain a string describing an event
@@ -93,6 +96,21 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     if (logString != nil)
         DDLogError(logString);
+}
+
+- (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer
+{
+    // Toll-free bridge UIGestureRecognizerEventState to BWSInterfaceEventState
+    switch ([recognizer state]) {
+        case UIGestureRecognizerStateBegan:
+            // FALLTHROUGH
+        case UIGestureRecognizerStateEnded:
+            DDLogError([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[recognizer state]]);
+            break;
+        default:
+            // Not interested
+            break;
+    }
 }
 
 #pragma mark - Presentation/Dismissal Logging
@@ -220,6 +238,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             break;
         case kBWSInterfaceEventTypeScroll:
             recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventScrollDetected:)];
+            break;
+        case kBWSInterfaceEventTypeLongPress:
+            recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventLongPressDetected:)];
             break;
         default:
             DDLogError(@"%@ logging currently unsupported", [UIView stringForBWSInterfaceEventType:eventType]);

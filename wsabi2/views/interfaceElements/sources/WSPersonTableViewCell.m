@@ -152,8 +152,7 @@
         
         [self.contentView insertSubview:self.itemGridView aboveSubview:self.duplicateRowButton]; //make sure drag & drop looks right by placing the grid above everything else.
         
-        //configure logging
-        [self.itemGridView addLongPressGestureLogging:YES withThreshold:0.3];
+        [[self itemGridView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeLongPress];
         
         //add notification listeners
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -206,6 +205,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
     [self stopLoggingBWSInterfaceEvents];
+    [[self itemGridView] stopLoggingBWSInterfaceEvents];
     
     [[self biographicalDataButton] stopLoggingBWSInterfaceEvents];
     [[self editButton] stopLoggingBWSInterfaceEvents];
