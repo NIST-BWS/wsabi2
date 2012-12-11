@@ -226,7 +226,7 @@
                                              selector:@selector(handleSensorSequenceFailed:) 
                                                  name:kSensorLinkSequenceFailed
                                                object:nil];
-    
+    [[self annotationTableView] setAccessibilityLabel:@"Annotations"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
