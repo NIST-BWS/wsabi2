@@ -725,11 +725,11 @@
 }
 
 #pragma mark - UIPopoverController delegate
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
-    [self.view logPopoverControllerDismissed:popoverController];
+    [self.view logPopoverControllerDismissed:aPopoverController];
 }
 
 #pragma mark - UIScrollView delegate (for logging)
