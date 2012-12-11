@@ -175,7 +175,6 @@
 		EA65DFD215483769006C826E /* symbol-notok.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCE15483769006C826E /* symbol-notok.png */; };
 		EA65DFD315483769006C826E /* symbol-ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFCF15483769006C826E /* symbol-ok@2x.png */; };
 		EA65DFD415483769006C826E /* symbol-notok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD015483769006C826E /* symbol-notok@2x.png */; };
-		EA65DFD515483769006C826E /* symbol-ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFD115483769006C826E /* symbol-ok@2x.png */; };
 		EA65DFEA154870FA006C826E /* capture-button-annotation-warning.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE6154870F9006C826E /* capture-button-annotation-warning.png */; };
 		EA65DFEB154870FA006C826E /* capture-button-annotation-warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE7154870F9006C826E /* capture-button-annotation-warning@2x.png */; };
 		EA65DFEC154870FA006C826E /* capture-button-annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DFE8154870F9006C826E /* capture-button-annotation.png */; };
@@ -1273,7 +1272,7 @@
 		EAF0F96914BC7B8C00544416 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = EAF0F96C14BC7B8C00544416 /* Build configuration list for PBXProject "wsabi2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1360,7 +1359,6 @@
 				EA65DFD215483769006C826E /* symbol-notok.png in Resources */,
 				EA65DFD315483769006C826E /* symbol-ok@2x.png in Resources */,
 				EA65DFD415483769006C826E /* symbol-notok@2x.png in Resources */,
-				EA65DFD515483769006C826E /* symbol-ok@2x.png in Resources */,
 				EA65DFEA154870FA006C826E /* capture-button-annotation-warning.png in Resources */,
 				EA65DFEB154870FA006C826E /* capture-button-annotation-warning@2x.png in Resources */,
 				EA65DFEC154870FA006C826E /* capture-button-annotation.png in Resources */,
@@ -1657,7 +1655,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1676,7 +1674,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
