@@ -52,7 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     CGPoint pointInWindow = [self convertPoint:point toView:nil];
     CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
     
-    return ([NSString stringWithFormat:@"********** %@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
+    return ([NSString stringWithFormat:@"<TL>: %@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
              [self accessibilityLabel],
              [self class],
              [UIView stringForBWSInterfaceEventType:interfaceEvent withState:state],
@@ -126,7 +126,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [buttonTitles appendString:@", "];
     }
     
-    DDLogError(@"********** %@:[%@] (%@<-%@ (%@)), %@",
+    DDLogError(@"<TL>: %@:[%@] (%@<-%@ (%@)), %@",
                [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
                buttonTitles,
                [actionSheet class],
@@ -137,7 +137,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logActionSheetDismissed:(UIActionSheet *)actionSheet viaButtonAtIndex:(NSInteger)buttonIndex
 {
-    DDLogError(@"********** %@:[%@] (%@), %@",
+    DDLogError(@"<TL>: %@:[%@] (%@), %@",
                [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
                [actionSheet buttonTitleAtIndex:buttonIndex],
                [actionSheet class],
@@ -146,7 +146,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logPopoverControllerPresented:(UIPopoverController *)popoverController
 {
-    DDLogError(@"********** %@[<-%@ (%@)] (%@), %@",
+    DDLogError(@"<TL>: %@[<-%@ (%@)] (%@), %@",
                [[[popoverController contentViewController] view] accessibilityLabel],
                [self accessibilityLabel],
                [self class],
@@ -156,7 +156,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logPopoverControllerPresented:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"********** %@[<-%@ (%@)] (%@), %@ (%.0f, %.0f)",
+    DDLogError(@"<TL>: %@[<-%@ (%@)] (%@), %@ (%.0f, %.0f)",
                [[[popoverController contentViewController] view] accessibilityLabel],
                [self accessibilityLabel],
                [self class],
@@ -168,7 +168,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController
 {
-    DDLogError(@"********** %@ (%@), %@",
+    DDLogError(@"<TL>: %@ (%@), %@",
                [[[popoverController contentViewController] view] accessibilityLabel],
                [popoverController class],
                kBWSInterfaceEventDescriptionDismissed);
@@ -176,7 +176,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+    DDLogError(@"<TL>: %@ (%@), %@ (%.0f, %.0f)",
                [[[popoverController contentViewController] view] accessibilityLabel],
                [popoverController class],
                kBWSInterfaceEventDescriptionDismissed,
@@ -186,7 +186,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logViewPresented
 {
-    DDLogError(@"********** %@ (%@), %@",
+    DDLogError(@"<TL>: %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionPresented);
@@ -194,7 +194,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logViewDismissed
 {
-    DDLogError(@"********** %@ (%@), %@",
+    DDLogError(@"<TL>: %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionDismissed);
@@ -202,7 +202,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logViewDismissedViaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"********** %@ (%@), %@ (%.0f, %.0f)",
+    DDLogError(@"<TL>: %@ (%@), %@ (%.0f, %.0f)",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionDismissed,
@@ -214,7 +214,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logTextEntryBegan
 {
-    DDLogError(@"********** %@ (%@), %@",
+    DDLogError(@"<TL>: %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionTextEntryBegan);
@@ -222,7 +222,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)logTextEntryEnded
 {
-    DDLogError(@"********** %@ (%@), %@",
+    DDLogError(@"<TL>: %@ (%@), %@",
                [self accessibilityLabel],
                [self class],
                kBWSInterfaceEventDescriptionTextEntryEnded);
