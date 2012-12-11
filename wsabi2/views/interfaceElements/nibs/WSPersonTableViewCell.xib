@@ -380,55 +380,67 @@
 										</object>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 									</object>
-									<object class="IBUIButton" id="144246228">
+									<object class="IBUIView" id="280117466">
 										<reference key="NSNextResponder" ref="968667143"/>
-										<int key="NSvFlags">301</int>
-										<string key="NSFrame">{{150, 59}, {230, 46}}</string>
+										<int key="NSvFlags">317</int>
+										<array class="NSMutableArray" key="NSSubviews">
+											<object class="IBUIButton" id="144246228">
+												<reference key="NSNextResponder" ref="280117466"/>
+												<int key="NSvFlags">301</int>
+												<string key="NSFrame">{{20, 20}, {230, 46}}</string>
+												<reference key="NSSuperview" ref="280117466"/>
+												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="323235840"/>
+												<string key="NSReuseIdentifierKey">_NS:9</string>
+												<bool key="IBUIOpaque">NO</bool>
+												<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+													<string key="IBUIAccessibilityLabel">Cancel Person Deletion</string>
+												</object>
+												<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+												<int key="IBUIContentHorizontalAlignment">0</int>
+												<int key="IBUIContentVerticalAlignment">0</int>
+												<string key="IBUINormalTitle">Cancel</string>
+												<reference key="IBUIHighlightedTitleColor" ref="544964475"/>
+												<reference key="IBUINormalTitleColor" ref="544964475"/>
+												<reference key="IBUINormalTitleShadowColor" ref="509247112"/>
+												<object class="IBUIFontDescription" key="IBUIFontDescription" id="473279027">
+													<int key="type">2</int>
+													<int key="size">2</int>
+												</object>
+												<object class="NSFont" key="IBUIFont" id="1063360032">
+													<string key="NSName">Helvetica-Bold</string>
+													<double key="NSSize">18</double>
+													<int key="NSfFlags">16</int>
+												</object>
+											</object>
+											<object class="IBUIButton" id="323235840">
+												<reference key="NSNextResponder" ref="280117466"/>
+												<int key="NSvFlags">301</int>
+												<string key="NSFrame">{{258, 20}, {230, 46}}</string>
+												<reference key="NSSuperview" ref="280117466"/>
+												<reference key="NSWindow"/>
+												<string key="NSReuseIdentifierKey">_NS:9</string>
+												<bool key="IBUIOpaque">NO</bool>
+												<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+													<string key="IBUIAccessibilityLabel">Confirm Person Deletion</string>
+												</object>
+												<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+												<int key="IBUIContentHorizontalAlignment">0</int>
+												<int key="IBUIContentVerticalAlignment">0</int>
+												<string key="IBUINormalTitle">Confirm Person Delete</string>
+												<reference key="IBUIHighlightedTitleColor" ref="544964475"/>
+												<reference key="IBUINormalTitleColor" ref="544964475"/>
+												<reference key="IBUINormalTitleShadowColor" ref="509247112"/>
+												<reference key="IBUIFontDescription" ref="473279027"/>
+												<reference key="IBUIFont" ref="1063360032"/>
+											</object>
+										</array>
+										<string key="NSFrame">{{150, 39}, {508, 84}}</string>
 										<reference key="NSSuperview" ref="968667143"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="323235840"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<bool key="IBUIOpaque">NO</bool>
-										<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
-											<string key="IBUIAccessibilityLabel">Cancel Person Deletion</string>
-										</object>
+										<reference key="IBUIBackgroundColor" ref="759430010"/>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<int key="IBUIContentHorizontalAlignment">0</int>
-										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUINormalTitle">Cancel</string>
-										<reference key="IBUIHighlightedTitleColor" ref="544964475"/>
-										<reference key="IBUINormalTitleColor" ref="544964475"/>
-										<reference key="IBUINormalTitleShadowColor" ref="509247112"/>
-										<object class="IBUIFontDescription" key="IBUIFontDescription" id="473279027">
-											<int key="type">2</int>
-											<int key="size">2</int>
-										</object>
-										<object class="NSFont" key="IBUIFont" id="1063360032">
-											<string key="NSName">Helvetica-Bold</string>
-											<double key="NSSize">18</double>
-											<int key="NSfFlags">16</int>
-										</object>
-									</object>
-									<object class="IBUIButton" id="323235840">
-										<reference key="NSNextResponder" ref="968667143"/>
-										<int key="NSvFlags">301</int>
-										<string key="NSFrame">{{388, 59}, {230, 46}}</string>
-										<reference key="NSSuperview" ref="968667143"/>
-										<reference key="NSWindow"/>
-										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<bool key="IBUIOpaque">NO</bool>
-										<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
-											<string key="IBUIAccessibilityLabel">Confirm Person Deletion</string>
-										</object>
-										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<int key="IBUIContentHorizontalAlignment">0</int>
-										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUINormalTitle">Confirm Person Delete</string>
-										<reference key="IBUIHighlightedTitleColor" ref="544964475"/>
-										<reference key="IBUINormalTitleColor" ref="544964475"/>
-										<reference key="IBUINormalTitleShadowColor" ref="509247112"/>
-										<reference key="IBUIFontDescription" ref="473279027"/>
-										<reference key="IBUIFont" ref="1063360032"/>
 									</object>
 								</array>
 								<string key="NSFrameSize">{768, 163}</string>
@@ -767,8 +779,7 @@
 						<reference key="object" ref="968667143"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="247030808"/>
-							<reference ref="144246228"/>
-							<reference ref="323235840"/>
+							<reference ref="280117466"/>
 						</array>
 						<reference key="parent" ref="352026532"/>
 						<string key="objectName">Delete Person Overlay</string>
@@ -780,14 +791,23 @@
 						<reference key="parent" ref="968667143"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">57</int>
-						<reference key="object" ref="323235840"/>
+						<int key="objectID">69</int>
+						<reference key="object" ref="280117466"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="144246228"/>
+							<reference ref="323235840"/>
+						</array>
 						<reference key="parent" ref="968667143"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">56</int>
 						<reference key="object" ref="144246228"/>
-						<reference key="parent" ref="968667143"/>
+						<reference key="parent" ref="280117466"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">57</int>
+						<reference key="object" ref="323235840"/>
+						<reference key="parent" ref="280117466"/>
 					</object>
 				</array>
 			</object>
@@ -822,12 +842,13 @@
 				<real value="2" key="57.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
 				<real value="0.0" key="57.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">68</int>
+			<int key="maxID">69</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
