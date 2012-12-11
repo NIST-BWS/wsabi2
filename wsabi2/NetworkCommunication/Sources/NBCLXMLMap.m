@@ -130,7 +130,7 @@
         }
         else if (strcmp([sourceObject objCType], @encode(unsigned long)) == 0) {
             typeName = @"xs:unsignedLong";
-            objectValue = [NSString stringWithFormat:@"%1.2f", [sourceObject unsignedLongValue]];
+            objectValue = [NSString stringWithFormat:@"%1.2lu", [sourceObject unsignedLongValue]];
             
         }
         else if (strcmp([sourceObject objCType], @encode(BOOL)) == 0) {
