@@ -238,7 +238,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 // even if cancelTouchesInView is set.
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return (YES);
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]])
+        return (YES);
+    return (NO);
 }
 
 - (void)stopLoggingBWSInterfaceEvents
