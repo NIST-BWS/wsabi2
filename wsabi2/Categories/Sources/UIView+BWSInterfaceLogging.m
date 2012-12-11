@@ -16,35 +16,59 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer;
 
 /// @brief
-/// Obtain a string describing a tap event
+/// Obtain a string describing an event
 /// @return
 /// String in the format:
 /// Item Description (Item Class), Event Type, (Local Touch Coordinate of Tap)
 /// [Global Touch Coordinate of Tap], Dimensions of Tapped Object
 /// (Top-Left Coordinate of Tapped Object)
+- (NSString *)logGenericBWSInterfaceEvent:(BWSInterfaceEventType)interfaceEvent atPoint:(CGPoint)point;
+
+/// Obtain a string describing a tap event
 - (NSString *)logBWSInterfaceEventTapAtPoint:(CGPoint)point;
+/// Obtain a string describing a scroll began event
+- (NSString *)logBWSInterfaceEventScrollBeganAtPoint:(CGPoint)point;
+/// Obtain a string describing a scroll ended event
+- (NSString *)logBWSInterfaceEventScrollEndedAtPoint:(CGPoint)point;
 
 @end
 
 @implementation UIView (BWSLogging)
 
-- (NSString *)logBWSInterfaceEventTapAtPoint:(CGPoint)point
+#pragma mark - BWS Interface Event Logging
+
+- (NSString *)logGenericBWSInterfaceEvent:(BWSInterfaceEventType)interfaceEvent atPoint:(CGPoint)point
 {
     CGPoint pointInWindow = [self convertPoint:point toView:nil];
     CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
-        
+    
     return ([NSString stringWithFormat:@"********** %@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
-                           [self accessibilityLabel],
-                           [self class],
-                           [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypeTap],
-                           point.x,
-                           point.y,
-                           pointInWindow.x,
-                           pointInWindow.y,
-                           self.frame.size.width,
-                           self.frame.size.height,
-                           viewInWindowRect.origin.x,
-                           viewInWindowRect.origin.y]);
+             [self accessibilityLabel],
+             [self class],
+             [UIView stringForBWSInterfaceEventType:interfaceEvent],
+             point.x,
+             point.y,
+             pointInWindow.x,
+             pointInWindow.y,
+             self.frame.size.width,
+             self.frame.size.height,
+             viewInWindowRect.origin.x,
+             viewInWindowRect.origin.y]);
+}
+
+- (NSString *)logBWSInterfaceEventTapAtPoint:(CGPoint)point
+{
+    return ([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeTap atPoint:point]);
+}
+
+- (NSString *)logBWSInterfaceEventScrollBeganAtPoint:(CGPoint)point
+{
+    return ([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeScrollBegan atPoint:point]);
+}
+
+- (NSString *)logBWSInterfaceEventScrollEndedAtPoint:(CGPoint)point
+{
+    return ([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeScrollEnded atPoint:point]);
 }
 
 #pragma mark - Recognizer Callbacks
@@ -53,6 +77,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 {
     DDLogError([self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
 }
+
 
 #pragma mark - Presentation/Dismissal Logging
 
