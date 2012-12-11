@@ -9,19 +9,26 @@ typedef enum
 {
     /// Tap
     kBWSInterfaceEventTypeTap,
-    /// Scroll began
-    kBWSInterfaceEventTypeScrollBegan,
-    /// Scroll ended
-    kBWSInterfaceEventTypeScrollEnded,
-    /// Long press began
-    kBWSInterfaceEventTypeLongPressBegan,
-    /// Long press ended
-    kBWSInterfaceEventTypeLongPressEnded,
-    /// Pinch began
-    kBWSInterfaceEventTypePinchBegan,
-    /// Pinch ended
-    kBWSInterfaceEventTypePinchEnded
+    /// Scroll
+    kBWSInterfaceEventTypeScroll,
+    /// Long press
+    kBWSInterfaceEventTypeLongPress,
+    /// Pinch
+    kBWSInterfaceEventTypePinch,
 } BWSInterfaceEventType;
+
+/// State of interface events
+typedef enum
+{
+    /// Began
+    kBWSInterfaceEventStateBegan = UIGestureRecognizerStateBegan,
+    /// Ended
+    kBWSInterfaceEventStateEnded = UIGestureRecognizerStateEnded,
+    /// Stateless
+    kBWSInterfaceEventStateStateless,
+    /// Unknown
+    kBWSInterfaceEventStateUnknown
+} BWSInterfaceEventState;
 
 //
 // Textual descrptions of BWSInterfaceEventTypes
@@ -29,14 +36,20 @@ typedef enum
 
 /// Tap
 static NSString * const kBWSInterfaceEventTypeTapDescription = @"tap";
+/// Scroll (generic)
+static NSString * const kBWSInterfaceEventTypeScrollDescription = @"scroll";
 /// Scroll began
 static NSString * const kBWSInterfaceEventTypeScrollBeganDescription = @"scrollBegin";
 /// Scroll ended
 static NSString * const kBWSInterfaceEventTypeScrollEndedDescription = @"scrollEnd";
+/// Long press (generic)
+static NSString * const kBWSInterfaceEventTypeLongPressDescription = @"lp";
 /// Long press began
 static NSString * const kBWSInterfaceEventTypeLongPressBeganDescription = @"lpBegin";
 /// Long press ended
 static NSString * const kBWSInterfaceEventTypeLongPressEndedDescription = @"lpEnd";
+/// Pinch (generic)
+static NSString * const kBWSInterfaceEventTypePinchDescription = @"pinch";
 /// Pinch began
 static NSString * const kBWSInterfaceEventTypePinchBeganDescription = @"pinchBegin";
 /// Pinch ended
@@ -59,7 +72,7 @@ static NSString * const kBWSInterfaceEventDescriptionTextEntryEnded = @"textEntr
 
 
 /// Log information about user interaction with interface elements
-@interface UIView (BWSLogging)
+@interface UIView (BWSLogging) <UIGestureRecognizerDelegate>
 
 /// Start logging events for the specified event type.
 - (void)startLoggingBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
@@ -99,5 +112,8 @@ static NSString * const kBWSInterfaceEventDescriptionTextEntryEnded = @"textEntr
 
 /// Obtain the textual description of an event type.
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
+/// Obtain the textual description of an event type during a specific state
++ (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType withState:(BWSInterfaceEventState)state;
+
 
 @end

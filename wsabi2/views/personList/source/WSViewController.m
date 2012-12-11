@@ -3,7 +3,7 @@
 //  wsabi2
 //
 //  Created by Matt Aronoff on 1/10/12.
- 
+
 //
 
 #import "WSViewController.h"
@@ -32,17 +32,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-        
+    
     //set the table view background
     //self.tableView.backgroundColor = [UIColor grayColor]; //[UIColor colorWithPatternImage:[UIImage imageNamed:@"square_bg"]];
     
     //Set up the nav bar.
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:32/255.0 green:32/255.0 blue:32/255.0 alpha:1.0]];
-
+    
     UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wsabi-title"]];
     self.navigationItem.titleView = titleView;
     [[UINavigationBar appearanceWhenContainedIn:[self class], nil] setTitleVerticalPositionAdjustment:-4 forBarMetrics:UIBarMetricsDefault];
-
+    
     self.dropShadowView.image = [[UIImage imageNamed:@"cell-drop-shadow-down"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
     
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
@@ -51,10 +51,10 @@
     self.popoverController.delegate = self;
     
     self.fetchedResultsController.delegate = self;
-
+    
     //add a drop shadow to the add button
     self.addFirstButton.alpha = [self.fetchedResultsController.fetchedObjects count] > 0 ? 0.0 : 1.0;
-
+    
     self.addFirstButton.layer.shadowColor = [UIColor blackColor].CGColor;
     self.addFirstButton.layer.shadowOffset = CGSizeMake(0,4);
     self.addFirstButton.layer.shadowOpacity = 0.7;
@@ -72,7 +72,7 @@
                                              selector:@selector(didCompleteSensorWalkthrough:)
                                                  name:kCompleteWalkthroughNotification
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didCancelSensorWalkthrough:)
                                                  name:kCancelWalkthroughNotification
@@ -86,7 +86,6 @@
                                              selector:@selector(stopItemCapture:)
                                                  name:kStopCaptureNotification
                                                object:nil];
-    
 }
 
 - (void)viewDidUnload
@@ -102,6 +101,7 @@
     
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self addFirstButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -110,6 +110,7 @@
     
     [[self tableView] stopLoggingBWSInterfaceEvents];
     [[self addFirstButton] stopLoggingBWSInterfaceEvents];
+    [[self tableView] stopLoggingBWSInterfaceEvents];
 }
 
 
@@ -128,7 +129,7 @@
     // Scroll the row into visibility
     if ([[self tableView] indexPathForSelectedRow] != nil)
         [[self tableView] scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
-
+    
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -153,25 +154,25 @@
     [row selectItem:nil];
     
     WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
-
+    
     //figure out whether we should restore the capture popover later.
     //NOTE: do so unless we came from the add-new-item button.
     shouldRestoreCapturePopover = (item.managedObjectContext != nil);
-
+    
     // Start from device
     if ([[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue]) {
         //only show the walkthrough from device selection onwards.
         WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
         chooser.item = item;
-
+        
         //FIXME: Set the modality/submodality either here or in the chooser automatically
         chooser.modality = [WSModalityMap modalityForString:item.modality];
         chooser.submodality = [WSModalityMap captureTypeForString:item.submodality];
         
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navigation animated:YES];    
-    // Start from submodality
+        [self presentModalViewController:navigation animated:YES];
+        // Start from submodality
     } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
         WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
         chooser.item = item;
@@ -188,27 +189,27 @@
         chooser.item = item;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navigation animated:YES];    
+        [self presentModalViewController:navigation animated:YES];
     }
     
     //scroll the thing to visible if it's not, in case we come back and need to show the capture popover.
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
-
+    
 }
 
 -(void) didCompleteSensorWalkthrough:(NSNotification*)notification
 {
     //This won't be attached to anything yet.
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
-
+    
     //get the currently active record and add the item.
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [person addItemsObject:sourceItem];
-
+    
     //FIXME: Unfortunately, launching the capture popover from here results in a popover that WILL NOT
     //be dismissed when a grid cell is tapped. I have no idea why this is. To avoid it during testing,
     //we're removing this call. Uncomment and fix whenever possible.
-        
+    
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
         NSLog(@"Asking current cell to show capture popover");
@@ -222,7 +223,7 @@
     //save the context.
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
- 
+    
     
     
 }
@@ -230,15 +231,15 @@
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification
 {
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
-
+    
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
         WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         [activeCell showCapturePopoverForItem:sourceItem];
-
+        
         shouldRestoreCapturePopover = NO;
     }
-
+    
 }
 
 
@@ -260,7 +261,7 @@
         NSLog(@"startItemCapture couldn't find a sensor link for URI %@. Ignoring.",item.deviceConfig.uri);
         return;
     }
-
+    
     //If the link is either not registered or not initialized,
     //run the full sequence (through downloading)
     BOOL startedOK;
@@ -268,25 +269,25 @@
                                    [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]];
     if (!link.registered || !link.initialized) {
         startedOK = [link beginFullSequenceWithConfigurationParams:params
-                                           withMaxSize:kMaxImageSize sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+                                                       withMaxSize:kMaxImageSize sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
         }
-
+        
     }
     else
     {
         startedOK = [link beginConfigCaptureDownloadSequence:link.currentSessionId
-                             configurationParams:params
-                                     withMaxSize:kMaxImageSize
-                                   sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+                                         configurationParams:params
+                                                 withMaxSize:kMaxImageSize
+                                              sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the config-capture-download sequence.");
         }
         else {
             NSLog(@"WSViewController::startItemCapture started the config-capture-download sequence successfully.");
         }
-
+        
     }
     
 }
@@ -334,7 +335,7 @@
     newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
-        
+    
     //Save the context
     [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
@@ -348,7 +349,7 @@
     WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     
     //insert this item at the beginning of the list.
-    newCaptureItem.index = [NSNumber numberWithInt:0]; 
+    newCaptureItem.index = [NSNumber numberWithInt:0];
     newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
     
     //fade the button out
@@ -384,10 +385,10 @@
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
-    //FIXME: Figure out a way to query the cell's grid view to dynamically determine how many items 
+    //FIXME: Figure out a way to query the cell's grid view to dynamically determine how many items
     //are in a row.
     float itemsPerRow = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 5 : 7;
-    int numRows = MAX(1, ceil([person.items count] / itemsPerRow)); 
+    int numRows = MAX(1, ceil([person.items count] / itemsPerRow));
     
     //NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
     
@@ -415,8 +416,8 @@
                 personName = [NSString stringWithFormat:@"%@ %@", cell.person.firstName, cell.person.lastName];
             else
                 personName = cell.person.firstName;
-        else
-            personName = @"Unnamed Person";
+            else
+                personName = @"Unnamed Person";
         cell.accessibilityLabel = [NSString stringWithFormat:@"Record for %@", personName];
     } else
         cell.accessibilityLabel = @"Record for Inactive Person";
@@ -469,21 +470,21 @@
 //        // Delete the managed object for the given index path
 //        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
 //        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-//        
+//
 //        // Save the context.
 //        NSError *error = nil;
 //        if (![context save:&error]) {
 //            /*
 //             Replace this implementation with code to handle the error appropriately.
-//             
-//             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+//
+//             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 //             */
 //            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 //            abort();
 //        }
 //
 //
-//    }   
+//    }
 //}
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -497,7 +498,7 @@
     selectedIndex = indexPath;
     
     [aTableView reloadData];
-
+    
     //If this is a currently deselected row, scroll to it.
     if (selectedIndex.section != previousSelectedIndex.section || selectedIndex.row != previousSelectedIndex.row) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -548,14 +549,14 @@
 	    /*
 	     Replace this implementation with code to handle the error appropriately.
          
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	     */
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
     
     return __fetchedResultsController;
-}    
+}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
@@ -582,7 +583,7 @@
 {
     UITableView *aTableView = self.tableView;
     NSMutableArray *reloadPaths;
-
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -625,7 +626,7 @@
 }
 
 /*
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
+ // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
  
  - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
  {
@@ -651,7 +652,7 @@
         /*
          Replace this implementation with code to handle the error appropriately.
          
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
          */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
@@ -682,7 +683,7 @@
         newPerson.eyeColor = nil;
         newPerson.height = nil;
         newPerson.weight = nil;
-
+        
         newPerson.notes = nil;
         
         for (WSCDItem *item in newPerson.items) {
@@ -697,10 +698,10 @@
         
         //Save the context
         [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-
+        
         //select and scroll to the new position.
         NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
-
+        
         [self tableView:self.tableView didSelectRowAtIndexPath:newPath];
     }
 }
@@ -730,17 +731,6 @@
     WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
     [self.view logPopoverControllerDismissed:aPopoverController];
-}
-
-#pragma mark - UIScrollView delegate (for logging)
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self.tableView logScrollStarted];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self.tableView logScrollEnded];
 }
 
 @end

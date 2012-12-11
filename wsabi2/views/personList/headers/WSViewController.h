@@ -3,7 +3,7 @@
 //  wsabi2
 //
 //  Created by Matt Aronoff on 1/10/12.
- 
+
 //
 
 #import <UIKit/UIKit.h>
@@ -19,10 +19,10 @@
 #import "NBCLDeviceLink.h"
 #import "NBCLDeviceLinkConstants.h"
 
-@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
-                                                UIPopoverControllerDelegate,
-                                                WSPersonTableViewCellDelegate, 
-                                                NSFetchedResultsControllerDelegate>
+@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,
+UIPopoverControllerDelegate,
+WSPersonTableViewCellDelegate,
+NSFetchedResultsControllerDelegate>
 {
     NSIndexPath *selectedIndex;
     NSMutableDictionary *sensorLinks;
