@@ -57,6 +57,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    [[self bioDataTable] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
 
     [super viewDidAppear:animated];
 }
@@ -65,6 +66,7 @@
 {
     // Remove recognizer when view isn't visible
     [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
+    [[self bioDataTable] stopLoggingBWSInterfaceEvents];
     
     [super viewWillDisappear:animated];
 }
@@ -766,17 +768,6 @@
 {
     if (textView)
         [textView logTextEntryEnded];
-}
-
-#pragma mark - UIScrollView delegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [scrollView logScrollStarted];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [scrollView logScrollEnded];
 }
 
 @end

@@ -170,40 +170,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 
-
-#pragma mark Scroll logging helper methods
--(void) scrollLogHelper:(NSString*)eventType
-{
-    if ([self isKindOfClass:[UIScrollView class]]) {
-
-        NSString *resultString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f",
-                                  [self baseLogString:eventType 
-                                      withLocalPoint:[self dummyPoint]
-                                     withWindowPoint:[self dummyPoint]],
-                                  ((UIScrollView*)self).contentOffset.x,
-                                  ((UIScrollView*)self).contentOffset.y
-                                  ];
-        
-        DDLogError(resultString);
-    }
-    else {
-        DDLogError(@"Tried to log something that wasn't a scroll view as a scroll view. Ignoring.");
-    }
-    
-
-}
-
--(void) logScrollStarted
-{
-    [self scrollLogHelper:@"scroll started"];
-}
-
--(void) logScrollEnded
-{
-    [self scrollLogHelper:@"scroll ended"];
-
-}
-
 //
 // FIXME: There only needs to be one method (-logEvent:) and many constants
 //

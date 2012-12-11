@@ -70,6 +70,7 @@
     
     [self.view logViewPresented];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

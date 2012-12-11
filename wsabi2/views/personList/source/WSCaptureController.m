@@ -238,6 +238,7 @@
     [[self modalityButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self captureButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
