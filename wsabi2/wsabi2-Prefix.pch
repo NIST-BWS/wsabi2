@@ -12,7 +12,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
-    #import "UIView+Logging.h"
     #import "UIView+BWSInterfaceLogging.h"
     #import "NSObject+GCDBlocks.h"
 #endif
