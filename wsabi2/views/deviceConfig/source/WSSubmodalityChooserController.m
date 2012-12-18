@@ -173,13 +173,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     
     // Configure the cell...
     cell.textLabel.text = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
     cell.accessibilityLabel = cell.textLabel.text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 
     return cell;
 }

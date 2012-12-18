@@ -336,7 +336,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     }
     
     
@@ -345,6 +344,7 @@
     UIImage *greenCheckmark = [UIImage imageNamed:@"checkmark-green"];
     [cell setIndentationWidth:greenCheckmark.size.width + 2];
     [cell setIndentationLevel:0];
+    [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     
     // Configure the cell...
     if (self.autodiscoveryEnabled) {

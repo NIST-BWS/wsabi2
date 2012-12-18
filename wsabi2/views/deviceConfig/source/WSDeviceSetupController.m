@@ -474,12 +474,12 @@
         ELCTextfieldCellWide *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
         if (cell == nil) {
             cell = [[ELCTextfieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
-            [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         }
         cell.indexPath = indexPath;
         cell.delegate = self;
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         
         cell.leftLabel.font = [UIFont boldSystemFontOfSize:15];
         cell.rightTextField.font = [UIFont systemFontOfSize:15];
@@ -514,10 +514,10 @@
         UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:OtherCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:OtherCell];
-            [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         }
         
         // Configure the cell...
+        [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         cell.accessibilityLabel = cell.textLabel.text;
         return cell;
     }    
