@@ -491,8 +491,10 @@
     [self setEditing:NO];
 
     //dismiss the capture popover
-    [capturePopover dismissPopoverAnimated:YES];
-    [(UIView *)sender logPopoverControllerDismissed:capturePopover];
+    if ([capturePopover isPopoverVisible] == YES) {
+        [capturePopover dismissPopoverAnimated:YES];
+        [(UIView *)sender logPopoverControllerDismissed:capturePopover];
+    }
 
     ((UITableView*)self.superview).scrollEnabled = YES;
 
