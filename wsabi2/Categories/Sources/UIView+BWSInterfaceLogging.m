@@ -16,7 +16,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 /// Tap recognizer callback
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer;
+/// @brief
 /// Scrolling recognizer callback
+/// @details
+/// Logs a generic InterfaceEvent and appends PPS:(h,v) representing the
+/// velocity of the scroll, measured in points per second in the horizontal and
+/// vertical directions.
 - (void)BWSInterfaceEventScrollDetected:(UIPanGestureRecognizer *)recognizer;
 /// LongPress recognizer callback
 - (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer;
