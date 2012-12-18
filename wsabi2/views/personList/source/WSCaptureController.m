@@ -780,6 +780,8 @@
         }
         textView.text = self.item.notes;  
         textView.accessibilityLabel = @"Notes";
+        [textView setUserInteractionEnabled:YES];
+        [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -860,6 +862,9 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [textView logTextEntryBegan];
+    
+    // Apple removes gesture recognizers when becoming first responder
+    [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -871,6 +876,9 @@
 {
     [textView resignFirstResponder];
     [textView logTextEntryEnded];
+    
+    // Apple removes gesture recognizers when resigning first responder
+    [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 

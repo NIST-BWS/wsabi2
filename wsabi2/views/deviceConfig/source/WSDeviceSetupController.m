@@ -507,6 +507,7 @@
         cell.rightTextField.delegate = self;
         cell.accessibilityLabel = cell.leftLabel.text;
         cell.rightTextField.accessibilityLabel = cell.accessibilityLabel;
+        [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
         return cell;
     }
     else {
@@ -636,12 +637,18 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [textField logTextEntryBegan];
+    
+    // Apple removes gesture recognizers when becoming first responder
+    [textField startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
     [textField logTextEntryEnded];
     [textField resignFirstResponder];
+    
+    // Apple removes gesture recognizers when resigning first responder
+    [textField startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
 
 #pragma mark - Sensor interaction stuff

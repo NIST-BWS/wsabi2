@@ -76,6 +76,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer
 {
     DDLogError([self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
+    
+    // XXX: For text entry fields, our tap recognizer overrides Apple's for 
+    // becoming the first responder.
+    if ([self isKindOfClass:[UITextView class]] || [self isKindOfClass:[UITextField class]])
+        [self becomeFirstResponder];
 }
 
 - (void)BWSInterfaceEventScrollDetected:(UIPanGestureRecognizer *)recognizer

@@ -251,6 +251,8 @@
                     break;
             }
             [cell setAccessibilityLabel:cell.leftLabel.text];
+            [[cell rightTextField] setDelegate:self];
+            [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
             return cell;
         }
@@ -370,6 +372,8 @@
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             cell.accessibilityLabel = cell.leftLabel.text;
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
+            [[cell rightTextField] setDelegate:self];
+            [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             
             return cell;
         }
@@ -395,6 +399,8 @@
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             cell.accessibilityLabel = cell.leftLabel.text;
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
+            [[cell rightTextField] setDelegate:self];
+            [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 
             return cell;
         }
@@ -431,6 +437,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessibilityLabel = @"Notes";
             textView.accessibilityLabel = cell.accessibilityLabel;
+            [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 
             return cell;
         }
@@ -742,21 +749,33 @@
 #pragma mark - UITextField delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField)
+    if (textField) {
         [textField logTextEntryBegan];
+        
+        // Apple removes gesture recognizers
+        [textField startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (textField)
+    if (textField) {
         [textField logTextEntryEnded];
+        
+        // Apple removes gesture recognizers
+        [textField startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    }
 }
 
 #pragma mark - UITextView delegate
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (textView) 
+    if (textView) {
         [textView logTextEntryBegan];
+        
+        // Apple removes gesture recognizers
+        [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -767,8 +786,12 @@
 
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
-    if (textView)
+    if (textView) {
         [textView logTextEntryEnded];
+        
+        // Apple removes gesture recognizers
+        [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    }
 }
 
 @end
