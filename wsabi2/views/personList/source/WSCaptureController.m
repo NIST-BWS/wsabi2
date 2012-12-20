@@ -485,6 +485,7 @@
             // Remove data and set the capture button state.
             self.item.data = nil;
             self.item.dataContentType = nil;
+            [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
             
             //Post a notification that this item has changed
             NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
