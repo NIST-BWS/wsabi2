@@ -193,39 +193,7 @@
 //    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self.view addGestureRecognizer:swipeLeft];
 
-    //update from Core Data
-    [self configureView];
-    
-    //add notification listeners
-    
-    //Catch a newly connected sensor
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleConnectCompleted:) 
-                                                 name:kSensorLinkConnectSequenceCompleted
-                                               object:nil];
-    
-    //Catch a posted download
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleDownloadPosted:) 
-                                                 name:kSensorLinkDownloadPosted
-                                               object:nil];
-    //Catch an item change
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleItemChanged:) 
-                                                 name:kChangedWSCDItemNotification
-                                               object:nil];
-    
-    //Catch a failed sensor operation
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleSensorOperationFailed:) 
-                                                 name:kSensorLinkOperationFailed
-                                               object:nil];
-    
-    //Catch a failed sensor sequence
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleSensorSequenceFailed:) 
-                                                 name:kSensorLinkSequenceFailed
-                                               object:nil];
+
     [[self annotationTableView] setAccessibilityLabel:@"Annotations"];
 }
 
@@ -240,8 +208,43 @@
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
-    
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    
+    //update from Core Data
+    [self configureView];
+    
+    //
+    //add notification listeners
+    //
+    
+    //Catch a newly connected sensor
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleConnectCompleted:)
+                                                 name:kSensorLinkConnectSequenceCompleted
+                                               object:nil];
+    
+    //Catch a posted download
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleDownloadPosted:)
+                                                 name:kSensorLinkDownloadPosted
+                                               object:nil];
+    //Catch an item change
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleItemChanged:)
+                                                 name:kChangedWSCDItemNotification
+                                               object:nil];
+    
+    //Catch a failed sensor operation
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleSensorOperationFailed:)
+                                                 name:kSensorLinkOperationFailed
+                                               object:nil];
+    
+    //Catch a failed sensor sequence
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleSensorSequenceFailed:)
+                                                 name:kSensorLinkSequenceFailed
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
