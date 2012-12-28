@@ -210,9 +210,6 @@
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
     
-    //update from Core Data
-    [self configureView];
-    
     //
     //add notification listeners
     //
