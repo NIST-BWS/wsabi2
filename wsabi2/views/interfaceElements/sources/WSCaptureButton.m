@@ -148,7 +148,7 @@
              break;
      }
     
-    if (state != newState && newState == WSCaptureButtonStateCapture) {
+    if (newState == WSCaptureButtonStateCapture) {
         //start the capture button animation.
         self.imageView.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:0.8
