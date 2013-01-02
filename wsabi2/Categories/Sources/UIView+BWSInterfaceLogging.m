@@ -25,6 +25,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)BWSInterfaceEventScrollDetected:(UIPanGestureRecognizer *)recognizer;
 /// LongPress recognizer callback
 - (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer;
+/// @brief
+/// Pinch recognizer callback
+/// @details
+/// Logs a generic InterfaceEvent, but all coordinates that are part of the
+/// pinch are logged ((local) & (coords)), [(global) & (coords)]
+- (void)BWSInterfaceEventPinchDetected:(UIPinchGestureRecognizer *)recognizer;
 
 
 /// @brief
@@ -119,6 +125,50 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         case UIGestureRecognizerStateEnded:
             DDLogError([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[recognizer state]]);
             break;
+        default:
+            // Not interested
+            break;
+    }
+}
+
+- (void)BWSInterfaceEventPinchDetected:(UIPinchGestureRecognizer *)recognizer
+{
+    // Toll-free bridge UIGestureRecognizerEventState to BWSInterfaceEventState
+    switch ([recognizer state]) {
+        case UIGestureRecognizerStateBegan:
+            // FALLTHROUGH
+        case UIGestureRecognizerStateEnded: {
+            NSMutableString *localCoordinates = [[NSMutableString alloc] initWithString:@"("];
+            NSMutableString *globalCoordinates = [[NSMutableString alloc] initWithString:@"["];
+            CGPoint point;
+            for (NSUInteger i = 0; i < recognizer.numberOfTouches; i++) {
+                point = [recognizer locationOfTouch:i inView:self];
+                [localCoordinates appendFormat:@"(%.0f, %.0f)", point.x, point.y];
+                point = [recognizer locationOfTouch:0 inView:nil];
+                [globalCoordinates appendFormat:@"(%.0f, %.0f)", point.x, point.y];
+                
+                if (i != (recognizer.numberOfTouches - 1)) {
+                    [localCoordinates appendString:@" & "];
+                    [globalCoordinates appendString:@" & "];
+                }
+            }
+            [localCoordinates appendString:@")"];
+            [globalCoordinates appendString:@"]"];
+            
+            CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
+            
+            DDLogError (@"%@", [NSString stringWithFormat:@"<TL>: %@ (%@), %@, %@ %@, %.0fx%.0f (%.0f, %.0f)",
+                     [self accessibilityLabel],
+                     [self class],
+                     [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypePinch withState:recognizer.state],
+                     localCoordinates,
+                     globalCoordinates,
+                     self.frame.size.width,
+                     self.frame.size.height,
+                     viewInWindowRect.origin.x,
+                     viewInWindowRect.origin.y]);
+            break;
+        }
         default:
             // Not interested
             break;
@@ -253,6 +303,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             break;
         case kBWSInterfaceEventTypeLongPress:
             recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventLongPressDetected:)];
+            break;
+        case kBWSInterfaceEventTypePinch:
+            recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventPinchDetected:)];
             break;
         default:
             DDLogError(@"%@ logging currently unsupported", [UIView stringForBWSInterfaceEventType:eventType]);
