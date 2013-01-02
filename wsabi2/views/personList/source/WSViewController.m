@@ -117,8 +117,17 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    // Don't allow rotation if a lightbox is being displayed, since the rotation
+    // will trigger the popover to close, and the popover is the lightbox's
+    // presentingViewController.
+    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    if ((cell == nil) || ([cell selectedIndex] == -1))
+        return (YES);
+        
+    if ([[cell captureController] isLightboxing])
+        return (NO);
+
+    return (YES);
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -126,6 +135,8 @@
     // Record if the flip side of the CaptureController is presently shown
     WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
+    wasLightboxing = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isLightboxing] == YES));
+
     
     // Scroll the row into visibility
     if ([[self tableView] indexPathForSelectedRow] != nil)
@@ -144,6 +155,8 @@
         [cell showCapturePopoverAtIndex:[cell selectedIndex]];
         if (wasAnnotating)
             [[cell captureController] showFlipSideAnimated:NO];
+        if (wasLightboxing)
+            [[cell captureController] showLightbox];
     }
 }
 

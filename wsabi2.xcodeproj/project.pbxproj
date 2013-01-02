@@ -42,6 +42,8 @@
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
+		08B250FF168E2A6E00659E98 /* WSLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B250FE168E2A6E00659E98 /* WSLightboxViewController.m */; };
+		08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B25100168E2A8600659E98 /* WSLightboxView.xib */; };
 		08BAA04315ED03110050FD88 /* BadgeBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */; };
 		08C7D3E1161DFC6000A9AC04 /* blue_info_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 08C7D3DF161DFC6000A9AC04 /* blue_info_badge.png */; };
 		08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08C7D3E0161DFC6000A9AC04 /* blue_info_badge@2x.png */; };
@@ -351,6 +353,9 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		08B250FD168E2A5C00659E98 /* WSLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSLightboxViewController.h; path = views/personList/headers/WSLightboxViewController.h; sourceTree = "<group>"; };
+		08B250FE168E2A6E00659E98 /* WSLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSLightboxViewController.m; path = views/personList/source/WSLightboxViewController.m; sourceTree = "<group>"; };
+		08B25100168E2A8600659E98 /* WSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSLightboxView.xib; path = views/personList/nibs/WSLightboxView.xib; sourceTree = "<group>"; };
 		08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BadgeBackground@2x.png"; path = "Images/BadgeBackground@2x.png"; sourceTree = "<group>"; };
 		08C7D3DF161DFC6000A9AC04 /* blue_info_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_info_badge.png; path = Images/blue_info_badge.png; sourceTree = "<group>"; };
 		08C7D3E0161DFC6000A9AC04 /* blue_info_badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue_info_badge@2x.png"; path = "Images/blue_info_badge@2x.png"; sourceTree = "<group>"; };
@@ -699,6 +704,7 @@
 				082C8777163AD6FA0049AB59 /* NIBs */,
 				082C8787163AD8310049AB59 /* WSBiographicalDataController.m */,
 				082C8788163AD8310049AB59 /* WSCaptureController.m */,
+				08B250FE168E2A6E00659E98 /* WSLightboxViewController.m */,
 				082C8789163AD8310049AB59 /* WSViewController.m */,
 			);
 			name = "Person List";
@@ -709,6 +715,7 @@
 			children = (
 				082C8778163AD8000049AB59 /* WSBiographicalDataController.h */,
 				082C8779163AD8000049AB59 /* WSCaptureController.h */,
+				08B250FD168E2A5C00659E98 /* WSLightboxViewController.h */,
 				082C877A163AD8000049AB59 /* WSViewController.h */,
 			);
 			name = headers;
@@ -719,6 +726,7 @@
 			children = (
 				082C8781163AD8260049AB59 /* WSBiographicalDataController.xib */,
 				082C8782163AD8260049AB59 /* WSCaptureController.xib */,
+				08B25100168E2A8600659E98 /* WSLightboxView.xib */,
 				082C8783163AD8260049AB59 /* WSViewController.xib */,
 			);
 			name = NIBs;
@@ -1419,6 +1427,7 @@
 				082C8785163AD8260049AB59 /* WSCaptureController.xib in Resources */,
 				082C8786163AD8260049AB59 /* WSViewController.xib in Resources */,
 				082C8796163AD9CC0049AB59 /* WSPersonTableViewCell.xib in Resources */,
+				08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1549,6 +1558,7 @@
 				082C879F163AD9D70049AB59 /* WSPersonTableViewCell.m in Sources */,
 				082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */,
 				08FBD6431667F24300C01708 /* UIView+BWSInterfaceLogging.m in Sources */,
+				08B250FF168E2A6E00659E98 /* WSLightboxViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

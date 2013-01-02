@@ -46,6 +46,9 @@
 -(IBAction)deviceButtonPressed:(id)sender;
 -(IBAction)captureButtonPressed:(id)sender;
 -(IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
+-(IBAction)doubleTappedImage:(UITapGestureRecognizer *)sender;
+-(void)showLightbox;
+-(void)didLeaveLightboxMode;
 
 -(void) didSwipeCaptureButton:(UISwipeGestureRecognizer*)recog;
 -(void) updateAnnotationLabel;
@@ -75,6 +78,9 @@
 @property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
 @property (weak, nonatomic) IBOutlet UIImageView *annotationPresentImageView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleTapRecognizer;
+@property (nonatomic, assign, readonly, getter=isLightboxing) BOOL lightboxing;
+
 
 @property (nonatomic, unsafe_unretained) id<WSCaptureDelegate> delegate;
 

@@ -145,7 +145,9 @@
 								</object>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">2</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">Biometric Image</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUIButton" id="800380787">
@@ -309,7 +311,6 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="489187160"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
@@ -348,6 +349,10 @@
 			</object>
 			<object class="IBUITapGestureRecognizer" id="859993295">
 				<bool key="IBUICancelsTouchesInView">NO</bool>
+			</object>
+			<object class="IBUITapGestureRecognizer" id="384126082">
+				<bool key="IBUICancelsTouchesInView">NO</bool>
+				<int key="IBUINumberOfTapsRequired">2</int>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -457,6 +462,14 @@
 					<int key="connectionID">46</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">doubleTapRecognizer</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="384126082"/>
+					</object>
+					<int key="connectionID">48</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="766721923"/>
@@ -549,6 +562,14 @@
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doubleTappedImage:</string>
+						<reference key="source" ref="384126082"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">49</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -673,6 +694,11 @@
 						<reference key="object" ref="859993295"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">47</int>
+						<reference key="object" ref="384126082"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -699,6 +725,7 @@
 				<real value="1" key="4.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="5.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
 				<real value="0.0" key="5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -707,7 +734,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">46</int>
+			<int key="maxID">49</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -727,6 +754,7 @@
 						<string key="captureButtonPressed:">id</string>
 						<string key="deviceButtonPressed:">id</string>
 						<string key="doneButtonPressed:">id</string>
+						<string key="doubleTappedImage:">UITapGestureRecognizer</string>
 						<string key="modalityButtonPressed:">id</string>
 						<string key="tappedBehindView:">UITapGestureRecognizer</string>
 					</dictionary>
@@ -747,6 +775,10 @@
 							<string key="name">doneButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="doubleTappedImage:">
+							<string key="name">doubleTappedImage:</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
+						</object>
 						<object class="IBActionInfo" key="modalityButtonPressed:">
 							<string key="name">modalityButtonPressed:</string>
 							<string key="candidateClassName">id</string>
@@ -765,6 +797,7 @@
 						<string key="backNavBarTitleItem">UINavigationItem</string>
 						<string key="captureButton">WSCaptureButton</string>
 						<string key="deviceButton">UIButton</string>
+						<string key="doubleTapRecognizer">UITapGestureRecognizer</string>
 						<string key="frontContainer">UIView</string>
 						<string key="itemDataView">UIImageView</string>
 						<string key="modalityButton">UIButton</string>
@@ -802,6 +835,10 @@
 						<object class="IBToOneOutletInfo" key="deviceButton">
 							<string key="name">deviceButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="doubleTapRecognizer">
+							<string key="name">doubleTapRecognizer</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="frontContainer">
 							<string key="name">frontContainer</string>

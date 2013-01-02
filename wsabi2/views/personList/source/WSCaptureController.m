@@ -8,6 +8,7 @@
 
 #import "WSCaptureController.h"
 
+#import "WSLightboxViewController.h"
 #import "WSAppDelegate.h"
 
 @implementation WSCaptureController
@@ -28,6 +29,7 @@
 @synthesize itemDataView;
 @synthesize captureButton;
 @synthesize delegate;
+@synthesize lightboxing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -195,6 +197,8 @@
 
 
     [[self annotationTableView] setAccessibilityLabel:@"Annotations"];
+    
+    lightboxing = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -208,7 +212,9 @@
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self annotationTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
     [[self annotationNotesTableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+    [[self itemDataView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
+    [[self itemDataView] addGestureRecognizer:[self doubleTapRecognizer]];
     
     //
     //add notification listeners
@@ -242,6 +248,8 @@
                                              selector:@selector(handleSensorSequenceFailed:)
                                                  name:kSensorLinkSequenceFailed
                                                object:nil];
+    lightboxing = NO;
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -264,6 +272,7 @@
     [[self captureButton] stopLoggingBWSInterfaceEvents];
     [[self annotationTableView] stopLoggingBWSInterfaceEvents];
     [[self annotationNotesTableView] stopLoggingBWSInterfaceEvents];
+    [[self itemDataView] stopLoggingBWSInterfaceEvents];
     
     [super viewDidDisappear:animated];
 }
@@ -642,6 +651,32 @@
     }
 }
 
+- (IBAction)doubleTappedImage:(UITapGestureRecognizer *)sender
+{
+    [self showLightbox];
+}
+
+- (void)showLightbox
+{
+    if (self.itemDataView.image == nil) {
+        NSLog(@"***** Refusing to show lightbox for unset image.");
+        return;
+    }
+    
+    WSLightboxViewController *vc = [[WSLightboxViewController alloc] initWithNibName:@"WSLightboxView" bundle:nil];
+    [vc setImage:self.itemDataView.image];
+    [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+    [vc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    [self presentViewController:vc animated:YES completion:^() {
+        lightboxing = YES;
+    }];
+}
+
+- (void)didLeaveLightboxMode
+{
+    lightboxing = NO;
+}
+
 #pragma mark - TableView data source/delegate
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -881,6 +916,5 @@
     // Apple removes gesture recognizers when resigning first responder
     [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
-
 
 @end
