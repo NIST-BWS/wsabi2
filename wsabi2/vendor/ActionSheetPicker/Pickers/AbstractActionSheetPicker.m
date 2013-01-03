@@ -70,6 +70,7 @@
 @synthesize customButtons = _customButtons;
 @synthesize hideCancel = _hideCancel;
 @synthesize presentFromRect = _presentFromRect;
+@synthesize neverPresentInPopover = _neverPresentInPopover;
 
 #pragma mark - Abstract Implementation
 
@@ -277,9 +278,12 @@
 - (void)presentPickerForView:(UIView *)aView {
     self.presentFromRect = aView.frame;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        [self configureAndPresentPopoverForView:aView];
-    else
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (!self.neverPresentInPopover)
+            [self configureAndPresentPopoverForView:aView];
+        else
+            [self configureAndPresentActionSheetForView:aView];
+    } else
         [self configureAndPresentActionSheetForView:aView];
 }
 

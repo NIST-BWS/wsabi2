@@ -506,8 +506,6 @@
         
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
-        picker.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-3153600000]; //about 100 years ago.
-        picker.datePicker.maximumDate = [NSDate date]; //we're unlikely to get prints from someone born in the future.
         didShowActionSheet = YES;
     }
     else if (indexPath.section == kSectionGender) {
@@ -516,7 +514,7 @@
                                                                                     rows:genderStrings 
                                                                         initialSelection:initialPosition
                                                                                   target:self
-                                                                            sucessAction:@selector(genderSelected:element:) 
+                                                                            successAction:@selector(genderSelected:element:)
                                                                             cancelAction:nil 
                                                                                   origin:self.view];
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
@@ -531,7 +529,7 @@
                                                                                         rows:hairColorStrings 
                                                                             initialSelection:initialPosition
                                                                                       target:self
-                                                                                sucessAction:@selector(hairColorSelected:element:) 
+                                                                                successAction:@selector(hairColorSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
@@ -544,7 +542,7 @@
                                                                                         rows:raceStrings 
                                                                             initialSelection:initialPosition
                                                                                       target:self
-                                                                                sucessAction:@selector(raceSelected:element:) 
+                                                                                successAction:@selector(raceSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
@@ -557,7 +555,7 @@
                                                                                         rows:eyeColorStrings 
                                                                             initialSelection:initialPosition
                                                                                       target:self
-                                                                                sucessAction:@selector(eyeColorSelected:element:) 
+                                                                                successAction:@selector(eyeColorSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
