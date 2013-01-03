@@ -38,6 +38,13 @@
 		082C879E163AD9D70049AB59 /* WSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8799163AD9D70049AB59 /* WSItemGridCell.m */; };
 		082C879F163AD9D70049AB59 /* WSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */; };
 		082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */; };
+		0847AB26169608C2003395BE /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB17169608C2003395BE /* DDAbstractDatabaseLogger.m */; };
+		0847AB27169608C2003395BE /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB19169608C2003395BE /* DDASLLogger.m */; };
+		0847AB28169608C2003395BE /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB1B169608C2003395BE /* DDFileLogger.m */; };
+		0847AB29169608C2003395BE /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB1D169608C2003395BE /* DDLog.m */; };
+		0847AB2A169608C2003395BE /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB1F169608C2003395BE /* DDTTYLogger.m */; };
+		0847AB2B169608C2003395BE /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB22169608C2003395BE /* ContextFilterLogFormatter.m */; };
+		0847AB2C169608C2003395BE /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB24169608C2003395BE /* DispatchQueueLogFormatter.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -70,13 +77,11 @@
 		EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA26F70514D9728000BC54F5 /* ELCTextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26F70214D9728000BC54F5 /* ELCTextfieldCell.m */; };
-		EA26F70814D972A200BC54F5 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA26F70714D972A200BC54F5 /* README */; };
 		EA2779CC14DACD44002484CF /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C314DACD44002484CF /* AbstractActionSheetPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779CD14DACD44002484CF /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C514DACD44002484CF /* ActionSheetDatePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779CE14DACD44002484CF /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C714DACD44002484CF /* ActionSheetDistancePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779CF14DACD44002484CF /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779C914DACD44002484CF /* ActionSheetStringPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2779D014DACD44002484CF /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2779CB14DACD44002484CF /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EA2779D314DACD5B002484CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2779D214DACD5B002484CF /* README.md */; };
 		EA277AA414DC37FE002484CF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA314DC37FE002484CF /* MapKit.framework */; };
 		EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA514DC3807002484CF /* CoreLocation.framework */; };
 		EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* WSModalityMap.m */; };
@@ -102,21 +107,6 @@
 		EA2A78E714FEB63800EE9339 /* stop-sign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2A78E514FEB63800EE9339 /* stop-sign@2x.png */; };
 		EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A895C1501563C0056E02C /* WSBDParameter.m */; };
 		EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A895C1501563C0056E02C /* WSBDParameter.m */; };
-		EA2A89711504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89621504F32C0056E02C /* DDAbstractDatabaseLogger.m */; };
-		EA2A89721504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89621504F32C0056E02C /* DDAbstractDatabaseLogger.m */; };
-		EA2A89731504F32C0056E02C /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89641504F32C0056E02C /* DDASLLogger.m */; };
-		EA2A89741504F32C0056E02C /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89641504F32C0056E02C /* DDASLLogger.m */; };
-		EA2A89751504F32C0056E02C /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89661504F32C0056E02C /* DDFileLogger.m */; };
-		EA2A89761504F32C0056E02C /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89661504F32C0056E02C /* DDFileLogger.m */; };
-		EA2A89771504F32C0056E02C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89681504F32C0056E02C /* DDLog.m */; };
-		EA2A89781504F32C0056E02C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A89681504F32C0056E02C /* DDLog.m */; };
-		EA2A89791504F32C0056E02C /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896A1504F32C0056E02C /* DDTTYLogger.m */; };
-		EA2A897A1504F32C0056E02C /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896A1504F32C0056E02C /* DDTTYLogger.m */; };
-		EA2A897B1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896D1504F32C0056E02C /* ContextFilterLogFormatter.m */; };
-		EA2A897C1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896D1504F32C0056E02C /* ContextFilterLogFormatter.m */; };
-		EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
-		EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */; };
-		EA2A89801504F32C0056E02C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2A89701504F32C0056E02C /* README.txt */; };
 		EA2D1D3F14FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EA2D1D4014FBD526007CB41F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */; };
 		EA2D1D4114FBD526007CB41F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D1D2F14FBD526007CB41F /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -155,8 +145,6 @@
 		EA2D1D7D14FC20C9007CB41F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */; };
 		EA2D1D8214FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
 		EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */; };
-		EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */; };
-		EA2FAEBA1574EACD00E06D8E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA2FAEB91574EACD00E06D8E /* README.txt */; };
 		EA3406BB14ED8AC900C6E004 /* InsetGrayBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */; };
 		EA3B00061563CD9400DA78D8 /* modality-finger-rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */; };
 		EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */; };
@@ -349,6 +337,20 @@
 		082C8799163AD9D70049AB59 /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSItemGridCell.m; path = views/interfaceElements/sources/WSItemGridCell.m; sourceTree = "<group>"; };
 		082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = views/interfaceElements/sources/WSPersonTableViewCell.m; sourceTree = "<group>"; };
 		082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPopoverBackgroundView.m; path = views/interfaceElements/sources/WSPopoverBackgroundView.m; sourceTree = "<group>"; };
+		0847AB16169608C2003395BE /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		0847AB17169608C2003395BE /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		0847AB18169608C2003395BE /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		0847AB19169608C2003395BE /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		0847AB1A169608C2003395BE /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		0847AB1B169608C2003395BE /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		0847AB1C169608C2003395BE /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		0847AB1D169608C2003395BE /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		0847AB1E169608C2003395BE /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		0847AB1F169608C2003395BE /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		0847AB21169608C2003395BE /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		0847AB22169608C2003395BE /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		0847AB23169608C2003395BE /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		0847AB24169608C2003395BE /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -427,21 +429,6 @@
 		EA2A78E514FEB63800EE9339 /* stop-sign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stop-sign@2x.png"; path = "Images/Symbolicons/stop-sign@2x.png"; sourceTree = "<group>"; };
 		EA2A895B1501563C0056E02C /* WSBDParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBDParameter.h; path = NetworkCommunication/Headers/WSBDParameter.h; sourceTree = "<group>"; };
 		EA2A895C1501563C0056E02C /* WSBDParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDParameter.m; path = NetworkCommunication/Sources/WSBDParameter.m; sourceTree = "<group>"; };
-		EA2A89611504F32C0056E02C /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		EA2A89621504F32C0056E02C /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		EA2A89631504F32C0056E02C /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		EA2A89641504F32C0056E02C /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		EA2A89651504F32C0056E02C /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		EA2A89661504F32C0056E02C /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		EA2A89671504F32C0056E02C /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		EA2A89681504F32C0056E02C /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		EA2A89691504F32C0056E02C /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		EA2A896A1504F32C0056E02C /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		EA2A896C1504F32C0056E02C /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		EA2A896D1504F32C0056E02C /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		EA2A896E1504F32C0056E02C /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		EA2A89701504F32C0056E02C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		EA2D1D2B14FBD526007CB41F /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		EA2D1D2C14FBD526007CB41F /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		EA2D1D2D14FBD526007CB41F /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -793,6 +780,36 @@
 			name = headers;
 			sourceTree = "<group>";
 		};
+		0847AB15169608C2003395BE /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				0847AB16169608C2003395BE /* DDAbstractDatabaseLogger.h */,
+				0847AB17169608C2003395BE /* DDAbstractDatabaseLogger.m */,
+				0847AB18169608C2003395BE /* DDASLLogger.h */,
+				0847AB19169608C2003395BE /* DDASLLogger.m */,
+				0847AB1A169608C2003395BE /* DDFileLogger.h */,
+				0847AB1B169608C2003395BE /* DDFileLogger.m */,
+				0847AB1C169608C2003395BE /* DDLog.h */,
+				0847AB1D169608C2003395BE /* DDLog.m */,
+				0847AB1E169608C2003395BE /* DDTTYLogger.h */,
+				0847AB1F169608C2003395BE /* DDTTYLogger.m */,
+				0847AB20169608C2003395BE /* Extensions */,
+			);
+			name = Lumberjack;
+			path = vendor/CocoaLumberjack/Lumberjack;
+			sourceTree = "<group>";
+		};
+		0847AB20169608C2003395BE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0847AB21169608C2003395BE /* ContextFilterLogFormatter.h */,
+				0847AB22169608C2003395BE /* ContextFilterLogFormatter.m */,
+				0847AB23169608C2003395BE /* DispatchQueueLogFormatter.h */,
+				0847AB24169608C2003395BE /* DispatchQueueLogFormatter.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,36 +886,6 @@
 				EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */,
 			);
 			name = "from iOS SDK";
-			sourceTree = "<group>";
-		};
-		EA2A89601504F32C0056E02C /* Lumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				EA2A89611504F32C0056E02C /* DDAbstractDatabaseLogger.h */,
-				EA2A89621504F32C0056E02C /* DDAbstractDatabaseLogger.m */,
-				EA2A89631504F32C0056E02C /* DDASLLogger.h */,
-				EA2A89641504F32C0056E02C /* DDASLLogger.m */,
-				EA2A89651504F32C0056E02C /* DDFileLogger.h */,
-				EA2A89661504F32C0056E02C /* DDFileLogger.m */,
-				EA2A89671504F32C0056E02C /* DDLog.h */,
-				EA2A89681504F32C0056E02C /* DDLog.m */,
-				EA2A89691504F32C0056E02C /* DDTTYLogger.h */,
-				EA2A896A1504F32C0056E02C /* DDTTYLogger.m */,
-				EA2A896B1504F32C0056E02C /* Extensions */,
-			);
-			path = Lumberjack;
-			sourceTree = "<group>";
-		};
-		EA2A896B1504F32C0056E02C /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				EA2A896C1504F32C0056E02C /* ContextFilterLogFormatter.h */,
-				EA2A896D1504F32C0056E02C /* ContextFilterLogFormatter.m */,
-				EA2A896E1504F32C0056E02C /* DispatchQueueLogFormatter.h */,
-				EA2A896F1504F32C0056E02C /* DispatchQueueLogFormatter.m */,
-				EA2A89701504F32C0056E02C /* README.txt */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EA2D1D2914FBD4CD007CB41F /* asi-http-request (no ARC yet) */ = {
@@ -1116,7 +1103,7 @@
 				EA2779C014DACD32002484CF /* ActionSheetPicker */,
 				EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */,
 				EA8F482614D1A1BE00503E9C /* GMGridView (modified, see included README) */,
-				EA2A89601504F32C0056E02C /* Lumberjack */,
+				0847AB15169608C2003395BE /* Lumberjack */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -1304,8 +1291,6 @@
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
 				EA8F483914D1A1D500503E9C /* close_x.png in Resources */,
-				EA26F70814D972A200BC54F5 /* README in Resources */,
-				EA2779D314DACD5B002484CF /* README.md in Resources */,
 				EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */,
 				EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */,
 				EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */,
@@ -1390,8 +1375,6 @@
 				EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */,
 				EA3B000B1563D86600DA78D8 /* Default.png in Resources */,
 				EA3B000C1563D86600DA78D8 /* Default@2x.png in Resources */,
-				EA2FAEB5156D610E00E06D8E /* wsabi walkthrough.md in Resources */,
-				EA2FAEBA1574EACD00E06D8E /* README.txt in Resources */,
 				084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */,
 				088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */,
 				088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */,
@@ -1437,7 +1420,6 @@
 			files = (
 				EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */,
 				EA2D1D8314FD1E30007CB41F /* gesture-single-tap.png in Resources */,
-				EA2A89801504F32C0056E02C /* README.txt in Resources */,
 				EA939CCD153DBF37005BDA47 /* UINavigationBarDoneButton@2x.png in Resources */,
 				EA939CCF153DBF37005BDA47 /* UINavigationBarDoneButtonDark@2x.png in Resources */,
 				EA939CD1153DBF37005BDA47 /* UINavigationBarDoneButtonPressedSilver@2x.png in Resources */,
@@ -1520,13 +1502,6 @@
 				EA2D1D6F14FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
 				EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */,
-				EA2A89711504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */,
-				EA2A89731504F32C0056E02C /* DDASLLogger.m in Sources */,
-				EA2A89751504F32C0056E02C /* DDFileLogger.m in Sources */,
-				EA2A89771504F32C0056E02C /* DDLog.m in Sources */,
-				EA2A89791504F32C0056E02C /* DDTTYLogger.m in Sources */,
-				EA2A897B1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
-				EA2A897D1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 				EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
@@ -1559,6 +1534,13 @@
 				082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */,
 				08FBD6431667F24300C01708 /* UIView+BWSInterfaceLogging.m in Sources */,
 				08B250FF168E2A6E00659E98 /* WSLightboxViewController.m in Sources */,
+				0847AB26169608C2003395BE /* DDAbstractDatabaseLogger.m in Sources */,
+				0847AB27169608C2003395BE /* DDASLLogger.m in Sources */,
+				0847AB28169608C2003395BE /* DDFileLogger.m in Sources */,
+				0847AB29169608C2003395BE /* DDLog.m in Sources */,
+				0847AB2A169608C2003395BE /* DDTTYLogger.m in Sources */,
+				0847AB2B169608C2003395BE /* ContextFilterLogFormatter.m in Sources */,
+				0847AB2C169608C2003395BE /* DispatchQueueLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,13 +1565,6 @@
 				EA2D1D7014FC1E20007CB41F /* AVCamDemoCaptureManager.m in Sources */,
 				EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */,
-				EA2A89721504F32C0056E02C /* DDAbstractDatabaseLogger.m in Sources */,
-				EA2A89741504F32C0056E02C /* DDASLLogger.m in Sources */,
-				EA2A89761504F32C0056E02C /* DDFileLogger.m in Sources */,
-				EA2A89781504F32C0056E02C /* DDLog.m in Sources */,
-				EA2A897A1504F32C0056E02C /* DDTTYLogger.m in Sources */,
-				EA2A897C1504F32C0056E02C /* ContextFilterLogFormatter.m in Sources */,
-				EA2A897E1504F32C0056E02C /* DispatchQueueLogFormatter.m in Sources */,
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
 				EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
