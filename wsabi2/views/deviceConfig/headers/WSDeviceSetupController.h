@@ -14,7 +14,7 @@
 #import "WSBDParameter.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSCDItem.h"
-#import "ELCTextFieldCell.h"
+#import "ELCTextFieldCellWide.h"
 #import "WSModalityChooserController.h"
 #import "WSSubmodalityChooserController.h"
 
