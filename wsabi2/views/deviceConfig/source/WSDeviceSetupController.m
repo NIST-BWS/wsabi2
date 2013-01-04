@@ -368,7 +368,7 @@
     //start a new scheduled timer to fire a sensor check in 0.05 seconds.
 
     //find the network address field
-    ELCTextfieldCellWide *addressCell = (ELCTextfieldCellWide*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    ELCTextFieldCellWide *addressCell = (ELCTextFieldCellWide*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     NSString *newUri = addressCell.rightTextField.text;
     
     sensorCheckTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
@@ -380,7 +380,7 @@
 -(IBAction)editAddressButtonPressed:(id)sender;
 {
     //find the network address field and make it first responder.
-    ELCTextfieldCellWide *addressCell = (ELCTextfieldCellWide*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    ELCTextFieldCellWide *addressCell = (ELCTextFieldCellWide*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (addressCell) {
         [addressCell.rightTextField becomeFirstResponder];
     }
@@ -433,8 +433,8 @@
 {
     //find any active text field and make it resign the keyboard.
     for (UITableViewCell *c in self.tableView.subviews) {
-        if ([c isKindOfClass:[ELCTextfieldCellWide class]]) {
-            [((ELCTextfieldCellWide*)c).rightTextField resignFirstResponder];
+        if ([c isKindOfClass:[ELCTextFieldCellWide class]]) {
+            [((ELCTextFieldCellWide*)c).rightTextField resignFirstResponder];
         }
     }
 
@@ -471,9 +471,9 @@
     
     if (indexPath.section == 0) {
         //basic info section
-        ELCTextfieldCellWide *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
+        ELCTextFieldCellWide *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
         if (cell == nil) {
-            cell = [[ELCTextfieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+            cell = [[ELCTextFieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
         }
         cell.indexPath = indexPath;
         cell.delegate = self;
@@ -573,7 +573,7 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	// Bring insertion point to text field when cell is tapped
-	ELCTextfieldCellWide *cell = (ELCTextfieldCellWide *)[aTableView cellForRowAtIndexPath:indexPath];
+	ELCTextFieldCellWide *cell = (ELCTextFieldCellWide *)[aTableView cellForRowAtIndexPath:indexPath];
 	if (cell != nil)
 		[cell.rightTextField becomeFirstResponder];
 }
