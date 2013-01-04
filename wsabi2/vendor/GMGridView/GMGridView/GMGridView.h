@@ -86,6 +86,11 @@ typedef enum
 @property (nonatomic) BOOL showFullSizeViewWithAlphaWhenTransforming; // Default is YES - not working right now
 @property (nonatomic) BOOL enableEditOnLongPress;                     // Default is NO
 @property (nonatomic) BOOL disableEditOnEmptySpaceTap;                // Default is NO
+// These define the extra space that will be added to the grid's size before stopping a cell reorder drag operation at the edges.
+@property (nonatomic) CGFloat dragBufferLeft;
+@property (nonatomic) CGFloat dragBufferTop;
+@property (nonatomic) CGFloat dragBufferRight;
+@property (nonatomic) CGFloat dragBufferBottom;
 
 @property (nonatomic, readonly) UIScrollView *scrollView __attribute__((deprecated)); // The grid now inherits directly from UIScrollView
 
