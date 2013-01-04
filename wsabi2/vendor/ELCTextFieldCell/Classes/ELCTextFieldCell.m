@@ -40,7 +40,7 @@
 		[_leftLabel setBackgroundColor:[UIColor clearColor]];
 		[_leftLabel setTextColor:[UIColor colorWithRed:.285 green:.376 blue:.541 alpha:1]];
 		[_leftLabel setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-		[_leftLabel setTextAlignment:UITextAlignmentRight];
+		[_leftLabel setTextAlignment:UITextAlignmentLeft];
 		[self addSubview:_leftLabel];
 		
 		_rightTextField = [[ELCInsetTextField alloc] initWithFrame:CGRectZero];
@@ -64,7 +64,7 @@
 	CGRect origFrame = self.contentView.frame;
 	if (_leftLabel.text != nil) {
         _leftLabel.hidden = NO;
-		_leftLabel.frame = CGRectMake(origFrame.origin.x, origFrame.origin.y, 125, origFrame.size.height-1);
+		_leftLabel.frame = CGRectMake(origFrame.origin.x + 10, origFrame.origin.y, 125, origFrame.size.height-1);
 		_rightTextField.frame = CGRectMake(origFrame.origin.x+130, origFrame.origin.y, origFrame.size.width-140, origFrame.size.height);
 	} else {
 		_leftLabel.hidden = YES;
