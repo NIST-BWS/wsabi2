@@ -14,7 +14,7 @@
 #import "WSBDParameter.h"
 #import "WSCDDeviceDefinition.h"
 #import "WSCDItem.h"
-#import "ELCTextfieldCellWide.h"
+#import "ELCTextFieldCell.h"
 #import "WSModalityChooserController.h"
 #import "WSSubmodalityChooserController.h"
 
@@ -30,7 +30,8 @@ typedef enum {
 
 
 @interface WSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate,
-                                                        UITextFieldDelegate, NBCLDeviceLinkDelegate>
+                                                        UITextFieldDelegate, NBCLDeviceLinkDelegate,
+                                                        ELCTextFieldDelegate>
 {
     BOOL checkingSensor;
     

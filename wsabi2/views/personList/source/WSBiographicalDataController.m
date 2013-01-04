@@ -189,9 +189,9 @@
     if (indexPath.section == kSectionBasic) {
         //These are all string cells
         if (indexPath.row != kRowDOB) {
-            ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
+            ELCTextFieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
-                cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
@@ -351,9 +351,9 @@
             return cell;
         }
         else if (indexPath.row == kRowHeight) {
-            ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
+            ELCTextFieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
-                cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
@@ -378,9 +378,9 @@
             return cell;
         }
         else if (indexPath.row == kRowWeight) {
-            ELCTextfieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
+            ELCTextFieldCell *cell = [aTableView dequeueReusableCellWithIdentifier:StringCell];
             if (cell == nil) {
-                cell = [[ELCTextfieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
+                cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
                 //connect the text field delegate so we can log the text field itself.
                 //cell.rightTextField.delegate = self;
@@ -576,7 +576,7 @@
 #pragma mark - ELCTextFieldCellDelegate Methods
 -(void) textFieldDidBeginEditingWithIndexPath:(NSIndexPath *)indexPath
 {
-    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    ELCTextFieldCell *textCell = (ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
     //make sure this cell is visible
     [self.bioDataTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
@@ -588,7 +588,7 @@
 
 -(void) textFieldDidEndEditingWithIndexPath:(NSIndexPath *)indexPath
 {
-    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    ELCTextFieldCell *textCell = (ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
     [self updateTextLabelAtIndexPath:indexPath string:[textCell.rightTextField text]];
     
@@ -600,7 +600,7 @@
 
 -(void) textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
     
-    ELCTextfieldCell *textCell = (ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
+    ELCTextFieldCell *textCell = (ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
     
 //    //Log this.
 //    [[textCell rightTextField] logTextFieldEnded:indexPath];
@@ -609,9 +609,9 @@
 	while(rowIndex < [self tableView:self.bioDataTable numberOfRowsInSection:indexPath.section] - 1) {
 		NSIndexPath *path = [NSIndexPath indexPathForRow:rowIndex+1 inSection:indexPath.section];
         //If there's another text field in this section, choose it.
-        if([[self.bioDataTable cellForRowAtIndexPath:path] isKindOfClass:[ELCTextfieldCell class]])
+        if([[self.bioDataTable cellForRowAtIndexPath:path] isKindOfClass:[ELCTextFieldCell class]])
         {    
-            [[(ELCTextfieldCell*)[self.bioDataTable cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder]; 
+            [[(ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder]; 
             [self.bioDataTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
             return; //don't resign first responder.
         }
