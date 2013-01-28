@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0806C12E16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */; };
+		0806C12F16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */; };
 		080C19371624747E00A8E1AD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 080C19361624747E00A8E1AD /* Settings.bundle */; };
 		0816042D15DEC5060055D27F /* BreadcrumbButtonEndCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */; };
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
@@ -87,8 +89,6 @@
 		0847AB7016960F9E003395BE /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6A16960F9E003395BE /* ActionSheetStringPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7116960F9E003395BE /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6C16960F9E003395BE /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7816972045003395BE /* ELCTextFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		0847AB8016972AAD003395BE /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7F16972AAD003395BE /* ELCTextFieldCellWide.m */; };
-		0847AB8116972AAD003395BE /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7F16972AAD003395BE /* ELCTextFieldCellWide.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
@@ -300,6 +300,8 @@
 /* Begin PBXFileReference section */
 		0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+DeepCopy.h"; path = "Categories/Headers/NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+GCDBlocks.h"; path = "Categories/Headers/NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
+		0806C12C16B6F46D00842381 /* ELCTextFieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCellWide.h; path = views/interfaceElements/headers/ELCTextFieldCellWide.h; sourceTree = "<group>"; };
+		0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCellWide.m; path = views/interfaceElements/sources/ELCTextFieldCellWide.m; sourceTree = "<group>"; };
 		080C19361624747E00A8E1AD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Settings/Settings.bundle; sourceTree = "<group>"; };
 		0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButtonEndCap.png; path = Images/BreadcrumbButtonEndCap.png; sourceTree = "<group>"; };
 		0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BreadcrumbButtonEndCap@2x.png"; path = "Images/BreadcrumbButtonEndCap@2x.png"; sourceTree = "<group>"; };
@@ -424,8 +426,6 @@
 		0847AB6C16960F9E003395BE /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
 		0847AB7716972045003395BE /* ELCTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCell.h; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.h; sourceTree = "<group>"; };
 		0847AB7816972045003395BE /* ELCTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCell.m; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.m; sourceTree = "<group>"; };
-		0847AB7E16972AA9003395BE /* ELCTextFieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCellWide.h; path = ../../../../../../var/folders/8n/8vdh_ht91fj52y0xc17yhl6h0000kv/T/com.oleganza.gitbox/ELCTextFieldCellWide.h; sourceTree = "<group>"; };
-		0847AB7F16972AAD003395BE /* ELCTextFieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCellWide.m; path = ../../../../../../var/folders/8n/8vdh_ht91fj52y0xc17yhl6h0000kv/T/com.oleganza.gitbox/ELCTextFieldCellWide.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
@@ -748,9 +748,9 @@
 			children = (
 				082C878F163AD9B60049AB59 /* headers */,
 				082C878E163AD9B20049AB59 /* NIBs */,
+				0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */,
 				082C8798163AD9D70049AB59 /* WSCaptureButton.m */,
 				082C8799163AD9D70049AB59 /* WSItemGridCell.m */,
-				0847AB7F16972AAD003395BE /* ELCTextFieldCellWide.m */,
 				082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */,
 				082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */,
 			);
@@ -768,7 +768,7 @@
 		082C878F163AD9B60049AB59 /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				0847AB7E16972AA9003395BE /* ELCTextFieldCellWide.h */,
+				0806C12C16B6F46D00842381 /* ELCTextFieldCellWide.h */,
 				082C8791163AD9C50049AB59 /* WSCaptureButton.h */,
 				082C8792163AD9C50049AB59 /* WSItemGridCell.h */,
 				082C8793163AD9C50049AB59 /* WSPersonTableViewCell.h */,
@@ -1591,7 +1591,6 @@
 				0847AB7016960F9E003395BE /* ActionSheetStringPicker.m in Sources */,
 				0847AB7116960F9E003395BE /* DistancePickerView.m in Sources */,
 				0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */,
-				0847AB8016972AAD003395BE /* ELCTextFieldCellWide.m in Sources */,
 				084102931697303A00F95AF5 /* GMGridView.m in Sources */,
 				084102951697303A00F95AF5 /* GMGridViewCell.m in Sources */,
 				084102971697303A00F95AF5 /* GMGridViewLayoutStrategies.m in Sources */,
@@ -1606,6 +1605,7 @@
 				084102CA1697583500F95AF5 /* AFURLConnectionOperation.m in Sources */,
 				084102CB1697583500F95AF5 /* AFXMLRequestOperation.m in Sources */,
 				084102CC1697583500F95AF5 /* UIImageView+AFNetworking.m in Sources */,
+				0806C12E16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1639,12 +1639,12 @@
 				0847AB4E16960C70003395BE /* ASIInputStream.m in Sources */,
 				0847AB4F16960C70003395BE /* ASINetworkQueue.m in Sources */,
 				0847AB5216960C7B003395BE /* Reachability.m in Sources */,
-				0847AB8116972AAD003395BE /* ELCTextFieldCellWide.m in Sources */,
 				084102941697303A00F95AF5 /* GMGridView.m in Sources */,
 				084102961697303A00F95AF5 /* GMGridViewCell.m in Sources */,
 				084102981697303A00F95AF5 /* GMGridViewLayoutStrategies.m in Sources */,
 				0841029A1697303A00F95AF5 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				0841029C1697303A00F95AF5 /* UIView+GMGridViewAdditions.m in Sources */,
+				0806C12F16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

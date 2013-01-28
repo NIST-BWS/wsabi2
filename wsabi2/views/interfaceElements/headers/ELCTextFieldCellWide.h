@@ -8,6 +8,6 @@
 
 #import "ELCTextfieldCell.h"
 
-@interface ELCTextfieldCellWide : ELCTextfieldCell
+@interface ELCTextFieldCellWide : ELCTextFieldCell
 
 @end
