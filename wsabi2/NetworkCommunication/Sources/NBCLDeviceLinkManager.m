@@ -21,7 +21,7 @@
     return sharedInstance;
 }
 
-- (NBCLDeviceLink *) deviceForUri:(NSString*)uri
+- (WSDeviceLink *) deviceForUri:(NSString*)uri
 {
     if (!uri) {
         NSLog(@"Tried to grab a device with no URI; ignoring request.");
@@ -32,20 +32,18 @@
         devices = [[NSMutableDictionary alloc] init];
     }
     
-    NBCLDeviceLink *link = [devices objectForKey:uri];
+    WSDeviceLink *link = [devices objectForKey:uri];
     
     if (!link) {
-        //If this is one of our special local URIs, create a local sensor link.
-        //If this is a sensor at a normal URI, create a normal sensor link.
-        
-        if ([uri hasPrefix:kLocalCameraURLPrefix]) {
-            link = [[NBCLInternalCameraSensorLink alloc] init];
-        }
-        else {
-            link = [[NBCLDeviceLink alloc] init];
-        }
-        
-        link.uri = uri;
+//        //If this is one of our special local URIs, create a local sensor link.
+//        //If this is a sensor at a normal URI, create a normal sensor link.
+//        
+//        if ([uri hasPrefix:kLocalCameraURLPrefix]) {
+//            link = [[NBCLInternalCameraSensorLink alloc] init];
+//        }
+//        else {
+        link = [[WSDeviceLink alloc] initWithBaseURI:[NSURL URLWithString:uri]];
+//        }
         
         //set the link delegate so we get messages when stuff happens.
         link.delegate = self;
