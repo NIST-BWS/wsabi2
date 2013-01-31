@@ -44,6 +44,25 @@ static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/200
 /// Base URI to the device
 - (id)initWithBaseURI:(NSURL *)uri;
 
+- (void)registerClient:(NSURL *)sourceObjectID;
+- (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID;
+- (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID;
+
+- (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+- (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID;
+- (void)getServiceInfo:(NSURL *)sourceID;
+- (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID;
+
+- (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+- (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+- (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+
+- (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+- (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID;
+- (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID;
+- (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
+
+- (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID;
 
 
 @end
