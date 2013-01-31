@@ -21,6 +21,7 @@
 @interface WSDeviceLink ()
 
 @property (nonatomic, assign) NSInteger operationInProgress;
+@property (nonatomic, assign) NSInteger operationPendingCancellation;
 
 @property (nonatomic, assign) SensorSequenceType storedSequence;
 
@@ -63,7 +64,18 @@
 
     _baseURI = uri;
     _XMLParser = [[NSXMLParser alloc] init];
-    [[self XMLParser] setDelegate:self];
+    [_XMLParser setDelegate:self];
+    
+    _operationInProgress = -1;
+    _operationPendingCancellation = -1;
+    
+    _downloadRetryCount = [[NSMutableDictionary alloc] init];
+    _exponentialIntervalMax = 30;
+    
+    _registered = NO;
+    _hasLock = NO;
+    _initialized = NO;
+    _sequenceInProgress = kSensorSequenceNone;
     
     return (self);
 }
