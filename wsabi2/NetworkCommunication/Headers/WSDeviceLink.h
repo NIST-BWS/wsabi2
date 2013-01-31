@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AFNetworking.h"
+#import "WSBDAFHTTPClient.h"
 #import "NBCLDeviceLink.h"
 #import "WSDeviceLinkDelegate.h"
 
@@ -20,6 +20,7 @@ static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/200
 
 /// Base URI to the device
 @property (nonatomic, strong) NSURL *baseURI;
+@property (nonatomic, strong) WSBDAFHTTPClient* service;
 
 
 @property (nonatomic, strong) NSString *currentSessionId;
@@ -64,5 +65,6 @@ static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/200
 
 - (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID;
 
+- (void)cancelAllOperations;
 
 @end

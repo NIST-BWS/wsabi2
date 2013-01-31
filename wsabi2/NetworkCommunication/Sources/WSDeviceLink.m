@@ -63,6 +63,7 @@
         return (nil);
 
     _baseURI = uri;
+    _service = [[WSBDAFHTTPClient alloc] initWithBaseURL:uri];
     _XMLParser = [[NSXMLParser alloc] init];
     [_XMLParser setDelegate:self];
     
@@ -80,7 +81,27 @@
     return (self);
 }
 
+- (void)setBaseURI:(NSURL *)baseURI
+{
+    _baseURI = baseURI;
+    
+    /* Reset service*/
+    if ([self service] != nil) {
+        [self cancelAllOperations];
+        [self setService:[[WSBDAFHTTPClient alloc] initWithBaseURL:baseURI]];
+    }
+}
+
 #pragma mark - Common Handling
+
+- (void)cancelAllOperations
+{
+    if ([self service] != nil)
+        [[self service] cancelAllHTTPOperationsWithMethod:nil path:nil];
+    
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)])
+        [[self delegate] sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self sourceObjectID:nil];
+}
 
 - (void)notifyCompletedOperation:(NSInteger)operation withSourceObjectID:sourceObjectID
 {
@@ -400,9 +421,8 @@
 - (void)registerClient:(NSURL *)sourceObjectID
 {
     [self setOperationInProgress:kOpTypeRegister];
-    WSBDAFHTTPClient *service = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeRegister], kDictKeySourceID : sourceObjectID};
-    [service postPath:@"register"
+    [self.service postPath:@"register"
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -436,10 +456,9 @@
 
 - (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID
 {
-    WSBDAFHTTPClient *unregisterRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeUnregister];
     NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeUnregister], kDictKeySourceID : sourceObjectID};
-    [unregisterRequest deletePath:[NSString stringWithFormat:@"register/%@", sessionId]
+    [self.service deletePath:[NSString stringWithFormat:@"register/%@", sessionId]
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -474,10 +493,9 @@
 
 - (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *initializeRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeRegister];
     NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeInitialize], kDictKeySourceID : sourceID};
-    [initializeRequest postPath:[NSString stringWithFormat:@"initialize/%@", sessionId]
+    [self.service postPath:[NSString stringWithFormat:@"initialize/%@", sessionId]
                      parameters:nil
                         success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -546,10 +564,9 @@
 
 - (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID
 {
-    WSBDAFHTTPClient *service = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeCancel];
     NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeCancel], kDictKeySourceID : sourceObjectID};
-    [service postPath:[NSString stringWithFormat:@"cancel/%@", sessionId]
+    [self.service postPath:[NSString stringWithFormat:@"cancel/%@", sessionId]
            parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -593,8 +610,7 @@
 - (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID
 {
     [self setOperationInProgress:kOpTypeConfigure];
-    WSBDAFHTTPClient *client = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
-    NSMutableURLRequest *configureRequest = [client requestWithMethod:@"POST" path:[NSString stringWithFormat:@"configure/%@", sessionId] parameters:nil];
+    NSMutableURLRequest *configureRequest = [self.service requestWithMethod:@"POST" path:[NSString stringWithFormat:@"configure/%@", sessionId] parameters:nil];
     NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeInitialize], kDictKeySourceID : sourceID};
     
     // Assemble XML configuration message
@@ -676,15 +692,14 @@
                                                             [self unlock:sessionId sourceObjectID:sourceID];
                                                         }
                  ];
-    [client enqueueHTTPRequestOperation:operation];    
+    [self.service enqueueHTTPRequestOperation:operation];
 }
 
 - (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *configureRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeConfigure];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeConfigure], kDictKeySourceID : sourceID};
-    [configureRequest getPath:[NSString stringWithFormat:@"configure/%@", sessionId]
+    [self.service getPath:[NSString stringWithFormat:@"configure/%@", sessionId]
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -702,10 +717,9 @@
 
 - (void)getServiceInfo:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *configureRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeGetCommonInfo];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeGetCommonInfo], kDictKeySourceID : sourceID};
-    [configureRequest getPath:@"info"
+    [self.service getPath:@"info"
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -725,10 +739,9 @@
 
 - (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *lockRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeLock];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeLock], kDictKeySourceID : sourceID};
-    [lockRequest postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
+    [self.service postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
                parameters:nil
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -796,10 +809,9 @@
 
 - (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *stealLockRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeStealLock];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeStealLock], kDictKeySourceID : sourceID};
-    [stealLockRequest postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
+    [self.service postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
                     parameters:nil
                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                            if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -849,10 +861,9 @@
 
 - (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *unlockRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeUnlock];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeUnlock], kDictKeySourceID : sourceID};
-    [unlockRequest deletePath:[NSString stringWithFormat:@"lock/%@", sessionId]
+    [self.service deletePath:[NSString stringWithFormat:@"lock/%@", sessionId]
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -944,10 +955,9 @@
 
 - (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *captureRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeCapture];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeCapture], kDictKeySourceID : sourceID};
-    [captureRequest postPath:[NSString stringWithFormat:@"capture/%@", sessionId]
+    [self.service postPath:[NSString stringWithFormat:@"capture/%@", sessionId]
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
@@ -1010,10 +1020,9 @@
 
 - (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID
 {
-    WSBDAFHTTPClient *service = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeGetContentType];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeGetContentType], kDictKeySourceID : sourceObjectID};
-    [service getPath:[NSString stringWithFormat:@"download/%@", captureId]
+    [self.service getPath:[NSString stringWithFormat:@"download/%@", captureId]
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO) {
@@ -1039,10 +1048,9 @@
 
 - (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
 {
-    WSBDAFHTTPClient *downloadRequest = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
     [self setOperationInProgress:kOpTypeDownload];
     NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeDownload], kDictKeySourceID : sourceID};
-    [downloadRequest getPath:[NSString stringWithFormat:@"download/%@/%1.0f", captureId, maxSize]
+    [self.service getPath:[NSString stringWithFormat:@"download/%@/%1.0f", captureId, maxSize]
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO) {
