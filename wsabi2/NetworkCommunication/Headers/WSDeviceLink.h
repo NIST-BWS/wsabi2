@@ -19,7 +19,7 @@ static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/200
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
 /// Base URI to the device
-@property (nonatomic, strong, readonly) NSURL *baseURI;
+@property (nonatomic, strong) NSURL *baseURI;
 
 
 @property (nonatomic, strong) NSString *currentSessionId;
