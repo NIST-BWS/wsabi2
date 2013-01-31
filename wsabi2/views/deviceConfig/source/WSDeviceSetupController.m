@@ -101,10 +101,8 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     
-    //Set up the basic sensor link.
-    currentLink = [[NBCLDeviceLink alloc] init];
-    currentLink.delegate = self;
     
+    //Set up the basic sensor link.
     if (self.deviceDefinition && self.deviceDefinition.uri) {
         self.sensorCheckStatus = kStatusChecking;
         //Start checking this sensor right away.
@@ -662,34 +660,34 @@
     }
     
     NSLog(@"checkSensor gets incoming object %@",(NSString*)timer.userInfo);
-    
-    //update the link to use this uri.
-    currentLink.uri = (NSString*)timer.userInfo;
+    WSDeviceLink *deviceLink = [[WSDeviceLink alloc] initWithBaseURI:(NSString*)timer.userInfo];
+    deviceLink.delegate = self;
     
     //start the metadata call (we're passing our WSCDItem here, but it's mainly
     //to make sure we don't pass a nil object; at the moment, nothing is done with it.)
     self.sensorCheckStatus = kStatusChecking;
     
     checkingSensor = YES;
-    [currentLink beginGetServiceInfo:[self.item.objectID URIRepresentation]];    
+    [deviceLink getServiceInfo:[self.item.objectID URIRepresentation]];
+    currentLink = deviceLink;
 }
 
 #pragma mark - Device link delegate
--(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error
+-(void) sensorOperationDidFail:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationWasCancelledByService:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
 {
     if (!result || result.status != StatusSuccess || !result.metadata) {
         //we didn't get a result back, or it didn't give us a metadata dictionary at all.

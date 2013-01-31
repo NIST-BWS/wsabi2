@@ -42,7 +42,7 @@
 //            link = [[NBCLInternalCameraSensorLink alloc] init];
 //        }
 //        else {
-        link = [[WSDeviceLink alloc] initWithBaseURI:[NSURL URLWithString:uri]];
+        link = [[WSDeviceLink alloc] initWithBaseURI:uri];
 //        }
         
         //set the link delegate so we get messages when stuff happens.

@@ -13,6 +13,7 @@
 #import "WSBDResult.h"
 #import "NBCLXMLMap.h"
 #import "Base64Coder.h"
+#import "NSURL+HTTP.h"
 
 #import "WSDeviceLink.h"
 
@@ -56,16 +57,14 @@
 
 @implementation WSDeviceLink
 
-- (id)initWithBaseURI:(NSURL *)uri
+- (id)initWithBaseURI:(NSString *)uri
 {
     self = [super init];
     if (self == nil)
         return (nil);
 
-    _baseURI = uri;
-    _service = [[WSBDAFHTTPClient alloc] initWithBaseURL:uri];
-    _XMLParser = [[NSXMLParser alloc] init];
-    [_XMLParser setDelegate:self];
+    _baseURI = [NSURL HTTPURLWithString:uri];
+    _service = [[WSBDAFHTTPClient alloc] initWithBaseURL:_baseURI];
     
     _operationInProgress = -1;
     _operationPendingCancellation = -1;
@@ -92,16 +91,7 @@
     }
 }
 
-#pragma mark - Common Handling
-
-- (void)cancelAllOperations
-{
-    if ([self service] != nil)
-        [[self service] cancelAllHTTPOperationsWithMethod:nil path:nil];
-    
-    if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)])
-        [[self delegate] sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self sourceObjectID:nil];
-}
+#pragma mark - Delegate Notification
 
 - (void)notifyCompletedOperation:(NSInteger)operation withSourceObjectID:sourceObjectID
 {
@@ -113,16 +103,27 @@
     }
 }
 
-- (BOOL)isSuccessValidWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject
+- (void)notifySequenceCompletedWithSourceObjectID:(NSURL *)sourceObjectID
 {
-    // Check HTTP return status
-    if ([operation hasAcceptableStatusCode] == NO)
-        return (NO);
-    
-    return (YES);
+    if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+        [[self delegate] connectSequenceCompletedFromLink:self
+                                               withResult:self.currentWSBDResult
+                                           sourceObjectID:sourceObjectID];
+    }
 }
 
-- (BOOL)isSuccessValidWithResponse:(NSHTTPURLResponse *)response responseObject:(id)responseObject
+#pragma mark - Common Handling
+
+- (void)cancelAllOperations
+{
+    if ([self service] != nil)
+        [[self service] cancelAllHTTPOperationsWithMethod:nil path:nil];
+    
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)])
+        [[self delegate] sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self sourceObjectID:nil];
+}
+
+- (BOOL)isSuccessValidWithResponse:(NSHTTPURLResponse *)response
 {
     // Check HTTP return status
     if (([response statusCode] / 100) >= 3)
@@ -131,16 +132,11 @@
     return (YES);
 }
 
-- (void)setSensorOperationFailedForOperation:(AFHTTPRequestOperation *)operation withUserInfo:(NSDictionary *)userInfo
-{
-    [self setSensorOperationFailedWithResponse:operation.response userInfo:userInfo];
-}
-
 - (void)setSensorOperationFailedWithResponse:(NSHTTPURLResponse *)response userInfo:(NSDictionary *)userInfo
 {
-    NSLog(@"Sensor operation failed with message %@ (%@)",
-          [[response allHeaderFields] objectForKey:@"status"],
-          [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode]);
+    NSLog(@"Sensor operation failed with message \"%@\" (HTTP %d)",
+          [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode],
+          response.statusCode);
     
     if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
         [[self delegate] sensorOperationDidFail:[userInfo[@"opType"] intValue]
@@ -152,29 +148,24 @@
     [self setOperationInProgress:-1];
 }
 
-- (BOOL)parseSuccessfulOperation:(AFHTTPRequestOperation *)operation withUserInfo:(NSDictionary *)userInfo responseObject:(id)responseObject
+- (void)failedToParseWithParser:(NSXMLParser *)parser userInfo:(NSDictionary *)userInfo
 {
-    // Check for error messages
-    if ([self isSuccessValidWithOperation:operation responseObject:responseObject] == NO) {
-        [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-        return (NO);
+    NSLog(@"Failed to parse XML with error \"%@\"", parser.parserError.description);
+    
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
+        [[self delegate] sensorOperationDidFail:[userInfo[@"opType"] intValue]
+                                       fromLink:self
+                                 sourceObjectID:userInfo[@"sourceID"]
+                                      withError:nil];
     }
     
-    // Parse the XML response from the service
-    NSXMLParser *parser  = [[NSXMLParser alloc] initWithData:responseObject];
-    [parser setDelegate:self];
-    if ([parser parse] == NO) {
-        [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-        return (NO);
-    }
-    
-    return (YES);
+    [self setOperationInProgress:-1];
 }
 
 - (BOOL)parseSuccessfulResponse:(NSHTTPURLResponse *)response withUserInfo:(NSDictionary *)userInfo responseObject:(id)responseObject
 {
     // Check for error messages
-    if ([self isSuccessValidWithResponse:response responseObject:responseObject] == NO) {
+    if ([self isSuccessValidWithResponse:response] == NO) {
         [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
         return (NO);
     }
@@ -416,192 +407,291 @@
 }
 
 #pragma mark - Network Operations
+
+#pragma mark - Generic
+
+- (NSString *)pathForOperation:(SensorOperationType)operation withSessionID:(NSString *)sessionID
+{
+    switch (operation) {
+        case kOpTypeRegister:
+            return (@"register");
+        case kOpTypeUnregister:
+            return ([NSString stringWithFormat:@"register/%@", sessionID]);
+        case kOpTypeLock:
+            return ([NSString stringWithFormat:@"lock/%@", sessionID]);
+        case kOpTypeUnlock:
+            return ([NSString stringWithFormat:@"lock/%@", sessionID]);
+        case kOpTypeStealLock:
+            return ([NSString stringWithFormat:@"lock/%@", sessionID]);
+        case kOpTypeGetCommonInfo:
+            return ([NSString stringWithFormat:@"info"]);
+        case kOpTypeInitialize:
+            return ([NSString stringWithFormat:@"initialize/%@", sessionID]);
+        case kOpTypeGetConfiguration:
+            return ([NSString stringWithFormat:@"configure/%@", sessionID]);
+        case kOpTypeConfigure:
+            return ([NSString stringWithFormat:@"configure/%@", sessionID]);
+        case kOpTypeGetContentType:
+            return ([NSString stringWithFormat:@"download/%@", sessionID]);
+        case kOpTypeCapture:
+            return ([NSString stringWithFormat:@"capture/%@", sessionID]);
+        case kOpTypeDownload:
+            return ([NSString stringWithFormat:@"download/%@/%1.0f", sessionID, self.downloadMaxSize]);
+        case kOpTypeThriftyDownload:
+            return ([NSString stringWithFormat:@"download/%@", sessionID]);
+        case kOpTypeCancel:
+            return ([NSString stringWithFormat:@"cancel/%@", sessionID]);
+        default:
+            return (nil);
+    }
+}
+
+- (NSMutableURLRequest *)networkOperation:(SensorOperationType)operation
+                               withMethod:(NSString *)method
+                           sourceObjectID:(NSURL *)sourceObjectID
+                                sessionID:(NSString *)sessionID
+                               parameters:(NSDictionary *)parameters
+{
+    [self setOperationInProgress:operation];
+    NSLog(@"%@", [self pathForOperation:operation withSessionID:sessionID]);
+    return ([[self service] requestWithMethod:method
+                                         path:[self pathForOperation:operation withSessionID:sessionID]
+                                   parameters:parameters]);
+}
+
+- (void)enqueueNetworkOperation:(SensorOperationType)operation
+                    withRequest:(NSURLRequest *)request
+                 sourceObjectID:(NSURL *)sourceObjectID
+                      sessionID:(NSString *)sessionID
+                     parameters:(NSDictionary *)parameters
+                        success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
+                        failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser))failure
+{
+    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
+    
+    void (^defaultSuccessBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) =
+    ^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+        // Check status code, etc.
+        if ([self isSuccessValidWithResponse:response] == NO) {
+            [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
+            return;
+        }
+        
+        // Parse XML response
+        [parser setDelegate:self];
+        if ([parser parse] == NO) {
+            [self failedToParseWithParser:parser userInfo:userInfo];
+            return;
+        }
+        
+        // Notify delegate
+        [self notifyCompletedOperation:userInfo[@"opCode"] withSourceObjectID:userInfo[@"sourceID"]];
+        
+        // Call user-defined success block
+        if (success != NULL)
+            success(request, response, parser);
+        
+        self.operationInProgress = -1;
+    };
+    
+    void (^defaultFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) =
+    ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
+        [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
+        
+        // Call user-defined failure block
+        if (failure != NULL)
+            failure(request, response, error, parser);
+    };
+    
+    [self.service enqueueHTTPRequestOperation:
+     [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request
+                                                         success:defaultSuccessBlock
+                                                         failure:defaultFailureBlock
+      ]
+     ];
+}
+
+- (void)enqueueNetworkOperation:(SensorOperationType)operation
+                     withMethod:(NSString *)method
+                 sourceObjectID:(NSURL *)sourceObjectID
+                      sessionID:(NSString *)sessionID
+                     parameters:(NSDictionary *)parameters
+                        success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
+                        failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser))failure
+{
+    [self enqueueNetworkOperation:operation withRequest:[self networkOperation:operation
+                                                                    withMethod:method
+                                                                sourceObjectID:sourceObjectID
+                                                                     sessionID:sessionID
+                                                                    parameters:parameters]
+                   sourceObjectID:sourceObjectID
+                        sessionID:sessionID
+                       parameters:parameters
+                          success:success
+                          failure:failure
+     ];
+}
+
 #pragma mark Setup and Cleanup
 
 - (void)registerClient:(NSURL *)sourceObjectID
 {
-    [self setOperationInProgress:kOpTypeRegister];
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeRegister], kDictKeySourceID : sourceObjectID};
-    [self.service postPath:@"register"
-                   parameters:nil
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                          [self notifyCompletedOperation:kOpTypeRegister withSourceObjectID:sourceObjectID];
-                          
-                          if (self.currentWSBDResult.status == StatusSuccess) {
-                              //set the registered convenience variable.
-                              self.registered = YES;
-                              //store the current session id.
-                              self.currentSessionId = self.currentWSBDResult.sessionId;
-                              //if this call is part of a sequence, call the next step.
-                              if (self.sequenceInProgress)
-                                  [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
-                          } else if (self.sequenceInProgress) {
-                              self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                              if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                  [[self delegate] connectSequenceCompletedFromLink:self
-                                                                  withResult:self.currentWSBDResult
-                                                              sourceObjectID:sourceObjectID];
+    [self enqueueNetworkOperation:kOpTypeRegister
+                       withMethod:kBCLPOSTMethod
+                   sourceObjectID:sourceObjectID
+                        sessionID:nil
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the registered convenience variable.
+                                  self.registered = YES;
+                                  //store the current session id.
+                                  self.currentSessionId = self.currentWSBDResult.sessionId;
+                                  //if this call is part of a sequence, call the next step.
+                                  if (self.sequenceInProgress)
+                                      [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
+                              } else if (self.sequenceInProgress) {
+                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                  [self notifySequenceCompletedWithSourceObjectID:sourceObjectID];
                               }
                           }
-                          self.operationInProgress = -1;
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      }
+                          failure:NULL
      ];
 }
 
 - (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID
 {
-    [self setOperationInProgress:kOpTypeUnregister];
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeUnregister], kDictKeySourceID : sourceObjectID};
-    [self.service deletePath:[NSString stringWithFormat:@"register/%@", sessionId]
-                   parameters:nil
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                          [self notifyCompletedOperation:kOpTypeUnregister withSourceObjectID:sourceObjectID];
-                          
-                          if (self.currentWSBDResult.status == StatusSuccess) {
-                              //set the registered convenience variable.
-                              self.registered = YES;
-                              //store the current session id.
-                              self.currentSessionId = self.currentWSBDResult.sessionId;
-                              //if this call is part of a sequence, call the next step.
-                              if (self.sequenceInProgress)
-                                  [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
-                          } else if (self.sequenceInProgress) {
-                              self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                              if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                  [[self delegate] connectSequenceCompletedFromLink:self
-                                                                         withResult:self.currentWSBDResult
-                                                                     sourceObjectID:sourceObjectID];
+    [self enqueueNetworkOperation:kOpTypeUnregister
+                       withMethod:kBCLDELETEMethod
+                   sourceObjectID:sourceObjectID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the registered convenience variable.
+                                  self.registered = NO;
+                                  
+                                  //notify the delegate that we're no longer "connected and ready"
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
+                                      [[self delegate] sensorConnectionStatusChanged:NO
+                                                                            fromLink:self
+                                                                      sourceObjectID:sourceObjectID
+                                       ];
+                                  }
+                                  
+                                  //clear the current session id.
+                                  self.currentSessionId = nil;
+                              }
+                              
+                              //if this call is part of a sequence, notify our delegate that the sequence is complete.
+                              if (self.sequenceInProgress) {
+                                  self.sequenceInProgress = kSensorSequenceNone;
+                                  if ([[self delegate] respondsToSelector:@selector(disconnectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                      [[self delegate] disconnectSequenceCompletedFromLink:self
+                                                                                withResult:self.currentWSBDResult
+                                                                            sourceObjectID:sourceObjectID];
+                                  }
                               }
                           }
-                          self.operationInProgress = -1;
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      }
+                          failure:NULL
      ];
-
 }
 
 - (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeRegister];
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeInitialize], kDictKeySourceID : sourceID};
-    [self.service postPath:[NSString stringWithFormat:@"initialize/%@", sessionId]
-                     parameters:nil
-                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                        [self notifyCompletedOperation:kOpTypeInitialize withSourceObjectID:sourceID];
-                            
-                          if (self.currentWSBDResult.status == StatusSuccess) {
-                              //set the initialization convenience variable.
-                              self.initialized = YES;
-                              //notify the delegate that our status is now "connected and ready"
-                              if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
-                                  [[self delegate] sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:sourceID];
-                              }
-                              
-                              //If this is a recovery sequence, use the stored sequence to determine
-                              //what to do next. Otherwise, use the main sequence.
-                              SensorSequenceType seq = self.sequenceInProgress;
-                              if (self.sequenceInProgress == kSensorSequenceRecovery) {
-                                  seq = self.storedSequence;
-                              }
-                              
-                              if (seq == kSensorSequenceFull ||
-                                  seq == kSensorSequenceConfigure) {
-                                  //If we're not done, continue to configuring the sensor.
-                                  [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
-                              }
-                              else if (seq != kSensorSequenceNone)
-                              {
-                                  //otherwise, we're done. Unlock.
-                                  [self unlock:self.currentSessionId sourceObjectID:sourceID];
-                              }
-                          }
-                          else if (self.sequenceInProgress) {
-                              if(self.sequenceInProgress != kSensorSequenceRecovery)
-                              {
-                                  //If we haven't already tried it, attempt to recover
-                                  [self attemptWSBDSequenceRecovery:sourceID];
-                              }
-                              else {
-                                  //We've already tried to recover; give up.
-                                  //Release the lock.
-                                  [self unlock:self.currentSessionId
-                                sourceObjectID:sourceID];
-                                  
-                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
-                                      [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                       fromLink:self
-                                                     withResult:self.currentWSBDResult
-                                                 sourceObjectID:sourceID];
+    [self enqueueNetworkOperation:kOpTypeInitialize
+                       withMethod:kBCLPOSTMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the initialization convenience variable.
+                                  self.initialized = YES;
+                                  //notify the delegate that our status is now "connected and ready"
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
+                                      [[self delegate] sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:sourceID];
                                   }
-                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                   
+                                  //If this is a recovery sequence, use the stored sequence to determine
+                                  //what to do next. Otherwise, use the main sequence.
+                                  SensorSequenceType seq = self.sequenceInProgress;
+                                  if (self.sequenceInProgress == kSensorSequenceRecovery) {
+                                      seq = self.storedSequence;
+                                  }
+                                  
+                                  if (seq == kSensorSequenceFull ||
+                                      seq == kSensorSequenceConfigure) {
+                                      //If we're not done, continue to configuring the sensor.
+                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
+                                  }
+                                  else if (seq != kSensorSequenceNone)
+                                  {
+                                      //otherwise, we're done. Unlock.
+                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                  }
+                              }
+                              else if (self.sequenceInProgress) {
+                                  if(self.sequenceInProgress != kSensorSequenceRecovery)
+                                  {
+                                      //If we haven't already tried it, attempt to recover
+                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                  }
+                                  else {
+                                      //We've already tried to recover; give up.
+                                      //Release the lock.
+                                      [self unlock:self.currentSessionId
+                                    sourceObjectID:sourceID];
+                                      
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                                  fromLink:self
+                                                                withResult:self.currentWSBDResult
+                                                            sourceObjectID:sourceID];
+                                      }
+                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      
+                                  }
                               }
                           }
-                          
-                          self.operationInProgress = -1;
-
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                          [self unlock:sessionId sourceObjectID:sourceID];
-                      }
+                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
+                              [self unlock:sessionId sourceObjectID:sourceID];
+                          }
      ];
 }
 
 - (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID
 {
-    [self setOperationInProgress:kOpTypeCancel];
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeCancel], kDictKeySourceID : sourceObjectID};
-    [self.service postPath:[NSString stringWithFormat:@"cancel/%@", sessionId]
-           parameters:nil
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                      return;
-                  
-                  [self notifyCompletedOperation:kOpTypeCancel withSourceObjectID:sourceObjectID];
-                  
-                  //cancel any sequence that was in progress.
-                  if (self.sequenceInProgress) {
-                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
-                          [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                  fromLink:self
-                                                withResult:self.currentWSBDResult
-                                            sourceObjectID:sourceObjectID
-                           ];
-                      }
-                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                      
-                  }
-                  
-                  
-                  //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
-                  //of the *cancelled* operation.
-                  if (self.operationPendingCancellation >= 0) {
-                      if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)]) {
-                          [[self delegate] sensorOperationWasCancelledByClient:self.operationPendingCancellation fromLink:self sourceObjectID:sourceObjectID];
-                      }
-                  }
-                  
-                  self.operationInProgress = -1;
-                  self.operationPendingCancellation = -1;
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                  [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-              }
+    [self enqueueNetworkOperation:kOpTypeCancel
+                       withMethod:kBCLPOSTMethod
+                   sourceObjectID:sourceObjectID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              //cancel any sequence that was in progress.
+                              if (self.sequenceInProgress) {
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                      [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                              fromLink:self
+                                                            withResult:self.currentWSBDResult
+                                                        sourceObjectID:sourceObjectID
+                                       ];
+                                  }
+                                  
+                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                              }
+                              
+                              //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
+                              //of the *cancelled* operation.
+                              if (self.operationPendingCancellation >= 0) {
+                                  if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)]) {
+                                      [[self delegate] sensorOperationWasCancelledByClient:self.operationPendingCancellation fromLink:self sourceObjectID:sourceObjectID];
+                                  }
+                              }
+                              
+                              self.operationPendingCancellation = -1;
+                          }
+                          failure:NULL
      ];
 }
 
@@ -609,11 +699,7 @@
 
 - (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeConfigure];
-    NSMutableURLRequest *configureRequest = [self.service requestWithMethod:@"POST" path:[NSString stringWithFormat:@"configure/%@", sessionId] parameters:nil];
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeInitialize], kDictKeySourceID : sourceID};
-    
-    // Assemble XML configuration message
+    NSMutableURLRequest *configureRequest = [self networkOperation:kOpTypeConfigure withMethod:kBCLPOSTMethod sourceObjectID:sourceID sessionID:sessionId parameters:nil];
     NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration %@ %@ %@>", kBCLSchemaInstanceNamespace, kBCLSchemaNamespace, kBCLWSBDNamespace];
 	if (params)
         for(NSString* key in params)
@@ -621,333 +707,289 @@
     [messageBody appendString:@"</configuration>"];
     [configureRequest setHTTPBody:[messageBody dataUsingEncoding:NSUTF8StringEncoding]];
     
-    AFXMLRequestOperation *operation;
-    operation = [AFXMLRequestOperation XMLParserRequestOperationWithRequest:configureRequest
-                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
-                                                            if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:nil] == NO)
-                                                                return;
-                                                            
-                                                            [self notifyCompletedOperation:kOpTypeConfigure withSourceObjectID:sourceID];
-                                                            
-                                                            if (self.currentWSBDResult.status == StatusSuccess) {
-                                                                //If this is a recovery sequence, use the stored sequence to determine
-                                                                //what to do next. Otherwise, use the main sequence.
-                                                                SensorSequenceType seq = self.sequenceInProgress;
-                                                                if (self.sequenceInProgress == kSensorSequenceRecovery) {
-                                                                    seq = self.storedSequence;
-                                                                }
-                                                                
-                                                                //if this call is part of a sequence, call the next step.
-                                                                if (seq == kSensorSequenceCaptureDownload ||
-                                                                    seq == kSensorSequenceConfigCaptureDownload ||
-                                                                    seq == kSensorSequenceFull
-                                                                    )
-                                                                {
-                                                                    //begin capture
-                                                                    [self capture:self.currentSessionId sourceObjectID:sourceID];
-                                                                }
-                                                                else if (seq == kSensorSequenceConfigure ||
-                                                                         seq == kSensorSequenceConnectConfigure)
-                                                                {
-                                                                    //First, return the lock
-                                                                    [self unlock:self.currentSessionId sourceObjectID:sourceID];
-                                                                    
-                                                                    //In this case, this is the last step, so unset the sequence variable and
-                                                                    //notify our delegate.
-                                                                    self.sequenceInProgress = kSensorSequenceNone;
-                                                                    if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                                                        [[self delegate] configureSequenceCompletedFromLink:self
-                                                                                                          withResult:self.currentWSBDResult
-                                                                                                      sourceObjectID:sourceID];
-                                                                    }
-                                                                }
-                                                                
-                                                            }
-                                                            else if (self.sequenceInProgress) {
-                                                                if(self.sequenceInProgress != kSensorSequenceRecovery)
-                                                                {
-                                                                    //If we haven't already tried it, attempt to recover
-                                                                    [self attemptWSBDSequenceRecovery:sourceID];
-                                                                }
-                                                                else {
-                                                                    if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
-                                                                        [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                                                         fromLink:self
-                                                                                       withResult:self.currentWSBDResult
-                                                                                   sourceObjectID:sourceID
-                                                                         ];
-                                                                    }
-                                                                    self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                                                                    
-                                                                    //Try to force an unlock
-                                                                    [self unlock:self.currentSessionId sourceObjectID:sourceID];
-                                                                    
-                                                                }
-                                                            }
-                                                            self.operationInProgress = -1;
-
-                                                        }
-                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-                                                            [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                                                            [self unlock:sessionId sourceObjectID:sourceID];
-                                                        }
-                 ];
-    [self.service enqueueHTTPRequestOperation:operation];
+    
+    [self enqueueNetworkOperation:kOpTypeConfigure
+                      withRequest:configureRequest
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //If this is a recovery sequence, use the stored sequence to determine
+                                  //what to do next. Otherwise, use the main sequence.
+                                  SensorSequenceType seq = self.sequenceInProgress;
+                                  if (self.sequenceInProgress == kSensorSequenceRecovery) {
+                                      seq = self.storedSequence;
+                                  }
+                                  
+                                  //if this call is part of a sequence, call the next step.
+                                  if (seq == kSensorSequenceCaptureDownload ||
+                                      seq == kSensorSequenceConfigCaptureDownload ||
+                                      seq == kSensorSequenceFull
+                                      )
+                                  {
+                                      //begin capture
+                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                  }
+                                  else if (seq == kSensorSequenceConfigure ||
+                                           seq == kSensorSequenceConnectConfigure)
+                                  {
+                                      //First, return the lock
+                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      
+                                      //In this case, this is the last step, so unset the sequence variable and
+                                      //notify our delegate.
+                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] configureSequenceCompletedFromLink:self
+                                                                                   withResult:self.currentWSBDResult
+                                                                               sourceObjectID:sourceID];
+                                      }
+                                  }
+                                  
+                              }
+                              else if (self.sequenceInProgress) {
+                                  if(self.sequenceInProgress != kSensorSequenceRecovery)
+                                  {
+                                      //If we haven't already tried it, attempt to recover
+                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                  }
+                                  else {
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                                  fromLink:self
+                                                                withResult:self.currentWSBDResult
+                                                            sourceObjectID:sourceID
+                                           ];
+                                      }
+                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      
+                                      //Try to force an unlock
+                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      
+                                  }
+                              }
+                          }
+                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
+                              [self unlock:sessionId sourceObjectID:sourceID];
+                          }
+     ];
 }
 
 - (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeConfigure];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeConfigure], kDictKeySourceID : sourceID};
-    [self.service getPath:[NSString stringWithFormat:@"configure/%@", sessionId]
-                   parameters:nil
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                          [self notifyCompletedOperation:kOpTypeGetConfiguration withSourceObjectID:sourceID];
-                          
-                          self.operationInProgress = -1;
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      }
+    [self enqueueNetworkOperation:kOpTypeGetConfiguration
+                       withMethod:kBCLGETMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:NULL
+                          failure:NULL
      ];
 }
 
 - (void)getServiceInfo:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeGetCommonInfo];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeGetCommonInfo], kDictKeySourceID : sourceID};
-    [self.service getPath:@"info"
-                   parameters:nil
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                          [self notifyCompletedOperation:kOpTypeGetCommonInfo withSourceObjectID:sourceID];
-                          
-                          self.operationInProgress = -1;
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      }
+    [self enqueueNetworkOperation:kOpTypeGetCommonInfo
+                       withMethod:kBCLGETMethod
+                   sourceObjectID:sourceID
+                        sessionID:nil
+                       parameters:nil
+                          success:NULL
+                          failure:NULL
      ];
 }
+
 
 #pragma mark Locking and Unlocking
 
 - (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeLock];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeLock], kDictKeySourceID : sourceID};
-    [self.service postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
-               parameters:nil
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                          return;
-                      
-                      [self notifyCompletedOperation:kOpTypeLock withSourceObjectID:sourceID];
-
-                      if (self.currentWSBDResult.status == StatusSuccess) {
-                          //set the lock convenience variable.
-                          self.hasLock = YES;
-                          
-                          //If this is a recovery sequence, use the stored sequence to determine
-                          //what to do next. Otherwise, use the main sequence.
-                          SensorSequenceType seq = self.sequenceInProgress;
-                          if (self.sequenceInProgress == kSensorSequenceRecovery) {
-                              seq = self.storedSequence;
-                          }
-                          //if this call is part of a sequence, call the next step.
-                          if (seq == kSensorSequenceConnect ||
-                              seq == kSensorSequenceConnectConfigure ||
-                              seq == kSensorSequenceFull)
-                          {
-                              [self initialize:self.currentSessionId sourceObjectId:sourceID];
-                          }
-                          else if (seq == kSensorSequenceConfigure ||
-                                   seq == kSensorSequenceConfigCaptureDownload) {
-                              
-                              [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
-                          }
-                          else if (seq == kSensorSequenceCaptureDownload)
-                          {
-                              [self capture:self.currentSessionId sourceObjectID:sourceID];
-                          }
-                      }
-                      else if (self.sequenceInProgress) {
-                          
-                          if(self.sequenceInProgress != kSensorSequenceRecovery)
-                          {
-                              //If we haven't already tried it, attempt to recover
-                              [self attemptWSBDSequenceRecovery:sourceID];
-                          }
-                          else {
-                              //We've already tried to recover; give up.
-                              self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                              
-                              if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
-                              {
-                                  [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                   fromLink:self
-                                                 withResult:self.currentWSBDResult
-                                             sourceObjectID:sourceID
-                                   ];
+    [self enqueueNetworkOperation:kOpTypeLock
+                       withMethod:kBCLPOSTMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the lock convenience variable.
+                                  self.hasLock = YES;
+                                  
+                                  //If this is a recovery sequence, use the stored sequence to determine
+                                  //what to do next. Otherwise, use the main sequence.
+                                  SensorSequenceType seq = self.sequenceInProgress;
+                                  if (self.sequenceInProgress == kSensorSequenceRecovery) {
+                                      seq = self.storedSequence;
+                                  }
+                                  //if this call is part of a sequence, call the next step.
+                                  if (seq == kSensorSequenceConnect ||
+                                      seq == kSensorSequenceConnectConfigure ||
+                                      seq == kSensorSequenceFull)
+                                  {
+                                      [self initialize:self.currentSessionId sourceObjectId:sourceID];
+                                  }
+                                  else if (seq == kSensorSequenceConfigure ||
+                                           seq == kSensorSequenceConfigCaptureDownload) {
+                                      
+                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
+                                  }
+                                  else if (seq == kSensorSequenceCaptureDownload)
+                                  {
+                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                  }
+                              }
+                              else if (self.sequenceInProgress) {
+                                  
+                                  if(self.sequenceInProgress != kSensorSequenceRecovery)
+                                  {
+                                      //If we haven't already tried it, attempt to recover
+                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                  }
+                                  else {
+                                      //We've already tried to recover; give up.
+                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
+                                      {
+                                          [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                                  fromLink:self
+                                                                withResult:self.currentWSBDResult
+                                                            sourceObjectID:sourceID
+                                           ];
+                                      }
+                                  }
                               }
                           }
-                      }
-                      
-                      self.operationInProgress = -1;
-                  }
-                  failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                      [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      [self unlock:sessionId sourceObjectID:sourceID];
-                  }
+                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
+                              [self unlock:sessionId sourceObjectID:sourceID];
+                          }
      ];
 }
 
 - (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeStealLock];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeStealLock], kDictKeySourceID : sourceID};
-    [self.service postPath:[NSString stringWithFormat:@"lock/%@", sessionId]
-                    parameters:nil
-                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                           if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                               return;
-                           
-                           [self notifyCompletedOperation:kOpTypeStealLock withSourceObjectID:sourceID];
-                           
-                           if (self.currentWSBDResult.status == StatusSuccess) {
-                               //set the lock convenience variable.
-                               self.hasLock = YES;
-                               //if this call is part of a sequence, call the next step.
-                               if (self.sequenceInProgress == kSensorSequenceConnect) {
-                                   [self initialize:self.currentSessionId sourceObjectId:sourceID];
-                               }
-                               else if (self.sequenceInProgress == kSensorSequenceConfigure ||
-                                        self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
-                                   
-                                   [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration
-                                         sourceObjectID:sourceID];
-                               }
-                               else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
-                               {
-                                   [self capture:self.currentSessionId sourceObjectID:sourceID];
-                               }
-                               
-                           }
-                           else if (self.sequenceInProgress) {
-                               if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
-                               {
-                                   [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                    fromLink:self
-                                                  withResult:self.currentWSBDResult
-                                              sourceObjectID:sourceID
-                                    ];
-                               }
-                               self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                           }
-                           
-                           self.operationInProgress = -1;
-
-                       }
-                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                           [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                       }
+    [self enqueueNetworkOperation:kOpTypeStealLock
+                       withMethod:kBCLPUTMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the lock convenience variable.
+                                  self.hasLock = YES;
+                                  //if this call is part of a sequence, call the next step.
+                                  if (self.sequenceInProgress == kSensorSequenceConnect) {
+                                      [self initialize:self.currentSessionId sourceObjectId:sourceID];
+                                  }
+                                  else if (self.sequenceInProgress == kSensorSequenceConfigure ||
+                                           self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
+                                      
+                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration
+                                              sourceObjectID:sourceID];
+                                  }
+                                  else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
+                                  {
+                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                  }
+                                  
+                              }
+                              else if (self.sequenceInProgress) {
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
+                                  {
+                                      [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                              fromLink:self
+                                                            withResult:self.currentWSBDResult
+                                                        sourceObjectID:sourceID
+                                       ];
+                                  }
+                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                              }
+                          }
+                          failure:NULL
      ];
 }
 
 - (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeUnlock];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeUnlock], kDictKeySourceID : sourceID};
-    [self.service deletePath:[NSString stringWithFormat:@"lock/%@", sessionId]
-                   parameters:nil
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                              return;
-                          
-                          [self notifyCompletedOperation:kOpTypeUnlock withSourceObjectID:sourceID];
-                          
-                          if (self.currentWSBDResult.status == StatusSuccess) {
-                              //set the lock convenience variable.
-                              self.hasLock = NO;
-                              
-                              //notify the delegate that we're no longer "connected and ready"
-                              if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
-                                  [[self delegate] sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:sourceID];
-                              }
-                              
-                              //First, handle recovery mode.
-                              //If we've completed one of several sequences in recovery mode,
-                              //restore the stored sequence and respond as if we'd never attempted
-                              //a recovery.
-                              if (self.sequenceInProgress == kSensorSequenceRecovery)
-                              {
-                                  self.sequenceInProgress = self.storedSequence;
+    [self enqueueNetworkOperation:kOpTypeUnlock
+                       withMethod:kBCLDELETEMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //set the lock convenience variable.
+                                  self.hasLock = NO;
                                   
-                                  //clear the stored sequence.
-                                  self.storedSequence = kSensorSequenceNone;
-                              }
-                              
-                              //if this call is part of a sequence, call the next step.
-                              if (self.sequenceInProgress == kSensorSequenceDisconnect) {
-                                  [self unregisterClient:self.currentSessionId sourceObjectId:sourceID];
-                              }
-                              
-                              /** MOST SEQUENCES END HERE **/
-                              else if(self.sequenceInProgress == kSensorSequenceConnect)
-                              {
-                                  //this is the end of the sequence.
-                                  self.sequenceInProgress = kSensorSequenceNone;
-                                  if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                      [[self delegate] connectSequenceCompletedFromLink:self
-                                                                      withResult:self.currentWSBDResult
-                                                                  sourceObjectID:sourceID];
+                                  //notify the delegate that we're no longer "connected and ready"
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
+                                      [[self delegate] sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:sourceID];
                                   }
-                              }
-                              else if(self.sequenceInProgress == kSensorSequenceConfigure)
-                              {
-                                  //this is the end of the sequence.
-                                  self.sequenceInProgress = kSensorSequenceNone;
-                                  if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                      [[self delegate] configureSequenceCompletedFromLink:self
-                                                                        withResult:self.currentWSBDResult
-                                                                    sourceObjectID:sourceID];
+                                  
+                                  //First, handle recovery mode.
+                                  //If we've completed one of several sequences in recovery mode,
+                                  //restore the stored sequence and respond as if we'd never attempted
+                                  //a recovery.
+                                  if (self.sequenceInProgress == kSensorSequenceRecovery)
+                                  {
+                                      self.sequenceInProgress = self.storedSequence;
+                                      
+                                      //clear the stored sequence.
+                                      self.storedSequence = kSensorSequenceNone;
                                   }
-                              }
-                              else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
-                              {
-                                  //this is the end of the sequence.
-                                  self.sequenceInProgress = kSensorSequenceNone;
-                                  if ([[self delegate] respondsToSelector:@selector(connectConfigureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
-                                      [[self delegate] connectConfigureSequenceCompletedFromLink:self
-                                                                               withResult:self.currentWSBDResult
-                                                                           sourceObjectID:sourceID];
+                                  
+                                  //if this call is part of a sequence, call the next step.
+                                  if (self.sequenceInProgress == kSensorSequenceDisconnect) {
+                                      [self unregisterClient:self.currentSessionId sourceObjectId:sourceID];
                                   }
+                                  
+                                  /** MOST SEQUENCES END HERE **/
+                                  else if(self.sequenceInProgress == kSensorSequenceConnect)
+                                  {
+                                      //this is the end of the sequence.
+                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] connectSequenceCompletedFromLink:self
+                                                                                 withResult:self.currentWSBDResult
+                                                                             sourceObjectID:sourceID];
+                                      }
+                                  }
+                                  else if(self.sequenceInProgress == kSensorSequenceConfigure)
+                                  {
+                                      //this is the end of the sequence.
+                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] configureSequenceCompletedFromLink:self
+                                                                                   withResult:self.currentWSBDResult
+                                                                               sourceObjectID:sourceID];
+                                      }
+                                  }
+                                  else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
+                                  {
+                                      //this is the end of the sequence.
+                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      if ([[self delegate] respondsToSelector:@selector(connectConfigureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] connectConfigureSequenceCompletedFromLink:self
+                                                                                          withResult:self.currentWSBDResult
+                                                                                      sourceObjectID:sourceID];
+                                      }
+                                  }
+                                  
+                                  
                               }
                               
-                              
+                              else if (self.sequenceInProgress) {
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                      [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                              fromLink:self
+                                                            withResult:self.currentWSBDResult
+                                                        sourceObjectID:sourceID
+                                       ];
+                                  }
+                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                              }
                           }
-                          
-                          else if (self.sequenceInProgress) {
-                              if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
-                                  [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                   fromLink:self
-                                                 withResult:self.currentWSBDResult
-                                             sourceObjectID:sourceID
-                                   ];
-                              }
-                              self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                          }
-                          
-                          self.operationInProgress = -1;
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                      }
+                          failure:NULL
      ];
 }
 
@@ -955,172 +997,157 @@
 
 - (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeCapture];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeCapture], kDictKeySourceID : sourceID};
-    [self.service postPath:[NSString stringWithFormat:@"capture/%@", sessionId]
-                  parameters:nil
-                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
-                             return;
-                         
-                         [self notifyCompletedOperation:kOpTypeCapture withSourceObjectID:sourceID];
-                         
-                         if (self.currentWSBDResult.status == StatusSuccess) {
-                             //If this is a recovery sequence, use the stored sequence to determine
-                             //what to do next. Otherwise, use the main sequence.
-                             SensorSequenceType seq = self.sequenceInProgress;
-                             if (self.sequenceInProgress == kSensorSequenceRecovery) {
-                                 seq = self.storedSequence;
-                             }
-                             
-                             //if this call is part of a sequence, call the next step.
-                             if (seq) {
-                                 //First, return the lock
-                                 [self unlock:self.currentSessionId sourceObjectID:sourceID];
-                                 //reset any existing download sequence variables.
-                                 if (self.downloadSequenceResults) {
-                                     [self.downloadSequenceResults removeAllObjects];
-                                     self.downloadSequenceResults = nil;
-                                 }
-                                 
-                                 //download each result.
-                                 self.numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
-                                 for (NSString *capId in self.currentWSBDResult.captureIds)
-                                     [self download:capId withMaxSize:self.downloadMaxSize sourceObjectID:sourceID];
-                             }
-                         }
-                         else if (self.sequenceInProgress) {
-                             if(self.sequenceInProgress != kSensorSequenceRecovery)
-                             {
-                                 //If we haven't already tried it, attempt to recover
-                                 [self attemptWSBDSequenceRecovery:sourceID];
-                             }
-                             else {
-                                 if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
-                                     [[self delegate] sequenceDidFail:self.sequenceInProgress
-                                                      fromLink:self
-                                                    withResult:self.currentWSBDResult
-                                                sourceObjectID:sourceID
-                                      ];
-                                 }
-                                 self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                                 //Try to force an unlock
-                                 [self unlock:self.currentSessionId sourceObjectID:sourceID];
-                             }
-                         }
-                         
-                         self.operationInProgress = -1;
-                     }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                         [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                     }
+    [self enqueueNetworkOperation:kOpTypeCapture
+                       withMethod:kBCLPOSTMethod
+                   sourceObjectID:sourceID
+                        sessionID:sessionId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if (self.currentWSBDResult.status == StatusSuccess) {
+                                  //If this is a recovery sequence, use the stored sequence to determine
+                                  //what to do next. Otherwise, use the main sequence.
+                                  SensorSequenceType seq = self.sequenceInProgress;
+                                  if (self.sequenceInProgress == kSensorSequenceRecovery) {
+                                      seq = self.storedSequence;
+                                  }
+                                  
+                                  //if this call is part of a sequence, call the next step.
+                                  if (seq) {
+                                      //First, return the lock
+                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      //reset any existing download sequence variables.
+                                      if (self.downloadSequenceResults) {
+                                          [self.downloadSequenceResults removeAllObjects];
+                                          self.downloadSequenceResults = nil;
+                                      }
+                                      
+                                      //download each result.
+                                      self.numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
+                                      for (NSString *capId in self.currentWSBDResult.captureIds)
+                                          [self download:capId withMaxSize:self.downloadMaxSize sourceObjectID:sourceID];
+                                  }
+                              }
+                              else if (self.sequenceInProgress) {
+                                  if(self.sequenceInProgress != kSensorSequenceRecovery)
+                                  {
+                                      //If we haven't already tried it, attempt to recover
+                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                  }
+                                  else {
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                          [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                                  fromLink:self
+                                                                withResult:self.currentWSBDResult
+                                                            sourceObjectID:sourceID
+                                           ];
+                                      }
+                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      //Try to force an unlock
+                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                  }
+                              }
+                          }
+                          failure:NULL
      ];
-
 }
 
 - (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID
 {
-    [self setOperationInProgress:kOpTypeGetContentType];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeGetContentType], kDictKeySourceID : sourceObjectID};
-    [self.service getPath:[NSString stringWithFormat:@"download/%@", captureId]
-          parameters:nil
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO) {
-                     self.numCaptureIdsAwaitingDownload--;
-                     return;
-                 }
-                 
-                 [self notifyCompletedOperation:kOpTypeGetContentType withSourceObjectID:sourceObjectID];
-                 
-                 self.operationInProgress = -1;
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                 [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-             }
-     
+    [self enqueueNetworkOperation:kOpTypeGetContentType
+                       withMethod:kBCLGETMethod
+                   sourceObjectID:sourceObjectID
+                        sessionID:captureId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              if ([parser parserError] != nil)
+                                  self.numCaptureIdsAwaitingDownload--;
+                          }
+                          failure:NULL
      ];
+}
+
+
+- (void)downloadSuccessBlock:(NSString *)captureID sourceID:(NSURL *)sourceID maxSize:(float)maxSize
+{
+    float exponentialMultiplier = 0.5;
+    if (!self.downloadSequenceResults) {
+        self.downloadSequenceResults = [[NSMutableArray alloc] init];
+    }
+    
+    if (self.currentWSBDResult.status == StatusSuccess) {
+        //add the current download result to the list.
+        [self.downloadSequenceResults addObject:self.currentWSBDResult];
+        self.numCaptureIdsAwaitingDownload--;
+        if (self.numCaptureIdsAwaitingDownload <= 0) {
+            if(self.sequenceInProgress == kSensorSequenceCaptureDownload ||
+               self.sequenceInProgress == kSensorSequenceConfigCaptureDownload)
+            {
+                if ([[self delegate] respondsToSelector:@selector(configCaptureDownloadSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
+                    [[self delegate] configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
+                }
+            }
+            else if (self.sequenceInProgress == kSensorSequenceFull)
+            {
+                if ([[self delegate] respondsToSelector:@selector(fullSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
+                    [[self delegate] fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
+                }
+            }
+            self.sequenceInProgress = kSensorSequenceNone;
+            self.numCaptureIdsAwaitingDownload = 0;
+        }
+        //remove any retry counter attached to this request.
+        if (captureID) {
+            [self.downloadRetryCount removeObjectForKey:captureID];
+        }
+    }
+    
+    //Otherwise, if we're configured to retry automatically, do it.
+    else if (self.currentWSBDResult.status == StatusPreparingDownload && self.shouldRetryDownloadIfPending)
+    {
+        //do an exponential back-off
+        int currentCaptureRetryCount = [[self.downloadRetryCount objectForKey:captureID] intValue];
+        //figure out the current retry interval
+        NSTimeInterval currentCaptureInterval = (2^currentCaptureRetryCount - 1) * exponentialMultiplier;
+        
+        while (currentCaptureInterval < self.exponentialIntervalMax) {
+            
+            [NSThread sleepForTimeInterval:currentCaptureInterval]; //NOTE: we may need to run these *Completed methods on their own threads to avoid blocking the queue...?
+            //put a new attempt at this download in the queue.
+            [self download:captureID withMaxSize:maxSize sourceObjectID:sourceID];
+            
+            //increase the retry count
+            [self.downloadRetryCount setObject:[NSNumber numberWithInt:(currentCaptureRetryCount + 1)] forKey:captureID];
+        }
+        
+    }
 }
 
 - (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID
 {
-    [self download:captureId withMaxSize:self.downloadMaxSize sourceObjectID:sourceID];
+    [self enqueueNetworkOperation:kOpTypeDownload
+                       withMethod:kBCLGETMethod
+                   sourceObjectID:sourceID
+                        sessionID:captureId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              [self downloadSuccessBlock:captureId sourceID:sourceID maxSize:self.downloadMaxSize];
+                          }
+                          failure:NULL
+     ];
 }
 
 - (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
 {
-    [self setOperationInProgress:kOpTypeDownload];
-    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeDownload], kDictKeySourceID : sourceID};
-    [self.service getPath:[NSString stringWithFormat:@"download/%@/%1.0f", captureId, maxSize]
-                  parameters:nil
-                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO) {
-                             self.numCaptureIdsAwaitingDownload--;
-                             return;
-                         }
-                         
-                         [self notifyCompletedOperation:kOpTypeDownload withSourceObjectID:sourceID];
-                         
-                         float exponentialMultiplier = 0.5;
-                         NSString *currentId = [userInfo objectForKey:@"captureId"];
-                         if (!self.downloadSequenceResults) {
-                             self.downloadSequenceResults = [[NSMutableArray alloc] init];
-                         }
-                         
-                         if (self.currentWSBDResult.status == StatusSuccess) {
-                             //add the current download result to the list.
-                             [self.downloadSequenceResults addObject:self.currentWSBDResult];
-                             self.numCaptureIdsAwaitingDownload--;
-                             if (self.numCaptureIdsAwaitingDownload <= 0) {
-                                 if(self.sequenceInProgress == kSensorSequenceCaptureDownload ||
-                                    self.sequenceInProgress == kSensorSequenceConfigCaptureDownload)
-                                 {
-                                     if ([[self delegate] respondsToSelector:@selector(configCaptureDownloadSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
-                                         [[self delegate] configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
-                                     }
-                                 }
-                                 else if (self.sequenceInProgress == kSensorSequenceFull)
-                                 {
-                                     if ([[self delegate] respondsToSelector:@selector(fullSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
-                                         [[self delegate] fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
-                                     }
-                                 }
-                                 self.sequenceInProgress = kSensorSequenceNone;
-                                 self.numCaptureIdsAwaitingDownload = 0;
-                             }
-                             //remove any retry counter attached to this request.
-                             if (currentId) {
-                                 [self.downloadRetryCount removeObjectForKey:currentId];
-                             }
-                         }
-                         
-                         //Otherwise, if we're configured to retry automatically, do it.
-                         else if (self.currentWSBDResult.status == StatusPreparingDownload && self.shouldRetryDownloadIfPending)
-                         {
-                             //do an exponential back-off
-                             int currentCaptureRetryCount = [[self.downloadRetryCount objectForKey:currentId] intValue];
-                             //figure out the current retry interval
-                             NSTimeInterval currentCaptureInterval = (2^currentCaptureRetryCount - 1) * exponentialMultiplier;
-                             
-                             while (currentCaptureInterval < self.exponentialIntervalMax) {
-                                 
-                                 [NSThread sleepForTimeInterval:currentCaptureInterval]; //NOTE: we may need to run these *Completed methods on their own threads to avoid blocking the queue...?
-                                 //put a new attempt at this download in the queue.
-                                 [self download:currentId withMaxSize:maxSize sourceObjectID:sourceID];
-                                 
-                                 //increase the retry count
-                                 [self.downloadRetryCount setObject:[NSNumber numberWithInt:(currentCaptureRetryCount + 1)] forKey:currentId];
-                             }
-                             
-                         }
-                         
-                         self.operationInProgress = -1;
-
-                     }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                         [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
-                     }
+    [self enqueueNetworkOperation:kOpTypeThriftyDownload
+                       withMethod:kBCLGETMethod
+                   sourceObjectID:sourceID
+                        sessionID:captureId
+                       parameters:nil
+                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
+                              [self downloadSuccessBlock:captureId sourceID:sourceID maxSize:maxSize];
+                          }
+                          failure:NULL
      ];
-     
 }
 
 #pragma mark - State Machine

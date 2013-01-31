@@ -15,6 +15,10 @@
 static NSString * const kBCLWSBDNamespace = @"xmlns=\"urn:oid:2.16.840.1.101.3.9.3.1\"";
 static NSString * const kBCLSchemaInstanceNamespace = @"xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"";
 static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
+static NSString * const kBCLGETMethod = @"GET";
+static NSString * const kBCLPOSTMethod = @"POST";
+static NSString * const kBCLPUTMethod = @"PUT";
+static NSString * const kBCLDELETEMethod = @"DELETE";
 
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
@@ -43,7 +47,7 @@ static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/200
 /// Create a new WSDeviceLink
 /// @param uri
 /// Base URI to the device
-- (id)initWithBaseURI:(NSURL *)uri;
+- (id)initWithBaseURI:(NSString *)uri;
 
 - (void)registerClient:(NSURL *)sourceObjectID;
 - (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID;
