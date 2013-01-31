@@ -1117,6 +1117,18 @@
 
 #pragma mark - State Machine
 
+- (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID
+{
+    // Don't start another sequence if one is in progress
+    if (self.sequenceInProgress)
+        return (NO);
+    
+    //kick off the connection sequence
+    self.sequenceInProgress = kSensorSequenceConnect;
+    [self registerClient:sourceObjectID];
+    return (YES);
+}
+
 - (void)attemptWSBDSequenceRecovery:(NSURL *)sourceObjectID
 {
     NSLog(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
