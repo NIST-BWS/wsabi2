@@ -156,7 +156,7 @@
 {
     // Check for error messages
     if ([self isSuccessValidWithOperation:operation responseObject:responseObject] == NO) {
-        [self setSensorOperationFailedForOperation:operation];
+        [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
         return (NO);
     }
     
@@ -449,7 +449,7 @@
                           self.operationInProgress = -1;
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       }
      ];
 }
@@ -485,7 +485,7 @@
                           self.operationInProgress = -1;
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       }
      ];
 
@@ -556,7 +556,7 @@
 
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                           [self unlock:sessionId sourceObjectID:sourceID];
                       }
      ];
@@ -600,7 +600,7 @@
                   self.operationPendingCancellation = -1;
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                  [self setSensorOperationFailedForOperation:operation];
+                  [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
               }
      ];
 }
@@ -688,7 +688,7 @@
 
                                                         }
                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-                                                            [self setSensorOperationFailedForOperation:operation];
+                                                            [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                                                             [self unlock:sessionId sourceObjectID:sourceID];
                                                         }
                  ];
@@ -710,7 +710,7 @@
                           self.operationInProgress = -1;
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       }
      ];
 }
@@ -730,7 +730,7 @@
                           self.operationInProgress = -1;
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       }
      ];
 }
@@ -801,7 +801,7 @@
                       self.operationInProgress = -1;
                   }
                   failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                      [self setSensorOperationFailedForOperation:operation];
+                      [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       [self unlock:sessionId sourceObjectID:sourceID];
                   }
      ];
@@ -854,7 +854,7 @@
 
                        }
                        failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                           [self setSensorOperationFailedForOperation:operation];
+                           [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                        }
      ];
 }
@@ -946,7 +946,7 @@
                           self.operationInProgress = -1;
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                          [self setSensorOperationFailedForOperation:operation];
+                          [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                       }
      ];
 }
@@ -1012,7 +1012,7 @@
                          self.operationInProgress = -1;
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                         [self setSensorOperationFailedForOperation:operation];
+                         [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                      }
      ];
 
@@ -1035,7 +1035,7 @@
                  self.operationInProgress = -1;
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                 [self setSensorOperationFailedForOperation:operation];
+                 [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
              }
      
      ];
@@ -1117,7 +1117,7 @@
 
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
-                         [self setSensorOperationFailedForOperation:operation];
+                         [self setSensorOperationFailedForOperation:operation withUserInfo:userInfo];
                      }
      ];
      
