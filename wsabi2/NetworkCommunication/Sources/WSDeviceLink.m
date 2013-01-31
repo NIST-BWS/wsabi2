@@ -544,6 +544,50 @@
      ];
 }
 
+- (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID
+{
+    WSBDAFHTTPClient *service = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
+    [self setOperationInProgress:kOpTypeCancel];
+    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:kOpTypeCancel], kDictKeySourceID : sourceObjectID};
+    [service postPath:[NSString stringWithFormat:@"cancel/%@", sessionId]
+           parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO)
+                      return;
+                  
+                  [self notifyCompletedOperation:kOpTypeCancel withSourceObjectID:sourceObjectID];
+                  
+                  //cancel any sequence that was in progress.
+                  if (self.sequenceInProgress) {
+                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                          [[self delegate] sequenceDidFail:self.sequenceInProgress
+                                                  fromLink:self
+                                                withResult:self.currentWSBDResult
+                                            sourceObjectID:sourceObjectID
+                           ];
+                      }
+                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                      
+                  }
+                  
+                  
+                  //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
+                  //of the *cancelled* operation.
+                  if (self.operationPendingCancellation >= 0) {
+                      if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)]) {
+                          [[self delegate] sensorOperationWasCancelledByClient:self.operationPendingCancellation fromLink:self sourceObjectID:sourceObjectID];
+                      }
+                  }
+                  
+                  self.operationInProgress = -1;
+                  self.operationPendingCancellation = -1;
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
+                  [self setSensorOperationFailedForOperation:operation];
+              }
+     ];
+}
+
 #pragma mark Configuration
 
 - (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID
@@ -962,6 +1006,30 @@
                      }
      ];
 
+}
+
+- (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID
+{
+    WSBDAFHTTPClient *service = [[WSBDAFHTTPClient alloc] initWithBaseURL:self.baseURI];
+    [self setOperationInProgress:kOpTypeGetContentType];
+    NSDictionary *userInfo = @{@"opType" : [NSNumber numberWithInt:kOpTypeGetContentType], kDictKeySourceID : sourceObjectID};
+    [service getPath:[NSString stringWithFormat:@"download/%@", captureId]
+          parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 if ([self parseSuccessfulOperation:operation withUserInfo:userInfo responseObject:responseObject] == NO) {
+                     self.numCaptureIdsAwaitingDownload--;
+                     return;
+                 }
+                 
+                 [self notifyCompletedOperation:kOpTypeGetContentType withSourceObjectID:sourceObjectID];
+                 
+                 self.operationInProgress = -1;
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *failure) {
+                 [self setSensorOperationFailedForOperation:operation];
+             }
+     
+     ];
 }
 
 - (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID
