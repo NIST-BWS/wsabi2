@@ -100,7 +100,7 @@
 
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType], [error description]);
+    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType], [error description]);
     
 }
 
@@ -122,7 +122,7 @@
     
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType]);
+    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType]);
 
 }
 
@@ -138,7 +138,7 @@
                                                         object:self
                                                       userInfo:userInfo];
 
-    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType], [WSBDResult stringForStatusValue:result.status]);
+    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType], [WSBDResult stringForStatusValue:result.status]);
     
 }
 
