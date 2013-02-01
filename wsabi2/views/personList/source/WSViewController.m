@@ -269,7 +269,7 @@
     NSLog(@"Requested capture to start for item %@",item.description);
     
     //Get a reference to this link
-    NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+    WSDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
     if (!link) {
         NSLog(@"startItemCapture couldn't find a sensor link for URI %@. Ignoring.",item.deviceConfig.uri);
@@ -312,9 +312,9 @@
     NSLog(@"Requested capture to stop for item %@",item.description);
     
     //Get a reference to this link
-    NBCLDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+    WSDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
-    [link beginCancel:link.currentSessionId sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+    [link cancel:link.currentSessionId sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
 }
 
 - (IBAction)showAdvancedOptionsPopover:(id)sender

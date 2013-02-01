@@ -514,7 +514,7 @@
     
     NSLog(@"userInfo for connect sequence is %@",info.description);
     
-    NBCLDeviceLink *sourceLink = [info objectForKey:kDictKeySourceLink];
+    WSDeviceLink *sourceLink = [info objectForKey:kDictKeySourceLink];
     
     //If this applies to us, change our capture state.
     if (currentLink == sourceLink) {
