@@ -109,8 +109,6 @@
     	
 }
 
-+(NSString*) stringForOpType:(int)opType;
-
 -(BOOL) checkHTTPStatus:(ASIHTTPRequest*)request;
 -(void) attemptWSBDSequenceRecovery:(NSURL*)sourceObjectID; //try to figure out what problem we've got and re-establish the sequence.
 

@@ -179,6 +179,52 @@
     return (YES);
 }
 
++ (NSString *)stringForSensorOperationType:(int)opType
+{
+    switch (opType) {
+        case kOpTypeRegister:
+            return (@"Register");
+        case kOpTypeUnregister:
+            return (@"Unregister");
+        case kOpTypeLock:
+            return (@"Lock");
+        case kOpTypeUnlock:
+            return (@"Unlock");
+        case kOpTypeStealLock:
+            return (@"Steal Lock");
+        case kOpTypeGetCommonInfo:
+            return (@"Get Info");
+        case kOpTypeGetDetailedInfo:
+            return (@"Get Detailed Info");
+        case kOpTypeInitialize:
+            return (@"Initialize");
+        case kOpTypeGetConfiguration:
+            return (@"Get Configuration");
+        case kOpTypeConfigure:
+            return (@"Configure");
+        case kOpTypeGetContentType:
+            return (@"Content Type");
+        case kOpTypeCapture:
+            return (@"Capture");
+        case kOpTypeDownload:
+            return (@"Download");
+        case kOpTypeThriftyDownload:
+            return (@"Thrifty Download");
+        case kOpTypeCancel:
+            return (@"Cancel");
+        case kOpTypeConnectSequence:
+            return (@"Connect Sequence");
+        case kOpTypeCaptureSequence:
+            return (@"Capture Sequence");
+        case kOpTypeDisconnectSequence:
+            return (@"Disconnect Sequence");
+        case kOpTypeAll:
+            return (@"All");
+        default:
+            return (@"<UNKNOWN>");
+    }
+}
+
 #pragma mark - NSXMLParser Delegate
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {

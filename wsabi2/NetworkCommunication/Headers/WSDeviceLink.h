@@ -45,6 +45,9 @@ static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; c
 @property (nonatomic, unsafe_unretained) id<WSDeviceLinkDelegate> delegate;
 
 
+// TODO: Change int to SensorOperationType (must be found/changed project-wide)
++ (NSString *)stringForSensorOperationType:(int)opType;
+
 /// @brief
 /// Create a new WSDeviceLink
 /// @param uri
