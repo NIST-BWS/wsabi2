@@ -533,7 +533,7 @@
         }
         
         // Notify delegate
-        [self notifyCompletedOperation:userInfo[kDictKeyOperation] withSourceObjectID:userInfo[kDictKeySourceID]];
+        [self notifyCompletedOperation:[userInfo[kDictKeyOperation] intValue] withSourceObjectID:userInfo[kDictKeySourceID]];
         
         // Call user-defined success block
         if (success != NULL)
