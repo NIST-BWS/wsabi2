@@ -708,7 +708,7 @@
             [messageBody appendFormat:@"<item><key>%@</key>%@</item>", key, [NBCLXMLMap xmlElementForObject:[params objectForKey:key] withElementName:@"value"]];
     [messageBody appendString:@"</configuration>"];
     [configureRequest setHTTPBody:[messageBody dataUsingEncoding:NSUTF8StringEncoding]];
-    
+    [configureRequest addValue:kBCLHTTPHeaderValueXMLContentType forHTTPHeaderField:kBCLHTTPHeaderKeyContentType];
     
     [self enqueueNetworkOperation:kOpTypeConfigure
                       withRequest:configureRequest

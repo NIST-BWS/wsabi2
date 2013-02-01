@@ -19,6 +19,8 @@ static NSString * const kBCLGETMethod = @"GET";
 static NSString * const kBCLPOSTMethod = @"POST";
 static NSString * const kBCLPUTMethod = @"PUT";
 static NSString * const kBCLDELETEMethod = @"DELETE";
+static NSString * const kBCLHTTPHeaderKeyContentType = @"Content-Type";
+static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; charset=utf-8";
 
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
