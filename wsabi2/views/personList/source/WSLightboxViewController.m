@@ -6,6 +6,7 @@
 //
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "WSCaptureController.h"
 
 #import "WSLightboxViewController.h"

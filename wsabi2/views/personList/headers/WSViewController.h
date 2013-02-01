@@ -16,7 +16,6 @@
 #import "WSModalityChooserController.h"
 #import "WSPopoverBackgroundView.h"
 
-#import "NBCLDeviceLink.h"
 #import "NBCLDeviceLinkConstants.h"
 
 @interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,

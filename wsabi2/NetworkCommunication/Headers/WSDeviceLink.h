@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #import "WSBDAFHTTPClient.h"
-#import "NBCLDeviceLink.h"
 #import "WSDeviceLinkDelegate.h"
+#import "NBCLDeviceLinkConstants.h"
 
 static NSString * const kBCLWSBDNamespace = @"xmlns=\"urn:oid:2.16.840.1.101.3.9.3.1\"";
 static NSString * const kBCLSchemaInstanceNamespace = @"xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"";

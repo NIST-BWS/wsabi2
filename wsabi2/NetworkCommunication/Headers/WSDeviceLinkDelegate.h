@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "WSBDResult.h"
+#import "NBCLDeviceLinkConstants.h"
+
 @class WSDeviceLink;
 
 @protocol WSDeviceLinkDelegate <NSObject>
