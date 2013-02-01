@@ -26,8 +26,6 @@
 
 @property (nonatomic, assign) SensorSequenceType storedSequence;
 
-- (void)setSensorOperationFailedForOperation:(AFHTTPRequestOperation *)operation;
-
 //
 // NSXMLParser Properties
 //
