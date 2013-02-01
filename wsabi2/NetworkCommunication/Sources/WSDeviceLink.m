@@ -139,9 +139,9 @@
           response.statusCode);
     
     if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
-        [[self delegate] sensorOperationDidFail:[userInfo[@"opType"] intValue]
+        [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
-                                 sourceObjectID:userInfo[@"sourceID"]
+                                 sourceObjectID:userInfo[kDictKeySourceID]
                                       withError:nil];
     }
     
@@ -153,9 +153,9 @@
     NSLog(@"Failed to parse XML with error \"%@\"", parser.parserError.description);
     
     if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
-        [[self delegate] sensorOperationDidFail:[userInfo[@"opType"] intValue]
+        [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
-                                 sourceObjectID:userInfo[@"sourceID"]
+                                 sourceObjectID:userInfo[kDictKeySourceID]
                                       withError:nil];
     }
     
@@ -467,7 +467,7 @@
                         success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
                         failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser))failure
 {
-    NSDictionary *userInfo = @{@"opType": [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
+    NSDictionary *userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
     
     void (^defaultSuccessBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) =
     ^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -485,7 +485,7 @@
         }
         
         // Notify delegate
-        [self notifyCompletedOperation:userInfo[@"opCode"] withSourceObjectID:userInfo[@"sourceID"]];
+        [self notifyCompletedOperation:userInfo[kDictKeyOperation] withSourceObjectID:userInfo[kDictKeySourceID]];
         
         // Call user-defined success block
         if (success != NULL)
