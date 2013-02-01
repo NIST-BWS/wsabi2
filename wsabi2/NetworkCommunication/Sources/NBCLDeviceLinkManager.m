@@ -85,7 +85,7 @@
 }
 
 #pragma mark - Sensor Link Delegate methods
--(void) sensorOperationDidFail:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL *)sourceID withError:(NSError *)error
+-(void) sensorOperationDidFail:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withError:(NSError *)error
 {
 
     //Post a notification about the failed operation, containing the error, so we can do something with it.
@@ -100,16 +100,16 @@
 
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ had %@ fail: %@", link.uri, [NBCLDeviceLink stringForOpType:opType], [error description]);
+    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType], [error description]);
     
 }
 
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationWasCancelledByService:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
 {
     
 }
 
--(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL *)sourceID
+-(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
 {
     //Post a notification about the failed operation, containing the error, so we can do something with it.
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -122,11 +122,11 @@
     
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ cancelled operation: %@", link.uri, [NBCLDeviceLink stringForOpType:opType]);
+    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType]);
 
 }
 
--(void) sensorOperationCompleted:(int)opType fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
 {
     //Post a notification about the completed operation!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -138,11 +138,11 @@
                                                         object:self
                                                       userInfo:userInfo];
 
-    NSLog(@"Link at %@ completed %@ with status %@", link.uri, [NBCLDeviceLink stringForOpType:opType], [WSBDResult stringForStatusValue:result.status]);    
+    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [NBCLDeviceLink stringForOpType:opType], [WSBDResult stringForStatusValue:result.status]);
     
 }
 
--(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(NBCLDeviceLink*)link sourceObjectID:(NSURL *)sourceID
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
 {
 
     //Post a notification about the status change containing the new value
@@ -156,7 +156,7 @@
                                                       userInfo:userInfo];
 
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ changed status to %@", link.uri, connectedAndReady ? @"ready" : @"not ready");
+    NSLog(@"Link at %@ changed status to %@", link.baseURI, connectedAndReady ? @"ready" : @"not ready");
 
 }
 
@@ -164,7 +164,7 @@
 //NOTE: The result object will be the result from the last performed step;
 //so if the sequence succeeds, it'll be the last step in the sequence; otherwise
 //it'll be the step that failed, so that the status will indicate what the problem was.
--(void) connectSequenceCompletedFromLink:(NBCLDeviceLink*)link withResult:(WSBDResult*)result sourceObjectID:(NSURL *)sourceID
+-(void) connectSequenceCompletedFromLink:(WSDeviceLink*)link withResult:(WSBDResult*)result sourceObjectID:(NSURL *)sourceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] init];
@@ -181,10 +181,10 @@
                                                       userInfo:userInfo];
 
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its connect sequence", link.uri);
+    NSLog(@"Link at %@ completed its connect sequence", link.baseURI);
 }
 
--(void) configureSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+-(void) configureSequenceCompletedFromLink:(WSDeviceLink*)link
                                 withResult:(WSBDResult*)result 
                              sourceObjectID:(NSURL *)sourceID;
 {
@@ -201,11 +201,11 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its configure sequence", link.uri);
+    NSLog(@"Link at %@ completed its configure sequence", link.baseURI);
 
 }
 
--(void) connectConfigureSequenceCompletedFromLink:(NBCLDeviceLink *)link 
+-(void) connectConfigureSequenceCompletedFromLink:(WSDeviceLink *)link
                                        withResult:(WSBDResult *)result 
                                     sourceObjectID:(NSURL *)sourceID
 {
@@ -222,14 +222,14 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its connect & configure sequence", link.uri);
+    NSLog(@"Link at %@ completed its connect & configure sequence", link.baseURI);
 
 }
 
-- (void) processDownloadResultsFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
+- (void) processDownloadResultsFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
 {
     if (!results) {
-        NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.uri);
+        NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.baseURI);
     }
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -240,7 +240,7 @@
         WSBDResult *currentResult = [results objectAtIndex:i];
         
         if (currentResult.status != StatusSuccess) {
-            NSLog(@"Link at %@ had a failure: %@ %@",link.uri, [WSBDResult stringForStatusValue:currentResult.status], currentResult.message);
+            NSLog(@"Link at %@ had a failure: %@ %@",link.baseURI, [WSBDResult stringForStatusValue:currentResult.status], currentResult.message);
         }
         //FIXME: Post a notification containing this WSBDResult as attached data.
         //Post a notification about the status change containing the new value
@@ -255,22 +255,22 @@
                                                           userInfo:userInfo];
         
         //add this result to the WS-BD Result cache (at the top)
-        NSLog(@"Link at %@ completed downloading one capture result", link.uri);
+        NSLog(@"Link at %@ completed downloading one capture result", link.baseURI);
     }
 
 }
 
--(void) configCaptureDownloadSequenceCompletedFromLink:(NBCLDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
+-(void) configCaptureDownloadSequenceCompletedFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
 {
     [self processDownloadResultsFromLink:link withResults:results sourceObjectID:sourceID];
 }
 
--(void) fullSequenceCompletedFromLink:(NBCLDeviceLink *)link withResults:(NSMutableArray *)results sourceObjectID:(NSURL *)sourceID
+-(void) fullSequenceCompletedFromLink:(WSDeviceLink *)link withResults:(NSMutableArray *)results sourceObjectID:(NSURL *)sourceID
 {
     [self processDownloadResultsFromLink:link withResults:results sourceObjectID:sourceID];
 }
 
--(void) disconnectSequenceCompletedFromLink:(NBCLDeviceLink*)link 
+-(void) disconnectSequenceCompletedFromLink:(WSDeviceLink*)link
                                  withResult:(WSBDResult*)result 
                              sourceObjectID:(NSURL*)sourceID
 {
@@ -287,20 +287,20 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its disconnect sequence", link.uri);
+    NSLog(@"Link at %@ completed its disconnect sequence", link.baseURI);
     
 }
 
 //Called whenever a sequence doesn't complete 
 //(because, for example, one included step returned a non-success result.
 -(void) sequenceDidFail:(SensorSequenceType)sequenceType
-                     fromLink:(NBCLDeviceLink*)link 
+                     fromLink:(WSDeviceLink*)link
                    withResult:(WSBDResult*)result 
                 sourceObjectID:(NSURL *)sourceID
 {
     
     //first, try to unlock.
-    [link beginUnlock:link.currentSessionId sourceObjectID:sourceID];
+    [link unlock:link.currentSessionId sourceObjectID:sourceID];
     
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -317,7 +317,7 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ failed to complete a series of operations", link.uri);
+    NSLog(@"Link at %@ failed to complete a series of operations", link.baseURI);
 
     //If this sequence fails, for now, go all the way back and start over.
     link.registered = NO;
