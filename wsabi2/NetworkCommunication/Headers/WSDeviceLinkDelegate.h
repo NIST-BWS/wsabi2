@@ -12,6 +12,8 @@
 
 @protocol WSDeviceLinkDelegate <NSObject>
 
+@optional
+
 - (void)sensorOperationDidFail:(int)opType
                       fromLink:(WSDeviceLink*)link
                 sourceObjectID:(NSURL*)sourceI
