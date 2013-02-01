@@ -69,6 +69,8 @@ static NSString * const kBCLDELETEMethod = @"DELETE";
 
 - (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID;
 - (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params sourceObjectID:(NSURL *)sourceID;
+- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
+- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
 
 - (void)cancelAllOperations;
 

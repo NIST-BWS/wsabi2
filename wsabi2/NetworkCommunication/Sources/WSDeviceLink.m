@@ -1182,6 +1182,41 @@
     return (YES);
 }
 
+- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
+{
+    // Don't start another sequence if one is in progress
+    if (self.sequenceInProgress)
+        return (NO);
+    
+    // Configure the capture sequence
+    self.sequenceInProgress = kSensorSequenceConfigCaptureDownload;
+    self.downloadMaxSize = maxSize;
+    self.pendingConfiguration = params;
+    
+    // Start by grabbing the lock
+    [self lock:sessionId sourceObjectID:sourceID];
+    
+    return (YES);
+}
+
+- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
+{
+    // Don't start another sequence if one is in progress
+    if (self.sequenceInProgress)
+        return (NO);
+    
+    // Configure the capture sequence
+    self.sequenceInProgress = kSensorSequenceFull;
+    self.downloadMaxSize = maxSize;
+    self.pendingConfiguration = params;
+    
+    // Start by registering with the service
+    [self registerClient:sourceID];
+    
+    return (YES);
+}
+
+
 - (void)attemptWSBDSequenceRecovery:(NSURL *)sourceObjectID
 {
     NSLog(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
