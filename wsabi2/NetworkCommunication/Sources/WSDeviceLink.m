@@ -433,9 +433,9 @@
             return ([NSString stringWithFormat:@"download/%@", sessionID]);
         case kOpTypeCapture:
             return ([NSString stringWithFormat:@"capture/%@", sessionID]);
-        case kOpTypeDownload:
-            return ([NSString stringWithFormat:@"download/%@/%1.0f", sessionID, self.downloadMaxSize]);
         case kOpTypeThriftyDownload:
+            return ([NSString stringWithFormat:@"download/%@/%1.0f", sessionID, self.downloadMaxSize]);
+        case kOpTypeDownload:
             return ([NSString stringWithFormat:@"download/%@", sessionID]);
         case kOpTypeCancel:
             return ([NSString stringWithFormat:@"cancel/%@", sessionID]);
