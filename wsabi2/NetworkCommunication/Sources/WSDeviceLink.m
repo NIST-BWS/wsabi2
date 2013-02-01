@@ -467,7 +467,11 @@
                         success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
                         failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser))failure
 {
-    NSDictionary *userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
+    NSDictionary *userInfo;
+    if (sourceObjectID != nil)
+        userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
+    else
+        userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation]};
     
     void (^defaultSuccessBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) =
     ^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -1161,6 +1165,20 @@
     //kick off the connection sequence
     self.sequenceInProgress = kSensorSequenceConnect;
     [self registerClient:sourceObjectID];
+    return (YES);
+}
+
+- (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params sourceObjectID:(NSURL *)sourceID
+{
+    // Don't start another sequence if one is in progress
+    if (self.sequenceInProgress)
+        return (NO);
+    
+    // Kick off the connection sequence
+    self.sequenceInProgress = kSensorSequenceConnectConfigure;
+    self.pendingConfiguration = params;
+    [self registerClient:sourceID];
+    
     return (YES);
 }
 
