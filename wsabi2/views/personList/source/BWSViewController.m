@@ -8,7 +8,7 @@
 
 #import "BWSViewController.h"
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSSettingsViewController.h"
 
@@ -235,7 +235,7 @@
     }
     
     //save the context.
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
     
     
@@ -351,7 +351,7 @@
     newPerson.placesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     
     //Save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
     //scroll to the new position.
     NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
@@ -711,7 +711,7 @@
         }
         
         //Save the context
-        [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+        [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
         
         //select and scroll to the new position.
         NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0]-1 inSection:0];

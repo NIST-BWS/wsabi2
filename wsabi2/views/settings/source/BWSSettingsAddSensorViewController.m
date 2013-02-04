@@ -6,7 +6,7 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 #import "BWSModalityMap.h"
 #import "BWSCDDeviceDefinition.h"
 
@@ -47,7 +47,7 @@
 
 - (IBAction)saveButtonPressed:(id)sender
 {
-    NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(BWSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *deviceEntity = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     BWSCDDeviceDefinition *device = [[BWSCDDeviceDefinition alloc] initWithEntity:deviceEntity insertIntoManagedObjectContext:moc];
     
@@ -66,7 +66,7 @@
     [device setParameterDictionary:[NSKeyedArchiver archivedDataWithRootObject:params]];
     
     // Persist
-    [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
+    [(BWSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
     
     // Go back in view stack
     [[self navigationController] popViewControllerAnimated:YES];

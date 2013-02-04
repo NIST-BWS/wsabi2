@@ -6,7 +6,7 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 #import "BWSCDItem.h"
 #import "BWSCDPerson.h"
 #import "BWSCDDeviceDefinition.h"
@@ -118,10 +118,10 @@
         [tableView beginUpdates];
         
         // Delete device
-        NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSManagedObjectContext *moc = [(BWSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
         BWSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
         [moc deleteObject:device];
-        [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
+        [(BWSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
         
         // Reload table
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -158,7 +158,7 @@
     if (modality > kModality_COUNT)
         return ([[NSArray alloc] init]);
     
-    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modalities like %@)", [BWSModalityMap stringForModality:modality]];
     

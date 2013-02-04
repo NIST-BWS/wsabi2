@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([WSAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([BWSAppDelegate class]));
     }
 }

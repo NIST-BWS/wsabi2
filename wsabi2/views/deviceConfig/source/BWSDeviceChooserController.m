@@ -8,7 +8,7 @@
 
 #import "BWSDeviceChooserController.h"
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 
 @implementation BWSDeviceChooserController
 @synthesize submodality;
@@ -49,7 +49,7 @@
     
     //Since we might be working on a temporary object, don't ask it for a managed object context.
     //Instead, get the primary context from the app delegate.
-    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription
                                               entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -570,7 +570,7 @@
     //that happens when the user clicks the DONE button in the device setup controller.
     
     //If we need to create a new device def, do so.
-    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     if (!def && createNewDef) {
         //Create a temporary item

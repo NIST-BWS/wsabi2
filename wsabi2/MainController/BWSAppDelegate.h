@@ -16,7 +16,7 @@
 
 @class BWSViewController;
 
-@interface WSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface BWSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

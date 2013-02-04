@@ -6,15 +6,15 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 
 #import "BWSViewController.h"
 
-@interface WSAppDelegate()
+@interface BWSAppDelegate()
 - (void)initializeSettings;
 @end
 
-@implementation WSAppDelegate
+@implementation BWSAppDelegate
 
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;

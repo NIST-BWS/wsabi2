@@ -8,7 +8,7 @@
 
 #import "BWSPersonTableViewCell.h"
 
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 
 #define GRID_CELL_OFFSET 1000
 
@@ -383,7 +383,7 @@
     
     //rebuild the ordered collection.
     [self.person removeItemsObject:foundItem];
-    [[(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext] deleteObject:foundItem];
+    [[(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext] deleteObject:foundItem];
     [self updateData]; 
     
     //update the item indices within the now-updated ordered collection
@@ -393,7 +393,7 @@
     }
     
     //Save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
     
     deletableItem = -1;
 }
@@ -662,7 +662,7 @@
     [self.itemGridView reloadData];
     
     //save the context
-    [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
+    [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
 }
 
 #pragma mark - Capture Controller delegate

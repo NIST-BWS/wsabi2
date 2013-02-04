@@ -7,7 +7,7 @@
 // about its quality, reliability, or any other characteristic.
 
 #import "BWSDeviceSetupController.h"
-#import "WSAppDelegate.h"
+#import "BWSAppDelegate.h"
 
 #define STATUS_CONTAINER_HEIGHT 95
 
@@ -322,7 +322,7 @@
     
     //If necessary, insert both the item and its device definition into the real context, which
     //we'll have to get from the app delegate.
-    NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
 
     if (!self.item.managedObjectContext) {
         [moc insertObject:self.item];

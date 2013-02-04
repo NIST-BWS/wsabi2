@@ -206,7 +206,7 @@
 		EAF0F97914BC7B8C00544416 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97814BC7B8C00544416 /* Foundation.framework */; };
 		EAF0F98114BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F97F14BC7B8C00544416 /* InfoPlist.strings */; };
 		EAF0F98314BC7B8C00544416 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98214BC7B8C00544416 /* main.m */; };
-		EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */; };
+		EAF0F98714BC7B8C00544416 /* BWSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F98614BC7B8C00544416 /* BWSAppDelegate.m */; };
 		EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F9FF14BC812900544416 /* CoreData.framework */; };
 		EAF981E11517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */; };
 /* End PBXBuildFile section */
@@ -488,8 +488,8 @@
 		EAF0F98014BC7B8C00544416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAF0F98214BC7B8C00544416 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAF0F98414BC7B8C00544416 /* wsabi2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wsabi2-Prefix.pch"; sourceTree = "<group>"; };
-		EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WSAppDelegate.h; path = MainController/WSAppDelegate.h; sourceTree = "<group>"; };
-		EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WSAppDelegate.m; path = MainController/WSAppDelegate.m; sourceTree = "<group>"; };
+		EAF0F98514BC7B8C00544416 /* BWSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BWSAppDelegate.h; path = MainController/BWSAppDelegate.h; sourceTree = "<group>"; };
+		EAF0F98614BC7B8C00544416 /* BWSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BWSAppDelegate.m; path = MainController/BWSAppDelegate.m; sourceTree = "<group>"; };
 		EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		EAF0F9FF14BC812900544416 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkManager.h; path = NetworkCommunication/Headers/BWSDeviceLinkManager.h; sourceTree = "<group>"; };
@@ -1071,15 +1071,15 @@
 		EAF0F97C14BC7B8C00544416 /* wsabi2 */ = {
 			isa = PBXGroup;
 			children = (
+				EA202D7314C74F6600776BF3 /* BWSConstants.h */,
+				EAF0F98514BC7B8C00544416 /* BWSAppDelegate.h */,
+				EAF0F98614BC7B8C00544416 /* BWSAppDelegate.m */,
 				EA8A051514C8936900199FF8 /* Categories */,
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				082C8733163AD2510049AB59 /* Views and ViewControllers */,
 				EA8A046814C7583A00199FF8 /* Images */,
-				EA202D7314C74F6600776BF3 /* BWSConstants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
 				EA2D1D5B14FC17D4007CB41F /* Network Communication */,
-				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
-				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
 			);
 			path = wsabi2;
@@ -1282,7 +1282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0F98314BC7B8C00544416 /* main.m in Sources */,
-				EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */,
+				EAF0F98714BC7B8C00544416 /* BWSAppDelegate.m in Sources */,
 				EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */,
 				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
 				EA277AB314DC4092002484CF /* BWSModalityMap.m in Sources */,
