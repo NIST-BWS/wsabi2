@@ -19,14 +19,14 @@
 #import "WSPopoverBackgroundView.h"
 #import "BWSConstants.h"
 
-@protocol WSPersonTableViewCellDelegate <NSObject>
+@protocol BWSPersonTableViewCellDelegate <NSObject>
 
 -(void) didRequestDuplicatePerson:(WSCDPerson*)person;
 -(void) didRequestDeletePerson:(WSCDPerson*)person;
 -(void) didChangeEditingStatusForPerson:(WSCDPerson*)person newStatus:(BOOL)onOrOff;
 @end
 
-@interface WSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
+@interface BWSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
                                                      GMGridViewActionDelegate,
                                                     WSBiographicalDataDelegate, WSCaptureDelegate,
                                                     UIPopoverControllerDelegate, UIActionSheetDelegate>
@@ -93,6 +93,6 @@
 @property (nonatomic, strong) IBOutlet UIView *separatorView;
 
 
-@property (nonatomic, unsafe_unretained) id<WSPersonTableViewCellDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<BWSPersonTableViewCellDelegate> delegate;
 
 @end

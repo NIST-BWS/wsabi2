@@ -6,13 +6,13 @@
  
 //
 
-#import "WSPersonTableViewCell.h"
+#import "BWSPersonTableViewCell.h"
 
 #import "WSAppDelegate.h"
 
 #define GRID_CELL_OFFSET 1000
 
-@implementation WSPersonTableViewCell
+@implementation BWSPersonTableViewCell
 @synthesize deletePersonOverlayViewCancelButton;
 @synthesize deletePersonOverlayViewDeleteButton;
 @synthesize captureController;

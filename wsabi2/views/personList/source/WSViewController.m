@@ -120,7 +120,7 @@
     // Don't allow rotation if a lightbox is being displayed, since the rotation
     // will trigger the popover to close, and the popover is the lightbox's
     // presentingViewController.
-    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    BWSPersonTableViewCell *cell = (BWSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     if ((cell == nil) || ([cell selectedIndex] == -1))
         return (YES);
         
@@ -133,7 +133,7 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     // Record if the flip side of the CaptureController is presently shown
-    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    BWSPersonTableViewCell *cell = (BWSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
     wasLightboxing = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isLightboxing] == YES));
 
@@ -150,7 +150,7 @@
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     
     // Redisplay capture controller if it was visible
-    WSPersonTableViewCell *cell = (WSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
+    BWSPersonTableViewCell *cell = (BWSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     if ((cell != nil) && ([cell selectedIndex] != -1)) {
         [cell showCapturePopoverAtIndex:[cell selectedIndex]];
         if (wasAnnotating)
@@ -164,7 +164,7 @@
 -(void) presentSensorWalkthrough:(NSNotification*)notification
 {
     //start by deselecting everything in the current row.
-    WSPersonTableViewCell *row = (WSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    BWSPersonTableViewCell *row = (BWSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [row selectItem:nil];
     
     WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
@@ -227,7 +227,7 @@
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
         NSLog(@"Asking current cell to show capture popover");
-        WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         
         [activeCell showCapturePopoverForItem:sourceItem];
         
@@ -248,7 +248,7 @@
     
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
-        WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         [activeCell showCapturePopoverForItem:sourceItem];
         
         shouldRestoreCapturePopover = NO;
@@ -412,7 +412,7 @@
     else return 40.0 + ((kItemCellSize + kItemCellSizeVerticalAddition + kItemCellSpacing) * numRows);
 }
 
-- (void)configureCell:(WSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(BWSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -441,7 +441,7 @@
 {
     static NSString *CellIdentifier = @"WSPersonTableViewCell"; //this is also set in WSPersonTableViewCell's XIB file
     
-    WSPersonTableViewCell *cell = (WSPersonTableViewCell*)[aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BWSPersonTableViewCell *cell = (BWSPersonTableViewCell*)[aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"WSPersonTableViewCell" owner:self
                                                         options:nil];
@@ -622,8 +622,8 @@
             
         case NSFetchedResultsChangeUpdate:
             //update data, then reload
-            [(WSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] updateData];
-            [self configureCell:(WSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [(BWSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] updateData];
+            [self configureCell:(BWSPersonTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -742,7 +742,7 @@
 #pragma mark - UIPopoverController delegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
-    WSPersonTableViewCell *activeCell = (WSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
     [self.view logPopoverControllerDismissed:aPopoverController];
 }

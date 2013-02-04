@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
 		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1930</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -35,7 +35,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="352026532">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="203487457">
@@ -47,7 +47,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{768, 134}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="822434626"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="759430010">
@@ -65,7 +64,6 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{768, 27}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="968667143"/>
 								<string key="NSReuseIdentifierKey">_NS:569</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -78,7 +76,6 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{1, 106}, {768, 27}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="425371714"/>
 								<string key="NSReuseIdentifierKey">_NS:569</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -91,7 +88,6 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{416, 30}, {201, 18}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="6964570"/>
 								<string key="NSReuseIdentifierKey">_NS:345</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -131,7 +127,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 20}, {200, 37}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="815336538"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -171,7 +166,6 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{629, 20}, {74, 37}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="832675069"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -195,7 +189,6 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{711, 20}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="575410468"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -222,7 +215,6 @@
 								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{12, 58}, {56, 56}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="362430822"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -256,7 +248,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 2}, {527, 18}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="610158715"/>
 								<string key="NSReuseIdentifierKey">_NS:345</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -287,7 +278,6 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{547, 2}, {201, 18}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="322390877"/>
 								<string key="NSReuseIdentifierKey">_NS:345</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -319,7 +309,6 @@
 								<int key="NSvFlags">269</int>
 								<string key="NSFrame">{{313, 123}, {143, 37}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="245081523"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -343,8 +332,6 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{0, 162}, {768, 1}}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -366,7 +353,6 @@
 										<int key="NSvFlags">274</int>
 										<string key="NSFrameSize">{768, 163}</string>
 										<reference key="NSSuperview" ref="968667143"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="280117466"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
@@ -390,7 +376,6 @@
 												<int key="NSvFlags">301</int>
 												<string key="NSFrame">{{20, 20}, {230, 46}}</string>
 												<reference key="NSSuperview" ref="280117466"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="323235840"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
@@ -419,7 +404,6 @@
 												<int key="NSvFlags">301</int>
 												<string key="NSFrame">{{258, 20}, {230, 46}}</string>
 												<reference key="NSSuperview" ref="280117466"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="264784661"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
@@ -439,7 +423,6 @@
 										</array>
 										<string key="NSFrame">{{150, 39}, {508, 84}}</string>
 										<reference key="NSSuperview" ref="968667143"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="144246228"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="759430010"/>
@@ -448,7 +431,6 @@
 								</array>
 								<string key="NSFrameSize">{768, 163}</string>
 								<reference key="NSSuperview" ref="203487457"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="247030808"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="759430010"/>
@@ -462,7 +444,6 @@
 						</array>
 						<string key="NSFrameSize">{768, 163}</string>
 						<reference key="NSSuperview" ref="352026532"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="477393772"/>
 						<string key="NSReuseIdentifierKey">_NS:396</string>
 						<reference key="IBUIBackgroundColor" ref="759430010"/>
@@ -474,8 +455,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{768, 164}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="203487457"/>
 				<string key="NSReuseIdentifierKey">_NS:385</string>
 				<reference key="IBUIBackgroundColor" ref="759430010"/>
@@ -827,7 +806,7 @@
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="25.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
-				<string key="3.CustomClassName">WSPersonTableViewCell</string>
+				<string key="3.CustomClassName">BWSPersonTableViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="32.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -853,302 +832,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">69</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">GMGridView</string>
-					<string key="superclassName">UIScrollView</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="actionDelegate">NSObject</string>
-						<string key="dataSource">NSObject</string>
-						<string key="layoutStrategy">id</string>
-						<string key="mainSuperView">UIView</string>
-						<string key="sortingDelegate">NSObject</string>
-						<string key="transformDelegate">NSObject</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="actionDelegate">
-							<string key="name">actionDelegate</string>
-							<string key="candidateClassName">NSObject</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dataSource">
-							<string key="name">dataSource</string>
-							<string key="candidateClassName">NSObject</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="layoutStrategy">
-							<string key="name">layoutStrategy</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="mainSuperView">
-							<string key="name">mainSuperView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="sortingDelegate">
-							<string key="name">sortingDelegate</string>
-							<string key="candidateClassName">NSObject</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="transformDelegate">
-							<string key="name">transformDelegate</string>
-							<string key="candidateClassName">NSObject</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/GMGridView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WSCaptureButton</string>
-					<string key="superclassName">UIButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WSCaptureButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WSCaptureController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="annotateButtonPressed:">id</string>
-						<string key="captureButtonPressed:">id</string>
-						<string key="deviceButtonPressed:">id</string>
-						<string key="doneButtonPressed:">id</string>
-						<string key="modalityButtonPressed:">id</string>
-						<string key="tappedBehindView:">UITapGestureRecognizer</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="annotateButtonPressed:">
-							<string key="name">annotateButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="captureButtonPressed:">
-							<string key="name">captureButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deviceButtonPressed:">
-							<string key="name">deviceButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doneButtonPressed:">
-							<string key="name">doneButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="modalityButtonPressed:">
-							<string key="name">modalityButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tappedBehindView:">
-							<string key="name">tappedBehindView:</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="annotateButton">UIButton</string>
-						<string key="annotationNotesTableView">UITableView</string>
-						<string key="annotationPresentImageView">UIImageView</string>
-						<string key="annotationTableView">UITableView</string>
-						<string key="backContainer">UIView</string>
-						<string key="backNavBarTitleItem">UINavigationItem</string>
-						<string key="captureButton">WSCaptureButton</string>
-						<string key="deviceButton">UIButton</string>
-						<string key="frontContainer">UIView</string>
-						<string key="itemDataView">UIImageView</string>
-						<string key="modalityButton">UIButton</string>
-						<string key="tapBehindViewRecognizer">UITapGestureRecognizer</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="annotateButton">
-							<string key="name">annotateButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationNotesTableView">
-							<string key="name">annotationNotesTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationPresentImageView">
-							<string key="name">annotationPresentImageView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationTableView">
-							<string key="name">annotationTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="backContainer">
-							<string key="name">backContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="backNavBarTitleItem">
-							<string key="name">backNavBarTitleItem</string>
-							<string key="candidateClassName">UINavigationItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="captureButton">
-							<string key="name">captureButton</string>
-							<string key="candidateClassName">WSCaptureButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deviceButton">
-							<string key="name">deviceButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="frontContainer">
-							<string key="name">frontContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="itemDataView">
-							<string key="name">itemDataView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="modalityButton">
-							<string key="name">modalityButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tapBehindViewRecognizer">
-							<string key="name">tapBehindViewRecognizer</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WSCaptureController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WSPersonTableViewCell</string>
-					<string key="superclassName">UITableViewCell</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addItemButtonPressed:">id</string>
-						<string key="biographicalDataButtonPressed:">id</string>
-						<string key="deleteButtonPressed:">id</string>
-						<string key="deletePersonOverlayCancelButtonPressed:">id</string>
-						<string key="deletePersonOverlayDeletePersonButtonPressed:">id</string>
-						<string key="duplicateRowButtonPressed:">id</string>
-						<string key="editButtonPressed:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addItemButtonPressed:">
-							<string key="name">addItemButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="biographicalDataButtonPressed:">
-							<string key="name">biographicalDataButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deleteButtonPressed:">
-							<string key="name">deleteButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deletePersonOverlayCancelButtonPressed:">
-							<string key="name">deletePersonOverlayCancelButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deletePersonOverlayDeletePersonButtonPressed:">
-							<string key="name">deletePersonOverlayDeletePersonButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="duplicateRowButtonPressed:">
-							<string key="name">duplicateRowButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="editButtonPressed:">
-							<string key="name">editButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="addButton">UIButton</string>
-						<string key="biographicalDataButton">UIButton</string>
-						<string key="biographicalDataInactiveLabel">UILabel</string>
-						<string key="captureController">WSCaptureController</string>
-						<string key="customSelectedBackgroundView">UIView</string>
-						<string key="deleteButton">UIButton</string>
-						<string key="deletePersonOverlayView">UIView</string>
-						<string key="deletePersonOverlayViewCancelButton">UIButton</string>
-						<string key="deletePersonOverlayViewDeleteButton">UIButton</string>
-						<string key="duplicateRowButton">UIButton</string>
-						<string key="editButton">UIButton</string>
-						<string key="itemGridView">GMGridView</string>
-						<string key="separatorView">UIView</string>
-						<string key="shadowDownView">UIImageView</string>
-						<string key="shadowUpView">UIImageView</string>
-						<string key="timestampInactiveLabel">UILabel</string>
-						<string key="timestampLabel">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="addButton">
-							<string key="name">addButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="biographicalDataButton">
-							<string key="name">biographicalDataButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="biographicalDataInactiveLabel">
-							<string key="name">biographicalDataInactiveLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="captureController">
-							<string key="name">captureController</string>
-							<string key="candidateClassName">WSCaptureController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="customSelectedBackgroundView">
-							<string key="name">customSelectedBackgroundView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deleteButton">
-							<string key="name">deleteButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deletePersonOverlayView">
-							<string key="name">deletePersonOverlayView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deletePersonOverlayViewCancelButton">
-							<string key="name">deletePersonOverlayViewCancelButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deletePersonOverlayViewDeleteButton">
-							<string key="name">deletePersonOverlayViewDeleteButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="duplicateRowButton">
-							<string key="name">duplicateRowButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="editButton">
-							<string key="name">editButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="itemGridView">
-							<string key="name">itemGridView</string>
-							<string key="candidateClassName">GMGridView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="separatorView">
-							<string key="name">separatorView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="shadowDownView">
-							<string key="name">shadowDownView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="shadowUpView">
-							<string key="name">shadowUpView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="timestampInactiveLabel">
-							<string key="name">timestampInactiveLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="timestampLabel">
-							<string key="name">timestampLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WSPersonTableViewCell.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
@@ -1161,6 +845,6 @@
 			<string key="NS.key.0">x.png</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">1930</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
