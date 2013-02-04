@@ -6,11 +6,11 @@
  
 //
 
-#import "WSDeviceChooserController.h"
+#import "BWSDeviceChooserController.h"
 
 #import "WSAppDelegate.h"
 
-@implementation WSDeviceChooserController
+@implementation BWSDeviceChooserController
 @synthesize submodality;
 @synthesize modality;
 @synthesize item;

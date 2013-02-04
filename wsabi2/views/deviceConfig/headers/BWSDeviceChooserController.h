@@ -15,7 +15,7 @@
 
 #define NUM_RECENT_SENSORS 5
 
-@interface WSDeviceChooserController : UITableViewController
+@interface BWSDeviceChooserController : UITableViewController
 {
     NSMutableArray *recentSensors;
 }

@@ -176,7 +176,7 @@
     // Start from device
     if ([[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue]) {
         //only show the walkthrough from device selection onwards.
-        WSDeviceChooserController *chooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+        BWSDeviceChooserController *chooser = [[BWSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
         chooser.item = item;
         
         //FIXME: Set the modality/submodality either here or in the chooser automatically

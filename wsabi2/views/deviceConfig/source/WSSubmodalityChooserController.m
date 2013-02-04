@@ -118,7 +118,7 @@
 -(IBAction) currentButtonPressed:(id)sender
 {
     //Push a new controller to choose the device.
-    WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+    BWSDeviceChooserController *subChooser = [[BWSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.item = self.item; //pass the data object to the next step in the walkthrough
     subChooser.modality = [BWSModalityMap modalityForString:self.item.modality];
     subChooser.submodality = [BWSModalityMap captureTypeForString:self.item.submodality]; 
@@ -234,7 +234,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Push a new controller to choose the device.
-    WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+    BWSDeviceChooserController *subChooser = [[BWSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.modality = self.modality;
     subChooser.submodality = [[submodalities objectAtIndex:indexPath.row] intValue];
     NSLog(@"Walkthrough setting submodality to %@",[BWSModalityMap stringForCaptureType:subChooser.submodality]);
