@@ -660,6 +660,10 @@
     }
     
     NSLog(@"checkSensor gets incoming object %@",(NSString*)timer.userInfo);
+    
+    // Don't pass a nil string to BaseURI
+    if ((timer.userInfo == nil) || [(NSString *)timer.userInfo isEqualToString:@""])
+        return;
     WSDeviceLink *deviceLink = [[WSDeviceLink alloc] initWithBaseURI:(NSString*)timer.userInfo];
     deviceLink.delegate = self;
     
