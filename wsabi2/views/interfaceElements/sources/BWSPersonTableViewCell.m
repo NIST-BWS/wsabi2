@@ -437,7 +437,7 @@
     }
     
     //We're going to put this in a secondary popover controller.
-    BWSBiographicalDataController *cap = [[BWSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
+    BWSBiographicalDataController *cap = [[BWSBiographicalDataController alloc] initWithNibName:@"BWSBiographicalDataController" bundle:nil];
     cap.person = self.person;
     cap.delegate = self;
     
@@ -780,7 +780,7 @@
 
         //make sure we've got a valid capture controller.
         if (!self.captureController) {
-            self.captureController = [[BWSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
+            self.captureController = [[BWSCaptureController alloc] initWithNibName:@"BWSCaptureController" bundle:nil];
             self.captureController.delegate = self;    
             
             //if there's no popover controller, create one.

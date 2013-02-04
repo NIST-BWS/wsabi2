@@ -56,7 +56,7 @@
 
 - (IBAction)addSensor:(id)sender
 {
-    WSSettingsAddSensorViewController *addSensorVC = [[WSSettingsAddSensorViewController alloc] initWithNibName:@"WSSettingsAddSensorView" bundle:nil];
+    WSSettingsAddSensorViewController *addSensorVC = [[WSSettingsAddSensorViewController alloc] initWithNibName:@"BWSSettingsAddSensorView" bundle:nil];
     [[self navigationController] pushViewController:addSensorVC animated:YES];
 }
 

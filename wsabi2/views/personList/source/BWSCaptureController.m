@@ -663,7 +663,7 @@
         return;
     }
     
-    WSLightboxViewController *vc = [[WSLightboxViewController alloc] initWithNibName:@"WSLightboxView" bundle:nil];
+    BWSLightboxViewController *vc = [[BWSLightboxViewController alloc] initWithNibName:@"BWSLightboxView" bundle:nil];
     [vc setImage:self.itemDataView.image];
     [vc setModalPresentationStyle:UIModalPresentationFullScreen];
     [vc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];

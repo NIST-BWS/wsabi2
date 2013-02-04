@@ -14,7 +14,7 @@
 #import "DDTTYLogger.h"
 #import "DDFileLogger.h"
 
-@class WSViewController;
+@class BWSViewController;
 
 @interface WSAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -32,6 +32,6 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 //The main view controller
-@property (strong, nonatomic) WSViewController *viewController;
+@property (strong, nonatomic) BWSViewController *viewController;
 
 @end

@@ -9,7 +9,7 @@
 
 #import "WSAppDelegate.h"
 
-#import "WSViewController.h"
+#import "BWSViewController.h"
 
 @interface WSAppDelegate()
 - (void)initializeSettings;
@@ -32,7 +32,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[WSViewController alloc] initWithNibName:@"WSViewController" bundle:nil];
+    self.viewController = [[BWSViewController alloc] initWithNibName:@"BWSViewController" bundle:nil];
     self.viewController.managedObjectContext = self.managedObjectContext;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.viewController];

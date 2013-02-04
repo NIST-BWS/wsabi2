@@ -55,7 +55,7 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
         case kWSSettingsSectionSensors:
             switch (indexPath.row) {
                 case kWSSettingsSensorsShowSensorsRow: {
-                    WSSettingsShowSensorsViewController *sensorsVC = [[WSSettingsShowSensorsViewController alloc] initWithNibName:@"WSSettingsShowSensorsView" bundle:nil];
+                    WSSettingsShowSensorsViewController *sensorsVC = [[WSSettingsShowSensorsViewController alloc] initWithNibName:@"BWSSettingsShowSensorsView" bundle:nil];
                     [[self navigationController] pushViewController:sensorsVC animated:YES];
                     break;
                 }

@@ -18,7 +18,7 @@
 
 #import "BWSDeviceLinkConstants.h"
 
-@interface WSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,
+@interface BWSViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,
 UIPopoverControllerDelegate,
 BWSPersonTableViewCellDelegate,
 NSFetchedResultsControllerDelegate>
