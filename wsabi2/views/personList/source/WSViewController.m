@@ -176,7 +176,7 @@
     // Start from device
     if ([[notification.userInfo objectForKey:kDictKeyStartFromDevice] boolValue]) {
         //only show the walkthrough from device selection onwards.
-        BWSDeviceChooserController *chooser = [[BWSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
+        BWSDeviceChooserController *chooser = [[BWSDeviceChooserController alloc] initWithNibName:@"BWSDeviceChooserController" bundle:nil];
         chooser.item = item;
         
         //FIXME: Set the modality/submodality either here or in the chooser automatically
@@ -188,7 +188,7 @@
         [self presentModalViewController:navigation animated:YES];
         // Start from submodality
     } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
-        WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
+        WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
         chooser.item = item;
         
         chooser.modality = [BWSModalityMap modalityForString:item.modality];
@@ -199,7 +199,7 @@
     }
     else {
         //show the full selection walkthrough
-        BWSModalityChooserController *chooser = [[BWSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
+        BWSModalityChooserController *chooser = [[BWSModalityChooserController alloc] initWithNibName:@"BWSModalityChooserController" bundle:nil];
         chooser.item = item;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;

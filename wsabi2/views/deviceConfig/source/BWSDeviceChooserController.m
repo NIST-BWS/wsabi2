@@ -183,7 +183,7 @@
 -(IBAction) currentButtonPressed:(id)sender
 {
     //Push a new controller to configure the device.
-    WSDeviceSetupController *subChooser = [[WSDeviceSetupController alloc] initWithNibName:@"WSDeviceSetupController" bundle:nil];
+    BWSDeviceSetupController *subChooser = [[BWSDeviceSetupController alloc] initWithNibName:@"BWSDeviceSetupController" bundle:nil];
     
     subChooser.item = self.item; //pass the data object
     subChooser.modality = self.modality;
@@ -493,7 +493,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Push a new controller to configure the device.
-    WSDeviceSetupController *subChooser = [[WSDeviceSetupController alloc] initWithNibName:@"WSDeviceSetupController" bundle:nil];
+    BWSDeviceSetupController *subChooser = [[BWSDeviceSetupController alloc] initWithNibName:@"BWSDeviceSetupController" bundle:nil];
     
     subChooser.item = self.item; //pass the data object
     subChooser.modality = self.modality;
