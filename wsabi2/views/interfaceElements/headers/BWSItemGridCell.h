@@ -20,7 +20,7 @@
 //
 //@end
 
-@interface WSItemGridCell : GMGridViewCell <UIActionSheetDelegate>
+@interface BWSItemGridCell : GMGridViewCell <UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
     NSMutableArray *currentAnnotationArray;

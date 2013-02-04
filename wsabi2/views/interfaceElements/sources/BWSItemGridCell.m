@@ -6,9 +6,9 @@
  
 //
 
-#import "WSItemGridCell.h"
+#import "BWSItemGridCell.h"
 
-@implementation WSItemGridCell
+@implementation BWSItemGridCell
 
 @synthesize item;
 @synthesize imageView;

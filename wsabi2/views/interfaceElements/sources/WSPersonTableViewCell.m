@@ -687,15 +687,15 @@
 
 }
 
--(void) selectItem:(WSItemGridCell*)cellToSelect
+-(void) selectItem:(BWSItemGridCell*)cellToSelect
 {
     // We're deselecting everything
     if(cellToSelect == nil)
         selectedIndex = -1;
     
     for (UIView *v in self.itemGridView.subviews) {
-        if ([v isKindOfClass:[WSItemGridCell class]]) {
-            WSItemGridCell *cell = ((WSItemGridCell*)v);
+        if ([v isKindOfClass:[BWSItemGridCell class]]) {
+            BWSItemGridCell *cell = ((BWSItemGridCell*)v);
             if (cell == cellToSelect) {
                 cell.selected = YES;
                 selectedIndex = [orderedItems indexOfObject:cell.item];
@@ -726,10 +726,10 @@
 {
     static NSString *CellIdentifier = @"gridCell";
     
-    WSItemGridCell *cell =(WSItemGridCell*) [gridView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BWSItemGridCell *cell =(BWSItemGridCell*) [gridView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if(!cell) {
-        cell = [[WSItemGridCell alloc] init];
+        cell = [[BWSItemGridCell alloc] init];
         cell.reuseIdentifier = CellIdentifier;
         CGSize theSize = [self GMGridView:gridView sizeForItemsInInterfaceOrientation:UIInterfaceOrientationPortrait];
         cell.bounds = CGRectMake(0, 0, theSize.width, theSize.height);
@@ -764,7 +764,7 @@
         [capturePopover dismissPopoverAnimated:NO];
     }
     
-    WSItemGridCell *activeCell = (WSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
+    BWSItemGridCell *activeCell = (BWSItemGridCell*)[self.itemGridView cellForItemAtIndex:index];
            
     //If we found a valid item, launch the capture popover from it.
     if (activeCell) {
@@ -882,7 +882,7 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     CGPoint offsetAtTap = [((UITableView *)[self superview]) contentOffset];
-    WSItemGridCell *currentCell = (WSItemGridCell*)[gridView cellForItemAtIndex:position];
+    BWSItemGridCell *currentCell = (BWSItemGridCell*)[gridView cellForItemAtIndex:position];
     
     if (currentCell.selected) {
         //just hide this.

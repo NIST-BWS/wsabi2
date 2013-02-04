@@ -14,7 +14,7 @@
 #import "WSCDItem.h"
 #import "WSBiographicalDataController.h"
 #import "WSCaptureController.h"
-#import "WSItemGridCell.h"
+#import "BWSItemGridCell.h"
 #import "BWSModalityChooserController.h"
 #import "WSPopoverBackgroundView.h"
 #import "BWSConstants.h"
@@ -63,7 +63,7 @@
 -(void) showCapturePopoverAtIndex:(int) index;
 -(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
 
--(void) selectItem:(WSItemGridCell*)cellToSelect;
+-(void) selectItem:(BWSItemGridCell*)cellToSelect;
 
 //Notification handlers
 -(void) didChangeItem:(NSNotification*)notification;
