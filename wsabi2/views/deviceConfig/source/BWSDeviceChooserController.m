@@ -77,10 +77,10 @@
     
     //NOTE: Not speedy. O(n^2)ish.
     recentSensors = [[NSMutableArray alloc] init];
-    for (WSCDDeviceDefinition *dev in rawRecentSensors) {
+    for (BWSCDDeviceDefinition *dev in rawRecentSensors) {
         BOOL unique = YES;
         //if this isn't in the pruned recent sensors list already, add it.
-        for (WSCDDeviceDefinition *existingDev in recentSensors) {
+        for (BWSCDDeviceDefinition *existingDev in recentSensors) {
             if ([existingDev.uri isEqualToString:dev.uri] && [existingDev.name isEqualToString:dev.name]) {
                 //this isn't unique, so don't add it.
                 unique = NO;
@@ -352,10 +352,10 @@
         if (recentSensors && [recentSensors count] > 0) {
             switch (indexPath.section) {
                 case 0:
-                    titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    titleString = [(BWSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     if (titleString == nil || [titleString isEqualToString:@""])
                         titleString = @"<Unnamed>";
-                    subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    subtitleString = [(BWSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
                     if (subtitleString == nil || [subtitleString isEqualToString:@""])
                         subtitleString = @"<No URI>";
                     if ([[self item] deviceConfig] != nil) {
@@ -398,10 +398,10 @@
         if (recentSensors && [recentSensors count] > 0) {
             switch (indexPath.section) {
                 case 0:
-                    titleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
+                    titleString = [(BWSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] name];
                     if (titleString == nil || [titleString isEqualToString:@""])
                         titleString = @"<Unnamed>";
-                    subtitleString = [(WSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
+                    subtitleString = [(BWSCDDeviceDefinition*)[recentSensors objectAtIndex:indexPath.row] uri];
                     if (subtitleString == nil || [subtitleString isEqualToString:@""])
                         subtitleString = @"<No URI>";
                     if ([[self item] deviceConfig] != nil) {
@@ -502,7 +502,7 @@
     //Configure the device definition
     //FIXME: Either choose an existing def and copy it, or start with a new def here.
 
-    WSCDDeviceDefinition *def = nil;
+    BWSCDDeviceDefinition *def = nil;
     BOOL createNewDef = NO;
     if (self.autodiscoveryEnabled) {
         //Everything
@@ -574,7 +574,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
     if (!def && createNewDef) {
         //Create a temporary item
-        WSCDDeviceDefinition *newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+        BWSCDDeviceDefinition *newDef = (BWSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
         newDef.timeStampLastEdit = [NSDate date];
         subChooser.deviceDefinition = newDef; 
     }
@@ -589,9 +589,9 @@
             subChooser.deviceDefinition.timeStampLastEdit = [NSDate date];
         } else {
             // Create a new item or update exists
-            WSCDDeviceDefinition *newDef;
+            BWSCDDeviceDefinition *newDef;
             if (self.item.deviceConfig == nil)
-                newDef = (WSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+                newDef = (BWSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
             else
                 newDef = self.item.deviceConfig;
             newDef.inactivityTimeout = def.inactivityTimeout;

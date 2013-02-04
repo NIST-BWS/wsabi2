@@ -9,7 +9,7 @@
 #import "WSAppDelegate.h"
 #import "BWSCDItem.h"
 #import "BWSCDPerson.h"
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "BWSSettingsAddSensorViewController.h"
 #import "BWSConstants.h"
@@ -77,7 +77,7 @@
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     
-    WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
+    BWSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[device name]];
     if (device.item == NULL)
         [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@", [device uri], NSLocalizedString(@"Unassociated", @"Not associated with any item")]];
@@ -108,7 +108,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
+    BWSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
     return ([device item] == nil);
 }
 
@@ -119,7 +119,7 @@
         
         // Delete device
         NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        WSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
+        BWSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
         [moc deleteObject:device];
         [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
         

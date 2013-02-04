@@ -7,7 +7,7 @@
 //
 
 #import "BWSCDItem.h"
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 #import "BWSCDPerson.h"
 
 

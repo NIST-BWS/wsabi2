@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BWSCDItem.h"
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "BWSSubmodalityChooserController.h"
 

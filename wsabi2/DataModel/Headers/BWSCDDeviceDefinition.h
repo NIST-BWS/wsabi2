@@ -11,7 +11,7 @@
 
 @class BWSCDItem;
 
-@interface WSCDDeviceDefinition : NSManagedObject
+@interface BWSCDDeviceDefinition : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * inactivityTimeout;
 @property (nonatomic, retain) NSString * modalities;

@@ -8,7 +8,7 @@
 
 #import "WSAppDelegate.h"
 #import "BWSModalityMap.h"
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 
 #import "BWSSettingsAddSensorViewController.h"
 
@@ -49,7 +49,7 @@
 {
     NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *deviceEntity = [NSEntityDescription entityForName:kWSEntityDeviceDefinition inManagedObjectContext:moc];
-    WSCDDeviceDefinition *device = [[WSCDDeviceDefinition alloc] initWithEntity:deviceEntity insertIntoManagedObjectContext:moc];
+    BWSCDDeviceDefinition *device = [[BWSCDDeviceDefinition alloc] initWithEntity:deviceEntity insertIntoManagedObjectContext:moc];
     
     [device setItem:nil];
     [device setName:[[self nameField] text]];

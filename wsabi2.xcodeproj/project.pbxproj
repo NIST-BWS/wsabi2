@@ -163,8 +163,8 @@
 		EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */; };
 		EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */; };
 		EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */; };
-		EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */; };
-		EA8AA297156D142D007D213A /* WSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */; };
+		EA8AA296156D142D007D213A /* BWSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* BWSCDDeviceDefinition.m */; };
+		EA8AA297156D142D007D213A /* BWSCDDeviceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA295156D142D007D213A /* BWSCDDeviceDefinition.m */; };
 		EA8AA29A156D142E007D213A /* BWSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA299156D142E007D213A /* BWSCDItem.m */; };
 		EA8AA29B156D142E007D213A /* BWSCDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA299156D142E007D213A /* BWSCDItem.m */; };
 		EA8AA29E156D142E007D213A /* BWSCDPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8AA29D156D142E007D213A /* BWSCDPerson.m */; };
@@ -485,8 +485,8 @@
 		EA8A051014C877FE00199FF8 /* glossyButton-black-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "glossyButton-black-highlighted.png"; path = "Images/glossyButton-black-highlighted.png"; sourceTree = "<group>"; };
 		EA8A051114C877FE00199FF8 /* glossyButton-black-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "glossyButton-black-normal.png"; path = "Images/glossyButton-black-normal.png"; sourceTree = "<group>"; };
 		EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+DeepCopy.m"; path = "Categories/Sources/NSManagedObject+DeepCopy.m"; sourceTree = "<group>"; };
-		EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSCDDeviceDefinition.h; path = DataModel/Headers/WSCDDeviceDefinition.h; sourceTree = "<group>"; };
-		EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSCDDeviceDefinition.m; path = DataModel/Sources/WSCDDeviceDefinition.m; sourceTree = "<group>"; };
+		EA8AA294156D142D007D213A /* BWSCDDeviceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSCDDeviceDefinition.h; path = DataModel/Headers/BWSCDDeviceDefinition.h; sourceTree = "<group>"; };
+		EA8AA295156D142D007D213A /* BWSCDDeviceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSCDDeviceDefinition.m; path = DataModel/Sources/BWSCDDeviceDefinition.m; sourceTree = "<group>"; };
 		EA8AA298156D142E007D213A /* BWSCDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSCDItem.h; path = DataModel/Headers/BWSCDItem.h; sourceTree = "<group>"; };
 		EA8AA299156D142E007D213A /* BWSCDItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSCDItem.m; path = DataModel/Sources/BWSCDItem.m; sourceTree = "<group>"; };
 		EA8AA29C156D142E007D213A /* BWSCDPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSCDPerson.h; path = DataModel/Headers/BWSCDPerson.h; sourceTree = "<group>"; };
@@ -756,7 +756,7 @@
 				EA8E447C14BC9E6B007D9B43 /* wsabi2.xcdatamodeld */,
 				EA8AA29C156D142E007D213A /* BWSCDPerson.h */,
 				EA8AA298156D142E007D213A /* BWSCDItem.h */,
-				EA8AA294156D142D007D213A /* WSCDDeviceDefinition.h */,
+				EA8AA294156D142D007D213A /* BWSCDDeviceDefinition.h */,
 			);
 			name = headers;
 			sourceTree = "<group>";
@@ -1042,7 +1042,7 @@
 				082C87A2163B0FDE0049AB59 /* headers */,
 				EA8AA29D156D142E007D213A /* BWSCDPerson.m */,
 				EA8AA299156D142E007D213A /* BWSCDItem.m */,
-				EA8AA295156D142D007D213A /* WSCDDeviceDefinition.m */,
+				EA8AA295156D142D007D213A /* BWSCDDeviceDefinition.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -1473,7 +1473,7 @@
 				EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */,
 				EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
-				EA8AA296156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
+				EA8AA296156D142D007D213A /* BWSCDDeviceDefinition.m in Sources */,
 				EA8AA29A156D142E007D213A /* BWSCDItem.m in Sources */,
 				EA8AA29E156D142E007D213A /* BWSCDPerson.m in Sources */,
 				082C876B163AD5CB0049AB59 /* BWSDeviceChooserController.m in Sources */,
@@ -1541,7 +1541,7 @@
 				EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */,
 				EA0DB8B31536162000693D86 /* UIImage+Resize.m in Sources */,
 				EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
-				EA8AA297156D142D007D213A /* WSCDDeviceDefinition.m in Sources */,
+				EA8AA297156D142D007D213A /* BWSCDDeviceDefinition.m in Sources */,
 				EA8AA29B156D142E007D213A /* BWSCDItem.m in Sources */,
 				EA8AA29F156D142E007D213A /* BWSCDPerson.m in Sources */,
 				084102941697303A00F95AF5 /* GMGridView.m in Sources */,

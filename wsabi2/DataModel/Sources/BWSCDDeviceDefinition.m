@@ -6,11 +6,11 @@
  
 //
 
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 #import "BWSCDItem.h"
 
 
-@implementation WSCDDeviceDefinition
+@implementation BWSCDDeviceDefinition
 
 @dynamic inactivityTimeout;
 @dynamic modalities;

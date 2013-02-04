@@ -11,7 +11,7 @@
 
 #import "BWSCDPerson.h"
 #import "BWSCDItem.h"
-#import "WSCDDeviceDefinition.h"
+#import "BWSCDDeviceDefinition.h"
 #import "BWSPersonTableViewCell.h"
 #import "BWSModalityChooserController.h"
 #import "BWSPopoverBackgroundView.h"
