@@ -8,7 +8,7 @@
 
 #import "BWSCaptureController.h"
 
-#import "WSLightboxViewController.h"
+#import "BWSLightboxViewController.h"
 #import "WSAppDelegate.h"
 
 @implementation BWSCaptureController

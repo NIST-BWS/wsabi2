@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 /// ViewController for displaying biometric captures in full screen.
-@interface WSLightboxViewController : UIViewController
+@interface BWSLightboxViewController : UIViewController
 {
     CGRect defaultImageViewFrame;
     CGRect lastImageViewFrame;

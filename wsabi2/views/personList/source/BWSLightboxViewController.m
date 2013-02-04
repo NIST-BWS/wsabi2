@@ -9,9 +9,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BWSCaptureController.h"
 
-#import "WSLightboxViewController.h"
+#import "BWSLightboxViewController.h"
 
-@implementation WSLightboxViewController
+@implementation BWSLightboxViewController
 
 @synthesize imageView = _imageView;
 
