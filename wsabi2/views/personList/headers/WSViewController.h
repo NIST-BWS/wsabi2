@@ -14,7 +14,7 @@
 #import "WSCDDeviceDefinition.h"
 #import "BWSPersonTableViewCell.h"
 #import "BWSModalityChooserController.h"
-#import "WSPopoverBackgroundView.h"
+#import "BWSPopoverBackgroundView.h"
 
 #import "BWSDeviceLinkConstants.h"
 

@@ -6,7 +6,7 @@
  
 //
 
-#import "WSPopoverBackgroundView.h"
+#import "BWSPopoverBackgroundView.h"
 
 #define ARROW_WIDTH 50.0
 #define ARROW_HEIGHT 35.0
@@ -18,7 +18,7 @@
 
 //NOTE: Based on code from https://github.com/Scianski/KSCustomUIPopover
 
-@interface WSPopoverBackgroundView ()
+@interface BWSPopoverBackgroundView ()
 {    
     UIImage *_topArrowImage;
     UIImage *_leftArrowImage;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation WSPopoverBackgroundView
+@implementation BWSPopoverBackgroundView
 
 @synthesize arrowOffset = _arrowOffset, arrowDirection = _arrowDirection, popoverBackgroundImageView = _popoverBackgroundImageView, arrowImageView = _arrowImageView;
 

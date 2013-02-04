@@ -451,7 +451,7 @@
         biographicalPopover.contentViewController = tempNav;
     }
 
-    biographicalPopover.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
+    biographicalPopover.popoverBackgroundViewClass = [BWSPopoverBackgroundView class];
     biographicalPopover.contentViewController = tempNav;
     biographicalPopover.delegate = self;
     cap.popoverController = biographicalPopover;
@@ -787,7 +787,7 @@
             if (!capturePopover) {
                 capturePopover = [[UIPopoverController alloc] initWithContentViewController:self.captureController];
                 //configure this popover's appearance.
-                capturePopover.popoverBackgroundViewClass = [WSPopoverBackgroundView class];
+                capturePopover.popoverBackgroundViewClass = [BWSPopoverBackgroundView class];
                 capturePopover.delegate = self;
             }
             else {

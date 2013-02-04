@@ -10,7 +10,7 @@
 
 //NOTE: Based on code from https://github.com/Scianski/KSCustomUIPopover
 
-@interface WSPopoverBackgroundView : UIPopoverBackgroundView 
+@interface BWSPopoverBackgroundView : UIPopoverBackgroundView 
 {    
     CGFloat                     _arrowOffset;
     UIPopoverArrowDirection     _arrowDirection;

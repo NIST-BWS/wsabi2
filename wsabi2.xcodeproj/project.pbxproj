@@ -42,7 +42,7 @@
 		082C879D163AD9D70049AB59 /* BWSCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8798163AD9D70049AB59 /* BWSCaptureButton.m */; };
 		082C879E163AD9D70049AB59 /* BWSItemGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8799163AD9D70049AB59 /* BWSItemGridCell.m */; };
 		082C879F163AD9D70049AB59 /* BWSPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879A163AD9D70049AB59 /* BWSPersonTableViewCell.m */; };
-		082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */; };
+		082C87A0163AD9D70049AB59 /* BWSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C879B163AD9D70049AB59 /* BWSPopoverBackgroundView.m */; };
 		0840B17216BADC3700503071 /* NSURL+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0840B17116BADC3700503071 /* NSURL+HTTP.m */; };
 		0840B17316BADC3700503071 /* NSURL+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0840B17116BADC3700503071 /* NSURL+HTTP.m */; };
 		0840B17816BC2BCC00503071 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */; };
@@ -324,12 +324,12 @@
 		082C8791163AD9C50049AB59 /* BWSCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSCaptureButton.h; path = views/interfaceElements/headers/BWSCaptureButton.h; sourceTree = "<group>"; };
 		082C8792163AD9C50049AB59 /* BWSItemGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSItemGridCell.h; path = views/interfaceElements/headers/BWSItemGridCell.h; sourceTree = "<group>"; };
 		082C8793163AD9C50049AB59 /* BWSPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSPersonTableViewCell.h; path = views/interfaceElements/headers/BWSPersonTableViewCell.h; sourceTree = "<group>"; };
-		082C8794163AD9C50049AB59 /* WSPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSPopoverBackgroundView.h; path = views/interfaceElements/headers/WSPopoverBackgroundView.h; sourceTree = "<group>"; };
+		082C8794163AD9C50049AB59 /* BWSPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSPopoverBackgroundView.h; path = views/interfaceElements/headers/BWSPopoverBackgroundView.h; sourceTree = "<group>"; };
 		082C8795163AD9CC0049AB59 /* BWSPersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSPersonTableViewCell.xib; path = views/interfaceElements/nibs/BWSPersonTableViewCell.xib; sourceTree = "<group>"; };
 		082C8798163AD9D70049AB59 /* BWSCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSCaptureButton.m; path = views/interfaceElements/sources/BWSCaptureButton.m; sourceTree = "<group>"; };
 		082C8799163AD9D70049AB59 /* BWSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSItemGridCell.m; path = views/interfaceElements/sources/BWSItemGridCell.m; sourceTree = "<group>"; };
 		082C879A163AD9D70049AB59 /* BWSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSPersonTableViewCell.m; path = views/interfaceElements/sources/BWSPersonTableViewCell.m; sourceTree = "<group>"; };
-		082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPopoverBackgroundView.m; path = views/interfaceElements/sources/WSPopoverBackgroundView.m; sourceTree = "<group>"; };
+		082C879B163AD9D70049AB59 /* BWSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSPopoverBackgroundView.m; path = views/interfaceElements/sources/BWSPopoverBackgroundView.m; sourceTree = "<group>"; };
 		0840B16E16BADC2300503071 /* NSURL+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+HTTP.h"; path = "Categories/Headers/NSURL+HTTP.h"; sourceTree = "<group>"; };
 		0840B17116BADC3700503071 /* NSURL+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+HTTP.m"; path = "Categories/Sources/NSURL+HTTP.m"; sourceTree = "<group>"; };
 		084102871697303A00F95AF5 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GMGridView-Constants.h"; path = "wsabi2/vendor/GMGridView/GMGridView/GMGridView-Constants.h"; sourceTree = SOURCE_ROOT; };
@@ -708,7 +708,7 @@
 				082C8798163AD9D70049AB59 /* BWSCaptureButton.m */,
 				082C8799163AD9D70049AB59 /* BWSItemGridCell.m */,
 				082C879A163AD9D70049AB59 /* BWSPersonTableViewCell.m */,
-				082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */,
+				082C879B163AD9D70049AB59 /* BWSPopoverBackgroundView.m */,
 			);
 			name = "Interface Elements";
 			sourceTree = "<group>";
@@ -728,7 +728,7 @@
 				082C8791163AD9C50049AB59 /* BWSCaptureButton.h */,
 				082C8792163AD9C50049AB59 /* BWSItemGridCell.h */,
 				082C8793163AD9C50049AB59 /* BWSPersonTableViewCell.h */,
-				082C8794163AD9C50049AB59 /* WSPopoverBackgroundView.h */,
+				082C8794163AD9C50049AB59 /* BWSPopoverBackgroundView.h */,
 			);
 			name = headers;
 			sourceTree = "<group>";
@@ -1489,7 +1489,7 @@
 				082C879D163AD9D70049AB59 /* BWSCaptureButton.m in Sources */,
 				082C879E163AD9D70049AB59 /* BWSItemGridCell.m in Sources */,
 				082C879F163AD9D70049AB59 /* BWSPersonTableViewCell.m in Sources */,
-				082C87A0163AD9D70049AB59 /* WSPopoverBackgroundView.m in Sources */,
+				082C87A0163AD9D70049AB59 /* BWSPopoverBackgroundView.m in Sources */,
 				08FBD6431667F24300C01708 /* UIView+BWSInterfaceLogging.m in Sources */,
 				08B250FF168E2A6E00659E98 /* WSLightboxViewController.m in Sources */,
 				0847AB26169608C2003395BE /* DDAbstractDatabaseLogger.m in Sources */,
