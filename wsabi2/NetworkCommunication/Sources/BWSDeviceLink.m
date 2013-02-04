@@ -408,7 +408,7 @@
         }
         
         //Get the converted object and store it.
-        self.currentWSBDParameter.defaultValue = [NBCLXMLMap objcObjectForXML:self.currentElementValue ofType:typeString];
+        self.currentWSBDParameter.defaultValue = [BWSXMLMap objcObjectForXML:self.currentElementValue ofType:typeString];
         NSLog(@"Parameter %@ has defaultValue %@",self.currentWSBDParameter.name, self.currentWSBDParameter.defaultValue);
     }
     
@@ -426,7 +426,7 @@
             self.currentWSBDParameter.allowedValues = [[NSMutableArray alloc] init];
         }
         //Get the converted object and store it.
-        [self.currentWSBDParameter.allowedValues addObject:[NBCLXMLMap objcObjectForXML:self.currentElementValue ofType:typeString]];
+        [self.currentWSBDParameter.allowedValues addObject:[BWSXMLMap objcObjectForXML:self.currentElementValue ofType:typeString]];
         
     }
     
@@ -733,7 +733,7 @@
     NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration %@ %@ %@>", kBCLSchemaInstanceNamespace, kBCLSchemaNamespace, kBCLWSBDNamespace];
 	if (params)
         for(NSString* key in params)
-            [messageBody appendFormat:@"<item><key>%@</key>%@</item>", key, [NBCLXMLMap xmlElementForObject:[params objectForKey:key] withElementName:@"value"]];
+            [messageBody appendFormat:@"<item><key>%@</key>%@</item>", key, [BWSXMLMap xmlElementForObject:[params objectForKey:key] withElementName:@"value"]];
     [messageBody appendString:@"</configuration>"];
     [configureRequest setHTTPBody:[messageBody dataUsingEncoding:NSUTF8StringEncoding]];
     [configureRequest addValue:kBCLHTTPHeaderValueXMLContentType forHTTPHeaderField:kBCLHTTPHeaderKeyContentType];
