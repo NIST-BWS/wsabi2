@@ -15,7 +15,7 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSCDItem.h"
 #import "ELCTextFieldCellWide.h"
-#import "WSModalityChooserController.h"
+#import "BWSModalityChooserController.h"
 #import "WSSubmodalityChooserController.h"
 
 typedef enum {

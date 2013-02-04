@@ -199,7 +199,7 @@
     }
     else {
         //show the full selection walkthrough
-        WSModalityChooserController *chooser = [[WSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
+        BWSModalityChooserController *chooser = [[BWSModalityChooserController alloc] initWithNibName:@"WSModalityChooserController" bundle:nil];
         chooser.item = item;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;

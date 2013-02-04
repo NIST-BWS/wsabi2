@@ -12,7 +12,7 @@
 #import "BWSModalityMap.h"
 #import "WSSubmodalityChooserController.h"
 
-@interface WSModalityChooserController : UITableViewController
+@interface BWSModalityChooserController : UITableViewController
 
 -(IBAction) tappedBehindView:(id)sender;
 -(IBAction) currentButtonPressed:(id)sender;

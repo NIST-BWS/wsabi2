@@ -6,9 +6,9 @@
  
 //
 
-#import "WSModalityChooserController.h"
+#import "BWSModalityChooserController.h"
 
-@implementation WSModalityChooserController
+@implementation BWSModalityChooserController
 @synthesize item;
 @synthesize currentButton;
 @synthesize tapBehindViewRecognizer;

@@ -15,7 +15,7 @@
 #import "WSBiographicalDataController.h"
 #import "WSCaptureController.h"
 #import "WSItemGridCell.h"
-#import "WSModalityChooserController.h"
+#import "BWSModalityChooserController.h"
 #import "WSPopoverBackgroundView.h"
 #import "BWSConstants.h"
 
