@@ -14,9 +14,9 @@
 #import "BWSSettingsAddSensorViewController.h"
 #import "BWSConstants.h"
 
-#import "WSSettingsShowSensorsViewController.h"
+#import "BWSSettingsShowSensorsViewController.h"
 
-@interface WSSettingsShowSensorsViewController ()
+@interface BWSSettingsShowSensorsViewController ()
 
 /// List of the sensors retrieved from the backing store
 @property (nonatomic, strong) NSDictionary *sensors;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation WSSettingsShowSensorsViewController
+@implementation BWSSettingsShowSensorsViewController
 
 @synthesize sensors = _sensors;
 

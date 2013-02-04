@@ -10,6 +10,6 @@
 
 static NSString * const kWSSettingsShowSensorsLabel = @"Sensors";
 
-@interface WSSettingsShowSensorsViewController : UITableViewController <UIPopoverControllerDelegate>
+@interface BWSSettingsShowSensorsViewController : UITableViewController <UIPopoverControllerDelegate>
 
 @end

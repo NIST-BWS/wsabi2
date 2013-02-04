@@ -30,7 +30,7 @@
 		082C876D163AD5CB0049AB59 /* BWSModalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8769163AD5CB0049AB59 /* BWSModalityChooserController.m */; };
 		082C876E163AD5CB0049AB59 /* BWSSubmodalityChooserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C876A163AD5CB0049AB59 /* BWSSubmodalityChooserController.m */; };
 		082C8772163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C876F163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m */; };
-		082C8773163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8770163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m */; };
+		082C8773163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8770163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m */; };
 		082C8774163AD5F80049AB59 /* WSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C8771163AD5F80049AB59 /* WSSettingsViewController.m */; };
 		082C8784163AD8260049AB59 /* BWSBiographicalDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8781163AD8260049AB59 /* BWSBiographicalDataController.xib */; };
 		082C8785163AD8260049AB59 /* BWSCaptureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8782163AD8260049AB59 /* BWSCaptureController.xib */; };
@@ -292,7 +292,7 @@
 		0816043815DECB320055D27F /* annotate_pencil_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = annotate_pencil_left.png; path = Images/annotate_pencil_left.png; sourceTree = "<group>"; };
 		0816043915DECB320055D27F /* annotate_pencil_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "annotate_pencil_left@2x.png"; path = "Images/annotate_pencil_left@2x.png"; sourceTree = "<group>"; };
 		082C8742163AD4840049AB59 /* BWSSettingsAddSensorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsAddSensorViewController.h; path = views/settings/headers/BWSSettingsAddSensorViewController.h; sourceTree = "<group>"; };
-		082C8743163AD4840049AB59 /* WSSettingsShowSensorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSettingsShowSensorsViewController.h; path = views/settings/headers/WSSettingsShowSensorsViewController.h; sourceTree = "<group>"; };
+		082C8743163AD4840049AB59 /* BWSSettingsShowSensorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsShowSensorsViewController.h; path = views/settings/headers/BWSSettingsShowSensorsViewController.h; sourceTree = "<group>"; };
 		082C8744163AD4840049AB59 /* WSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSSettingsViewController.h; path = views/settings/headers/WSSettingsViewController.h; sourceTree = "<group>"; };
 		082C8745163AD4930049AB59 /* WSSettingsAddSensorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsAddSensorView.xib; path = views/settings/nibs/WSSettingsAddSensorView.xib; sourceTree = "<group>"; };
 		082C8746163AD4930049AB59 /* WSSettingsShowSensorsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsShowSensorsView.xib; path = views/settings/nibs/WSSettingsShowSensorsView.xib; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 		082C8769163AD5CB0049AB59 /* BWSModalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSModalityChooserController.m; path = views/deviceConfig/source/BWSModalityChooserController.m; sourceTree = "<group>"; };
 		082C876A163AD5CB0049AB59 /* BWSSubmodalityChooserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSSubmodalityChooserController.m; path = views/deviceConfig/source/BWSSubmodalityChooserController.m; sourceTree = "<group>"; };
 		082C876F163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSSettingsAddSensorViewController.m; path = views/settings/source/BWSSettingsAddSensorViewController.m; sourceTree = "<group>"; };
-		082C8770163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsShowSensorsViewController.m; path = views/settings/source/WSSettingsShowSensorsViewController.m; sourceTree = "<group>"; };
+		082C8770163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSSettingsShowSensorsViewController.m; path = views/settings/source/BWSSettingsShowSensorsViewController.m; sourceTree = "<group>"; };
 		082C8771163AD5F80049AB59 /* WSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSSettingsViewController.m; path = views/settings/source/WSSettingsViewController.m; sourceTree = "<group>"; };
 		082C8778163AD8000049AB59 /* BWSBiographicalDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSBiographicalDataController.h; path = views/personList/headers/BWSBiographicalDataController.h; sourceTree = "<group>"; };
 		082C8779163AD8000049AB59 /* BWSCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSCaptureController.h; path = views/personList/headers/BWSCaptureController.h; sourceTree = "<group>"; };
@@ -605,7 +605,7 @@
 				082C8735163AD3030049AB59 /* headers */,
 				082C8734163AD26D0049AB59 /* NIBs */,
 				082C876F163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m */,
-				082C8770163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m */,
+				082C8770163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m */,
 				082C8771163AD5F80049AB59 /* WSSettingsViewController.m */,
 			);
 			name = Settings;
@@ -636,7 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				082C8742163AD4840049AB59 /* BWSSettingsAddSensorViewController.h */,
-				082C8743163AD4840049AB59 /* WSSettingsShowSensorsViewController.h */,
+				082C8743163AD4840049AB59 /* BWSSettingsShowSensorsViewController.h */,
 				082C8744163AD4840049AB59 /* WSSettingsViewController.h */,
 			);
 			name = headers;
@@ -1481,7 +1481,7 @@
 				082C876D163AD5CB0049AB59 /* BWSModalityChooserController.m in Sources */,
 				082C876E163AD5CB0049AB59 /* BWSSubmodalityChooserController.m in Sources */,
 				082C8772163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m in Sources */,
-				082C8773163AD5F80049AB59 /* WSSettingsShowSensorsViewController.m in Sources */,
+				082C8773163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m in Sources */,
 				082C8774163AD5F80049AB59 /* WSSettingsViewController.m in Sources */,
 				082C878A163AD8310049AB59 /* BWSBiographicalDataController.m in Sources */,
 				082C878B163AD8310049AB59 /* BWSCaptureController.m in Sources */,
