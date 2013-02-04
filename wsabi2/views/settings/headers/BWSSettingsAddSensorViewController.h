@@ -17,7 +17,7 @@ static const NSInteger kWSSettingsAddSensorVCModalityComponent = 0;
 /// Component number for the submodality component of the PickerView
 static const NSInteger kWSSettingsAddSensorVCSubmodalityComponent = 1;
 
-@interface WSSettingsAddSensorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
+@interface BWSSettingsAddSensorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;

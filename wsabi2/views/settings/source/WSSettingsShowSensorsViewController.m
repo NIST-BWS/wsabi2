@@ -11,7 +11,7 @@
 #import "WSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
-#import "WSSettingsAddSensorViewController.h"
+#import "BWSSettingsAddSensorViewController.h"
 #import "BWSConstants.h"
 
 #import "WSSettingsShowSensorsViewController.h"
@@ -56,7 +56,7 @@
 
 - (IBAction)addSensor:(id)sender
 {
-    WSSettingsAddSensorViewController *addSensorVC = [[WSSettingsAddSensorViewController alloc] initWithNibName:@"BWSSettingsAddSensorView" bundle:nil];
+    BWSSettingsAddSensorViewController *addSensorVC = [[BWSSettingsAddSensorViewController alloc] initWithNibName:@"BWSSettingsAddSensorView" bundle:nil];
     [[self navigationController] pushViewController:addSensorVC animated:YES];
 }
 

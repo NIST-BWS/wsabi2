@@ -10,9 +10,9 @@
 #import "BWSModalityMap.h"
 #import "WSCDDeviceDefinition.h"
 
-#import "WSSettingsAddSensorViewController.h"
+#import "BWSSettingsAddSensorViewController.h"
 
-@interface WSSettingsAddSensorViewController ()
+@interface BWSSettingsAddSensorViewController ()
 
 /// Pressed the save button
 - (IBAction)saveButtonPressed:(id)sender;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation WSSettingsAddSensorViewController
+@implementation BWSSettingsAddSensorViewController
 
 #pragma mark - View Lifecycle
 
