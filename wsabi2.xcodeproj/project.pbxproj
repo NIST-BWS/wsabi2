@@ -379,7 +379,6 @@
 		EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		EA2D1D5914FBF970007CB41F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EA2D1D5C14FC18E1007CB41F /* BWSBase64Coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSBase64Coder.h; path = NetworkCommunication/Headers/BWSBase64Coder.h; sourceTree = "<group>"; };
 		EA2D1D5D14FC18E1007CB41F /* BWSBase64Coder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSBase64Coder.m; path = NetworkCommunication/Sources/BWSBase64Coder.m; sourceTree = "<group>"; };
 		EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkConstants.h; path = NetworkCommunication/Headers/BWSDeviceLinkConstants.h; sourceTree = "<group>"; };
@@ -1052,7 +1051,6 @@
 			children = (
 				EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */,
 				EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */,
-				EA2D1D5914FBF970007CB41F /* libz.dylib */,
 				EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */,
 				EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */,
 				EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */,
