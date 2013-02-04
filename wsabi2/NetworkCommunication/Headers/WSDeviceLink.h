@@ -12,33 +12,54 @@
 #import "WSDeviceLinkDelegate.h"
 #import "NBCLDeviceLinkConstants.h"
 
+/// Communication mechanism with a single WS-BD service
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
-/// Base URI to the device
+/// Base URI to the device.
 @property (nonatomic, strong, readonly) NSURL *baseURI;
-
+/// Established Session ID with the service.
 @property (nonatomic, strong) NSString *currentSessionId;
 
-//IMPORTANT NOTE: Each of these is a GUIDELINE, and SUGGESTS that the sensor
-//is PROBABLY past the stated phase and connected. If the sensor is
-//disconnected, or another client holds the lock when the next operation is
-//performed, it will still fail.
+/// @brief
+/// Whether or not service registration procedure has completed.
+/// @note
+/// This is a suggestion only and may not reflect the true state.
 @property (nonatomic, readonly) BOOL registered;
+
+/// @brief
+/// Whether or not registration has a lock on the service.
+/// @note
+/// This is a suggestion only and may not reflect the true state.
 @property (nonatomic, readonly) BOOL hasLock;
+
+/// @brief
+/// Whether or not the service initialization procedure has completed.
+/// @note
+/// This is a suggestion only and may not reflect the true state.
 @property (nonatomic, readonly) BOOL initialized;
 
+/// Active sequence of operations being performed.
+// TODO: Replace with state machine (github issue #148)
 @property (nonatomic, readonly) SensorSequenceType sequenceInProgress;
 
+/// Object that acts on service network activity
 @property (nonatomic, unsafe_unretained) id<WSDeviceLinkDelegate> delegate;
 
-
+/// @brief
+/// Obtain a textual description for a sensor operation.
+/// @param opType
+/// The operation in question.
 + (NSString *)stringForSensorOperationType:(SensorOperationType)opType;
 
 /// @brief
-/// Create a new WSDeviceLink
+/// Create a new WSDeviceLink.
 /// @param uri
-/// Base URI to the device
+/// Base URI to the device.
 - (id)initWithBaseURI:(NSString *)uri;
+
+//
+// Operations/API Endpoints
+//
 
 - (void)registerClient:(NSURL *)sourceObjectID;
 - (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID;
@@ -63,6 +84,7 @@
 - (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
 - (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
 
+/// Remove all enqueued network operations.
 - (void)cancelAllOperations;
 
 @end
