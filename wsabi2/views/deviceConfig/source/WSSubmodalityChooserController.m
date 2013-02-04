@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    self.title = [WSModalityMap stringForModality:self.modality];
+    self.title = [BWSModalityMap stringForModality:self.modality];
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Submodality View"];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -48,7 +48,7 @@
     
     //If we have a valid stored modality and it matches, show the "keep it" button.
     if (self.item.managedObjectContext && self.item.submodality 
-        && (self.modality == [WSModalityMap modalityForString:self.item.modality])
+        && (self.modality == [BWSModalityMap modalityForString:self.item.modality])
         && self.modality != kCaptureTypeNotSet
         ) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Keep \"%@\"",self.item.submodality]
@@ -112,7 +112,7 @@
 -(void) setModality:(WSSensorModalityType)newModality
 {
     modality = newModality;
-    submodalities = [WSModalityMap captureTypesForModality:modality];
+    submodalities = [BWSModalityMap captureTypesForModality:modality];
 }
 
 -(IBAction) currentButtonPressed:(id)sender
@@ -120,8 +120,8 @@
     //Push a new controller to choose the device.
     WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.item = self.item; //pass the data object to the next step in the walkthrough
-    subChooser.modality = [WSModalityMap modalityForString:self.item.modality];
-    subChooser.submodality = [WSModalityMap captureTypeForString:self.item.submodality]; 
+    subChooser.modality = [BWSModalityMap modalityForString:self.item.modality];
+    subChooser.submodality = [BWSModalityMap captureTypeForString:self.item.submodality]; 
     
     [self.navigationController pushViewController:subChooser animated:YES];
     
@@ -176,7 +176,7 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
+    cell.textLabel.text = [BWSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
     cell.accessibilityLabel = cell.textLabel.text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
@@ -237,7 +237,7 @@
     WSDeviceChooserController *subChooser = [[WSDeviceChooserController alloc] initWithNibName:@"WSDeviceChooserController" bundle:nil];
     subChooser.modality = self.modality;
     subChooser.submodality = [[submodalities objectAtIndex:indexPath.row] intValue];
-    NSLog(@"Walkthrough setting submodality to %@",[WSModalityMap stringForCaptureType:subChooser.submodality]);
+    NSLog(@"Walkthrough setting submodality to %@",[BWSModalityMap stringForCaptureType:subChooser.submodality]);
 
 //    //set the item's submodality
 //    self.item.submodality = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];

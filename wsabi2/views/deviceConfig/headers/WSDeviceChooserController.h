@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "constants.h"
 #import "NSManagedObject+DeepCopy.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "WSCDItem.h"
 #import "WSDeviceSetupController.h"
 

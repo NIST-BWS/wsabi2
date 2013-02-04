@@ -479,7 +479,7 @@
 
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:[self.person.items count]]; 
-    newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
+    newCaptureItem.submodality = [BWSModalityMap stringForCaptureType:kCaptureTypeNotSet];
 
 //    //Update the indices of everything in the existing array to make room for the new item.
 //    for (int i = 0; i < [orderedItems count]; i++) {

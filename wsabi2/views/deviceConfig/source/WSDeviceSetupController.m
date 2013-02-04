@@ -247,7 +247,7 @@
                              case kStatusBadModality:
                                  self.statusTextButton.alpha = 1.0;
                                  [self.statusTextButton setTitle:
-                                  [NSString stringWithFormat:@"The sensor at this address can't capture %@ data.", [[WSModalityMap stringForModality:self.modality] lowercaseString]]
+                                  [NSString stringWithFormat:@"The sensor at this address can't capture %@ data.", [[BWSModalityMap stringForModality:self.modality] lowercaseString]]
                                                         forState:UIControlStateNormal];
                                  self.statusTextButton.enabled = YES;
                                  self.statusTextButton.selected = NO; //use the deselected state, which is the warning state.
@@ -259,7 +259,7 @@
                              case kStatusBadSubmodality:
                                  self.statusTextButton.alpha = 1.0;
                                  [self.statusTextButton setTitle:
-                                  [NSString stringWithFormat:@"The sensor at this address can't capture %@ data.", [[WSModalityMap stringForCaptureType:self.submodality] lowercaseString]]
+                                  [NSString stringWithFormat:@"The sensor at this address can't capture %@ data.", [[BWSModalityMap stringForCaptureType:self.submodality] lowercaseString]]
                                                         forState:UIControlStateNormal];
                                  self.statusTextButton.enabled = YES;
                                  self.statusTextButton.selected = NO; //use the deselected state, which is the warning state.
@@ -298,10 +298,10 @@
 {
     
     //Store the device definition in the item at this point.
-    self.item.modality = [WSModalityMap stringForModality:self.modality];
-    self.item.submodality = [WSModalityMap stringForCaptureType:self.submodality];
+    self.item.modality = [BWSModalityMap stringForModality:self.modality];
+    self.item.submodality = [BWSModalityMap stringForCaptureType:self.submodality];
     
-    NSLog(@"About to store an item with modality %@ and submodality %@",[WSModalityMap stringForModality:self.modality],[WSModalityMap stringForCaptureType:self.submodality]);
+    NSLog(@"About to store an item with modality %@ and submodality %@",[BWSModalityMap stringForModality:self.modality],[BWSModalityMap stringForCaptureType:self.submodality]);
     
     UITextField *networkField = (UITextField*)[self.tableView viewWithTag:TAG_NETWORK_ADDRESS];
     self.deviceDefinition.uri = networkField.text;
@@ -317,7 +317,7 @@
     //NOTE: This uses the parameter form of the submodality, rather than the pretty-printed form.
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:2];
     [params setObject:self.item.modality forKey:@"modality"];
-    [params setObject:[WSModalityMap parameterNameForCaptureType:self.submodality] forKey:@"submodality"];
+    [params setObject:[BWSModalityMap parameterNameForCaptureType:self.submodality] forKey:@"submodality"];
     self.deviceDefinition.parameterDictionary = [NSKeyedArchiver archivedDataWithRootObject:params];
     
     //If necessary, insert both the item and its device definition into the real context, which
@@ -715,12 +715,12 @@
         NSString *serviceModalityDefault = serviceModalityParam.defaultValue;
         
         if([serviceModalityDefault localizedCaseInsensitiveCompare:
-            [WSModalityMap stringForModality:self.modality]] 
+            [BWSModalityMap stringForModality:self.modality]] 
            != NSOrderedSame)
         {
             //This sensor doesn't support the requested modality. operation complete.
             self.sensorCheckStatus = kStatusBadModality;
-            NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
+            NSLog(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
                   serviceModalityDefault);
             isSensorOperationCompleted = true;
         }
@@ -736,11 +736,11 @@
         
         BOOL modalityOK = NO;
         for (NSString *mod in serviceModalityAllowed) {
-            NSLog(@"Expected modality %@, got %@",[WSModalityMap stringForModality:self.modality],
+            NSLog(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
                   mod);
 
             if ([mod localizedCaseInsensitiveCompare:
-                 [WSModalityMap stringForModality:self.modality]] 
+                 [BWSModalityMap stringForModality:self.modality]] 
                 == NSOrderedSame)
             {
                 modalityOK = YES;
@@ -762,12 +762,12 @@
             NSString *serviceSubmodalityDefault = serviceSubmodalityParam.defaultValue;
             
             if([serviceSubmodalityDefault localizedCaseInsensitiveCompare:
-                [WSModalityMap parameterNameForCaptureType:self.submodality]] 
+                [BWSModalityMap parameterNameForCaptureType:self.submodality]] 
                != NSOrderedSame)
             {
                 //This sensor doesn't support the requested submodality.
                 self.sensorCheckStatus = kStatusBadSubmodality;
-                NSLog(@"Expected submodality %@, got %@",[WSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
+                NSLog(@"Expected submodality %@, got %@",[BWSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
             }
             else {
                 //We're good.
@@ -781,9 +781,9 @@
             
             BOOL submodalityOK = NO;
             for (NSString *smod in serviceSubmodalityAllowed) {
-                NSLog(@"Expected submodality %@, got %@", [WSModalityMap parameterNameForCaptureType:self.submodality], smod);
+                NSLog(@"Expected submodality %@, got %@", [BWSModalityMap parameterNameForCaptureType:self.submodality], smod);
                 if ([smod localizedCaseInsensitiveCompare:
-                     [WSModalityMap parameterNameForCaptureType:self.submodality]] 
+                     [BWSModalityMap parameterNameForCaptureType:self.submodality]] 
                     == NSOrderedSame)
                 {
                     submodalityOK = YES;

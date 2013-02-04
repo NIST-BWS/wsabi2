@@ -10,7 +10,7 @@
 #import "WSCDItem.h"
 #import "WSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "WSSettingsAddSensorViewController.h"
 #import "constants.h"
 
@@ -103,7 +103,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return ([WSModalityMap stringForModality:section]);
+    return ([BWSModalityMap stringForModality:section]);
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -160,7 +160,7 @@
     
     NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:kWSEntityDeviceDefinition inManagedObjectContext:moc];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modalities like %@)", [WSModalityMap stringForModality:modality]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modalities like %@)", [BWSModalityMap stringForModality:modality]];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];

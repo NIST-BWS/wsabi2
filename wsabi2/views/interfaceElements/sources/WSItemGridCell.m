@@ -73,7 +73,7 @@
         self.imageView.image = nil;
         
         NSString *imageName = nil;
-        switch ([WSModalityMap modalityForString:self.item.modality]) {
+        switch ([BWSModalityMap modalityForString:self.item.modality]) {
             case kModalityEar:
                 imageName = @"modality-ear";
                 break;

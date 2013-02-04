@@ -180,8 +180,8 @@
         chooser.item = item;
         
         //FIXME: Set the modality/submodality either here or in the chooser automatically
-        chooser.modality = [WSModalityMap modalityForString:item.modality];
-        chooser.submodality = [WSModalityMap captureTypeForString:item.submodality];
+        chooser.modality = [BWSModalityMap modalityForString:item.modality];
+        chooser.submodality = [BWSModalityMap captureTypeForString:item.submodality];
         
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -191,7 +191,7 @@
         WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
         chooser.item = item;
         
-        chooser.modality = [WSModalityMap modalityForString:item.modality];
+        chooser.modality = [BWSModalityMap modalityForString:item.modality];
         
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -364,7 +364,7 @@
     
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:0];
-    newCaptureItem.submodality = [WSModalityMap stringForCaptureType:kCaptureTypeNotSet];
+    newCaptureItem.submodality = [BWSModalityMap stringForCaptureType:kCaptureTypeNotSet];
     
     //fade the button out
     [UIView animateWithDuration:0.3 animations:^{

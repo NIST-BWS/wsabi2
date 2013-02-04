@@ -7,7 +7,7 @@
 //
 
 #import "WSAppDelegate.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "WSCDDeviceDefinition.h"
 
 #import "WSSettingsAddSensorViewController.h"
@@ -39,7 +39,7 @@
     [[self navigationItem] setTitle:kWSSettingsAddSensorVCTitle];
     
     [self setSubmodalitiesForSelectedType:[[NSMutableArray alloc] init]];
-    [[self submodalitiesForSelectedType] addObjectsFromArray:[WSModalityMap captureTypesForModality:[[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
+    [[self submodalitiesForSelectedType] addObjectsFromArray:[BWSModalityMap captureTypesForModality:[[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
     [[self pickerView] reloadComponent:kWSSettingsAddSensorVCSubmodalityComponent];
 }
 
@@ -54,15 +54,15 @@
     [device setItem:nil];
     [device setName:[[self nameField] text]];
     [device setUri:[[self addressField] text]];
-    [device setModalities:[WSModalityMap stringForModality:[[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
+    [device setModalities:[BWSModalityMap stringForModality:[[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
     WSSensorCaptureType submodality = [[self.submodalitiesForSelectedType objectAtIndex:
                                         [[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCSubmodalityComponent]] intValue];
-    [device setSubmodalities:[WSModalityMap stringForCaptureType:submodality]];
+    [device setSubmodalities:[BWSModalityMap stringForCaptureType:submodality]];
     
     // Parameter dictionary (as per DeviceSetupController)
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:2];
     [params setObject:device.modalities forKey:@"modality"];
-    [params setObject:[WSModalityMap parameterNameForCaptureType:submodality] forKey:@"submodality"];
+    [params setObject:[BWSModalityMap parameterNameForCaptureType:submodality] forKey:@"submodality"];
     [device setParameterDictionary:[NSKeyedArchiver archivedDataWithRootObject:params]];
     
     // Persist
@@ -78,9 +78,9 @@
 {
     switch (component) {
         case kWSSettingsAddSensorVCModalityComponent:
-            return ([WSModalityMap stringForModality:row]);
+            return ([BWSModalityMap stringForModality:row]);
         case kWSSettingsAddSensorVCSubmodalityComponent:
-            return ([WSModalityMap stringForCaptureType:[[[self submodalitiesForSelectedType] objectAtIndex:row] intValue]]);
+            return ([BWSModalityMap stringForCaptureType:[[[self submodalitiesForSelectedType] objectAtIndex:row] intValue]]);
         default:
             return (@"");
     }
@@ -91,7 +91,7 @@
     switch (component) {
         case kWSSettingsAddSensorVCModalityComponent:
             [[self submodalitiesForSelectedType] removeAllObjects];
-            [[self submodalitiesForSelectedType] addObjectsFromArray:[WSModalityMap captureTypesForModality:[pickerView selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
+            [[self submodalitiesForSelectedType] addObjectsFromArray:[BWSModalityMap captureTypesForModality:[pickerView selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
             [pickerView reloadComponent:kWSSettingsAddSensorVCSubmodalityComponent];
             break;
         default:

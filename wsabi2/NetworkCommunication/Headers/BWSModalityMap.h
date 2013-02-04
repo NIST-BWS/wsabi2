@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "constants.h"
 
-@interface WSModalityMap : NSObject {
+@interface BWSModalityMap : NSObject {
     
 }
 

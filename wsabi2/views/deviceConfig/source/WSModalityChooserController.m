@@ -125,7 +125,7 @@
 {
     //Push a new controller to choose the submodality.
     WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
-    subChooser.modality = [WSModalityMap modalityForString:self.item.modality];
+    subChooser.modality = [BWSModalityMap modalityForString:self.item.modality];
 
     subChooser.item = self.item; //pass the data object
     
@@ -157,7 +157,7 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = [WSModalityMap stringForModality:indexPath.row];
+    cell.textLabel.text = [BWSModalityMap stringForModality:indexPath.row];
     cell.accessibilityLabel = cell.textLabel.text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
@@ -218,7 +218,7 @@
     WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"WSSubmodalityChooserController" bundle:nil];
     subChooser.modality = indexPath.row;
     
-    NSLog(@"Walkthrough setting modality to %@",[WSModalityMap stringForModality:subChooser.modality]);
+    NSLog(@"Walkthrough setting modality to %@",[BWSModalityMap stringForModality:subChooser.modality]);
 //    //set the item's modality string to match the chosen object
 //    self.item.modality = [WSModalityMap stringForModality:indexPath.row];
     

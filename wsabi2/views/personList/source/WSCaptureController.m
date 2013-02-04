@@ -129,7 +129,7 @@
             [self.deviceButton setTitle:self.item.deviceConfig.uri forState:UIControlStateNormal];
     } else
         [self.deviceButton setTitle:self.item.deviceConfig.name forState:UIControlStateNormal];
-    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[WSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
+    self.deviceButton.enabled = ![self.item.submodality isEqualToString:[BWSModalityMap stringForCaptureType:kCaptureTypeNotSet]];
     
     self.backNavBarTitleItem.title = self.item.submodality;
     self.annotationNotesTableView.alwaysBounceVertical = NO;
@@ -690,7 +690,7 @@
         return 1;
     }
     
-    WSSensorCaptureType capType = [WSModalityMap captureTypeForString:item.submodality];
+    WSSensorCaptureType capType = [BWSModalityMap captureTypeForString:item.submodality];
     
     if (capType == kCaptureTypeLeftSlap || capType == kCaptureTypeRightSlap) {
         return 4;
@@ -736,7 +736,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TextViewCell];
         }
         
-        WSSensorCaptureType capType = [WSModalityMap captureTypeForString:item.submodality];
+        WSSensorCaptureType capType = [BWSModalityMap captureTypeForString:item.submodality];
         NSString *titleString = nil;
         if (capType == kCaptureTypeLeftSlap || capType == kCaptureTypeRightSlap) {
             switch (indexPath.row) {

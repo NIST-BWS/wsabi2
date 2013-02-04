@@ -13,10 +13,10 @@
  */
 
 
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 
 
-@implementation WSModalityMap
+@implementation BWSModalityMap
 
 
 +(NSString*) stringForCaptureType:(WSSensorCaptureType)captureType

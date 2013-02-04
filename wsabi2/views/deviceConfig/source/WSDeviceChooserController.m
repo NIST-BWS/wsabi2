@@ -42,7 +42,7 @@
 {
     [super viewDidLoad];
 
-    self.title = [WSModalityMap stringForCaptureType:self.submodality];
+    self.title = [BWSModalityMap stringForCaptureType:self.submodality];
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Choose Sensor"];
 
     //Fetch a list of recent sensors from Core Data
@@ -59,8 +59,8 @@
     //being able to filter
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
                               @"(modalities like %@)",
-                              [WSModalityMap stringForModality:self.modality], 
-                              [WSModalityMap stringForCaptureType:self.submodality]];
+                              [BWSModalityMap stringForModality:self.modality], 
+                              [BWSModalityMap stringForCaptureType:self.submodality]];
     [request setPredicate:predicate];
     
     //get a sorted list of the recent sensors
@@ -95,8 +95,8 @@
     
     //Set up the current sensor button
     if (self.item.managedObjectContext && self.item.deviceConfig
-        && (self.modality == [WSModalityMap modalityForString:self.item.modality])
-        && (self.submodality == [WSModalityMap captureTypeForString:self.item.submodality])) {
+        && (self.modality == [BWSModalityMap modalityForString:self.item.modality])
+        && (self.submodality == [BWSModalityMap captureTypeForString:self.item.submodality])) {
         self.currentButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Use current settings"]
                                                               style:UIBarButtonItemStyleDone
                                                              target:self action:@selector(currentButtonPressed:)];

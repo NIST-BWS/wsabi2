@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BWSDeviceLink.h"
 #import "constants.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "WSBDResult.h"
 #import "WSBDParameter.h"
 #import "WSCDDeviceDefinition.h"

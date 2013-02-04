@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GMGridViewCell.h"
 #import "GMGridViewCell+Extended.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "UIView+GMGridViewAdditions.h"
 #import "WSCDItem.h"
 #import "constants.h"

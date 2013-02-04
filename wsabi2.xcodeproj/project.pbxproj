@@ -110,7 +110,7 @@
 		EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA514DC3807002484CF /* CoreLocation.framework */; };
-		EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* WSModalityMap.m */; };
+		EA277AB314DC4092002484CF /* BWSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* BWSModalityMap.m */; };
 		EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC414DC72C9002484CF /* checkmark-green.png */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
 		EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */; };
@@ -427,8 +427,8 @@
 		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		EA277AA314DC37FE002484CF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EA277AA514DC3807002484CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		EA277AB114DC4092002484CF /* WSModalityMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSModalityMap.h; path = NetworkCommunication/Headers/WSModalityMap.h; sourceTree = "<group>"; };
-		EA277AB214DC4092002484CF /* WSModalityMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSModalityMap.m; path = NetworkCommunication/Sources/WSModalityMap.m; sourceTree = "<group>"; };
+		EA277AB114DC4092002484CF /* BWSModalityMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSModalityMap.h; path = NetworkCommunication/Headers/BWSModalityMap.h; sourceTree = "<group>"; };
+		EA277AB214DC4092002484CF /* BWSModalityMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSModalityMap.m; path = NetworkCommunication/Sources/BWSModalityMap.m; sourceTree = "<group>"; };
 		EA277AC414DC72C9002484CF /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark-green.png"; path = "Images/checkmark-green.png"; sourceTree = "<group>"; };
 		EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FirstResponder.h"; path = "Categories/Headers/UIView+FirstResponder.h"; sourceTree = "<group>"; };
 		EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FirstResponder.m"; path = "Categories/Sources/UIView+FirstResponder.m"; sourceTree = "<group>"; };
@@ -913,8 +913,8 @@
 				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
 				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
 				EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */,
-				EA277AB114DC4092002484CF /* WSModalityMap.h */,
-				EA277AB214DC4092002484CF /* WSModalityMap.m */,
+				EA277AB114DC4092002484CF /* BWSModalityMap.h */,
+				EA277AB214DC4092002484CF /* BWSModalityMap.m */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
 				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
 				EA2A895B1501563C0056E02C /* WSBDParameter.h */,
@@ -1452,7 +1452,7 @@
 				EAF0F98714BC7B8C00544416 /* WSAppDelegate.m in Sources */,
 				EA8E447E14BC9E6B007D9B43 /* wsabi2.xcdatamodeld in Sources */,
 				EA8A051814C8938A00199FF8 /* NSManagedObject+DeepCopy.m in Sources */,
-				EA277AB314DC4092002484CF /* WSModalityMap.m in Sources */,
+				EA277AB314DC4092002484CF /* BWSModalityMap.m in Sources */,
 				EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */,
 				EA2D1D6314FC18E1007CB41F /* Base64Coder.m in Sources */,
 				EA2D1D6B14FC190C007CB41F /* WSBDResult.m in Sources */,

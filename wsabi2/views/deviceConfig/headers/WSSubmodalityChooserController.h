@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
-#import "WSModalityMap.h"
+#import "BWSModalityMap.h"
 #import "WSDeviceChooserController.h"
 
 @interface WSSubmodalityChooserController : UITableViewController
