@@ -10,7 +10,7 @@
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
-#import "WSCaptureButton.h"
+#import "BWSCaptureButton.h"
 #import "BWSDeviceLinkManager.h"
 #import "BWSConstants.h"
 
@@ -75,7 +75,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *deviceButton;
 @property (nonatomic, weak) IBOutlet UIButton *annotateButton;
 @property (nonatomic, strong) IBOutlet UIImageView *itemDataView;
-@property (nonatomic, strong) IBOutlet WSCaptureButton *captureButton;
+@property (nonatomic, strong) IBOutlet BWSCaptureButton *captureButton;
 @property (weak, nonatomic) IBOutlet UIImageView *annotationPresentImageView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleTapRecognizer;

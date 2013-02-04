@@ -6,9 +6,9 @@
  
 //
 
-#import "WSCaptureButton.h"
+#import "BWSCaptureButton.h"
 
-@implementation WSCaptureButton
+@implementation BWSCaptureButton
 
 @synthesize state;
 @synthesize activityIndicator;

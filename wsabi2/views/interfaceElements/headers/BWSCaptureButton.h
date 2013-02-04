@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BWSConstants.h"
 
-@interface WSCaptureButton : UIButton
+@interface BWSCaptureButton : UIButton
 
 @property (nonatomic) WSCaptureButtonState state;
 /*	WSCaptureButtonStateInactive,
