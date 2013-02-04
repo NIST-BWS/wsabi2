@@ -133,7 +133,7 @@
     return (YES);
 }
 
-- (void)setSensorOperationFailedWithResponse:(NSHTTPURLResponse *)response userInfo:(NSDictionary *)userInfo
+- (void)setSensorOperationFailedWithResponse:(NSHTTPURLResponse *)response error:(NSError *)error userInfo:(NSDictionary *)userInfo
 {
     NSLog(@"Sensor operation failed with message \"%@\" (HTTP %d)",
           [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode],
@@ -143,7 +143,7 @@
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
                                        deviceID:userInfo[kDictKeyDeviceID]
-                                      withError:nil];
+                                      withError:error];
     }
     
     [self setOperationInProgress:-1];
@@ -157,29 +157,10 @@
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
                                        deviceID:userInfo[kDictKeyDeviceID]
-                                      withError:nil];
+                                      withError:[parser parserError]];
     }
     
     [self setOperationInProgress:-1];
-}
-
-- (BOOL)parseSuccessfulResponse:(NSHTTPURLResponse *)response withUserInfo:(NSDictionary *)userInfo responseObject:(id)responseObject
-{
-    // Check for error messages
-    if ([self isSuccessValidWithResponse:response] == NO) {
-        [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
-        return (NO);
-    }
-    
-    // Parse the XML response from the service
-    NSXMLParser *parser  = [[NSXMLParser alloc] initWithData:responseObject];
-    [parser setDelegate:self];
-    if ([parser parse] == NO) {
-        [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
-        return (NO);
-    }
-    
-    return (YES);
 }
 
 + (NSString *)stringForSensorOperationType:(SensorOperationType)opType
@@ -523,7 +504,7 @@
     ^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
         // Check status code, etc.
         if ([self isSuccessValidWithResponse:response] == NO) {
-            [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
+            [self setSensorOperationFailedWithResponse:response error:nil userInfo:userInfo];
             return;
         }
         
@@ -546,7 +527,7 @@
     
     void (^defaultFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) =
     ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-        [self setSensorOperationFailedWithResponse:response userInfo:userInfo];
+        [self setSensorOperationFailedWithResponse:response error:error userInfo:userInfo];
         
         // Call user-defined failure block
         if (failure != NULL)
