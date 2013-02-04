@@ -588,7 +588,7 @@
 - (void)registerClient:(NSURL *)sourceObjectID
 {
     [self enqueueNetworkOperation:kOpTypeRegister
-                       withMethod:kBCLPOSTMethod
+                       withMethod:kBCLMethodPOST
                    sourceObjectID:sourceObjectID
                         sessionID:nil
                        parameters:nil
@@ -613,7 +613,7 @@
 - (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID
 {
     [self enqueueNetworkOperation:kOpTypeUnregister
-                       withMethod:kBCLDELETEMethod
+                       withMethod:kBCLMethodDELETE
                    sourceObjectID:sourceObjectID
                         sessionID:sessionId
                        parameters:nil
@@ -651,7 +651,7 @@
 - (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeInitialize
-                       withMethod:kBCLPOSTMethod
+                       withMethod:kBCLMethodPOST
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -714,7 +714,7 @@
 - (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID
 {
     [self enqueueNetworkOperation:kOpTypeCancel
-                       withMethod:kBCLPOSTMethod
+                       withMethod:kBCLMethodPOST
                    sourceObjectID:sourceObjectID
                         sessionID:sessionId
                        parameters:nil
@@ -750,7 +750,7 @@
 
 - (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID
 {
-    NSMutableURLRequest *configureRequest = [self networkOperation:kOpTypeConfigure withMethod:kBCLPOSTMethod sourceObjectID:sourceID sessionID:sessionId parameters:nil];
+    NSMutableURLRequest *configureRequest = [self networkOperation:kOpTypeConfigure withMethod:kBCLMethodPOST sourceObjectID:sourceID sessionID:sessionId parameters:nil];
     NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration %@ %@ %@>", kBCLSchemaInstanceNamespace, kBCLSchemaNamespace, kBCLWSBDNamespace];
 	if (params)
         for(NSString* key in params)
@@ -830,7 +830,7 @@
 - (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeGetConfiguration
-                       withMethod:kBCLGETMethod
+                       withMethod:kBCLMethodGET
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -842,7 +842,7 @@
 - (void)getServiceInfo:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeGetCommonInfo
-                       withMethod:kBCLGETMethod
+                       withMethod:kBCLMethodGET
                    sourceObjectID:sourceID
                         sessionID:nil
                        parameters:nil
@@ -857,7 +857,7 @@
 - (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeLock
-                       withMethod:kBCLPOSTMethod
+                       withMethod:kBCLMethodPOST
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -920,7 +920,7 @@
 - (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeStealLock
-                       withMethod:kBCLPUTMethod
+                       withMethod:kBCLMethodPUT
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -963,7 +963,7 @@
 - (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeUnlock
-                       withMethod:kBCLDELETEMethod
+                       withMethod:kBCLMethodDELETE
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -1049,7 +1049,7 @@
 - (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeCapture
-                       withMethod:kBCLPOSTMethod
+                       withMethod:kBCLMethodPOST
                    sourceObjectID:sourceID
                         sessionID:sessionId
                        parameters:nil
@@ -1105,7 +1105,7 @@
 - (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID
 {
     [self enqueueNetworkOperation:kOpTypeGetContentType
-                       withMethod:kBCLGETMethod
+                       withMethod:kBCLMethodGET
                    sourceObjectID:sourceObjectID
                         sessionID:captureId
                        parameters:nil
@@ -1176,7 +1176,7 @@
 - (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeDownload
-                       withMethod:kBCLGETMethod
+                       withMethod:kBCLMethodGET
                    sourceObjectID:sourceID
                         sessionID:captureId
                        parameters:nil
@@ -1190,7 +1190,7 @@
 - (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
 {
     [self enqueueNetworkOperation:kOpTypeThriftyDownload
-                       withMethod:kBCLGETMethod
+                       withMethod:kBCLMethodGET
                    sourceObjectID:sourceID
                         sessionID:captureId
                        parameters:nil
