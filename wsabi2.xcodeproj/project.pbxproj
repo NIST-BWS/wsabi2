@@ -448,7 +448,7 @@
 		EA2D1D5914FBF970007CB41F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base64Coder.h; path = NetworkCommunication/Headers/Base64Coder.h; sourceTree = "<group>"; };
 		EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Base64Coder.m; path = NetworkCommunication/Sources/Base64Coder.m; sourceTree = "<group>"; };
-		EA2D1D5E14FC18E1007CB41F /* NBCLDeviceLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCLDeviceLinkConstants.h; path = NetworkCommunication/Headers/NBCLDeviceLinkConstants.h; sourceTree = "<group>"; };
+		EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkConstants.h; path = NetworkCommunication/Headers/BWSDeviceLinkConstants.h; sourceTree = "<group>"; };
 		EA2D1D6914FC190C007CB41F /* WSBDResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBDResult.h; path = NetworkCommunication/Headers/WSBDResult.h; sourceTree = "<group>"; };
 		EA2D1D6A14FC190C007CB41F /* WSBDResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDResult.m; path = NetworkCommunication/Sources/WSBDResult.m; sourceTree = "<group>"; };
 		EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+NBCLExtras.h"; path = "Categories/Headers/UIImage+NBCLExtras.h"; sourceTree = "<group>"; };
@@ -456,7 +456,6 @@
 		EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EA2D1D8114FD1E30007CB41F /* gesture-single-tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gesture-single-tap.png"; path = "Images/gesture-single-tap.png"; sourceTree = "<group>"; };
-		EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "wsabi walkthrough.md"; sourceTree = "<group>"; };
 		EA3406BA14ED8AC900C6E004 /* InsetGrayBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = InsetGrayBackground.png; path = Images/InsetGrayBackground.png; sourceTree = "<group>"; };
 		EA3B00041563CD9400DA78D8 /* modality-finger-rotated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-finger-rotated.png"; path = "Images/Modalities/modality-finger-rotated.png"; sourceTree = "<group>"; };
 		EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-finger-rotated@2x.png"; path = "Images/Modalities/modality-finger-rotated@2x.png"; sourceTree = "<group>"; };
@@ -909,7 +908,7 @@
 			children = (
 				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
-				EA2D1D5E14FC18E1007CB41F /* NBCLDeviceLinkConstants.h */,
+				EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */,
 				EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */,
 				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
 				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
@@ -1107,7 +1106,6 @@
 		EAF0F96714BC7B8C00544416 = {
 			isa = PBXGroup;
 			children = (
-				EA2FAEB4156D610E00E06D8E /* wsabi walkthrough.md */,
 				EAF0F97C14BC7B8C00544416 /* wsabi2 */,
 				EAF0F99A14BC7B8C00544416 /* wsabi2Tests */,
 				EAF0F97514BC7B8C00544416 /* Frameworks */,

@@ -7,7 +7,7 @@
 // about its quality, reliability, or any other characteristic.
 
 #import "constants.h"
-#import "NBCLDeviceLinkConstants.h"
+#import "BWSDeviceLinkConstants.h"
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"
 #import "WSBDResult.h"

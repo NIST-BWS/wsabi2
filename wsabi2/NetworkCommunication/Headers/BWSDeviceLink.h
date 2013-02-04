@@ -10,7 +10,7 @@
 
 #import "WSBDAFHTTPClient.h"
 #import "BWSDeviceLinkDelegate.h"
-#import "NBCLDeviceLinkConstants.h"
+#import "BWSDeviceLinkConstants.h"
 
 /// Communication mechanism with a single WS-BD service
 @interface BWSDeviceLink : NSObject <NSXMLParserDelegate>

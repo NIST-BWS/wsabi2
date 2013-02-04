@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BWSDeviceLink.h"
-#import "NBCLDeviceLinkConstants.h"
+#import "BWSDeviceLinkConstants.h"
 #import "WSCDItem.h"
 #import "constants.h"
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "WSBDResult.h"
-#import "NBCLDeviceLinkConstants.h"
+#import "BWSDeviceLinkConstants.h"
 
 @class BWSDeviceLink;
 
