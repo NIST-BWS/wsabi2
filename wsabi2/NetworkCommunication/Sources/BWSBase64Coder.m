@@ -16,15 +16,15 @@
  */
 
 
-#import "Base64Coder.h"
+#import "BWSBase64Coder.h"
 
 
-@implementation Base64Coder
+@implementation BWSBase64Coder
 static char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static char decodingTable[128];
 
 + (void) initialize {
-	if (self == [Base64Coder class]) {
+	if (self == [BWSBase64Coder class]) {
 		memset(decodingTable, 0, 128 );
 		for (NSInteger i = 0; i < 64; i++) {
 			decodingTable[encodingTable[i]] = i;

@@ -19,7 +19,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Base64Coder : NSObject {
+@interface BWSBase64Coder : NSObject {
 
 }
 

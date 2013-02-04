@@ -12,7 +12,7 @@
 #import "WSBDParameter.h"
 #import "WSBDResult.h"
 #import "BWSXMLMap.h"
-#import "Base64Coder.h"
+#import "BWSBase64Coder.h"
 #import "NSURL+HTTP.h"
 
 #import "BWSDeviceLink.h"
@@ -276,8 +276,8 @@
 	
 	else if ([elementName localizedCaseInsensitiveCompare:@"sensorData"] == NSOrderedSame) {
 		//decode and store the results
-		[Base64Coder initialize];
-		self.currentWSBDResult.downloadData = [Base64Coder decode:self.currentElementValue];
+		[BWSBase64Coder initialize];
+		self.currentWSBDResult.downloadData = [BWSBase64Coder decode:self.currentElementValue];
         
 	}
 	//Dictionary elements
