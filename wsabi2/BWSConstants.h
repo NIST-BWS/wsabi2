@@ -181,6 +181,11 @@ static const BOOL kSettingsLoggingPanelEnabledDefault = NO;
 
 #pragma mark - CoreData
 
-static NSString * const kWSEntityDeviceDefinition = @"WSCDDeviceDefinition";
+/// Item entity
+static NSString * const kBWSEntityItem = @"BWSCDItem";
+/// Person entity
+static NSString * const kBWSEntityPerson = @"BWSCDPerson";
+/// Device definition entity
+static NSString * const kBWSEntityDeviceDefinition = @"BWSCDDeviceDefinition";
 
 #endif

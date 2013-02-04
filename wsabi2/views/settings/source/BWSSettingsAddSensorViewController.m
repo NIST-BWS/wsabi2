@@ -48,7 +48,7 @@
 - (IBAction)saveButtonPressed:(id)sender
 {
     NSManagedObjectContext *moc = [(WSAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    NSEntityDescription *deviceEntity = [NSEntityDescription entityForName:kWSEntityDeviceDefinition inManagedObjectContext:moc];
+    NSEntityDescription *deviceEntity = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     BWSCDDeviceDefinition *device = [[BWSCDDeviceDefinition alloc] initWithEntity:deviceEntity insertIntoManagedObjectContext:moc];
     
     [device setItem:nil];

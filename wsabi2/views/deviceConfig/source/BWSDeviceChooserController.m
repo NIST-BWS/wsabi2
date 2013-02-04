@@ -51,7 +51,7 @@
     //Instead, get the primary context from the app delegate.
     NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription
-                                              entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+                                              entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     
@@ -571,7 +571,7 @@
     
     //If we need to create a new device def, do so.
     NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDDeviceDefinition" inManagedObjectContext:moc];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     if (!def && createNewDef) {
         //Create a temporary item
         BWSCDDeviceDefinition *newDef = (BWSCDDeviceDefinition*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];

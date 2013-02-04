@@ -159,7 +159,7 @@
         return ([[NSArray alloc] init]);
     
     NSManagedObjectContext *moc = [(WSAppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:kWSEntityDeviceDefinition inManagedObjectContext:moc];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:kBWSEntityDeviceDefinition inManagedObjectContext:moc];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(modalities like %@)", [BWSModalityMap stringForModality:modality]];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];

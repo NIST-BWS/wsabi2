@@ -474,7 +474,7 @@
     }
     
     //Create a temporary item
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kBWSEntityItem inManagedObjectContext:self.person.managedObjectContext];
     BWSCDItem *newCaptureItem = (BWSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 
     //insert this item at the beginning of the list.

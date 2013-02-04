@@ -344,7 +344,7 @@
     NSDate *now = [NSDate date];
     
     //Unlike the usual duplicate-style add, this time we need to start from scratch.
-    BWSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
+    BWSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:kBWSEntityPerson inManagedObjectContext:self.managedObjectContext];
     newPerson.timeStampCreated = now;
     newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
@@ -359,7 +359,7 @@
     [self tableView:self.tableView didSelectRowAtIndexPath:newPath]; //fire this manually, as the previous call doesn't do it.
     
     //Create a temporary item
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kBWSEntityItem inManagedObjectContext:self.managedObjectContext];
     BWSCDItem *newCaptureItem = (BWSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     
     //insert this item at the beginning of the list.
@@ -540,7 +540,7 @@
     // Create the fetch request for the entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kBWSEntityPerson inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
