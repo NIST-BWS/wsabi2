@@ -18,7 +18,7 @@
 /// Base URI to the device.
 @property (nonatomic, strong, readonly) NSURL *baseURI;
 /// Established Session ID with the service.
-@property (nonatomic, strong) NSString *currentSessionId;
+@property (nonatomic, strong, readonly) NSString *currentSessionId;
 
 /// @brief
 /// Whether or not service registration procedure has completed.

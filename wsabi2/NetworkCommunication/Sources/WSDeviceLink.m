@@ -597,7 +597,7 @@
                                   //set the registered convenience variable.
                                   _registered = YES;
                                   //store the current session id.
-                                  self.currentSessionId = self.currentWSBDResult.sessionId;
+                                  _currentSessionId = self.currentWSBDResult.sessionId;
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress)
                                       [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
@@ -631,7 +631,7 @@
                                   }
                                   
                                   //clear the current session id.
-                                  self.currentSessionId = nil;
+                                  _currentSessionId = nil;
                               }
                               
                               //if this call is part of a sequence, notify our delegate that the sequence is complete.
