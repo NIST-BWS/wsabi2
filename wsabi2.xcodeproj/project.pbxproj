@@ -836,6 +836,23 @@
 			path = vendor/ActionSheetPicker/Pickers;
 			sourceTree = "<group>";
 		};
+		0862BDAD16C040450032C14F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D1D5C14FC18E1007CB41F /* BWSBase64Coder.h */,
+				0806C13716B6F6FD00842381 /* BWSDeviceLink.h */,
+				EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */,
+				0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */,
+				EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */,
+				EA277AB114DC4092002484CF /* BWSModalityMap.h */,
+				EA400E1B15110BCB006F2B5A /* BWSXMLMap.h */,
+				0806C13616B6F6FD00842381 /* WSBDAFHTTPClient.h */,
+				EA2A895B1501563C0056E02C /* WSBDParameter.h */,
+				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -903,29 +920,20 @@
 			name = "from iOS SDK";
 			sourceTree = "<group>";
 		};
-		EA2D1D5B14FC17D4007CB41F /* Network communication */ = {
+		EA2D1D5B14FC17D4007CB41F /* Network Communication */ = {
 			isa = PBXGroup;
 			children = (
-				EA2D1D5C14FC18E1007CB41F /* BWSBase64Coder.h */,
+				0862BDAD16C040450032C14F /* Headers */,
 				EA2D1D5D14FC18E1007CB41F /* BWSBase64Coder.m */,
-				EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */,
-				EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */,
-				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
-				EA400E1B15110BCB006F2B5A /* BWSXMLMap.h */,
-				EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */,
-				EA277AB114DC4092002484CF /* BWSModalityMap.h */,
-				EA277AB214DC4092002484CF /* BWSModalityMap.m */,
-				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
-				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
-				EA2A895B1501563C0056E02C /* WSBDParameter.h */,
-				EA2A895C1501563C0056E02C /* WSBDParameter.m */,
-				0806C13616B6F6FD00842381 /* WSBDAFHTTPClient.h */,
-				0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */,
-				0806C13716B6F6FD00842381 /* BWSDeviceLink.h */,
 				0806C13116B6F6F000842381 /* BWSDeviceLink.m */,
-				0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */,
+				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
+				EA277AB214DC4092002484CF /* BWSModalityMap.m */,
+				EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */,
+				0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */,
+				EA2A895C1501563C0056E02C /* WSBDParameter.m */,
+				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
 			);
-			name = "Network communication";
+			name = "Network Communication";
 			sourceTree = "<group>";
 		};
 		EA2D1D8414FD1F8D007CB41F /* Symbolicons */ = {
@@ -1152,7 +1160,7 @@
 				EA8A046814C7583A00199FF8 /* Images */,
 				EA202D7314C74F6600776BF3 /* constants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
-				EA2D1D5B14FC17D4007CB41F /* Network communication */,
+				EA2D1D5B14FC17D4007CB41F /* Network Communication */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* WSAppDelegate.m */,
 				EAF0F97D14BC7B8C00544416 /* Supporting Files */,
