@@ -330,7 +330,6 @@
 		082C8799163AD9D70049AB59 /* WSItemGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSItemGridCell.m; path = views/interfaceElements/sources/WSItemGridCell.m; sourceTree = "<group>"; };
 		082C879A163AD9D70049AB59 /* WSPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPersonTableViewCell.m; path = views/interfaceElements/sources/WSPersonTableViewCell.m; sourceTree = "<group>"; };
 		082C879B163AD9D70049AB59 /* WSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSPopoverBackgroundView.m; path = views/interfaceElements/sources/WSPopoverBackgroundView.m; sourceTree = "<group>"; };
-		0840B16D16B98D1A00503071 /* WSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/WSDeviceLinkDelegate.h; sourceTree = "<group>"; };
 		0840B16E16BADC2300503071 /* NSURL+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+HTTP.h"; path = "Categories/Headers/NSURL+HTTP.h"; sourceTree = "<group>"; };
 		0840B17116BADC3700503071 /* NSURL+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+HTTP.m"; path = "Categories/Sources/NSURL+HTTP.m"; sourceTree = "<group>"; };
 		084102871697303A00F95AF5 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GMGridView-Constants.h"; path = "wsabi2/vendor/GMGridView/GMGridView/GMGridView-Constants.h"; sourceTree = SOURCE_ROOT; };
@@ -392,6 +391,7 @@
 		0847AB7716972045003395BE /* ELCTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCell.h; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.h; sourceTree = "<group>"; };
 		0847AB7816972045003395BE /* ELCTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCell.m; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
+		0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/BWSDeviceLinkDelegate.h; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
@@ -924,7 +924,7 @@
 				0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */,
 				0806C13716B6F6FD00842381 /* BWSDeviceLink.h */,
 				0806C13116B6F6F000842381 /* BWSDeviceLink.m */,
-				0840B16D16B98D1A00503071 /* WSDeviceLinkDelegate.h */,
+				0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */,
 			);
 			name = "Network communication";
 			sourceTree = "<group>";

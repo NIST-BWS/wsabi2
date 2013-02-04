@@ -30,7 +30,7 @@ typedef enum {
 
 
 @interface WSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate,
-                                                        UITextFieldDelegate, WSDeviceLinkDelegate,
+                                                        UITextFieldDelegate, BWSDeviceLinkDelegate,
                                                         ELCTextFieldDelegate>
 {
     BOOL checkingSensor;

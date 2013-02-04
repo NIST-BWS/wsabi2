@@ -12,7 +12,7 @@
 #import "WSCDItem.h"
 #import "constants.h"
 
-@interface NBCLDeviceLinkManager : NSObject <WSDeviceLinkDelegate>
+@interface NBCLDeviceLinkManager : NSObject <BWSDeviceLinkDelegate>
 {
     NSMutableDictionary *devices;
 }

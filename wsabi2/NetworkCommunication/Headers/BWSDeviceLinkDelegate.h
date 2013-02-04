@@ -13,7 +13,7 @@
 
 @class BWSDeviceLink;
 
-@protocol WSDeviceLinkDelegate <NSObject>
+@protocol BWSDeviceLinkDelegate <NSObject>
 
 @optional
 

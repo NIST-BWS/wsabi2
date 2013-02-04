@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "WSBDAFHTTPClient.h"
-#import "WSDeviceLinkDelegate.h"
+#import "BWSDeviceLinkDelegate.h"
 #import "NBCLDeviceLinkConstants.h"
 
 /// Communication mechanism with a single WS-BD service
@@ -43,7 +43,7 @@
 @property (nonatomic, readonly) SensorSequenceType sequenceInProgress;
 
 /// Object that acts on service network activity
-@property (nonatomic, unsafe_unretained) id<WSDeviceLinkDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<BWSDeviceLinkDelegate> delegate;
 
 /// @brief
 /// Obtain a textual description for a sensor operation.
