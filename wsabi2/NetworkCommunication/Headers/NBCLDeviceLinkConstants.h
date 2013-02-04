@@ -34,6 +34,7 @@ typedef enum {
     kOpTypeConnectSequence,
     kOpTypeCaptureSequence,
     kOpTypeDisconnectSequence,
+    kOpTypeRecoverySequence,
     kOpTypeAll
 
 } SensorOperationType;

@@ -82,11 +82,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return ([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeTap atPoint:point]);
 }
 
++ (BWSInterfaceEventState)interfaceEventStateForGestureRecognizerState:(UIGestureRecognizerState)state
+{
+    // Toll-free bridge for some types
+    switch (state) {
+        case UIGestureRecognizerStateBegan:
+            return (kBWSInterfaceEventStateBegan);
+        case UIGestureRecognizerStateEnded:
+            return (kBWSInterfaceEventStateEnded);
+        default:
+            return (kBWSInterfaceEventStateUnknown);
+    }
+}
 #pragma mark - Recognizer Callbacks
 
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer
 {
-    DDLogError([self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
+    DDLogError(@"%@", [self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
     
     // XXX: For text entry fields, our tap recognizer overrides Apple's for 
     // becoming the first responder.
@@ -103,7 +115,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         case UIGestureRecognizerStateBegan:
             // FALLTHROUGH
         case UIGestureRecognizerStateEnded:
-            logString = [[NSMutableString alloc] initWithString:[self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeScroll atPoint:[recognizer locationInView:self] withState:[recognizer state]]];
+            logString = [[NSMutableString alloc] initWithString:[self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeScroll atPoint:[recognizer locationInView:self] withState:[UIView interfaceEventStateForGestureRecognizerState:[recognizer state]]]];
             CGPoint velocity = [recognizer velocityInView:self];
             [logString appendFormat:@" PPS:(%.0f, %.0f)", velocity.x, velocity.y];
             break;
@@ -113,7 +125,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     
     if (logString != nil)
-        DDLogError(logString);
+        DDLogError(@"%@", logString);
 }
 
 - (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer
@@ -123,7 +135,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         case UIGestureRecognizerStateBegan:
             // FALLTHROUGH
         case UIGestureRecognizerStateEnded:
-            DDLogError([self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[recognizer state]]);
+            DDLogError(@"%@", [self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[UIView interfaceEventStateForGestureRecognizerState:[recognizer state]]]);
             break;
         default:
             // Not interested
@@ -160,7 +172,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             DDLogError (@"%@", [NSString stringWithFormat:@"<TL>: %@ (%@), %@, %@ %@, %.0fx%.0f (%.0f, %.0f)",
                      [self accessibilityLabel],
                      [self class],
-                     [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypePinch withState:recognizer.state],
+                     [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypePinch withState:[UIView interfaceEventStateForGestureRecognizerState:recognizer.state]],
                      localCoordinates,
                      globalCoordinates,
                      self.frame.size.width,

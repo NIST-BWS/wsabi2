@@ -114,6 +114,9 @@ static NSString * const kBWSInterfaceEventDescriptionTextEntryEnded = @"textEntr
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType;
 /// Obtain the textual description of an event type during a specific state
 + (NSString *)stringForBWSInterfaceEventType:(BWSInterfaceEventType)eventType withState:(BWSInterfaceEventState)state;
+/// Bridge between BWSInterfaceEventStates and UIGestureRecognizerStates
++ (BWSInterfaceEventState)interfaceEventStateForGestureRecognizerState:(UIGestureRecognizerState)state;
+
 
 
 @end

@@ -1281,7 +1281,7 @@
         default:
             //don't recover
             _sequenceInProgress = kSensorSequenceNone;
-            [[self delegate] sensorOperationDidFail:kSensorSequenceRecovery fromLink:self deviceID:deviceID withError:nil];
+            [[self delegate] sensorOperationDidFail:kOpTypeRecoverySequence fromLink:self deviceID:deviceID withError:nil];
             break;
     }
     

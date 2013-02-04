@@ -13,6 +13,8 @@
 
 @implementation WSLightboxViewController
 
+@synthesize imageView = _imageView;
+
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad
