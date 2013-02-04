@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WSDeviceLink.h"
+#import "BWSDeviceLink.h"
 #import "constants.h"
 #import "WSModalityMap.h"
 #import "WSBDResult.h"
@@ -40,7 +40,7 @@ typedef enum {
     //This will be a standalone single link, and won't be connected to 
     //the device link manager, because we don't want to stomp on existing
     //communications, and we only need rapid access to one endpoint (/info).
-    WSDeviceLink *currentLink;
+    BWSDeviceLink *currentLink;
 }
 
 -(IBAction)doneButtonPressed:(id)sender;

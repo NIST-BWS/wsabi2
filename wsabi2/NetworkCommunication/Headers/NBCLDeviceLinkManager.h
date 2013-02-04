@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WSDeviceLink.h"
+#import "BWSDeviceLink.h"
 #import "NBCLDeviceLinkConstants.h"
 #import "WSCDItem.h"
 #import "constants.h"
@@ -20,6 +20,6 @@
 + (NBCLDeviceLinkManager *) defaultManager;
 
 //This will create a new link if one doesn't exist at the specified uri.
-- (WSDeviceLink *) deviceForUri:(NSString*)uri;
+- (BWSDeviceLink *) deviceForUri:(NSString*)uri;
 
 @end

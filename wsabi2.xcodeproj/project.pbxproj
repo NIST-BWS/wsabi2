@@ -11,8 +11,8 @@
 		0806C12F16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */; };
 		0806C13216B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */; };
 		0806C13316B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */; };
-		0806C13416B6F6F000842381 /* WSDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13116B6F6F000842381 /* WSDeviceLink.m */; };
-		0806C13516B6F6F000842381 /* WSDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13116B6F6F000842381 /* WSDeviceLink.m */; };
+		0806C13416B6F6F000842381 /* BWSDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13116B6F6F000842381 /* BWSDeviceLink.m */; };
+		0806C13516B6F6F000842381 /* BWSDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13116B6F6F000842381 /* BWSDeviceLink.m */; };
 		080C19371624747E00A8E1AD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 080C19361624747E00A8E1AD /* Settings.bundle */; };
 		0816042D15DEC5060055D27F /* BreadcrumbButtonEndCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */; };
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
@@ -283,9 +283,9 @@
 		0806C12C16B6F46D00842381 /* ELCTextFieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCellWide.h; path = views/interfaceElements/headers/ELCTextFieldCellWide.h; sourceTree = "<group>"; };
 		0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCellWide.m; path = views/interfaceElements/sources/ELCTextFieldCellWide.m; sourceTree = "<group>"; };
 		0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDAFHTTPClient.m; path = NetworkCommunication/Sources/WSBDAFHTTPClient.m; sourceTree = "<group>"; };
-		0806C13116B6F6F000842381 /* WSDeviceLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSDeviceLink.m; path = NetworkCommunication/Sources/WSDeviceLink.m; sourceTree = "<group>"; };
+		0806C13116B6F6F000842381 /* BWSDeviceLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSDeviceLink.m; path = NetworkCommunication/Sources/BWSDeviceLink.m; sourceTree = "<group>"; };
 		0806C13616B6F6FD00842381 /* WSBDAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBDAFHTTPClient.h; path = NetworkCommunication/Headers/WSBDAFHTTPClient.h; sourceTree = "<group>"; };
-		0806C13716B6F6FD00842381 /* WSDeviceLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSDeviceLink.h; path = NetworkCommunication/Headers/WSDeviceLink.h; sourceTree = "<group>"; };
+		0806C13716B6F6FD00842381 /* BWSDeviceLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLink.h; path = NetworkCommunication/Headers/BWSDeviceLink.h; sourceTree = "<group>"; };
 		080C19361624747E00A8E1AD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Settings/Settings.bundle; sourceTree = "<group>"; };
 		0816042B15DEC5060055D27F /* BreadcrumbButtonEndCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButtonEndCap.png; path = Images/BreadcrumbButtonEndCap.png; sourceTree = "<group>"; };
 		0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BreadcrumbButtonEndCap@2x.png"; path = "Images/BreadcrumbButtonEndCap@2x.png"; sourceTree = "<group>"; };
@@ -922,8 +922,8 @@
 				EA2A895C1501563C0056E02C /* WSBDParameter.m */,
 				0806C13616B6F6FD00842381 /* WSBDAFHTTPClient.h */,
 				0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */,
-				0806C13716B6F6FD00842381 /* WSDeviceLink.h */,
-				0806C13116B6F6F000842381 /* WSDeviceLink.m */,
+				0806C13716B6F6FD00842381 /* BWSDeviceLink.h */,
+				0806C13116B6F6F000842381 /* BWSDeviceLink.m */,
 				0840B16D16B98D1A00503071 /* WSDeviceLinkDelegate.h */,
 			);
 			name = "Network communication";
@@ -1515,7 +1515,7 @@
 				084102CC1697583500F95AF5 /* UIImageView+AFNetworking.m in Sources */,
 				0806C12E16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */,
 				0806C13216B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */,
-				0806C13416B6F6F000842381 /* WSDeviceLink.m in Sources */,
+				0806C13416B6F6F000842381 /* BWSDeviceLink.m in Sources */,
 				0840B17216BADC3700503071 /* NSURL+HTTP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1545,7 +1545,7 @@
 				0841029C1697303A00F95AF5 /* UIView+GMGridViewAdditions.m in Sources */,
 				0806C12F16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */,
 				0806C13316B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */,
-				0806C13516B6F6F000842381 /* WSDeviceLink.m in Sources */,
+				0806C13516B6F6F000842381 /* BWSDeviceLink.m in Sources */,
 				0840B17316BADC3700503071 /* NSURL+HTTP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

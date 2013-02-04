@@ -15,11 +15,11 @@
 #import "Base64Coder.h"
 #import "NSURL+HTTP.h"
 
-#import "WSDeviceLink.h"
+#import "BWSDeviceLink.h"
 
 #import "AFXMLRequestOperation.h"
 
-@interface WSDeviceLink ()
+@interface BWSDeviceLink ()
 
 @property (nonatomic, assign) NSInteger operationInProgress;
 @property (nonatomic, assign) NSInteger operationPendingCancellation;
@@ -56,7 +56,7 @@
 
 @end
 
-@implementation WSDeviceLink
+@implementation BWSDeviceLink
 
 - (id)initWithBaseURI:(NSString *)uri
 {

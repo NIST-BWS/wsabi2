@@ -13,7 +13,7 @@
 #import "NBCLDeviceLinkConstants.h"
 
 /// Communication mechanism with a single WS-BD service
-@interface WSDeviceLink : NSObject <NSXMLParserDelegate>
+@interface BWSDeviceLink : NSObject <NSXMLParserDelegate>
 
 /// Base URI to the device.
 @property (nonatomic, strong, readonly) NSURL *baseURI;

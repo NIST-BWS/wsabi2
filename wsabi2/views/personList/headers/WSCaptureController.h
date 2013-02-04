@@ -24,7 +24,7 @@
 @interface WSCaptureController : UIViewController <UITextViewDelegate, UIActionSheetDelegate>
 {
 
-    WSDeviceLink *currentLink;
+    BWSDeviceLink *currentLink;
     NSMutableArray *currentAnnotationArray;
     BOOL frontVisible;
     

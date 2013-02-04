@@ -21,7 +21,7 @@
     return sharedInstance;
 }
 
-- (WSDeviceLink *) deviceForUri:(NSString*)uri
+- (BWSDeviceLink *) deviceForUri:(NSString*)uri
 {
     if (!uri) {
         NSLog(@"Tried to grab a device with no URI; ignoring request.");
@@ -32,7 +32,7 @@
         devices = [[NSMutableDictionary alloc] init];
     }
     
-    WSDeviceLink *link = [devices objectForKey:uri];
+    BWSDeviceLink *link = [devices objectForKey:uri];
     
     if (!link) {
 //        //If this is one of our special local URIs, create a local sensor link.
@@ -42,7 +42,7 @@
 //            link = [[NBCLInternalCameraSensorLink alloc] init];
 //        }
 //        else {
-        link = [[WSDeviceLink alloc] initWithBaseURI:uri];
+        link = [[BWSDeviceLink alloc] initWithBaseURI:uri];
 //        }
         
         //set the link delegate so we get messages when stuff happens.
@@ -85,7 +85,7 @@
 }
 
 #pragma mark - Sensor Link Delegate methods
--(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID withError:(NSError *)error
+-(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL *)deviceID withError:(NSError *)error
 {
 
     //Post a notification about the failed operation, containing the error, so we can do something with it.
@@ -100,11 +100,11 @@
 
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType], [error description]);
+    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [error description]);
     
 }
 
--(void) sensorOperationWasCancelledByClient:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID
+-(void) sensorOperationWasCancelledByClient:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL *)deviceID
 {
     //Post a notification about the failed operation, containing the error, so we can do something with it.
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -117,11 +117,11 @@
     
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType]);
+    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType]);
 
 }
 
--(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL *)deviceID withResult:(WSBDResult*)result
 {
     //Post a notification about the completed operation!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -133,11 +133,11 @@
                                                         object:self
                                                       userInfo:userInfo];
 
-    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [WSDeviceLink stringForSensorOperationType:opType], [WSBDResult stringForStatusValue:result.status]);
+    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [WSBDResult stringForStatusValue:result.status]);
     
 }
 
--(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(BWSDeviceLink*)link deviceID:(NSURL *)deviceID
 {
 
     //Post a notification about the status change containing the new value
@@ -159,7 +159,7 @@
 //NOTE: The result object will be the result from the last performed step;
 //so if the sequence succeeds, it'll be the last step in the sequence; otherwise
 //it'll be the step that failed, so that the status will indicate what the problem was.
--(void) connectSequenceCompletedFromLink:(WSDeviceLink*)link withResult:(WSBDResult*)result deviceID:(NSURL *)deviceID
+-(void) connectSequenceCompletedFromLink:(BWSDeviceLink*)link withResult:(WSBDResult*)result deviceID:(NSURL *)deviceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] init];
@@ -179,7 +179,7 @@
     NSLog(@"Link at %@ completed its connect sequence", link.baseURI);
 }
 
--(void) configureSequenceCompletedFromLink:(WSDeviceLink*)link
+-(void) configureSequenceCompletedFromLink:(BWSDeviceLink*)link
                                 withResult:(WSBDResult*)result 
                                   deviceID:(NSURL *)deviceID;
 {
@@ -200,7 +200,7 @@
 
 }
 
--(void) connectConfigureSequenceCompletedFromLink:(WSDeviceLink *)link
+-(void) connectConfigureSequenceCompletedFromLink:(BWSDeviceLink *)link
                                        withResult:(WSBDResult *)result 
                                          deviceID:(NSURL *)deviceID
 {
@@ -221,7 +221,7 @@
 
 }
 
-- (void) processDownloadResultsFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
+- (void) processDownloadResultsFromLink:(BWSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
 {
     if (!results) {
         NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.baseURI);
@@ -255,17 +255,17 @@
 
 }
 
--(void) configCaptureDownloadSequenceCompletedFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
+-(void) configCaptureDownloadSequenceCompletedFromLink:(BWSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
 {
     [self processDownloadResultsFromLink:link withResults:results deviceID:deviceID];
 }
 
--(void) fullSequenceCompletedFromLink:(WSDeviceLink *)link withResults:(NSMutableArray *)results deviceID:(NSURL *)deviceID
+-(void) fullSequenceCompletedFromLink:(BWSDeviceLink *)link withResults:(NSMutableArray *)results deviceID:(NSURL *)deviceID
 {
     [self processDownloadResultsFromLink:link withResults:results deviceID:deviceID];
 }
 
--(void) disconnectSequenceCompletedFromLink:(WSDeviceLink*)link
+-(void) disconnectSequenceCompletedFromLink:(BWSDeviceLink*)link
                                  withResult:(WSBDResult*)result 
                                    deviceID:(NSURL*)deviceID
 {
@@ -289,7 +289,7 @@
 //Called whenever a sequence doesn't complete 
 //(because, for example, one included step returned a non-success result.
 -(void) sequenceDidFail:(SensorSequenceType)sequenceType
-               fromLink:(WSDeviceLink*)link
+               fromLink:(BWSDeviceLink*)link
              withResult:(WSBDResult*)result 
                deviceID:(NSURL *)deviceID
 {

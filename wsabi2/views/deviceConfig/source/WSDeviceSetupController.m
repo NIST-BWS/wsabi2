@@ -664,7 +664,7 @@
     // Don't pass a nil string to BaseURI
     if ((timer.userInfo == nil) || [(NSString *)timer.userInfo isEqualToString:@""])
         return;
-    WSDeviceLink *deviceLink = [[WSDeviceLink alloc] initWithBaseURI:(NSString*)timer.userInfo];
+    BWSDeviceLink *deviceLink = [[BWSDeviceLink alloc] initWithBaseURI:(NSString*)timer.userInfo];
     deviceLink.delegate = self;
     
     //start the metadata call (we're passing our WSCDItem here, but it's mainly
@@ -677,21 +677,21 @@
 }
 
 #pragma mark - Device link delegate
--(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL*)deviceID withError:(NSError*)error
+-(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL*)deviceID withError:(NSError*)error
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationWasCancelledByService:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL*)deviceID withResult:(WSBDResult*)result
+-(void) sensorOperationWasCancelledByService:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL*)deviceID withResult:(WSBDResult*)result
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL*)deviceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(BWSDeviceLink*)link deviceID:(NSURL*)deviceID withResult:(WSBDResult*)result
 {
     if (!result || result.status != StatusSuccess || !result.metadata) {
         //we didn't get a result back, or it didn't give us a metadata dictionary at all.
