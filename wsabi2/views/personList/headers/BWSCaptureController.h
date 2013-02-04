@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "BWSCaptureButton.h"
@@ -16,8 +16,8 @@
 
 @protocol BWSCaptureDelegate <NSObject>
 
--(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem;
--(void) didRequestCaptureNextItem:(WSCDItem*)currentItem;
+-(void) didRequestCapturePreviousItem:(BWSCDItem*)currentItem;
+-(void) didRequestCaptureNextItem:(BWSCDItem*)currentItem;
 
 @end
 
@@ -60,7 +60,7 @@
 -(void) handleSensorOperationFailed:(NSNotification*)notification;
 -(void) handleSensorSequenceFailed:(NSNotification*)notification;
 
-@property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) BWSCDItem *item;
 
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) IBOutlet UIView *frontContainer;

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class WSCDItem;
+@class BWSCDItem;
 
 @interface WSCDDeviceDefinition : NSManagedObject
 
@@ -21,6 +21,6 @@
 @property (nonatomic, retain) NSString * submodalities;
 @property (nonatomic, retain) NSDate * timeStampLastEdit;
 @property (nonatomic, retain) NSString * uri;
-@property (nonatomic, retain) WSCDItem *item;
+@property (nonatomic, retain) BWSCDItem *item;
 
 @end

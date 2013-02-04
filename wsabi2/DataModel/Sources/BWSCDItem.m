@@ -6,12 +6,12 @@
  
 //
 
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSCDPerson.h"
 
 
-@implementation WSCDItem
+@implementation BWSCDItem
 
 @dynamic annotations;
 @dynamic captureMetadata;

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "BWSSubmodalityChooserController.h"
@@ -17,7 +17,7 @@
 -(IBAction) tappedBehindView:(id)sender;
 -(IBAction) currentButtonPressed:(id)sender;
 
-@property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) BWSCDItem *item;
 
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;

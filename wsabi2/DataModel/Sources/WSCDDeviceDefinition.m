@@ -7,7 +7,7 @@
 //
 
 #import "WSCDDeviceDefinition.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 
 
 @implementation WSCDDeviceDefinition

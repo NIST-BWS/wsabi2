@@ -296,7 +296,7 @@
     if (selected) {
         //Set up sensor links for each item in this person's record.
         //(It's likely that these links will come back initialized.)
-        for (WSCDItem *item in self.person.items) {
+        for (BWSCDItem *item in self.person.items) {
             BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
             NSLog(@"Created/grabbed sensor link %@",[link description]);
         }
@@ -375,7 +375,7 @@
 
 -(void) removeBackingStoreForItem:(id)userInfo
 {
-    WSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
+    BWSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
 	if (foundItem == nil) {
         NSLog(@"Tried to remove a nonexistent item at index %d", deletableItem);
         return;
@@ -388,7 +388,7 @@
     
     //update the item indices within the now-updated ordered collection
     for (NSUInteger i = 0; i < [orderedItems count]; i++) {
-        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+        BWSCDItem *tempItem = [orderedItems objectAtIndex:i];
         tempItem.index = [NSNumber numberWithInt:i];
     }
     
@@ -475,7 +475,7 @@
     
     //Create a temporary item
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.person.managedObjectContext];
-    WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    BWSCDItem *newCaptureItem = (BWSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:[self.person.items count]]; 
@@ -624,7 +624,7 @@
 #pragma mark - Notification handlers
 -(void) didChangeItem:(NSNotification*)notification
 {
-    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
 
     if (![self.person.items containsObject:item]) {
         return; //nothing to do if we don't have this item.
@@ -647,7 +647,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
+    BWSCDItem *targetItem = (BWSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     
     //If this item is ours, update it.
     NSData *imageData = [info objectForKey:@"data"]; //may be nil
@@ -666,7 +666,7 @@
 }
 
 #pragma mark - Capture Controller delegate
--(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem
+-(void) didRequestCapturePreviousItem:(BWSCDItem*)currentItem
 {
     //find this item, then start capture on the previous item instead.
     int index = [orderedItems indexOfObject:currentItem];
@@ -676,7 +676,7 @@
     }
 }
 
--(void) didRequestCaptureNextItem:(WSCDItem*)currentItem
+-(void) didRequestCaptureNextItem:(BWSCDItem*)currentItem
 {
     //find this item, then start capture on the next item instead.
     int index = [orderedItems indexOfObject:currentItem];
@@ -776,7 +776,7 @@
         UIPopoverArrowDirection direction = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? (UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) : (UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight);
 
         //Find the item we want to edit.
-        WSCDItem *targetItem = [orderedItems objectAtIndex:index];
+        BWSCDItem *targetItem = [orderedItems objectAtIndex:index];
 
         //make sure we've got a valid capture controller.
         if (!self.captureController) {
@@ -872,7 +872,7 @@
     }
 }
 
--(void) showCapturePopoverForItem:(WSCDItem*) targetItem
+-(void) showCapturePopoverForItem:(BWSCDItem*) targetItem
 {
     [self showCapturePopoverAtIndex:[orderedItems indexOfObject:targetItem]];
 }
@@ -981,13 +981,13 @@
     // - Remove the old item & reindex
     // - Insert the item into the reindexed array at the requested index position.
 
-    WSCDItem *tempItem = [orderedItems objectAtIndex:oldIndex];
+    BWSCDItem *tempItem = [orderedItems objectAtIndex:oldIndex];
     [orderedItems removeObjectAtIndex:oldIndex];
     [orderedItems insertObject:tempItem atIndex:newIndex];
     
     //update the item indices within the now-updated ordered collection
     for (int i = 0; i < [orderedItems count]; i++) {
-        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+        BWSCDItem *tempItem = [orderedItems objectAtIndex:i];
         tempItem.index = [NSNumber numberWithInt:i];
     }
     
@@ -1001,7 +1001,7 @@
     [orderedItems exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
     //update the item indices within the now-updated ordered collection
     for (int i = 0; i < [orderedItems count]; i++) {
-        WSCDItem *tempItem = [orderedItems objectAtIndex:i];
+        BWSCDItem *tempItem = [orderedItems objectAtIndex:i];
         tempItem.index = [NSNumber numberWithInt:i];
     }
 

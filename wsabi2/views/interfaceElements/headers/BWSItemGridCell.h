@@ -11,7 +11,7 @@
 #import "GMGridViewCell+Extended.h"
 #import "BWSModalityMap.h"
 #import "UIView+GMGridViewAdditions.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "BWSConstants.h"
 
 //@protocol WSItemGridCellDelegate <NSObject>
@@ -32,7 +32,7 @@
 
 -(void) configureView;
 
-@property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) BWSCDItem *item;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *placeholderView;
 @property (nonatomic, strong) UILabel *placeholderLabel;

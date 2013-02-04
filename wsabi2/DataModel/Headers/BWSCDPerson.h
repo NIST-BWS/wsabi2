@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class WSCDItem;
+@class BWSCDItem;
 
 @interface BWSCDPerson : NSManagedObject
 
@@ -34,8 +34,8 @@
 
 @interface BWSCDPerson (CoreDataGeneratedAccessors)
 
-- (void)addItemsObject:(WSCDItem *)value;
-- (void)removeItemsObject:(WSCDItem *)value;
+- (void)addItemsObject:(BWSCDItem *)value;
+- (void)removeItemsObject:(BWSCDItem *)value;
 - (void)addItems:(NSSet *)values;
 - (void)removeItems:(NSSet *)values;
 

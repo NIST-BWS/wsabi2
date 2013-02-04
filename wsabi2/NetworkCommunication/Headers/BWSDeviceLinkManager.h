@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BWSDeviceLink.h"
 #import "BWSDeviceLinkConstants.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "BWSConstants.h"
 
 @interface BWSDeviceLinkManager : NSObject <BWSDeviceLinkDelegate>

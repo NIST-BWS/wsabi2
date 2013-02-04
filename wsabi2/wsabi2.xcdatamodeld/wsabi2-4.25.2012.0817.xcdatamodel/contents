@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="11G63" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BWSCDItem" representedClassName="BWSCDItem" syncable="YES">
+        <attribute name="annotations" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="captureMetadata" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="deviceConfig" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WSCDDeviceDefinition" inverseName="item" inverseEntity="WSCDDeviceDefinition" syncable="YES"/>
+        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BWSCDPerson" inverseName="items" inverseEntity="BWSCDPerson" syncable="YES"/>
+    </entity>
     <entity name="BWSCDPerson" representedClassName="BWSCDPerson" syncable="YES">
         <attribute name="aliases" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="datesOfBirth" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -17,7 +31,7 @@
         <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="timeStampLastModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WSCDItem" inverseName="person" inverseEntity="WSCDItem" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BWSCDItem" inverseName="person" inverseEntity="BWSCDItem" syncable="YES"/>
     </entity>
     <entity name="WSCDDeviceDefinition" representedClassName="WSCDDeviceDefinition" syncable="YES">
         <attribute name="inactivityTimeout" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0.0" syncable="YES"/>
@@ -28,25 +42,11 @@
         <attribute name="submodalities" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStampLastEdit" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WSCDItem" inverseName="deviceConfig" inverseEntity="WSCDItem" syncable="YES"/>
-    </entity>
-    <entity name="WSCDItem" representedClassName="WSCDItem" syncable="YES">
-        <attribute name="annotations" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="captureMetadata" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="dataContentType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="submodality" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="timeStampCreated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="deviceConfig" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WSCDDeviceDefinition" inverseName="item" inverseEntity="WSCDDeviceDefinition" syncable="YES"/>
-        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BWSCDPerson" inverseName="items" inverseEntity="BWSCDPerson" syncable="YES"/>
+        <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BWSCDItem" inverseName="deviceConfig" inverseEntity="BWSCDItem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WSCDDeviceDefinition" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="WSCDItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="BWSCDPerson" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WSCDDeviceDefinition" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BWSCDItem" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

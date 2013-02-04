@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 #import "BWSCDPerson.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSPersonTableViewCell.h"
 #import "BWSModalityChooserController.h"

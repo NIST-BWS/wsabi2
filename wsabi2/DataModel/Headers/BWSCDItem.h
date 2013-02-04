@@ -11,7 +11,7 @@
 
 @class WSCDDeviceDefinition, BWSCDPerson;
 
-@interface WSCDItem : NSManagedObject
+@interface BWSCDItem : NSManagedObject
 
 @property (nonatomic, retain) NSData * annotations;
 @property (nonatomic, retain) NSData * captureMetadata;

@@ -13,7 +13,7 @@
 #import "WSBDResult.h"
 #import "WSBDParameter.h"
 #import "WSCDDeviceDefinition.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "ELCTextFieldCellWide.h"
 #import "BWSModalityChooserController.h"
 #import "BWSSubmodalityChooserController.h"
@@ -55,7 +55,7 @@ typedef enum {
 //Sensor interaction stuff
 -(void) checkSensor:(NSTimer*)timer;
 
-@property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) BWSCDItem *item;
 @property (nonatomic, strong) WSCDDeviceDefinition *deviceDefinition;
 @property (nonatomic) WSSensorCaptureType submodality;
 @property (nonatomic) WSSensorModalityType modality;

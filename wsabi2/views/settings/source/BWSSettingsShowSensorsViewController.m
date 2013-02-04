@@ -7,7 +7,7 @@
 //
 
 #import "WSAppDelegate.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "BWSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"

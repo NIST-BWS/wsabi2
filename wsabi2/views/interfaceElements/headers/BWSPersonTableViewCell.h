@@ -11,7 +11,7 @@
 #import "BWSDeviceLinkManager.h"
 #import "GMGridView.h"
 #import "BWSCDPerson.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "BWSBiographicalDataController.h"
 #import "BWSCaptureController.h"
 #import "BWSItemGridCell.h"
@@ -61,7 +61,7 @@
 -(IBAction)deletePersonOverlayCancelButtonPressed:(id)sender;
 
 -(void) showCapturePopoverAtIndex:(int) index;
--(void) showCapturePopoverForItem:(WSCDItem*) targetItem;
+-(void) showCapturePopoverForItem:(BWSCDItem*) targetItem;
 
 -(void) selectItem:(BWSItemGridCell*)cellToSelect;
 

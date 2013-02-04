@@ -224,7 +224,7 @@
     [self configureView];
 }
 
--(void) setItem:(WSCDItem *)newItem
+-(void) setItem:(BWSCDItem *)newItem
 {    
     
     item = newItem;

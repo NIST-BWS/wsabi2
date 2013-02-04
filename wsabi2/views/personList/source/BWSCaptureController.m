@@ -370,7 +370,7 @@
 }
 
 #pragma mark - Property accessors
--(void) setItem:(WSCDItem *)newItem
+-(void) setItem:(BWSCDItem *)newItem
 {
     item = newItem;
     
@@ -530,7 +530,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
+    BWSCDItem *targetItem = (BWSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
 
     //Catch a change to the item state.
     if (self.item == targetItem) {
@@ -551,7 +551,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
+    BWSCDItem *targetItem = (BWSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     
     if (self.item == targetItem && [info objectForKey:@"data"]) {
         //the table view is going to take care of editing the actual data, we just need to use
@@ -576,10 +576,10 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     NSError *error = [info objectForKey:@"error"];
-    WSCDItem *targetItem;
+    BWSCDItem *targetItem;
     
     if ([info objectForKey:kDictKeyDeviceID]) {
-        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
+        targetItem = (BWSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     }
     
     if (targetItem && item != targetItem) {
@@ -611,10 +611,10 @@
     WSBDResult *result = (WSBDResult*)[info objectForKey:kDictKeyCurrentResult];
     NSString *resultString = [NSString stringWithFormat:@"Sensor problem: %@", result.message ? result.message : [WSBDResult stringForStatusValue:result.status]];   
         
-    WSCDItem *targetItem;
+    BWSCDItem *targetItem;
     
     if ([info objectForKey:kDictKeyDeviceID]) {
-        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
+        targetItem = (BWSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     }
     
     if (targetItem && item != targetItem) {

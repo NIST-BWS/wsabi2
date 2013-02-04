@@ -10,7 +10,7 @@
 #import "BWSConstants.h"
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSModalityMap.h"
-#import "WSCDItem.h"
+#import "BWSCDItem.h"
 #import "BWSDeviceSetupController.h"
 
 #define NUM_RECENT_SENSORS 5
@@ -27,7 +27,7 @@
 @property (nonatomic) WSSensorCaptureType submodality;
 @property (nonatomic) WSSensorModalityType modality;
 
-@property (nonatomic, strong) WSCDItem *item;
+@property (nonatomic, strong) BWSCDItem *item;
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 

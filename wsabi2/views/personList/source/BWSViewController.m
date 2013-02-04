@@ -167,7 +167,7 @@
     BWSPersonTableViewCell *row = (BWSPersonTableViewCell*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [row selectItem:nil];
     
-    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     //figure out whether we should restore the capture popover later.
     //NOTE: do so unless we came from the add-new-item button.
@@ -214,7 +214,7 @@
 -(void) didCompleteSensorWalkthrough:(NSNotification*)notification
 {
     //This won't be attached to anything yet.
-    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     //get the currently active record and add the item.
     BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
@@ -244,7 +244,7 @@
 
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification
 {
-    WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
@@ -259,7 +259,7 @@
 
 -(void) startItemCapture:(NSNotification *)notification
 {
-    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     if (!item) {
         NSLog(@"Requested capture for a nonexistant item. Ignoring...");
@@ -308,7 +308,7 @@
 
 -(void) stopItemCapture:(NSNotification *)notification
 {
-    WSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
+    BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
     NSLog(@"Requested capture to stop for item %@",item.description);
     
     //Get a reference to this link
@@ -360,7 +360,7 @@
     
     //Create a temporary item
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WSCDItem" inManagedObjectContext:self.managedObjectContext];
-    WSCDItem *newCaptureItem = (WSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    BWSCDItem *newCaptureItem = (BWSCDItem*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     
     //insert this item at the beginning of the list.
     newCaptureItem.index = [NSNumber numberWithInt:0];
@@ -700,7 +700,7 @@
         
         newPerson.notes = nil;
         
-        for (WSCDItem *item in newPerson.items) {
+        for (BWSCDItem *item in newPerson.items) {
             item.timeStampCreated = [NSDate date];
             item.data = nil;
             item.thumbnail = nil;
