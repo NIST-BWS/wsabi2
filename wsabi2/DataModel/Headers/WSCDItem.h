@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class WSCDDeviceDefinition, WSCDPerson;
+@class WSCDDeviceDefinition, BWSCDPerson;
 
 @interface WSCDItem : NSManagedObject
 
@@ -24,6 +24,6 @@
 @property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) NSDate * timeStampCreated;
 @property (nonatomic, retain) WSCDDeviceDefinition *deviceConfig;
-@property (nonatomic, retain) WSCDPerson *person;
+@property (nonatomic, retain) BWSCDPerson *person;
 
 @end

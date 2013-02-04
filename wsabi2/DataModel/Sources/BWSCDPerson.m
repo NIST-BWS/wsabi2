@@ -6,11 +6,11 @@
  
 //
 
-#import "WSCDPerson.h"
+#import "BWSCDPerson.h"
 #import "WSCDItem.h"
 
 
-@implementation WSCDPerson
+@implementation BWSCDPerson
 
 @dynamic aliases;
 @dynamic datesOfBirth;

@@ -307,7 +307,7 @@
     }
 }
 
--(void) setPerson:(WSCDPerson *)newPerson
+-(void) setPerson:(BWSCDPerson *)newPerson
 {
     person = newPerson;
     [self updateData];

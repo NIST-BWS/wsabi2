@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "WSCDPerson.h"
+#import "BWSCDPerson.h"
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSPersonTableViewCell.h"
@@ -29,7 +29,7 @@ NSFetchedResultsControllerDelegate>
     
     BOOL shouldRestoreCapturePopover;
     
-    WSCDPerson* personBeingEdited;
+    BWSCDPerson* personBeingEdited;
     BOOL wasAnnotating;
     BOOL wasLightboxing;
 }

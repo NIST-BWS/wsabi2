@@ -99,7 +99,7 @@
 }
 
 #pragma mark - Property setters
--(void) setPerson:(WSCDPerson *)newPerson 
+-(void) setPerson:(BWSCDPerson *)newPerson
 {
     person = newPerson;
     

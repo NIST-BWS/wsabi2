@@ -10,7 +10,7 @@
 #import "UIImage+Resize.h"
 #import "BWSDeviceLinkManager.h"
 #import "GMGridView.h"
-#import "WSCDPerson.h"
+#import "BWSCDPerson.h"
 #import "WSCDItem.h"
 #import "BWSBiographicalDataController.h"
 #import "BWSCaptureController.h"
@@ -21,9 +21,9 @@
 
 @protocol BWSPersonTableViewCellDelegate <NSObject>
 
--(void) didRequestDuplicatePerson:(WSCDPerson*)person;
--(void) didRequestDeletePerson:(WSCDPerson*)person;
--(void) didChangeEditingStatusForPerson:(WSCDPerson*)person newStatus:(BOOL)onOrOff;
+-(void) didRequestDuplicatePerson:(BWSCDPerson*)person;
+-(void) didRequestDeletePerson:(BWSCDPerson*)person;
+-(void) didChangeEditingStatusForPerson:(BWSCDPerson*)person newStatus:(BOOL)onOrOff;
 @end
 
 @interface BWSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
@@ -69,7 +69,7 @@
 -(void) didChangeItem:(NSNotification*)notification;
 -(void) handleDownloadPosted:(NSNotification*)notification;
 
-@property (nonatomic, strong) WSCDPerson *person;
+@property (nonatomic, strong) BWSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
 @property (nonatomic, strong) IBOutlet UIButton *biographicalDataButton;
 @property (nonatomic, strong) IBOutlet UILabel *biographicalDataInactiveLabel;

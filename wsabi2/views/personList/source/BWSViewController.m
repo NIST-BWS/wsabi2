@@ -217,7 +217,7 @@
     WSCDItem *sourceItem = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     //get the currently active record and add the item.
-    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [person addItemsObject:sourceItem];
     
     //FIXME: Unfortunately, launching the capture popover from here results in a popover that WILL NOT
@@ -344,7 +344,7 @@
     NSDate *now = [NSDate date];
     
     //Unlike the usual duplicate-style add, this time we need to start from scratch.
-    WSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
+    BWSCDPerson *newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"WSCDPerson" inManagedObjectContext:self.managedObjectContext];
     newPerson.timeStampCreated = now;
     newPerson.aliases = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
     newPerson.datesOfBirth = [NSKeyedArchiver archivedDataWithRootObject:[[NSMutableArray alloc] init]];
@@ -396,7 +396,7 @@
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
-    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
     //FIXME: Figure out a way to query the cell's grid view to dynamically determine how many items
@@ -414,7 +414,7 @@
 
 - (void)configureCell:(BWSPersonTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    WSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.person = person;
     [cell.itemGridView reloadData];
@@ -674,11 +674,11 @@
 }
 
 #pragma mark - WSPersonTableViewCell delegate
--(void) didRequestDuplicatePerson:(WSCDPerson*)oldPerson
+-(void) didRequestDuplicatePerson:(BWSCDPerson*)oldPerson
 {
     if(oldPerson) {
         //if we have something to duplicate, do it.
-        WSCDPerson *newPerson = (WSCDPerson*)[oldPerson cloneInContext:self.managedObjectContext exludeEntities:nil];
+        BWSCDPerson *newPerson = (BWSCDPerson*)[oldPerson cloneInContext:self.managedObjectContext exludeEntities:nil];
         newPerson.timeStampCreated = [NSDate date];
         
         //clear out any biographical data present in the old row.
@@ -720,14 +720,14 @@
     }
 }
 
--(void) didRequestDeletePerson:(WSCDPerson*)oldPerson
+-(void) didRequestDeletePerson:(BWSCDPerson*)oldPerson
 {
     if (oldPerson) {
         [self.managedObjectContext deleteObject:oldPerson];
     }
 }
 
--(void) didChangeEditingStatusForPerson:(WSCDPerson*)person newStatus:(BOOL)onOrOff
+-(void) didChangeEditingStatusForPerson:(BWSCDPerson*)person newStatus:(BOOL)onOrOff
 {
     if (onOrOff) {
         //set the personBeingEdited variable.

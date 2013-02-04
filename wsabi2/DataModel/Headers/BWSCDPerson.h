@@ -11,7 +11,7 @@
 
 @class WSCDItem;
 
-@interface WSCDPerson : NSManagedObject
+@interface BWSCDPerson : NSManagedObject
 
 @property (nonatomic, retain) NSData * aliases;
 @property (nonatomic, retain) NSData * datesOfBirth;
@@ -32,7 +32,7 @@
 @property (nonatomic, retain) NSSet *items;
 @end
 
-@interface WSCDPerson (CoreDataGeneratedAccessors)
+@interface BWSCDPerson (CoreDataGeneratedAccessors)
 
 - (void)addItemsObject:(WSCDItem *)value;
 - (void)removeItemsObject:(WSCDItem *)value;

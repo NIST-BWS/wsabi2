@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+FirstResponder.h"
-#import "WSCDPerson.h"
+#import "BWSCDPerson.h"
 #import "ELCTextfieldCell.h"
 #import "ActionSheetPicker.h"
 
@@ -68,7 +68,7 @@
 
 - (IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
 
-@property (nonatomic, strong) WSCDPerson *person;
+@property (nonatomic, strong) BWSCDPerson *person;
 @property (nonatomic, strong) IBOutlet UITableView *bioDataTable;
 
 @property (nonatomic, unsafe_unretained) id<BWSBiographicalDataDelegate> delegate;

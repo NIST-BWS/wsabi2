@@ -8,7 +8,7 @@
 
 #import "WSAppDelegate.h"
 #import "WSCDItem.h"
-#import "WSCDPerson.h"
+#import "BWSCDPerson.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "BWSSettingsAddSensorViewController.h"
