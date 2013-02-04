@@ -677,21 +677,21 @@
 }
 
 #pragma mark - Device link delegate
--(void) sensorOperationDidFail:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error
+-(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withError:(NSError*)error
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationWasCancelledByService:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
 {
     //we couldn't get hold of the sensor info we expected; set status accordingly.
     self.sensorCheckStatus = kStatusNotFound;
     checkingSensor = NO;
 }
 
--(void) sensorOperationCompleted:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL*)sourceID withResult:(WSBDResult*)result
 {
     if (!result || result.status != StatusSuccess || !result.metadata) {
         //we didn't get a result back, or it didn't give us a metadata dictionary at all.

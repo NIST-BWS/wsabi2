@@ -17,21 +17,21 @@
 
 @optional
 
-- (void)sensorOperationDidFail:(int)opType
+- (void)sensorOperationDidFail:(SensorOperationType)opType
                       fromLink:(WSDeviceLink*)link
                 sourceObjectID:(NSURL*)sourceI
                      withError:(NSError*)error;
 
-- (void)sensorOperationWasCancelledByService:(int)opType
+- (void)sensorOperationWasCancelledByService:(SensorOperationType)opType
                                     fromLink:(WSDeviceLink *)link
                               sourceObjectID:(NSURL *)sourceID
                                   withResult:(WSBDResult *)result;
 
-- (void)sensorOperationWasCancelledByClient:(int)opType
+- (void)sensorOperationWasCancelledByClient:(SensorOperationType)opType
                                    fromLink:(WSDeviceLink *)link
                              sourceObjectID:(NSURL *)sourceID;
 
-- (void)sensorOperationCompleted:(int)opType
+- (void)sensorOperationCompleted:(SensorOperationType)opType
                         fromLink:(WSDeviceLink *)link
                   sourceObjectID:(NSURL *)sourceID
                       withResult:(WSBDResult *)result;

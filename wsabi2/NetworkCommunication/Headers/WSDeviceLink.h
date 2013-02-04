@@ -44,8 +44,7 @@ static const BOOL kShouldRetryDownloadIfPending = YES;
 @property (nonatomic, unsafe_unretained) id<WSDeviceLinkDelegate> delegate;
 
 
-// TODO: Change int to SensorOperationType (must be found/changed project-wide)
-+ (NSString *)stringForSensorOperationType:(int)opType;
++ (NSString *)stringForSensorOperationType:(SensorOperationType)opType;
 
 /// @brief
 /// Create a new WSDeviceLink

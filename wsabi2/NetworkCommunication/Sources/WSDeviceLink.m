@@ -182,7 +182,7 @@
     return (YES);
 }
 
-+ (NSString *)stringForSensorOperationType:(int)opType
++ (NSString *)stringForSensorOperationType:(SensorOperationType)opType
 {
     switch (opType) {
         case kOpTypeRegister:

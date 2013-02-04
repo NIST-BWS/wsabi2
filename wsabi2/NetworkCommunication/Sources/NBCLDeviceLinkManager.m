@@ -85,7 +85,7 @@
 }
 
 #pragma mark - Sensor Link Delegate methods
--(void) sensorOperationDidFail:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withError:(NSError *)error
+-(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withError:(NSError *)error
 {
 
     //Post a notification about the failed operation, containing the error, so we can do something with it.
@@ -104,12 +104,7 @@
     
 }
 
--(void) sensorOperationWasCancelledByService:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
-{
-    
-}
-
--(void) sensorOperationWasCancelledByClient:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
+-(void) sensorOperationWasCancelledByClient:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
 {
     //Post a notification about the failed operation, containing the error, so we can do something with it.
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -126,7 +121,7 @@
 
 }
 
--(void) sensorOperationCompleted:(int)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
 {
     //Post a notification about the completed operation!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
