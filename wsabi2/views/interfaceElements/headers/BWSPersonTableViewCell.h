@@ -12,7 +12,7 @@
 #import "GMGridView.h"
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
-#import "WSBiographicalDataController.h"
+#import "BWSBiographicalDataController.h"
 #import "WSCaptureController.h"
 #import "BWSItemGridCell.h"
 #import "BWSModalityChooserController.h"
@@ -28,7 +28,7 @@
 
 @interface BWSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
                                                      GMGridViewActionDelegate,
-                                                    WSBiographicalDataDelegate, WSCaptureDelegate,
+                                                    BWSBiographicalDataDelegate, WSCaptureDelegate,
                                                     UIPopoverControllerDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;

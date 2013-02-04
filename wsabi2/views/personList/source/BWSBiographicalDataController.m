@@ -6,9 +6,9 @@
  
 //
 
-#import "WSBiographicalDataController.h"
+#import "BWSBiographicalDataController.h"
 
-@implementation WSBiographicalDataController
+@implementation BWSBiographicalDataController
 @synthesize bioDataTable;
 @synthesize person;
 @synthesize delegate;

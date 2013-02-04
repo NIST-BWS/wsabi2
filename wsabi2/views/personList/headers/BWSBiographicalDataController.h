@@ -37,13 +37,13 @@
 
 #define kRowNotes 0
 
-@protocol WSBiographicalDataDelegate <NSObject>
+@protocol BWSBiographicalDataDelegate <NSObject>
 
 -(void) didUpdateDisplayName;
 
 @end
 
-@interface WSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, 
+@interface BWSBiographicalDataController : UIViewController <UITableViewDataSource, UITableViewDelegate, 
                                                             ELCTextFieldDelegate, UITextFieldDelegate, 
                                                             UITextViewDelegate>
 {
@@ -71,7 +71,7 @@
 @property (nonatomic, strong) WSCDPerson *person;
 @property (nonatomic, strong) IBOutlet UITableView *bioDataTable;
 
-@property (nonatomic, unsafe_unretained) id<WSBiographicalDataDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<BWSBiographicalDataDelegate> delegate;
 
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 @property (nonatomic, assign) UIPopoverController *popoverController;

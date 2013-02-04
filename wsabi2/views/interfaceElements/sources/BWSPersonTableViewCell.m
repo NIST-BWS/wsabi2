@@ -437,7 +437,7 @@
     }
     
     //We're going to put this in a secondary popover controller.
-    WSBiographicalDataController *cap = [[WSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
+    BWSBiographicalDataController *cap = [[BWSBiographicalDataController alloc] initWithNibName:@"WSBiographicalDataController" bundle:nil];
     cap.person = self.person;
     cap.delegate = self;
     
