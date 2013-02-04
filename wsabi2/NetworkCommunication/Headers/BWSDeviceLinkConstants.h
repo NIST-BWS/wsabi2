@@ -13,6 +13,8 @@
  any other characteristic. We would appreciate acknowledgement if the software is used.
  */
 
+#ifndef __BWS_DEVICE_LINK_CONSTANTS_H__
+#define __BWS_DEVICE_LINK_CONSTANTS_H__
 
 //Operation types
 typedef enum {
@@ -105,3 +107,5 @@ static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; c
 /// Whether or not failed downloads should be retried if they fail
 // TODO: Retry pending downloads makes a better preference than constant.
 static const BOOL kBWSShouldRetryDownloadIfPending = YES;
+
+#endif // __BWS_DEVICE_LINK_CONSTANTS_H__
