@@ -188,7 +188,7 @@
         [self presentModalViewController:navigation animated:YES];
         // Start from submodality
     } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
-        WSSubmodalityChooserController *chooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
+        BWSSubmodalityChooserController *chooser = [[BWSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
         chooser.item = item;
         
         chooser.modality = [BWSModalityMap modalityForString:item.modality];

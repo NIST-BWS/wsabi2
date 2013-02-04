@@ -389,10 +389,10 @@
     if (self.sensorCheckStatus == kStatusBadModality) {
         //pop back to the modality chooser.
         //find it first.
-        WSModalityChooserController *target = nil;
+        BWSModalityChooserController *target = nil;
         for (UIViewController *vc in self.navigationController.viewControllers) {
-            if ([vc isKindOfClass:[WSModalityChooserController class]]) {
-                target = (WSModalityChooserController*) vc;
+            if ([vc isKindOfClass:[BWSModalityChooserController class]]) {
+                target = (BWSModalityChooserController*) vc;
             }
         }
         if (target) {
@@ -414,10 +414,10 @@
     else if (self.sensorCheckStatus == kStatusBadSubmodality) {
         //pop back to the submodality chooser.
         //find it first.
-        WSSubmodalityChooserController *target = nil;
+        BWSSubmodalityChooserController *target = nil;
         for (UIViewController *vc in self.navigationController.viewControllers) {
-            if ([vc isKindOfClass:[WSSubmodalityChooserController class]]) {
-                target = (WSSubmodalityChooserController*) vc;
+            if ([vc isKindOfClass:[BWSSubmodalityChooserController class]]) {
+                target = (BWSSubmodalityChooserController*) vc;
             }
         }
         if (target) {

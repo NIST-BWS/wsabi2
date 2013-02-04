@@ -124,7 +124,7 @@
 -(IBAction) currentButtonPressed:(id)sender
 {
     //Push a new controller to choose the submodality.
-    WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
+    BWSSubmodalityChooserController *subChooser = [[BWSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
     subChooser.modality = [BWSModalityMap modalityForString:self.item.modality];
 
     subChooser.item = self.item; //pass the data object
@@ -215,7 +215,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     //Push a new controller to choose the submodality.
-    WSSubmodalityChooserController *subChooser = [[WSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
+    BWSSubmodalityChooserController *subChooser = [[BWSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
     subChooser.modality = indexPath.row;
     
     NSLog(@"Walkthrough setting modality to %@",[BWSModalityMap stringForModality:subChooser.modality]);
