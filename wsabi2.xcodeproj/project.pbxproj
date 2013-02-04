@@ -424,7 +424,7 @@
 		EA0DB8AD1536162000693D86 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "Categories/Sources/UIImage+Resize.m"; sourceTree = "<group>"; };
 		EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "Categories/Headers/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "Categories/Sources/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
-		EA202D7314C74F6600776BF3 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		EA202D7314C74F6600776BF3 /* BWSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSConstants.h; sourceTree = "<group>"; };
 		EA277AA314DC37FE002484CF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EA277AA514DC3807002484CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EA277AB114DC4092002484CF /* BWSModalityMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSModalityMap.h; path = NetworkCommunication/Headers/BWSModalityMap.h; sourceTree = "<group>"; };
@@ -1158,7 +1158,7 @@
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				082C8733163AD2510049AB59 /* Views and ViewControllers */,
 				EA8A046814C7583A00199FF8 /* Images */,
-				EA202D7314C74F6600776BF3 /* constants.h */,
+				EA202D7314C74F6600776BF3 /* BWSConstants.h */,
 				EAA6FF7314C7137D00006BCB /* Dependencies */,
 				EA2D1D5B14FC17D4007CB41F /* Network Communication */,
 				EAF0F98514BC7B8C00544416 /* WSAppDelegate.h */,

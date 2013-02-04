@@ -8,7 +8,7 @@
 
 #import "WSSettingsViewController.h"
 
-#import "constants.h"
+#import "BWSConstants.h"
 #import "WSSettingsShowSensorsViewController.h"
 
 /// Tag for the switch in the table for touch logging

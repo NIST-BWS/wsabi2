@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "constants.h"
+#import "BWSConstants.h"
 
 @interface WSCaptureButton : UIButton
 

@@ -12,7 +12,7 @@
 #import "BWSModalityMap.h"
 #import "UIView+GMGridViewAdditions.h"
 #import "WSCDItem.h"
-#import "constants.h"
+#import "BWSConstants.h"
 
 //@protocol WSItemGridCellDelegate <NSObject>
 //

@@ -12,7 +12,7 @@
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
 #import "WSSettingsAddSensorViewController.h"
-#import "constants.h"
+#import "BWSConstants.h"
 
 #import "WSSettingsShowSensorsViewController.h"
 

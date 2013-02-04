@@ -12,7 +12,7 @@
 #import "BWSModalityMap.h"
 #import "WSCaptureButton.h"
 #import "BWSDeviceLinkManager.h"
-#import "constants.h"
+#import "BWSConstants.h"
 
 @protocol WSCaptureDelegate <NSObject>
 

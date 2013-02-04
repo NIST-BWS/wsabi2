@@ -10,7 +10,7 @@
 #import "BWSDeviceLink.h"
 #import "BWSDeviceLinkConstants.h"
 #import "WSCDItem.h"
-#import "constants.h"
+#import "BWSConstants.h"
 
 @interface BWSDeviceLinkManager : NSObject <BWSDeviceLinkDelegate>
 {

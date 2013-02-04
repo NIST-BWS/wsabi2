@@ -6,7 +6,7 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
-#import "constants.h"
+#import "BWSConstants.h"
 #import "BWSDeviceLinkConstants.h"
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"

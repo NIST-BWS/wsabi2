@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "constants.h"
+#import "BWSConstants.h"
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSModalityMap.h"
 #import "WSCDItem.h"

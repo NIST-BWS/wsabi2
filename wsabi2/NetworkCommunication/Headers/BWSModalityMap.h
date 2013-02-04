@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "constants.h"
+#import "BWSConstants.h"
 
 @interface BWSModalityMap : NSObject {
     
