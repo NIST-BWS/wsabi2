@@ -47,6 +47,9 @@
 @property (nonatomic, strong) NSMutableDictionary *downloadRetryCount;
 @property (nonatomic, assign) NSTimeInterval exponentialIntervalMax;
 
+@property (nonatomic, strong) WSBDAFHTTPClient* service;
+
+
 //The configuration to be used in case we're running a capture sequence rather than
 //individual operations (in which case we need a place to put the config while we're progressing).
 @property (nonatomic, strong) NSMutableDictionary *pendingConfiguration;
@@ -592,14 +595,14 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the registered convenience variable.
-                                  self.registered = YES;
+                                  _registered = YES;
                                   //store the current session id.
                                   self.currentSessionId = self.currentWSBDResult.sessionId;
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress)
                                       [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
                               } else if (self.sequenceInProgress) {
-                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                  _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                   [self notifySequenceCompletedWithSourceObjectID:sourceObjectID];
                               }
                           }
@@ -617,7 +620,7 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the registered convenience variable.
-                                  self.registered = NO;
+                                  _registered = NO;
                                   
                                   //notify the delegate that we're no longer "connected and ready"
                                   if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
@@ -633,7 +636,7 @@
                               
                               //if this call is part of a sequence, notify our delegate that the sequence is complete.
                               if (self.sequenceInProgress) {
-                                  self.sequenceInProgress = kSensorSequenceNone;
+                                  _sequenceInProgress = kSensorSequenceNone;
                                   if ([[self delegate] respondsToSelector:@selector(disconnectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
                                       [[self delegate] disconnectSequenceCompletedFromLink:self
                                                                                 withResult:self.currentWSBDResult
@@ -655,7 +658,7 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the initialization convenience variable.
-                                  self.initialized = YES;
+                                  _initialized = YES;
                                   //notify the delegate that our status is now "connected and ready"
                                   if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
                                       [[self delegate] sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:sourceID];
@@ -697,7 +700,7 @@
                                                                 withResult:self.currentWSBDResult
                                                             sourceObjectID:sourceID];
                                       }
-                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
                                   }
                               }
@@ -726,7 +729,7 @@
                                        ];
                                   }
                                   
-                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                  _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                               }
                               
                               //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
@@ -787,7 +790,7 @@
                                       
                                       //In this case, this is the last step, so unset the sequence variable and
                                       //notify our delegate.
-                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      _sequenceInProgress = kSensorSequenceNone;
                                       if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
                                           [[self delegate] configureSequenceCompletedFromLink:self
                                                                                    withResult:self.currentWSBDResult
@@ -810,7 +813,7 @@
                                                             sourceObjectID:sourceID
                                            ];
                                       }
-                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
                                       //Try to force an unlock
                                       [self unlock:self.currentSessionId sourceObjectID:sourceID];
@@ -861,7 +864,7 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the lock convenience variable.
-                                  self.hasLock = YES;
+                                  _hasLock = YES;
                                   
                                   //If this is a recovery sequence, use the stored sequence to determine
                                   //what to do next. Otherwise, use the main sequence.
@@ -895,7 +898,7 @@
                                   }
                                   else {
                                       //We've already tried to recover; give up.
-                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
                                       if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
                                       {
@@ -924,7 +927,7 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the lock convenience variable.
-                                  self.hasLock = YES;
+                                  _hasLock = YES;
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress == kSensorSequenceConnect) {
                                       [self initialize:self.currentSessionId sourceObjectId:sourceID];
@@ -950,7 +953,7 @@
                                                         sourceObjectID:sourceID
                                        ];
                                   }
-                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                  _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                               }
                           }
                           failure:NULL
@@ -967,7 +970,7 @@
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               if (self.currentWSBDResult.status == StatusSuccess) {
                                   //set the lock convenience variable.
-                                  self.hasLock = NO;
+                                  _hasLock = NO;
                                   
                                   //notify the delegate that we're no longer "connected and ready"
                                   if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
@@ -980,7 +983,7 @@
                                   //a recovery.
                                   if (self.sequenceInProgress == kSensorSequenceRecovery)
                                   {
-                                      self.sequenceInProgress = self.storedSequence;
+                                      _sequenceInProgress = self.storedSequence;
                                       
                                       //clear the stored sequence.
                                       self.storedSequence = kSensorSequenceNone;
@@ -995,7 +998,7 @@
                                   else if(self.sequenceInProgress == kSensorSequenceConnect)
                                   {
                                       //this is the end of the sequence.
-                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      _sequenceInProgress = kSensorSequenceNone;
                                       if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
                                           [[self delegate] connectSequenceCompletedFromLink:self
                                                                                  withResult:self.currentWSBDResult
@@ -1005,7 +1008,7 @@
                                   else if(self.sequenceInProgress == kSensorSequenceConfigure)
                                   {
                                       //this is the end of the sequence.
-                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      _sequenceInProgress = kSensorSequenceNone;
                                       if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
                                           [[self delegate] configureSequenceCompletedFromLink:self
                                                                                    withResult:self.currentWSBDResult
@@ -1015,7 +1018,7 @@
                                   else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
                                   {
                                       //this is the end of the sequence.
-                                      self.sequenceInProgress = kSensorSequenceNone;
+                                      _sequenceInProgress = kSensorSequenceNone;
                                       if ([[self delegate] respondsToSelector:@selector(connectConfigureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
                                           [[self delegate] connectConfigureSequenceCompletedFromLink:self
                                                                                           withResult:self.currentWSBDResult
@@ -1034,7 +1037,7 @@
                                                         sourceObjectID:sourceID
                                        ];
                                   }
-                                  self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                  _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                               }
                           }
                           failure:NULL
@@ -1089,7 +1092,7 @@
                                                             sourceObjectID:sourceID
                                            ];
                                       }
-                                      self.sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+                                      _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       //Try to force an unlock
                                       [self unlock:self.currentSessionId sourceObjectID:sourceID];
                                   }
@@ -1140,7 +1143,7 @@
                     [[self delegate] fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
                 }
             }
-            self.sequenceInProgress = kSensorSequenceNone;
+            _sequenceInProgress = kSensorSequenceNone;
             self.numCaptureIdsAwaitingDownload = 0;
         }
         //remove any retry counter attached to this request.
@@ -1150,7 +1153,7 @@
     }
     
     //Otherwise, if we're configured to retry automatically, do it.
-    else if (self.currentWSBDResult.status == StatusPreparingDownload && self.shouldRetryDownloadIfPending)
+    else if (self.currentWSBDResult.status == StatusPreparingDownload && kShouldRetryDownloadIfPending)
     {
         //do an exponential back-off
         int currentCaptureRetryCount = [[self.downloadRetryCount objectForKey:captureID] intValue];
@@ -1207,7 +1210,7 @@
         return (NO);
     
     //kick off the connection sequence
-    self.sequenceInProgress = kSensorSequenceConnect;
+    _sequenceInProgress = kSensorSequenceConnect;
     [self registerClient:sourceObjectID];
     return (YES);
 }
@@ -1219,7 +1222,7 @@
         return (NO);
     
     // Kick off the connection sequence
-    self.sequenceInProgress = kSensorSequenceConnectConfigure;
+    _sequenceInProgress = kSensorSequenceConnectConfigure;
     self.pendingConfiguration = params;
     [self registerClient:sourceID];
     
@@ -1233,7 +1236,7 @@
         return (NO);
     
     // Configure the capture sequence
-    self.sequenceInProgress = kSensorSequenceConfigCaptureDownload;
+    _sequenceInProgress = kSensorSequenceConfigCaptureDownload;
     self.downloadMaxSize = maxSize;
     self.pendingConfiguration = params;
     
@@ -1250,7 +1253,7 @@
         return (NO);
     
     // Configure the capture sequence
-    self.sequenceInProgress = kSensorSequenceFull;
+    _sequenceInProgress = kSensorSequenceFull;
     self.downloadMaxSize = maxSize;
     self.pendingConfiguration = params;
     
@@ -1267,7 +1270,7 @@
     
     //If we got an unsuccessful result, and haven't already tried to recover, do so now.
     self.storedSequence = self.sequenceInProgress;
-    self.sequenceInProgress = kSensorSequenceRecovery;
+    _sequenceInProgress = kSensorSequenceRecovery;
     
     //Figure out where we need to go.
     //FIXME: We need to handle all potential status values here!
@@ -1298,7 +1301,7 @@
             break;
         default:
             //don't recover
-            self.sequenceInProgress = kSensorSequenceNone;
+            _sequenceInProgress = kSensorSequenceNone;
             [[self delegate] sensorOperationDidFail:kSensorSequenceRecovery fromLink:self sourceObjectID:sourceObjectID withError:nil];
             break;
     }

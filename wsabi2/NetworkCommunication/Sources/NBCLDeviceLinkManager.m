@@ -317,12 +317,7 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ failed to complete a series of operations", link.baseURI);
-
-    //If this sequence fails, for now, go all the way back and start over.
-    link.registered = NO;
-    link.initialized = NO;
-    
+    NSLog(@"Link at %@ failed to complete a series of operations", link.baseURI);    
 }
 
 @end

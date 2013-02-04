@@ -21,12 +21,12 @@ static NSString * const kBCLPUTMethod = @"PUT";
 static NSString * const kBCLDELETEMethod = @"DELETE";
 static NSString * const kBCLHTTPHeaderKeyContentType = @"Content-Type";
 static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; charset=utf-8";
+static const BOOL kShouldRetryDownloadIfPending = YES;
 
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
 /// Base URI to the device
-@property (nonatomic, strong) NSURL *baseURI;
-@property (nonatomic, strong) WSBDAFHTTPClient* service;
+@property (nonatomic, strong, readonly) NSURL *baseURI;
 
 
 @property (nonatomic, strong) NSString *currentSessionId;
@@ -35,12 +35,11 @@ static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; c
 //is PROBABLY past the stated phase and connected. If the sensor is
 //disconnected, or another client holds the lock when the next operation is
 //performed, it will still fail.
-@property (nonatomic) BOOL registered;
-@property (nonatomic) BOOL hasLock;
-@property (nonatomic) BOOL initialized;
+@property (nonatomic, readonly) BOOL registered;
+@property (nonatomic, readonly) BOOL hasLock;
+@property (nonatomic, readonly) BOOL initialized;
 
-@property (nonatomic) SensorSequenceType sequenceInProgress;
-@property (nonatomic) BOOL shouldRetryDownloadIfPending;
+@property (nonatomic, readonly) SensorSequenceType sequenceInProgress;
 
 @property (nonatomic, unsafe_unretained) id<WSDeviceLinkDelegate> delegate;
 
