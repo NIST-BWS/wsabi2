@@ -12,7 +12,7 @@
 #import "BWSModalityMap.h"
 #import "BWSDeviceChooserController.h"
 
-@interface WSSubmodalityChooserController : UITableViewController
+@interface BWSSubmodalityChooserController : UITableViewController
 {
     NSArray *submodalities;
 }

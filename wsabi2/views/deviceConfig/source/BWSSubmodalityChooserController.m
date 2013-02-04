@@ -6,9 +6,9 @@
  
 //
 
-#import "WSSubmodalityChooserController.h"
+#import "BWSSubmodalityChooserController.h"
 
-@implementation WSSubmodalityChooserController
+@implementation BWSSubmodalityChooserController
 @synthesize modality;
 @synthesize item;
 @synthesize currentButton;

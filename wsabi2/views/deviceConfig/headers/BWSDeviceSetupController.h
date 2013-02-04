@@ -16,7 +16,7 @@
 #import "WSCDItem.h"
 #import "ELCTextFieldCellWide.h"
 #import "BWSModalityChooserController.h"
-#import "WSSubmodalityChooserController.h"
+#import "BWSSubmodalityChooserController.h"
 
 typedef enum {
 	kStatusBlank = 0,

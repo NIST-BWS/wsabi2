@@ -10,7 +10,7 @@
 #import "WSCDItem.h"
 #import "WSCDDeviceDefinition.h"
 #import "BWSModalityMap.h"
-#import "WSSubmodalityChooserController.h"
+#import "BWSSubmodalityChooserController.h"
 
 @interface BWSModalityChooserController : UITableViewController
 
