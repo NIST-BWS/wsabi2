@@ -14,14 +14,14 @@
 #import "BWSDeviceLinkManager.h"
 #import "BWSConstants.h"
 
-@protocol WSCaptureDelegate <NSObject>
+@protocol BWSCaptureDelegate <NSObject>
 
 -(void) didRequestCapturePreviousItem:(WSCDItem*)currentItem;
 -(void) didRequestCaptureNextItem:(WSCDItem*)currentItem;
 
 @end
 
-@interface WSCaptureController : UIViewController <UITextViewDelegate, UIActionSheetDelegate>
+@interface BWSCaptureController : UIViewController <UITextViewDelegate, UIActionSheetDelegate>
 {
 
     BWSDeviceLink *currentLink;
@@ -82,6 +82,6 @@
 @property (nonatomic, assign, readonly, getter=isLightboxing) BOOL lightboxing;
 
 
-@property (nonatomic, unsafe_unretained) id<WSCaptureDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<BWSCaptureDelegate> delegate;
 
 @end

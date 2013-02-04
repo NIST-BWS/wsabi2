@@ -780,7 +780,7 @@
 
         //make sure we've got a valid capture controller.
         if (!self.captureController) {
-            self.captureController = [[WSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
+            self.captureController = [[BWSCaptureController alloc] initWithNibName:@"WSCaptureController" bundle:nil];
             self.captureController.delegate = self;    
             
             //if there's no popover controller, create one.

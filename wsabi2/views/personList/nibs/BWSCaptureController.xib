@@ -689,7 +689,7 @@
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.CustomClassName">WSCaptureController</string>
+				<string key="-1.CustomClassName">BWSCaptureController</string>
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -723,134 +723,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">49</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">WSCaptureButton</string>
-					<string key="superclassName">UIButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WSCaptureButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WSCaptureController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="annotateButtonPressed:">id</string>
-						<string key="captureButtonPressed:">id</string>
-						<string key="deviceButtonPressed:">id</string>
-						<string key="doneButtonPressed:">id</string>
-						<string key="doubleTappedImage:">UITapGestureRecognizer</string>
-						<string key="modalityButtonPressed:">id</string>
-						<string key="tappedBehindView:">UITapGestureRecognizer</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="annotateButtonPressed:">
-							<string key="name">annotateButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="captureButtonPressed:">
-							<string key="name">captureButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deviceButtonPressed:">
-							<string key="name">deviceButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doneButtonPressed:">
-							<string key="name">doneButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doubleTappedImage:">
-							<string key="name">doubleTappedImage:</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-						<object class="IBActionInfo" key="modalityButtonPressed:">
-							<string key="name">modalityButtonPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tappedBehindView:">
-							<string key="name">tappedBehindView:</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="annotateButton">UIButton</string>
-						<string key="annotationNotesTableView">UITableView</string>
-						<string key="annotationPresentImageView">UIImageView</string>
-						<string key="annotationTableView">UITableView</string>
-						<string key="backContainer">UIView</string>
-						<string key="backNavBarTitleItem">UINavigationItem</string>
-						<string key="captureButton">WSCaptureButton</string>
-						<string key="deviceButton">UIButton</string>
-						<string key="doubleTapRecognizer">UITapGestureRecognizer</string>
-						<string key="frontContainer">UIView</string>
-						<string key="itemDataView">UIImageView</string>
-						<string key="modalityButton">UIButton</string>
-						<string key="tapBehindViewRecognizer">UITapGestureRecognizer</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="annotateButton">
-							<string key="name">annotateButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationNotesTableView">
-							<string key="name">annotationNotesTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationPresentImageView">
-							<string key="name">annotationPresentImageView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="annotationTableView">
-							<string key="name">annotationTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="backContainer">
-							<string key="name">backContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="backNavBarTitleItem">
-							<string key="name">backNavBarTitleItem</string>
-							<string key="candidateClassName">UINavigationItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="captureButton">
-							<string key="name">captureButton</string>
-							<string key="candidateClassName">WSCaptureButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="deviceButton">
-							<string key="name">deviceButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="doubleTapRecognizer">
-							<string key="name">doubleTapRecognizer</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="frontContainer">
-							<string key="name">frontContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="itemDataView">
-							<string key="name">itemDataView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="modalityButton">
-							<string key="name">modalityButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tapBehindViewRecognizer">
-							<string key="name">tapBehindViewRecognizer</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WSCaptureController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

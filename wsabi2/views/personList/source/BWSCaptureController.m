@@ -6,12 +6,12 @@
  
 //
 
-#import "WSCaptureController.h"
+#import "BWSCaptureController.h"
 
 #import "WSLightboxViewController.h"
 #import "WSAppDelegate.h"
 
-@implementation WSCaptureController
+@implementation BWSCaptureController
 @synthesize item;
 @synthesize popoverController;
 

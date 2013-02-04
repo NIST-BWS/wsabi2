@@ -13,7 +13,7 @@
 #import "WSCDPerson.h"
 #import "WSCDItem.h"
 #import "BWSBiographicalDataController.h"
-#import "WSCaptureController.h"
+#import "BWSCaptureController.h"
 #import "BWSItemGridCell.h"
 #import "BWSModalityChooserController.h"
 #import "BWSPopoverBackgroundView.h"
@@ -28,7 +28,7 @@
 
 @interface BWSPersonTableViewCell : UITableViewCell <GMGridViewDataSource, GMGridViewSortingDelegate,    
                                                      GMGridViewActionDelegate,
-                                                    BWSBiographicalDataDelegate, WSCaptureDelegate,
+                                                    BWSBiographicalDataDelegate, BWSCaptureDelegate,
                                                     UIPopoverControllerDelegate, UIActionSheetDelegate>
 {
     BOOL initialLayoutComplete;
@@ -80,7 +80,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *addButton;
 @property (nonatomic, strong) IBOutlet UIButton *duplicateRowButton;
 
-@property (nonatomic, strong) IBOutlet WSCaptureController *captureController;
+@property (nonatomic, strong) IBOutlet BWSCaptureController *captureController;
 @property (nonatomic, readonly, assign) int selectedIndex;
 
 @property (nonatomic, strong) IBOutlet UIView *customSelectedBackgroundView;

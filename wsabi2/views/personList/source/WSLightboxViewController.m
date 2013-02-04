@@ -7,7 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-#import "WSCaptureController.h"
+#import "BWSCaptureController.h"
 
 #import "WSLightboxViewController.h"
 
@@ -96,7 +96,7 @@
             [[[self view] window] removeGestureRecognizer:[self tapGestureRecognizer]];
             
             [self.view logViewDismissedViaTapAtPoint:location];
-            [(WSCaptureController *)[self presentingViewController] didLeaveLightboxMode];
+            [(BWSCaptureController *)[self presentingViewController] didLeaveLightboxMode];
             [self dismissViewControllerAnimated:YES completion:NULL];
         }
     }
