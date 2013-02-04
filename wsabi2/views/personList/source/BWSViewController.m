@@ -285,7 +285,7 @@
         startedOK = [link beginFullSequenceWithConfigurationParams:params
                                                        withMaxSize:kMaxImageSize deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
-            NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
+            NSLog(@"BWSViewController::startItemCapture couldn't start the full sequence.");
         }
         
     }
@@ -296,10 +296,10 @@
                                                  withMaxSize:kMaxImageSize
                                                     deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
-            NSLog(@"WSViewController::startItemCapture couldn't start the config-capture-download sequence.");
+            NSLog(@"BWSViewController::startItemCapture couldn't start the config-capture-download sequence.");
         }
         else {
-            NSLog(@"WSViewController::startItemCapture started the config-capture-download sequence successfully.");
+            NSLog(@"BWSViewController::startItemCapture started the config-capture-download sequence successfully.");
         }
         
     }
@@ -439,11 +439,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"WSPersonTableViewCell"; //this is also set in WSPersonTableViewCell's XIB file
+    static NSString *CellIdentifier = @"BWSPersonTableViewCell"; //this is also set in WSPersonTableViewCell's XIB file
     
     BWSPersonTableViewCell *cell = (BWSPersonTableViewCell*)[aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"WSPersonTableViewCell" owner:self
+        NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"BWSPersonTableViewCell" owner:self
                                                         options:nil];
         
         cell = [nibViews objectAtIndex: 0];
