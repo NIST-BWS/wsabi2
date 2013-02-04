@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NBCLXMLMap : NSObject
+@interface BWSXMLMap : NSObject
 
 //Obj-C to XML
 +(id) objcObjectForXML:(NSString*)contentString ofType:(NSString*)typeString;

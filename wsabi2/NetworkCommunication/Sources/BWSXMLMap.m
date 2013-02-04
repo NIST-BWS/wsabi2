@@ -6,9 +6,9 @@
  
 //
 
-#import "NBCLXMLMap.h"
+#import "BWSXMLMap.h"
 
-@implementation NBCLXMLMap
+@implementation BWSXMLMap
 
 //NOTE: In the long term, this should almost certainly be replaced by an implementation that's
 //more closely tied to a smart XML implementation.

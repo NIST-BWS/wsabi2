@@ -141,8 +141,8 @@
 		EA3B00071563CD9400DA78D8 /* modality-finger-rotated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */; };
 		EA3B000B1563D86600DA78D8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B00091563D86600DA78D8 /* Default.png */; };
 		EA3B000C1563D86600DA78D8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA3B000A1563D86600DA78D8 /* Default@2x.png */; };
-		EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
-		EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */; };
+		EA400E1D15110BCB006F2B5A /* BWSXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */; };
+		EA400E1E15110BCB006F2B5A /* BWSXMLMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */; };
 		EA65DF741546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */; };
 		EA65DF751546D835006C826E /* UISegmentOptionsButtonSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */; };
 		EA65DF7B1546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */; };
@@ -461,8 +461,8 @@
 		EA3B00051563CD9400DA78D8 /* modality-finger-rotated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-finger-rotated@2x.png"; path = "Images/Modalities/modality-finger-rotated@2x.png"; sourceTree = "<group>"; };
 		EA3B00091563D86600DA78D8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		EA3B000A1563D86600DA78D8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = "<group>"; };
-		EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCLXMLMap.h; path = NetworkCommunication/Headers/NBCLXMLMap.h; sourceTree = "<group>"; };
-		EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBCLXMLMap.m; path = NetworkCommunication/Sources/NBCLXMLMap.m; sourceTree = "<group>"; };
+		EA400E1B15110BCB006F2B5A /* BWSXMLMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSXMLMap.h; path = NetworkCommunication/Headers/BWSXMLMap.h; sourceTree = "<group>"; };
+		EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSXMLMap.m; path = NetworkCommunication/Sources/BWSXMLMap.m; sourceTree = "<group>"; };
 		EA65DF721546D835006C826E /* UISegmentOptionsButtonSelectedSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UISegmentOptionsButtonSelectedSilver@2x.png"; path = "Images/from_iOS_SDK/UISegmentOptionsButtonSelectedSilver@2x.png"; sourceTree = "<group>"; };
 		EA65DF731546D835006C826E /* UISegmentOptionsButtonSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UISegmentOptionsButtonSilver@2x.png"; path = "Images/from_iOS_SDK/UISegmentOptionsButtonSilver@2x.png"; sourceTree = "<group>"; };
 		EA65DF771546D923006C826E /* UIPreferencesDeleteButtonDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIPreferencesDeleteButtonDark@2x.png"; path = "Images/from_iOS_SDK/UIPreferencesDeleteButtonDark@2x.png"; sourceTree = "<group>"; };
@@ -911,8 +911,8 @@
 				EA2D1D5E14FC18E1007CB41F /* BWSDeviceLinkConstants.h */,
 				EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */,
 				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
-				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
-				EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */,
+				EA400E1B15110BCB006F2B5A /* BWSXMLMap.h */,
+				EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */,
 				EA277AB114DC4092002484CF /* BWSModalityMap.h */,
 				EA277AB214DC4092002484CF /* BWSModalityMap.m */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
@@ -1459,7 +1459,7 @@
 				EA2D1D7814FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
-				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
+				EA400E1D15110BCB006F2B5A /* BWSXMLMap.m in Sources */,
 				EAF981E11517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */,
 				EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */,
 				EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */,
@@ -1528,7 +1528,7 @@
 				EA2D1D7914FC1FB5007CB41F /* UIImage+NBCLExtras.m in Sources */,
 				EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
-				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
+				EA400E1E15110BCB006F2B5A /* BWSXMLMap.m in Sources */,
 				EAF981E21517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */,
 				EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */,
 				EA0DB8B31536162000693D86 /* UIImage+Resize.m in Sources */,

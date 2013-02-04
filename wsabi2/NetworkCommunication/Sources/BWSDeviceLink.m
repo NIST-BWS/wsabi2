@@ -11,7 +11,7 @@
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"
 #import "WSBDResult.h"
-#import "NBCLXMLMap.h"
+#import "BWSXMLMap.h"
 #import "Base64Coder.h"
 #import "NSURL+HTTP.h"
 
