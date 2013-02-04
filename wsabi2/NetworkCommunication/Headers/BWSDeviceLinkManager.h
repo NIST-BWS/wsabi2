@@ -12,12 +12,12 @@
 #import "WSCDItem.h"
 #import "constants.h"
 
-@interface NBCLDeviceLinkManager : NSObject <BWSDeviceLinkDelegate>
+@interface BWSDeviceLinkManager : NSObject <BWSDeviceLinkDelegate>
 {
     NSMutableDictionary *devices;
 }
 
-+ (NBCLDeviceLinkManager *) defaultManager;
++ (BWSDeviceLinkManager *) defaultManager;
 
 //This will create a new link if one doesn't exist at the specified uri.
 - (BWSDeviceLink *) deviceForUri:(NSString*)uri;

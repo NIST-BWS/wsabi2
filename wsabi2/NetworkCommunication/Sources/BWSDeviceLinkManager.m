@@ -6,16 +6,16 @@
  
 //
 
-#import "NBCLDeviceLinkManager.h"
+#import "BWSDeviceLinkManager.h"
 
-@implementation NBCLDeviceLinkManager
+@implementation BWSDeviceLinkManager
 
-+ (NBCLDeviceLinkManager *) defaultManager
++ (BWSDeviceLinkManager *) defaultManager
 {
-    static NBCLDeviceLinkManager *sharedInstance = nil;
+    static BWSDeviceLinkManager *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[NBCLDeviceLinkManager alloc] init];
+        sharedInstance = [[BWSDeviceLinkManager alloc] init];
         // Do any other initialisation stuff here
     });
     return sharedInstance;

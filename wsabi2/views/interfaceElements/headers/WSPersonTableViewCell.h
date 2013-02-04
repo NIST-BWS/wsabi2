@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIImage+Resize.h"
-#import "NBCLDeviceLinkManager.h"
+#import "BWSDeviceLinkManager.h"
 #import "GMGridView.h"
 #import "WSCDPerson.h"
 #import "WSCDItem.h"

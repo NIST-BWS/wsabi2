@@ -297,7 +297,7 @@
         //Set up sensor links for each item in this person's record.
         //(It's likely that these links will come back initialized.)
         for (WSCDItem *item in self.person.items) {
-            BWSDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+            BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
             NSLog(@"Created/grabbed sensor link %@",[link description]);
         }
         [self setAppearDisabled:NO animated:NO];
@@ -815,7 +815,7 @@
         //The sensor associated with this capturer is, hopefully, initialized.
         //Configure it.
         
-        BWSDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:targetItem.deviceConfig.uri];
+        BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:targetItem.deviceConfig.uri];
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
                                        [NSKeyedUnarchiver unarchiveObjectWithData:targetItem.deviceConfig.parameterDictionary]];
         if (link.initialized) {

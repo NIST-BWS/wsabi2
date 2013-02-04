@@ -263,8 +263,8 @@
 		EAF0F99F14BC7B8C00544416 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAF0F99D14BC7B8C00544416 /* InfoPlist.strings */; };
 		EAF0F9A214BC7B8C00544416 /* wsabi2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */; };
 		EAF0FA0014BC812900544416 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0F9FF14BC812900544416 /* CoreData.framework */; };
-		EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */; };
-		EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */; };
+		EAF981E11517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */; };
+		EAF981E21517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -564,8 +564,8 @@
 		EAF0F9A014BC7B8C00544416 /* wsabi2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wsabi2Tests.h; sourceTree = "<group>"; };
 		EAF0F9A114BC7B8C00544416 /* wsabi2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wsabi2Tests.m; sourceTree = "<group>"; };
 		EAF0F9FF14BC812900544416 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		EAF981DF1517AF5A00024A84 /* NBCLDeviceLinkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCLDeviceLinkManager.h; path = NetworkCommunication/Headers/NBCLDeviceLinkManager.h; sourceTree = "<group>"; };
-		EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBCLDeviceLinkManager.m; path = NetworkCommunication/Sources/NBCLDeviceLinkManager.m; sourceTree = "<group>"; };
+		EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkManager.h; path = NetworkCommunication/Headers/BWSDeviceLinkManager.h; sourceTree = "<group>"; };
+		EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSDeviceLinkManager.m; path = NetworkCommunication/Sources/BWSDeviceLinkManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -910,8 +910,8 @@
 				EA2D1D5C14FC18E1007CB41F /* Base64Coder.h */,
 				EA2D1D5D14FC18E1007CB41F /* Base64Coder.m */,
 				EA2D1D5E14FC18E1007CB41F /* NBCLDeviceLinkConstants.h */,
-				EAF981DF1517AF5A00024A84 /* NBCLDeviceLinkManager.h */,
-				EAF981E01517AF5A00024A84 /* NBCLDeviceLinkManager.m */,
+				EAF981DF1517AF5A00024A84 /* BWSDeviceLinkManager.h */,
+				EAF981E01517AF5A00024A84 /* BWSDeviceLinkManager.m */,
 				EA400E1B15110BCB006F2B5A /* NBCLXMLMap.h */,
 				EA400E1C15110BCB006F2B5A /* NBCLXMLMap.m */,
 				EA277AB114DC4092002484CF /* WSModalityMap.h */,
@@ -1462,7 +1462,7 @@
 				EA2A895D1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1D15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
-				EAF981E11517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
+				EAF981E11517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */,
 				EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */,
 				EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */,
 				EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
@@ -1531,7 +1531,7 @@
 				EA2A895E1501563C0056E02C /* WSBDParameter.m in Sources */,
 				EA8E9DA7150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1E15110BCB006F2B5A /* NBCLXMLMap.m in Sources */,
-				EAF981E21517AF5A00024A84 /* NBCLDeviceLinkManager.m in Sources */,
+				EAF981E21517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */,
 				EA0DB8B11536162000693D86 /* UIImage+Alpha.m in Sources */,
 				EA0DB8B31536162000693D86 /* UIImage+Resize.m in Sources */,
 				EA0DB8B51536162000693D86 /* UIImage+RoundedCorner.m in Sources */,

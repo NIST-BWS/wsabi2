@@ -11,7 +11,7 @@
 #import "WSCDDeviceDefinition.h"
 #import "WSModalityMap.h"
 #import "WSCaptureButton.h"
-#import "NBCLDeviceLinkManager.h"
+#import "BWSDeviceLinkManager.h"
 #import "constants.h"
 
 @protocol WSCaptureDelegate <NSObject>

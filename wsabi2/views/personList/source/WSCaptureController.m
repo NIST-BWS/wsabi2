@@ -84,7 +84,7 @@
     ///Load data from the network and Core Data
 
     //Get a reference to the sensor link for this object.
-    currentLink = [[NBCLDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+    currentLink = [[BWSDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
     
     if (currentLink.sequenceInProgress && !self.item.data) {
         //set the capture button to the waiting state
