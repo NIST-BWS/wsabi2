@@ -61,28 +61,28 @@
 // Operations/API Endpoints
 //
 
-- (void)registerClient:(NSURL *)sourceObjectID;
-- (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID;
-- (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID;
+- (void)registerClient:(NSURL *)deviceID;
+- (void)unregisterClient:(NSString *)sessionId deviceID:(NSURL *)deviceID;
+- (void)initialize:(NSString *)sessionId deviceID:(NSURL *)deviceID;
 
-- (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
-- (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID;
-- (void)getServiceInfo:(NSURL *)sourceID;
-- (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID;
+- (void)getConfiguration:(NSString *)sessionId deviceID:(NSURL *)deviceID;
+- (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params deviceID:(NSURL *)deviceID;
+- (void)getServiceInfo:(NSURL *)deviceID;
+- (void)cancel:(NSString *)sessionId deviceID:(NSURL *)deviceID;
 
-- (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
-- (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
-- (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
+- (void)lock:(NSString *)sessionId deviceID:(NSURL *)deviceID;
+- (void)unlock:(NSString *)sessionId deviceID:(NSURL *)deviceID;
+- (void)stealLock:(NSString *)sessionId deviceID:(NSURL *)deviceID;
 
-- (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID;
-- (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID;
-- (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID;
-- (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
+- (void)capture:(NSString *)sessionId deviceID:(NSURL *)deviceID;
+- (void)getDownloadInfo:(NSString *)captureId deviceID:(NSURL *)deviceID;
+- (void)download:(NSString *)captureId deviceID:(NSURL *)deviceID;
+- (void)download:(NSString *)captureId withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID;
 
-- (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID;
-- (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params sourceObjectID:(NSURL *)sourceID;
-- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
-- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID;
+- (BOOL)beginConnectSequenceWithDeviceID:(NSURL *)deviceID;
+- (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params deviceID:(NSURL *)deviceID;
+- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID;
+- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID;
 
 /// Remove all enqueued network operations.
 - (void)cancelAllOperations;

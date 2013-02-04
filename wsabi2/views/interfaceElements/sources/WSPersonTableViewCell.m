@@ -647,7 +647,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    WSCDItem *targetItem = (WSCDItem*) [self.person.managedObjectContext objectWithID: [self.person.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     
     //If this item is ours, update it.
     NSData *imageData = [info objectForKey:@"data"]; //may be nil
@@ -822,12 +822,12 @@
             //grab the lock and try to configure the sensor
             [link setConfiguration:link.currentSessionId
                      withParameters:params
-                           sourceObjectID:[activeCell.item.objectID URIRepresentation]];
+                           deviceID:[activeCell.item.objectID URIRepresentation]];
         }
         else {
             //Something's up, and the sensor was not properly initialized. Try again, starting from reconnecting.
             [link beginConnectConfigureSequenceWithConfigurationParams:params
-                            sourceObjectID:[activeCell.item.objectID URIRepresentation]];
+                            deviceID:[activeCell.item.objectID URIRepresentation]];
         }
         
         // No way to know the arrow direction until the popover is shown once,

@@ -52,7 +52,7 @@
         [devices setObject:link forKey:uri];
         
         //attempt to connect this sensor, stealing the lock if necessary.
-        BOOL sequenceStarted = [link beginConnectSequenceWithSourceObjectID:nil];
+        BOOL sequenceStarted = [link beginConnectSequenceWithDeviceID:nil];
         if (!sequenceStarted) {
             NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
             //this failed.
@@ -68,7 +68,7 @@
         if (!link.initialized) {
             //if we're supposed to reinitialize any links we find, do so
             //attempt to connect this sensor, stealing the lock if necessary.
-            BOOL sequenceStarted = [link beginConnectSequenceWithSourceObjectID:nil];
+            BOOL sequenceStarted = [link beginConnectSequenceWithDeviceID:nil];
             if (!sequenceStarted) {
                 NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
                 //this failed.
@@ -85,13 +85,13 @@
 }
 
 #pragma mark - Sensor Link Delegate methods
--(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withError:(NSError *)error
+-(void) sensorOperationDidFail:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID withError:(NSError *)error
 {
 
     //Post a notification about the failed operation, containing the error, so we can do something with it.
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      error, @"error",
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkOperationFailed
@@ -104,11 +104,11 @@
     
 }
 
--(void) sensorOperationWasCancelledByClient:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
+-(void) sensorOperationWasCancelledByClient:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID
 {
     //Post a notification about the failed operation, containing the error, so we can do something with it.
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkOperationCancelledByClient
@@ -121,11 +121,11 @@
 
 }
 
--(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID withResult:(WSBDResult*)result
+-(void) sensorOperationCompleted:(SensorOperationType)opType fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID withResult:(WSBDResult*)result
 {
     //Post a notification about the completed operation!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      result, kDictKeyCurrentResult,
                                      nil];
     
@@ -137,12 +137,12 @@
     
 }
 
--(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(WSDeviceLink*)link sourceObjectID:(NSURL *)sourceID
+-(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(WSDeviceLink*)link deviceID:(NSURL *)deviceID
 {
 
     //Post a notification about the status change containing the new value
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      [NSNumber numberWithBool:connectedAndReady], @"connectedAndReadyStatus",
                                      nil];
     
@@ -159,13 +159,13 @@
 //NOTE: The result object will be the result from the last performed step;
 //so if the sequence succeeds, it'll be the last step in the sequence; otherwise
 //it'll be the step that failed, so that the status will indicate what the problem was.
--(void) connectSequenceCompletedFromLink:(WSDeviceLink*)link withResult:(WSBDResult*)result sourceObjectID:(NSURL *)sourceID
+-(void) connectSequenceCompletedFromLink:(WSDeviceLink*)link withResult:(WSBDResult*)result deviceID:(NSURL *)deviceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] init];
 
-    if (sourceID)
-        [userInfo setObject:sourceID forKey:kDictKeySourceID];
+    if (deviceID)
+        [userInfo setObject:deviceID forKey:kDictKeyDeviceID];
     if (link)
         [userInfo setObject:link forKey:kDictKeySourceLink];
     if (result) 
@@ -181,11 +181,11 @@
 
 -(void) configureSequenceCompletedFromLink:(WSDeviceLink*)link
                                 withResult:(WSBDResult*)result 
-                             sourceObjectID:(NSURL *)sourceID;
+                                  deviceID:(NSURL *)deviceID;
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      nil];
     if (result) {
         [userInfo setObject:result forKey:kDictKeyCurrentResult];
@@ -202,11 +202,11 @@
 
 -(void) connectConfigureSequenceCompletedFromLink:(WSDeviceLink *)link
                                        withResult:(WSBDResult *)result 
-                                    sourceObjectID:(NSURL *)sourceID
+                                         deviceID:(NSURL *)deviceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      nil];
     if (result) {
         [userInfo setObject:result forKey:kDictKeyCurrentResult];
@@ -221,7 +221,7 @@
 
 }
 
-- (void) processDownloadResultsFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
+- (void) processDownloadResultsFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
 {
     if (!results) {
         NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.baseURI);
@@ -240,7 +240,7 @@
         //FIXME: Post a notification containing this WSBDResult as attached data.
         //Post a notification about the status change containing the new value
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                         sourceID, kDictKeySourceID,
+                                         deviceID, kDictKeyDeviceID,
                                          currentResult.metadata, @"metadata",
                                          currentResult.downloadData, @"data",
                                          nil];
@@ -255,23 +255,23 @@
 
 }
 
--(void) configCaptureDownloadSequenceCompletedFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results sourceObjectID:(NSURL *)sourceID
+-(void) configCaptureDownloadSequenceCompletedFromLink:(WSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
 {
-    [self processDownloadResultsFromLink:link withResults:results sourceObjectID:sourceID];
+    [self processDownloadResultsFromLink:link withResults:results deviceID:deviceID];
 }
 
--(void) fullSequenceCompletedFromLink:(WSDeviceLink *)link withResults:(NSMutableArray *)results sourceObjectID:(NSURL *)sourceID
+-(void) fullSequenceCompletedFromLink:(WSDeviceLink *)link withResults:(NSMutableArray *)results deviceID:(NSURL *)deviceID
 {
-    [self processDownloadResultsFromLink:link withResults:results sourceObjectID:sourceID];
+    [self processDownloadResultsFromLink:link withResults:results deviceID:deviceID];
 }
 
 -(void) disconnectSequenceCompletedFromLink:(WSDeviceLink*)link
                                  withResult:(WSBDResult*)result 
-                             sourceObjectID:(NSURL*)sourceID
+                                   deviceID:(NSURL*)deviceID
 {
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      nil];
     if (result) {
         [userInfo setObject:result forKey:kDictKeyCurrentResult];
@@ -289,17 +289,17 @@
 //Called whenever a sequence doesn't complete 
 //(because, for example, one included step returned a non-success result.
 -(void) sequenceDidFail:(SensorSequenceType)sequenceType
-                     fromLink:(WSDeviceLink*)link
-                   withResult:(WSBDResult*)result 
-                sourceObjectID:(NSURL *)sourceID
+               fromLink:(WSDeviceLink*)link
+             withResult:(WSBDResult*)result 
+               deviceID:(NSURL *)deviceID
 {
     
     //first, try to unlock.
-    [link unlock:link.currentSessionId sourceObjectID:sourceID];
+    [link unlock:link.currentSessionId deviceID:deviceID];
     
     //Post a notification about the completed sequence!
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     sourceID, kDictKeySourceID,
+                                     deviceID, kDictKeyDeviceID,
                                      [NSNumber numberWithInt:sequenceType], kDictKeySequenceType,
                                      [WSBDResult stringForStatusValue:result.status], kDictKeyMessage,
                                      nil];

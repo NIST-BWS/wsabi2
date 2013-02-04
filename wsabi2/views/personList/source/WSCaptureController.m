@@ -359,7 +359,7 @@
     
     //Post a notification that this item has changed
     NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+                              [self.item.objectID URIRepresentation],kDictKeyDeviceID, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -439,7 +439,7 @@
     //Try to capture.
     //Post a notification to start capture, starting from this item
     NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                              [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+                              [self.item.objectID URIRepresentation],kDictKeyDeviceID, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kStartCaptureNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -498,7 +498,7 @@
             
             //Post a notification that this item has changed
             NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.item,kDictKeyTargetItem,
-                                      [self.item.objectID URIRepresentation],kDictKeySourceID, nil];
+                                      [self.item.objectID URIRepresentation],kDictKeyDeviceID, nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kChangedWSCDItemNotification
                                                                 object:self
                                                               userInfo:userInfo];
@@ -530,7 +530,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
 
     //Catch a change to the item state.
     if (self.item == targetItem) {
@@ -551,7 +551,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     
     if (self.item == targetItem && [info objectForKey:@"data"]) {
         //the table view is going to take care of editing the actual data, we just need to use
@@ -578,8 +578,8 @@
     NSError *error = [info objectForKey:@"error"];
     WSCDItem *targetItem;
     
-    if ([info objectForKey:kDictKeySourceID]) {
-        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    if ([info objectForKey:kDictKeyDeviceID]) {
+        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     }
     
     if (targetItem && item != targetItem) {
@@ -603,7 +603,7 @@
     //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-//    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+//    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
 //
 //    //Make sure this applies to us.
 //    if (self.item == targetItem) {
@@ -613,8 +613,8 @@
         
     WSCDItem *targetItem;
     
-    if ([info objectForKey:kDictKeySourceID]) {
-        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeySourceID]]];
+    if ([info objectForKey:kDictKeyDeviceID]) {
+        targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
     }
     
     if (targetItem && item != targetItem) {

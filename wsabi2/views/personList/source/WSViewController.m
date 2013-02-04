@@ -283,7 +283,7 @@
                                    [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]];
     if (!link.registered || !link.initialized) {
         startedOK = [link beginFullSequenceWithConfigurationParams:params
-                                                       withMaxSize:kMaxImageSize sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+                                                       withMaxSize:kMaxImageSize deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the full sequence.");
         }
@@ -294,7 +294,7 @@
         startedOK = [link beginConfigCaptureDownloadSequence:link.currentSessionId
                                          configurationParams:params
                                                  withMaxSize:kMaxImageSize
-                                              sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+                                                    deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
             NSLog(@"WSViewController::startItemCapture couldn't start the config-capture-download sequence.");
         }
@@ -314,7 +314,7 @@
     //Get a reference to this link
     WSDeviceLink *link = [[NBCLDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
-    [link cancel:link.currentSessionId sourceObjectID:[notification.userInfo objectForKey:kDictKeySourceID]];
+    [link cancel:link.currentSessionId deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
 }
 
 - (IBAction)showAdvancedOptionsPopover:(id)sender

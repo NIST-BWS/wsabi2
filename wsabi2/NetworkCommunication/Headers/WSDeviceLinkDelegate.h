@@ -19,60 +19,60 @@
 
 - (void)sensorOperationDidFail:(SensorOperationType)opType
                       fromLink:(WSDeviceLink*)link
-                sourceObjectID:(NSURL*)sourceI
+                      deviceID:(NSURL*)deviceID
                      withError:(NSError*)error;
 
 - (void)sensorOperationWasCancelledByService:(SensorOperationType)opType
                                     fromLink:(WSDeviceLink *)link
-                              sourceObjectID:(NSURL *)sourceID
+                              deviceID:(NSURL *)deviceID
                                   withResult:(WSBDResult *)result;
 
 - (void)sensorOperationWasCancelledByClient:(SensorOperationType)opType
                                    fromLink:(WSDeviceLink *)link
-                             sourceObjectID:(NSURL *)sourceID;
+                                   deviceID:(NSURL *)deviceID;
 
 - (void)sensorOperationCompleted:(SensorOperationType)opType
                         fromLink:(WSDeviceLink *)link
-                  sourceObjectID:(NSURL *)sourceID
+                        deviceID:(NSURL *)deviceID
                       withResult:(WSBDResult *)result;
 
 - (void)sensorConnectionStatusChanged:(BOOL)connectedAndReady
                              fromLink:(WSDeviceLink *)link
-                       sourceObjectID:(NSURL *)sourceID;
+                             deviceID:(NSURL *)deviceID;
 
 /* These are sequences of actions that we'll need to perform */
 
 //NOTE: The result object will be the result from the last performed step.
 - (void)connectSequenceCompletedFromLink:(WSDeviceLink *)link 
                               withResult:(WSBDResult *)result 
-                          sourceObjectID:(NSURL *)sourceID;
+                                deviceID:(NSURL *)deviceID;
 
 - (void)configureSequenceCompletedFromLink:(WSDeviceLink *)link
                                 withResult:(WSBDResult *)result
-                            sourceObjectID:(NSURL *)sourceID;
+                                  deviceID:(NSURL *)deviceID;
 
 - (void)connectConfigureSequenceCompletedFromLink:(WSDeviceLink *)link
                                        withResult:(WSBDResult *)result 
-                                   sourceObjectID:(NSURL *)sourceID;
+                                         deviceID:(NSURL *)deviceID;
 
 //The array of results in these sequences contains WSBDResults for each captureId.
 //The tag is used to ID the UI element that made the request, so we can pass it the resulting data.
 
 - (void)configCaptureDownloadSequenceCompletedFromLink:(WSDeviceLink *)link
                                            withResults:(NSMutableArray *)results 
-                                        sourceObjectID:(NSURL *)sourceID;
+                                              deviceID:(NSURL *)deviceID;
 
 - (void)fullSequenceCompletedFromLink:(WSDeviceLink *)link
                           withResults:(NSMutableArray *)results
-                       sourceObjectID:(NSURL *)sourceID;
+                             deviceID:(NSURL *)deviceID;
 
 - (void)disconnectSequenceCompletedFromLink:(WSDeviceLink *)link
                                  withResult:(WSBDResult *)result 
-                             sourceObjectID:(NSURL *)sourceID;
+                                   deviceID:(NSURL *)deviceID;
 
 - (void)sequenceDidFail:(SensorSequenceType)sequenceType
                fromLink:(WSDeviceLink *)link
              withResult:(WSBDResult *)result 
-         sourceObjectID:(NSURL *)sourceID;
+               deviceID:(NSURL *)deviceID;
 
 @end

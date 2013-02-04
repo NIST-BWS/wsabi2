@@ -94,22 +94,22 @@
 
 #pragma mark - Delegate Notification
 
-- (void)notifyCompletedOperation:(NSInteger)operation withSourceObjectID:sourceObjectID
+- (void)notifyCompletedOperation:(NSInteger)operation withDeviceID:deviceID
 {
-    if ([[self delegate] respondsToSelector:@selector(sensorOperationCompleted:fromLink:sourceObjectID:withResult:)]) {
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationCompleted:fromLink:deviceID:withResult:)]) {
         [[self delegate] sensorOperationCompleted:operation
                                          fromLink:self
-                                   sourceObjectID:sourceObjectID
+                                         deviceID:deviceID
                                        withResult:self.currentWSBDResult];
     }
 }
 
-- (void)notifySequenceCompletedWithSourceObjectID:(NSURL *)sourceObjectID
+- (void)notifySequenceCompletedWithDeviceID:(NSURL *)deviceID
 {
-    if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+    if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:deviceID:)]) {
         [[self delegate] connectSequenceCompletedFromLink:self
                                                withResult:self.currentWSBDResult
-                                           sourceObjectID:sourceObjectID];
+                                                 deviceID:deviceID];
     }
 }
 
@@ -120,8 +120,8 @@
     if ([self service] != nil)
         [[self service] cancelAllHTTPOperationsWithMethod:nil path:nil];
     
-    if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)])
-        [[self delegate] sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self sourceObjectID:nil];
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:deviceID:)])
+        [[self delegate] sensorOperationWasCancelledByClient:kOpTypeAll fromLink:self deviceID:nil];
 }
 
 - (BOOL)isSuccessValidWithResponse:(NSHTTPURLResponse *)response
@@ -139,10 +139,10 @@
           [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode],
           response.statusCode);
     
-    if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:deviceID:withError:)]) {
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
-                                 sourceObjectID:userInfo[kDictKeySourceID]
+                                       deviceID:userInfo[kDictKeyDeviceID]
                                       withError:nil];
     }
     
@@ -153,10 +153,10 @@
 {
     NSLog(@"Failed to parse XML with error \"%@\"", parser.parserError.description);
     
-    if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:sourceObjectID:withError:)]) {
+    if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:deviceID:withError:)]) {
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
                                        fromLink:self
-                                 sourceObjectID:userInfo[kDictKeySourceID]
+                                       deviceID:userInfo[kDictKeyDeviceID]
                                       withError:nil];
     }
     
@@ -495,12 +495,11 @@
 
 - (NSMutableURLRequest *)networkOperation:(SensorOperationType)operation
                                withMethod:(NSString *)method
-                           sourceObjectID:(NSURL *)sourceObjectID
+                                 deviceID:(NSURL *)deviceID
                                 sessionID:(NSString *)sessionID
                                parameters:(NSDictionary *)parameters
 {
     [self setOperationInProgress:operation];
-    NSLog(@"%@", [self pathForOperation:operation withSessionID:sessionID]);
     return ([[self service] requestWithMethod:method
                                          path:[self pathForOperation:operation withSessionID:sessionID]
                                    parameters:parameters]);
@@ -508,15 +507,15 @@
 
 - (void)enqueueNetworkOperation:(SensorOperationType)operation
                     withRequest:(NSURLRequest *)request
-                 sourceObjectID:(NSURL *)sourceObjectID
+                       deviceID:(NSURL *)deviceID
                       sessionID:(NSString *)sessionID
                      parameters:(NSDictionary *)parameters
                         success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
                         failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser))failure
 {
     NSDictionary *userInfo;
-    if (sourceObjectID != nil)
-        userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation], kDictKeySourceID : sourceObjectID};
+    if (deviceID != nil)
+        userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation], kDictKeyDeviceID : deviceID};
     else
         userInfo = @{kDictKeyOperation : [NSNumber numberWithInt:operation]};
     
@@ -536,7 +535,7 @@
         }
         
         // Notify delegate
-        [self notifyCompletedOperation:[userInfo[kDictKeyOperation] intValue] withSourceObjectID:userInfo[kDictKeySourceID]];
+        [self notifyCompletedOperation:[userInfo[kDictKeyOperation] intValue] withDeviceID:userInfo[kDictKeyDeviceID]];
         
         // Call user-defined success block
         if (success != NULL)
@@ -564,7 +563,7 @@
 
 - (void)enqueueNetworkOperation:(SensorOperationType)operation
                      withMethod:(NSString *)method
-                 sourceObjectID:(NSURL *)sourceObjectID
+                       deviceID:(NSURL *)deviceID
                       sessionID:(NSString *)sessionID
                      parameters:(NSDictionary *)parameters
                         success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser))success
@@ -572,10 +571,10 @@
 {
     [self enqueueNetworkOperation:operation withRequest:[self networkOperation:operation
                                                                     withMethod:method
-                                                                sourceObjectID:sourceObjectID
+                                                                      deviceID:deviceID
                                                                      sessionID:sessionID
                                                                     parameters:parameters]
-                   sourceObjectID:sourceObjectID
+                         deviceID:deviceID
                         sessionID:sessionID
                        parameters:parameters
                           success:success
@@ -585,11 +584,11 @@
 
 #pragma mark Setup and Cleanup
 
-- (void)registerClient:(NSURL *)sourceObjectID
+- (void)registerClient:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeRegister
                        withMethod:kBCLMethodPOST
-                   sourceObjectID:sourceObjectID
+                   deviceID:deviceID
                         sessionID:nil
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -600,21 +599,21 @@
                                   _currentSessionId = self.currentWSBDResult.sessionId;
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress)
-                                      [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
+                                      [self lock:self.currentSessionId deviceID:deviceID];
                               } else if (self.sequenceInProgress) {
                                   _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
-                                  [self notifySequenceCompletedWithSourceObjectID:sourceObjectID];
+                                  [self notifySequenceCompletedWithDeviceID:deviceID];
                               }
                           }
                           failure:NULL
      ];
 }
 
-- (void)unregisterClient:(NSString *)sessionId sourceObjectId:(NSURL *)sourceObjectID
+- (void)unregisterClient:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeUnregister
                        withMethod:kBCLMethodDELETE
-                   sourceObjectID:sourceObjectID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -623,10 +622,10 @@
                                   _registered = NO;
                                   
                                   //notify the delegate that we're no longer "connected and ready"
-                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:deviceID:)]) {
                                       [[self delegate] sensorConnectionStatusChanged:NO
                                                                             fromLink:self
-                                                                      sourceObjectID:sourceObjectID
+                                                                            deviceID:deviceID
                                        ];
                                   }
                                   
@@ -637,10 +636,10 @@
                               //if this call is part of a sequence, notify our delegate that the sequence is complete.
                               if (self.sequenceInProgress) {
                                   _sequenceInProgress = kSensorSequenceNone;
-                                  if ([[self delegate] respondsToSelector:@selector(disconnectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                  if ([[self delegate] respondsToSelector:@selector(disconnectSequenceCompletedFromLink:withResult:deviceID:)]) {
                                       [[self delegate] disconnectSequenceCompletedFromLink:self
                                                                                 withResult:self.currentWSBDResult
-                                                                            sourceObjectID:sourceObjectID];
+                                                                                  deviceID:deviceID];
                                   }
                               }
                           }
@@ -648,11 +647,11 @@
      ];
 }
 
-- (void)initialize:(NSString *)sessionId sourceObjectId:(NSURL *)sourceID
+- (void)initialize:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeInitialize
                        withMethod:kBCLMethodPOST
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -660,8 +659,8 @@
                                   //set the initialization convenience variable.
                                   _initialized = YES;
                                   //notify the delegate that our status is now "connected and ready"
-                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
-                                      [[self delegate] sensorConnectionStatusChanged:YES fromLink:self sourceObjectID:sourceID];
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:deviceID:)]) {
+                                      [[self delegate] sensorConnectionStatusChanged:YES fromLink:self deviceID:deviceID];
                                   }
                                   
                                   //If this is a recovery sequence, use the stored sequence to determine
@@ -674,31 +673,30 @@
                                   if (seq == kSensorSequenceFull ||
                                       seq == kSensorSequenceConfigure) {
                                       //If we're not done, continue to configuring the sensor.
-                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
+                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration deviceID:deviceID];
                                   }
                                   else if (seq != kSensorSequenceNone)
                                   {
                                       //otherwise, we're done. Unlock.
-                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                   }
                               }
                               else if (self.sequenceInProgress) {
                                   if(self.sequenceInProgress != kSensorSequenceRecovery)
                                   {
                                       //If we haven't already tried it, attempt to recover
-                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                      [self attemptWSBDSequenceRecovery:deviceID];
                                   }
                                   else {
                                       //We've already tried to recover; give up.
                                       //Release the lock.
-                                      [self unlock:self.currentSessionId
-                                    sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                       
-                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)]) {
                                           [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                                   fromLink:self
                                                                 withResult:self.currentWSBDResult
-                                                            sourceObjectID:sourceID];
+                                                                  deviceID:deviceID];
                                       }
                                       _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
@@ -706,26 +704,26 @@
                               }
                           }
                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-                              [self unlock:sessionId sourceObjectID:sourceID];
+                              [self unlock:sessionId deviceID:deviceID];
                           }
      ];
 }
 
-- (void)cancel:(NSString *)sessionId sourceObjectID:(NSURL *)sourceObjectID
+- (void)cancel:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeCancel
                        withMethod:kBCLMethodPOST
-                   sourceObjectID:sourceObjectID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
                               //cancel any sequence that was in progress.
                               if (self.sequenceInProgress) {
-                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)]) {
                                       [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                               fromLink:self
                                                             withResult:self.currentWSBDResult
-                                                        sourceObjectID:sourceObjectID
+                                                              deviceID:deviceID
                                        ];
                                   }
                                   
@@ -735,8 +733,8 @@
                               //Fire sensorOperationWasCancelled* in the delegate, and pass the opType
                               //of the *cancelled* operation.
                               if (self.operationPendingCancellation >= 0) {
-                                  if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:sourceObjectID:)]) {
-                                      [[self delegate] sensorOperationWasCancelledByClient:self.operationPendingCancellation fromLink:self sourceObjectID:sourceObjectID];
+                                  if ([[self delegate] respondsToSelector:@selector(sensorOperationWasCancelledByClient:fromLink:deviceID:)]) {
+                                      [[self delegate] sensorOperationWasCancelledByClient:self.operationPendingCancellation fromLink:self deviceID:deviceID];
                                   }
                               }
                               
@@ -748,9 +746,9 @@
 
 #pragma mark Configuration
 
-- (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params sourceObjectID:(NSURL *)sourceID
+- (void)setConfiguration:(NSString *)sessionId withParameters:(NSDictionary *)params deviceID:(NSURL *)deviceID
 {
-    NSMutableURLRequest *configureRequest = [self networkOperation:kOpTypeConfigure withMethod:kBCLMethodPOST sourceObjectID:sourceID sessionID:sessionId parameters:nil];
+    NSMutableURLRequest *configureRequest = [self networkOperation:kOpTypeConfigure withMethod:kBCLMethodPOST deviceID:deviceID sessionID:sessionId parameters:nil];
     NSMutableString *messageBody = [NSMutableString stringWithFormat:@"<configuration %@ %@ %@>", kBCLSchemaInstanceNamespace, kBCLSchemaNamespace, kBCLWSBDNamespace];
 	if (params)
         for(NSString* key in params)
@@ -761,7 +759,7 @@
     
     [self enqueueNetworkOperation:kOpTypeConfigure
                       withRequest:configureRequest
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -780,21 +778,21 @@
                                       )
                                   {
                                       //begin capture
-                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                      [self capture:self.currentSessionId deviceID:deviceID];
                                   }
                                   else if (seq == kSensorSequenceConfigure ||
                                            seq == kSensorSequenceConnectConfigure)
                                   {
                                       //First, return the lock
-                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                       
                                       //In this case, this is the last step, so unset the sequence variable and
                                       //notify our delegate.
                                       _sequenceInProgress = kSensorSequenceNone;
-                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:deviceID:)]) {
                                           [[self delegate] configureSequenceCompletedFromLink:self
                                                                                    withResult:self.currentWSBDResult
-                                                                               sourceObjectID:sourceID];
+                                                                                     deviceID:deviceID];
                                       }
                                   }
                                   
@@ -803,35 +801,35 @@
                                   if(self.sequenceInProgress != kSensorSequenceRecovery)
                                   {
                                       //If we haven't already tried it, attempt to recover
-                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                      [self attemptWSBDSequenceRecovery:deviceID];
                                   }
                                   else {
-                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)]) {
                                           [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                                   fromLink:self
                                                                 withResult:self.currentWSBDResult
-                                                            sourceObjectID:sourceID
+                                                                  deviceID:deviceID
                                            ];
                                       }
                                       _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
                                       //Try to force an unlock
-                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                       
                                   }
                               }
                           }
                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-                              [self unlock:sessionId sourceObjectID:sourceID];
+                              [self unlock:sessionId deviceID:deviceID];
                           }
      ];
 }
 
-- (void)getConfiguration:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
+- (void)getConfiguration:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeGetConfiguration
                        withMethod:kBCLMethodGET
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:NULL
@@ -839,11 +837,11 @@
      ];
 }
 
-- (void)getServiceInfo:(NSURL *)sourceID
+- (void)getServiceInfo:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeGetCommonInfo
                        withMethod:kBCLMethodGET
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:nil
                        parameters:nil
                           success:NULL
@@ -854,11 +852,11 @@
 
 #pragma mark Locking and Unlocking
 
-- (void)lock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
+- (void)lock:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeLock
                        withMethod:kBCLMethodPOST
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -877,16 +875,16 @@
                                       seq == kSensorSequenceConnectConfigure ||
                                       seq == kSensorSequenceFull)
                                   {
-                                      [self initialize:self.currentSessionId sourceObjectId:sourceID];
+                                      [self initialize:self.currentSessionId deviceID:deviceID];
                                   }
                                   else if (seq == kSensorSequenceConfigure ||
                                            seq == kSensorSequenceConfigCaptureDownload) {
                                       
-                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceID];
+                                      [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration deviceID:deviceID];
                                   }
                                   else if (seq == kSensorSequenceCaptureDownload)
                                   {
-                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                      [self capture:self.currentSessionId deviceID:deviceID];
                                   }
                               }
                               else if (self.sequenceInProgress) {
@@ -894,34 +892,34 @@
                                   if(self.sequenceInProgress != kSensorSequenceRecovery)
                                   {
                                       //If we haven't already tried it, attempt to recover
-                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                      [self attemptWSBDSequenceRecovery:deviceID];
                                   }
                                   else {
                                       //We've already tried to recover; give up.
                                       _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       
-                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)])
                                       {
                                           [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                                   fromLink:self
                                                                 withResult:self.currentWSBDResult
-                                                            sourceObjectID:sourceID
+                                                                  deviceID:deviceID
                                            ];
                                       }
                                   }
                               }
                           }
                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) {
-                              [self unlock:sessionId sourceObjectID:sourceID];
+                              [self unlock:sessionId deviceID:deviceID];
                           }
      ];
 }
 
-- (void)stealLock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
+- (void)stealLock:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeStealLock
                        withMethod:kBCLMethodPUT
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -930,27 +928,27 @@
                                   _hasLock = YES;
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress == kSensorSequenceConnect) {
-                                      [self initialize:self.currentSessionId sourceObjectId:sourceID];
+                                      [self initialize:self.currentSessionId deviceID:deviceID];
                                   }
                                   else if (self.sequenceInProgress == kSensorSequenceConfigure ||
                                            self.sequenceInProgress == kSensorSequenceConfigCaptureDownload) {
                                       
                                       [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration
-                                              sourceObjectID:sourceID];
+                                              deviceID:deviceID];
                                   }
                                   else if (self.sequenceInProgress == kSensorSequenceCaptureDownload)
                                   {
-                                      [self capture:self.currentSessionId sourceObjectID:sourceID];
+                                      [self capture:self.currentSessionId deviceID:deviceID];
                                   }
                                   
                               }
                               else if (self.sequenceInProgress) {
-                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)])
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)])
                                   {
                                       [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                               fromLink:self
                                                             withResult:self.currentWSBDResult
-                                                        sourceObjectID:sourceID
+                                                              deviceID:deviceID
                                        ];
                                   }
                                   _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
@@ -960,11 +958,11 @@
      ];
 }
 
-- (void)unlock:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
+- (void)unlock:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeUnlock
                        withMethod:kBCLMethodDELETE
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -973,8 +971,8 @@
                                   _hasLock = NO;
                                   
                                   //notify the delegate that we're no longer "connected and ready"
-                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:sourceObjectID:)]) {
-                                      [[self delegate] sensorConnectionStatusChanged:NO fromLink:self sourceObjectID:sourceID];
+                                  if ([[self delegate] respondsToSelector:@selector(sensorConnectionStatusChanged:fromLink:deviceID:)]) {
+                                      [[self delegate] sensorConnectionStatusChanged:NO fromLink:self deviceID:deviceID];
                                   }
                                   
                                   //First, handle recovery mode.
@@ -991,7 +989,7 @@
                                   
                                   //if this call is part of a sequence, call the next step.
                                   if (self.sequenceInProgress == kSensorSequenceDisconnect) {
-                                      [self unregisterClient:self.currentSessionId sourceObjectId:sourceID];
+                                      [self unregisterClient:self.currentSessionId deviceID:deviceID];
                                   }
                                   
                                   /** MOST SEQUENCES END HERE **/
@@ -999,30 +997,30 @@
                                   {
                                       //this is the end of the sequence.
                                       _sequenceInProgress = kSensorSequenceNone;
-                                      if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(connectSequenceCompletedFromLink:withResult:deviceID:)]) {
                                           [[self delegate] connectSequenceCompletedFromLink:self
                                                                                  withResult:self.currentWSBDResult
-                                                                             sourceObjectID:sourceID];
+                                                                                   deviceID:deviceID];
                                       }
                                   }
                                   else if(self.sequenceInProgress == kSensorSequenceConfigure)
                                   {
                                       //this is the end of the sequence.
                                       _sequenceInProgress = kSensorSequenceNone;
-                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(configureSequenceCompletedFromLink:withResult:deviceID:)]) {
                                           [[self delegate] configureSequenceCompletedFromLink:self
                                                                                    withResult:self.currentWSBDResult
-                                                                               sourceObjectID:sourceID];
+                                                                                     deviceID:deviceID];
                                       }
                                   }
                                   else if(self.sequenceInProgress == kSensorSequenceConnectConfigure)
                                   {
                                       //this is the end of the sequence.
                                       _sequenceInProgress = kSensorSequenceNone;
-                                      if ([[self delegate] respondsToSelector:@selector(connectConfigureSequenceCompletedFromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(connectConfigureSequenceCompletedFromLink:withResult:deviceID:)]) {
                                           [[self delegate] connectConfigureSequenceCompletedFromLink:self
                                                                                           withResult:self.currentWSBDResult
-                                                                                      sourceObjectID:sourceID];
+                                                                                            deviceID:deviceID];
                                       }
                                   }
                                   
@@ -1030,11 +1028,11 @@
                               }
                               
                               else if (self.sequenceInProgress) {
-                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                  if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)]) {
                                       [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                               fromLink:self
                                                             withResult:self.currentWSBDResult
-                                                        sourceObjectID:sourceID
+                                                              deviceID:deviceID
                                        ];
                                   }
                                   _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
@@ -1046,11 +1044,11 @@
 
 #pragma mark Capture and Download
 
-- (void)capture:(NSString *)sessionId sourceObjectID:(NSURL *)sourceID
+- (void)capture:(NSString *)sessionId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeCapture
                        withMethod:kBCLMethodPOST
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:sessionId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -1065,7 +1063,7 @@
                                   //if this call is part of a sequence, call the next step.
                                   if (seq) {
                                       //First, return the lock
-                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                       //reset any existing download sequence variables.
                                       if (self.downloadSequenceResults) {
                                           [self.downloadSequenceResults removeAllObjects];
@@ -1075,26 +1073,26 @@
                                       //download each result.
                                       self.numCaptureIdsAwaitingDownload = [self.currentWSBDResult.captureIds count]; //since we're doing this asynchronously, we'll use this to know when we're done.
                                       for (NSString *capId in self.currentWSBDResult.captureIds)
-                                          [self download:capId withMaxSize:self.downloadMaxSize sourceObjectID:sourceID];
+                                          [self download:capId withMaxSize:self.downloadMaxSize deviceID:deviceID];
                                   }
                               }
                               else if (self.sequenceInProgress) {
                                   if(self.sequenceInProgress != kSensorSequenceRecovery)
                                   {
                                       //If we haven't already tried it, attempt to recover
-                                      [self attemptWSBDSequenceRecovery:sourceID];
+                                      [self attemptWSBDSequenceRecovery:deviceID];
                                   }
                                   else {
-                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:sourceObjectID:)]) {
+                                      if ([[self delegate] respondsToSelector:@selector(sequenceDidFail:fromLink:withResult:deviceID:)]) {
                                           [[self delegate] sequenceDidFail:self.sequenceInProgress
                                                                   fromLink:self
                                                                 withResult:self.currentWSBDResult
-                                                            sourceObjectID:sourceID
+                                                                  deviceID:deviceID
                                            ];
                                       }
                                       _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
                                       //Try to force an unlock
-                                      [self unlock:self.currentSessionId sourceObjectID:sourceID];
+                                      [self unlock:self.currentSessionId deviceID:deviceID];
                                   }
                               }
                           }
@@ -1102,11 +1100,11 @@
      ];
 }
 
-- (void)getDownloadInfo:(NSString *)captureId sourceObjectID:(NSURL *)sourceObjectID
+- (void)getDownloadInfo:(NSString *)captureId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeGetContentType
                        withMethod:kBCLMethodGET
-                   sourceObjectID:sourceObjectID
+                   deviceID:deviceID
                         sessionID:captureId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
@@ -1118,7 +1116,7 @@
 }
 
 
-- (void)downloadSuccessBlock:(NSString *)captureID sourceID:(NSURL *)sourceID maxSize:(float)maxSize
+- (void)downloadSuccessBlock:(NSString *)captureID deviceID:(NSURL *)deviceID maxSize:(float)maxSize
 {
     float exponentialMultiplier = 0.5;
     if (!self.downloadSequenceResults) {
@@ -1133,14 +1131,14 @@
             if(self.sequenceInProgress == kSensorSequenceCaptureDownload ||
                self.sequenceInProgress == kSensorSequenceConfigCaptureDownload)
             {
-                if ([[self delegate] respondsToSelector:@selector(configCaptureDownloadSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
-                    [[self delegate] configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
+                if ([[self delegate] respondsToSelector:@selector(configCaptureDownloadSequenceCompletedFromLink:withResults:deviceID:)]) {
+                    [[self delegate] configCaptureDownloadSequenceCompletedFromLink:self withResults:self.downloadSequenceResults deviceID:deviceID];
                 }
             }
             else if (self.sequenceInProgress == kSensorSequenceFull)
             {
-                if ([[self delegate] respondsToSelector:@selector(fullSequenceCompletedFromLink:withResults:sourceObjectID:)]) {
-                    [[self delegate] fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults sourceObjectID:sourceID];
+                if ([[self delegate] respondsToSelector:@selector(fullSequenceCompletedFromLink:withResults:deviceID:)]) {
+                    [[self delegate] fullSequenceCompletedFromLink:self withResults:self.downloadSequenceResults deviceID:deviceID];
                 }
             }
             _sequenceInProgress = kSensorSequenceNone;
@@ -1164,7 +1162,7 @@
             
             [NSThread sleepForTimeInterval:currentCaptureInterval]; //NOTE: we may need to run these *Completed methods on their own threads to avoid blocking the queue...?
             //put a new attempt at this download in the queue.
-            [self download:captureID withMaxSize:maxSize sourceObjectID:sourceID];
+            [self download:captureID withMaxSize:maxSize deviceID:deviceID];
             
             //increase the retry count
             [self.downloadRetryCount setObject:[NSNumber numberWithInt:(currentCaptureRetryCount + 1)] forKey:captureID];
@@ -1173,29 +1171,29 @@
     }
 }
 
-- (void)download:(NSString *)captureId sourceObjectID:(NSURL *)sourceID
+- (void)download:(NSString *)captureId deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeDownload
                        withMethod:kBCLMethodGET
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:captureId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
-                              [self downloadSuccessBlock:captureId sourceID:sourceID maxSize:self.downloadMaxSize];
+                              [self downloadSuccessBlock:captureId deviceID:deviceID maxSize:self.downloadMaxSize];
                           }
                           failure:NULL
      ];
 }
 
-- (void)download:(NSString *)captureId withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
+- (void)download:(NSString *)captureId withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID
 {
     [self enqueueNetworkOperation:kOpTypeThriftyDownload
                        withMethod:kBCLMethodGET
-                   sourceObjectID:sourceID
+                   deviceID:deviceID
                         sessionID:captureId
                        parameters:nil
                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *parser) {
-                              [self downloadSuccessBlock:captureId sourceID:sourceID maxSize:maxSize];
+                              [self downloadSuccessBlock:captureId deviceID:deviceID maxSize:maxSize];
                           }
                           failure:NULL
      ];
@@ -1203,7 +1201,7 @@
 
 #pragma mark - State Machine
 
-- (BOOL)beginConnectSequenceWithSourceObjectID:(NSURL *)sourceObjectID
+- (BOOL)beginConnectSequenceWithDeviceID:(NSURL *)deviceID
 {
     // Don't start another sequence if one is in progress
     if (self.sequenceInProgress)
@@ -1211,11 +1209,11 @@
     
     //kick off the connection sequence
     _sequenceInProgress = kSensorSequenceConnect;
-    [self registerClient:sourceObjectID];
+    [self registerClient:deviceID];
     return (YES);
 }
 
-- (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params sourceObjectID:(NSURL *)sourceID
+- (BOOL)beginConnectConfigureSequenceWithConfigurationParams:(NSMutableDictionary *)params deviceID:(NSURL *)deviceID
 {
     // Don't start another sequence if one is in progress
     if (self.sequenceInProgress)
@@ -1224,12 +1222,12 @@
     // Kick off the connection sequence
     _sequenceInProgress = kSensorSequenceConnectConfigure;
     self.pendingConfiguration = params;
-    [self registerClient:sourceID];
+    [self registerClient:deviceID];
     
     return (YES);
 }
 
-- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
+- (BOOL)beginConfigCaptureDownloadSequence:(NSString *)sessionId configurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID
 {
     // Don't start another sequence if one is in progress
     if (self.sequenceInProgress)
@@ -1241,12 +1239,12 @@
     self.pendingConfiguration = params;
     
     // Start by grabbing the lock
-    [self lock:sessionId sourceObjectID:sourceID];
+    [self lock:sessionId deviceID:deviceID];
     
     return (YES);
 }
 
-- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize sourceObjectID:(NSURL *)sourceID
+- (BOOL)beginFullSequenceWithConfigurationParams:(NSMutableDictionary *)params withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID
 {
     // Don't start another sequence if one is in progress
     if (self.sequenceInProgress)
@@ -1258,13 +1256,13 @@
     self.pendingConfiguration = params;
     
     // Start by registering with the service
-    [self registerClient:sourceID];
+    [self registerClient:deviceID];
     
     return (YES);
 }
 
 
-- (void)attemptWSBDSequenceRecovery:(NSURL *)sourceObjectID
+- (void)attemptWSBDSequenceRecovery:(NSURL *)deviceID
 {
     NSLog(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
     
@@ -1277,32 +1275,32 @@
     switch (self.currentWSBDResult.status) {
         case StatusInvalidId:
             //need to re-register
-            [self registerClient:sourceObjectID];
+            [self registerClient:deviceID];
             break;
         case StatusLockHeldByAnother:
             //try once to steal the lock.
-            [self lock:self.currentSessionId sourceObjectID:sourceObjectID];
+            [self lock:self.currentSessionId deviceID:deviceID];
             break;
         case StatusSensorNeedsInitialization:
             //We need to run initialization again.
-            [self initialize:self.currentSessionId sourceObjectId:sourceObjectID];
+            [self initialize:self.currentSessionId deviceID:deviceID];
             break;
         case StatusSensorNeedsConfiguration:
             //We need to run configuration again.
-            [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceObjectID];
+            [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration deviceID:deviceID];
             break;
         case StatusNoSuchParameter:
             //We need to run configuration again.
-            [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration sourceObjectID:sourceObjectID];
+            [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration deviceID:deviceID];
             break;
         case StatusSensorFailure:
             //try to reinitialize.
-            [self initialize:self.currentSessionId sourceObjectId:sourceObjectID];
+            [self initialize:self.currentSessionId deviceID:deviceID];
             break;
         default:
             //don't recover
             _sequenceInProgress = kSensorSequenceNone;
-            [[self delegate] sensorOperationDidFail:kSensorSequenceRecovery fromLink:self sourceObjectID:sourceObjectID withError:nil];
+            [[self delegate] sensorOperationDidFail:kSensorSequenceRecovery fromLink:self deviceID:deviceID withError:nil];
             break;
     }
     

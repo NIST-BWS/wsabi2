@@ -35,7 +35,7 @@
 
 #define kDictKeySourceLink @"sourceLink"
 #define kDictKeyTargetItem @"targetItem"
-#define kDictKeySourceID @"sourceObjectID"
+#define kDictKeyDeviceID @"deviceID"
 static NSString * const kDictKeyOperation = @"opType";
 #define kDictKeySequenceType @"sequenceType"
 #define kDictKeyCurrentResult @"result"
