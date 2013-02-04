@@ -1153,7 +1153,7 @@
     }
     
     //Otherwise, if we're configured to retry automatically, do it.
-    else if (self.currentWSBDResult.status == StatusPreparingDownload && kShouldRetryDownloadIfPending)
+    else if (self.currentWSBDResult.status == StatusPreparingDownload && kBWSShouldRetryDownloadIfPending)
     {
         //do an exponential back-off
         int currentCaptureRetryCount = [[self.downloadRetryCount objectForKey:captureID] intValue];

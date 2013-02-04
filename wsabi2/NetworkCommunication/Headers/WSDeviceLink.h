@@ -12,22 +12,10 @@
 #import "WSDeviceLinkDelegate.h"
 #import "NBCLDeviceLinkConstants.h"
 
-static NSString * const kBCLWSBDNamespace = @"xmlns=\"urn:oid:2.16.840.1.101.3.9.3.1\"";
-static NSString * const kBCLSchemaInstanceNamespace = @"xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"";
-static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
-static NSString * const kBCLMethodGET = @"GET";
-static NSString * const kBCLMethodPOST = @"POST";
-static NSString * const kBCLMethodPUT = @"PUT";
-static NSString * const kBCLMethodDELETE = @"DELETE";
-static NSString * const kBCLHTTPHeaderKeyContentType = @"Content-Type";
-static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; charset=utf-8";
-static const BOOL kShouldRetryDownloadIfPending = YES;
-
 @interface WSDeviceLink : NSObject <NSXMLParserDelegate>
 
 /// Base URI to the device
 @property (nonatomic, strong, readonly) NSURL *baseURI;
-
 
 @property (nonatomic, strong) NSString *currentSessionId;
 

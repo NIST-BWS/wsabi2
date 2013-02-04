@@ -66,3 +66,41 @@ typedef enum {
 #define kSensorLinkFullSequenceCompleted @"Full Sequence Completed"
 #define kSensorLinkDisconnectSequenceCompleted @"Disconnect Sequence Completed"
 #define kSensorLinkSequenceFailed @"Sequence Failed"
+
+
+//
+// Namespaces
+//
+
+/// WS-BD Namespace Declaration
+static NSString * const kBCLWSBDNamespace = @"xmlns=\"urn:oid:2.16.840.1.101.3.9.3.1\"";
+/// XML Schema Instance namespace declaration
+static NSString * const kBCLSchemaInstanceNamespace = @"xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"";
+/// XML Schema namespace declaration
+static NSString * const kBCLSchemaNamespace = @"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
+
+//
+// HTTP Methods
+//
+
+/// HTTP GET Method
+static NSString * const kBCLMethodGET = @"GET";
+/// HTTP POST Method
+static NSString * const kBCLMethodPOST = @"POST";
+/// HTTP PUT Method
+static NSString * const kBCLMethodPUT = @"PUT";
+/// HTTP DELETE Method
+static NSString * const kBCLMethodDELETE = @"DELETE";
+
+//
+// HTTP Header
+//
+
+/// HTTP Content Type Header Key
+static NSString * const kBCLHTTPHeaderKeyContentType = @"Content-Type";
+/// XML Content Type Value for Content Type Header
+static NSString * const kBCLHTTPHeaderValueXMLContentType = @"application/xml; charset=utf-8";
+
+/// Whether or not failed downloads should be retried if they fail
+// TODO: Retry pending downloads makes a better preference than constant.
+static const BOOL kBWSShouldRetryDownloadIfPending = YES;
