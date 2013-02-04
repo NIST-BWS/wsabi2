@@ -29,7 +29,7 @@ typedef enum {
 } WSSensorSetupStatusType;
 
 
-@interface WSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate,
+@interface BWSDeviceSetupController : UIViewController <UITableViewDataSource, UITableViewDelegate,
                                                         UITextFieldDelegate, BWSDeviceLinkDelegate,
                                                         ELCTextFieldDelegate>
 {

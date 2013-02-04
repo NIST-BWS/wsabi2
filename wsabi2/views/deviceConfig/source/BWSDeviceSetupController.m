@@ -6,7 +6,7 @@
  
 //
 
-#import "WSDeviceSetupController.h"
+#import "BWSDeviceSetupController.h"
 #import "WSAppDelegate.h"
 
 #define STATUS_CONTAINER_HEIGHT 95
@@ -14,7 +14,7 @@
 #define TAG_NETWORK_ADDRESS 1000
 #define TAG_NAME 1001
 
-@implementation WSDeviceSetupController
+@implementation BWSDeviceSetupController
 
 @synthesize item;
 @synthesize deviceDefinition;

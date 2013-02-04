@@ -11,7 +11,7 @@
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSModalityMap.h"
 #import "WSCDItem.h"
-#import "WSDeviceSetupController.h"
+#import "BWSDeviceSetupController.h"
 
 #define NUM_RECENT_SENSORS 5
 
