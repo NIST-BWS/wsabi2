@@ -13,7 +13,7 @@ typedef enum
 {
     kWSSettingsSectionLogging = 0,
     kWSSettingsSectionSensors = 1
-} kWSSettingsSections;
+} kBWSSettingsSections;
 /// Number of settings sections
 static const NSUInteger kWSSettingsSectionsCount = 2;
 
@@ -57,6 +57,6 @@ static const NSUInteger kWSSettingsSensorsRowsCount = 1;
 /// Label for showing sensors row
 static NSString *const kWSSettingsSensorsShowSensorsRowLabel = @"Show Sensors";
 
-@interface WSSettingsViewController : UITableViewController <UIPopoverControllerDelegate>
+@interface BWSSettingsViewController : UITableViewController <UIPopoverControllerDelegate>
 
 @end

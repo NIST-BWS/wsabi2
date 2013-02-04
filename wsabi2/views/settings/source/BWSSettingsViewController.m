@@ -6,7 +6,7 @@
 //
 //
 
-#import "WSSettingsViewController.h"
+#import "BWSSettingsViewController.h"
 
 #import "BWSConstants.h"
 #import "BWSSettingsShowSensorsViewController.h"
@@ -20,14 +20,14 @@ static const NSUInteger kWSSettingsLoggingNetworkLoggingSwitchTag = 3;
 /// Tag for the switch in the table for showing the logging panel
 static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
 
-@interface WSSettingsViewController ()
+@interface BWSSettingsViewController ()
 
 /// Persist settings based on switch toggle
 - (IBAction)switchToggledForSwitch:(UISwitch *)sender;
 
 @end
 
-@implementation WSSettingsViewController
+@implementation BWSSettingsViewController
 
 #pragma mark - View Lifecycle
 

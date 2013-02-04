@@ -10,7 +10,7 @@
 
 #import "WSAppDelegate.h"
 #import "NSManagedObject+DeepCopy.h"
-#import "WSSettingsViewController.h"
+#import "BWSSettingsViewController.h"
 
 @implementation BWSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -319,7 +319,7 @@
 
 - (IBAction)showAdvancedOptionsPopover:(id)sender
 {
-    WSSettingsViewController *settingsVC = [[WSSettingsViewController alloc] initWithNibName:@"BWSSettingsView" bundle:nil];
+    BWSSettingsViewController *settingsVC = [[BWSSettingsViewController alloc] initWithNibName:@"BWSSettingsView" bundle:nil];
     
     // Hide any other popover controller
     if (popoverController != nil) {
