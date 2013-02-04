@@ -113,11 +113,11 @@
         self.shadowDownView.image = [[UIImage imageNamed:@"cell-drop-shadow-down"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
         
         //new rows that start selected need to have the active controls' highlights turned off.
-        self.duplicateRowButton.highlighted = !self.selected;
-        self.biographicalDataButton.highlighted = !self.selected;
-        self.addButton.highlighted = !self.selected;
-        self.editButton.highlighted = !self.selected;
-        self.deleteButton.highlighted = !self.selected;
+        self.duplicateRowButton.highlighted = NO;
+        self.biographicalDataButton.highlighted = NO;
+        self.addButton.highlighted = NO;
+        self.editButton.highlighted = NO;
+        self.deleteButton.highlighted = NO;
         
         //update the local data information from Core Data
         [self updateData];
