@@ -185,7 +185,7 @@
         
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navigation animated:YES];
+        [self presentViewController:navigation animated:YES completion:NULL];
         // Start from submodality
     } else if ([[notification.userInfo objectForKey:kDictKeyStartFromSubmodality] boolValue]) {
         BWSSubmodalityChooserController *chooser = [[BWSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
@@ -195,7 +195,7 @@
         
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navigation animated:YES];
+        [self presentViewController:navigation animated:YES completion:NULL];
     }
     else {
         //show the full selection walkthrough
@@ -203,7 +203,7 @@
         chooser.item = item;
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:chooser];
         navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navigation animated:YES];
+        [self presentViewController:navigation animated:YES completion:NULL];
     }
     
     //scroll the thing to visible if it's not, in case we come back and need to show the capture popover.

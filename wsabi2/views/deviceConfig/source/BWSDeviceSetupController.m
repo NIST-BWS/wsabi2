@@ -199,7 +199,7 @@
                                                               userInfo:userInfo];
             
             [self.view logViewDismissedViaTapAtPoint:location];
-            [self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:NULL];
         }
     }
 }
@@ -334,7 +334,7 @@
     //connect the device definition and the item.
     self.item.deviceConfig = self.deviceDefinition;
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
     
     //post a notification to hide the device chooser and return to the previous state
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item forKey:kDictKeyTargetItem];

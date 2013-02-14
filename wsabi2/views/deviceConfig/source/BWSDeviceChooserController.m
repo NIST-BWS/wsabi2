@@ -174,7 +174,7 @@
                                                               userInfo:userInfo];
             
             [self.view logViewDismissedViaTapAtPoint:location];
-            [self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:NULL];
         }
     }
 }
