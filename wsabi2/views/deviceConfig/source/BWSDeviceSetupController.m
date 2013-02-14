@@ -166,13 +166,6 @@
     [super viewDidDisappear:animated];
 }
 
-- (void)viewDidUnload
-{
-    [self setTapBehindViewRecognizer:nil];
-    
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

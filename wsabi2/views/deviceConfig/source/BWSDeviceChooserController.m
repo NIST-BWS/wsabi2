@@ -106,13 +106,6 @@
 
 }
 
-- (void)viewDidUnload
-{
-    [self setTapBehindViewRecognizer:nil];
-    
-    [super viewDidUnload];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
