@@ -133,7 +133,7 @@
     
     if (self.placeholderLabel.text.length > 11){
         NSLog(@"%@", self.placeholderLabel.text);
-        self.placeholderLabel.lineBreakMode = UILineBreakModeWordWrap;
+        self.placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.placeholderLabel.numberOfLines = 2;    }
     else {
         self.placeholderLabel.numberOfLines = 1;
@@ -186,7 +186,7 @@
         
         self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.contentView.bounds, 12, 47)];
         self.placeholderLabel.backgroundColor = [UIColor clearColor];
-        self.placeholderLabel.textAlignment = UITextAlignmentCenter;
+        self.placeholderLabel.textAlignment = NSTextAlignmentCenter;
         self.placeholderLabel.textColor = [UIColor whiteColor];
         self.placeholderLabel.font = [UIFont systemFontOfSize:15];
         //position this below the placeholder view.

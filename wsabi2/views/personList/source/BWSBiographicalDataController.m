@@ -267,7 +267,7 @@
             
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
-            cell.textLabel.textAlignment = UITextAlignmentLeft;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -288,7 +288,7 @@
         }
         //set up font sizes to match the ELCTextFieldCells
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.textLabel.textAlignment = UITextAlignmentLeft;
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -307,7 +307,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
-            cell.textLabel.textAlignment = UITextAlignmentLeft;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -324,7 +324,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
-            cell.textLabel.textAlignment = UITextAlignmentLeft;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -341,7 +341,7 @@
             }
             //set up font sizes to match the ELCTextFieldCells
             cell.textLabel.font = [UIFont systemFontOfSize:14];
-            cell.textLabel.textAlignment = UITextAlignmentLeft;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 

@@ -40,7 +40,7 @@
 		[_leftLabel setBackgroundColor:[UIColor clearColor]];
 		[_leftLabel setTextColor:[UIColor colorWithRed:.285 green:.376 blue:.541 alpha:1]];
 		[_leftLabel setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-		[_leftLabel setTextAlignment:UITextAlignmentLeft];
+		[_leftLabel setTextAlignment:NSTextAlignmentLeft];
 		[self addSubview:_leftLabel];
 		
 		_rightTextField = [[ELCInsetTextField alloc] initWithFrame:CGRectZero];
