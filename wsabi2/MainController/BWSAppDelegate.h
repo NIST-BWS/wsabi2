@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 #import "DDFileLogger.h"

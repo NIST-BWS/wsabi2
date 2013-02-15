@@ -5,11 +5,12 @@
 // and is in the public domain. NIST assumes no responsibility whatsoever for
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
-#import "DDLog.h"
+
+#import "BWSDDLog.h"
 
 #import "UIView+BWSInterfaceLogging.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static int ddLogLevel;
 
 @interface UIView (BWSLoggingPrivate)
 
@@ -66,7 +67,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     CGPoint pointInWindow = [self convertPoint:point toView:nil];
     CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
     
-    return ([NSString stringWithFormat:@"<TL>: %@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
+    return ([NSString stringWithFormat:@"%@ (%@), %@, (%.0f, %.0f) [%.0f, %.0f], %.0fx%.0f (%.0f, %.0f)",
              [self accessibilityLabel],
              [self class],
              [UIView stringForBWSInterfaceEventType:interfaceEvent withState:state],
@@ -101,9 +102,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)BWSInterfaceEventTapDetected:(UITapGestureRecognizer *)recognizer
 {
-    DDLogError(@"%@", [self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
+    DDLogBWSTouch(@"%@", [self logBWSInterfaceEventTapAtPoint:[recognizer locationInView:self]]);
     
-    // XXX: For text entry fields, our tap recognizer overrides Apple's for 
+    // XXX: For text entry fields, our tap recognizer overrides Apple's for
     // becoming the first responder.
     if ([self isKindOfClass:[UITextView class]] || [self isKindOfClass:[UITextField class]])
         [self becomeFirstResponder];
@@ -128,7 +129,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     
     if (logString != nil)
-        DDLogError(@"%@", logString);
+        DDLogBWSTouch(@"%@", logString);
 }
 
 - (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer
@@ -138,7 +139,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         case UIGestureRecognizerStateBegan:
             // FALLTHROUGH
         case UIGestureRecognizerStateEnded:
-            DDLogError(@"%@", [self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[UIView interfaceEventStateForGestureRecognizerState:[recognizer state]]]);
+            DDLogBWSTouch(@"%@", [self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeLongPress atPoint:[recognizer locationInView:self] withState:[UIView interfaceEventStateForGestureRecognizerState:[recognizer state]]]);
             break;
         default:
             // Not interested
@@ -172,16 +173,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             
             CGRect viewInWindowRect = [[self superview] convertRect:self.frame toView:nil];
             
-            DDLogError (@"%@", [NSString stringWithFormat:@"<TL>: %@ (%@), %@, %@ %@, %.0fx%.0f (%.0f, %.0f)",
-                     [self accessibilityLabel],
-                     [self class],
-                     [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypePinch withState:[UIView interfaceEventStateForGestureRecognizerState:recognizer.state]],
-                     localCoordinates,
-                     globalCoordinates,
-                     self.frame.size.width,
-                     self.frame.size.height,
-                     viewInWindowRect.origin.x,
-                     viewInWindowRect.origin.y]);
+            DDLogBWSTouch(@"%@", [NSString stringWithFormat:@"%@ (%@), %@, %@ %@, %.0fx%.0f (%.0f, %.0f)",
+                                  [self accessibilityLabel],
+                                  [self class],
+                                  [UIView stringForBWSInterfaceEventType:kBWSInterfaceEventTypePinch withState:[UIView interfaceEventStateForGestureRecognizerState:recognizer.state]],
+                                  localCoordinates,
+                                  globalCoordinates,
+                                  self.frame.size.width,
+                                  self.frame.size.height,
+                                  viewInWindowRect.origin.x,
+                                  viewInWindowRect.origin.y]);
             break;
         }
         default:
@@ -201,106 +202,106 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [buttonTitles appendString:@", "];
     }
     
-    DDLogError(@"<TL>: %@:[%@] (%@<-%@ (%@)), %@",
-               [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
-               buttonTitles,
-               [actionSheet class],
-               [self class],
-               [self accessibilityLabel],
-               kBWSInterfaceEventDescriptionPresented);
+    DDLogBWSTouch(@"%@:[%@] (%@<-%@ (%@)), %@",
+                  [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
+                  buttonTitles,
+                  [actionSheet class],
+                  [self class],
+                  [self accessibilityLabel],
+                  kBWSInterfaceEventDescriptionPresented);
 }
 
 - (void)logActionSheetDismissed:(UIActionSheet *)actionSheet viaButtonAtIndex:(NSInteger)buttonIndex
 {
-    DDLogError(@"<TL>: %@:[%@] (%@), %@",
-               [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
-               [actionSheet buttonTitleAtIndex:buttonIndex],
-               [actionSheet class],
-               kBWSInterfaceEventDescriptionDismissed);
+    DDLogBWSTouch(@"%@:[%@] (%@), %@",
+                  [actionSheet title] != nil ? [actionSheet title] : @"<No Title>",
+                  [actionSheet buttonTitleAtIndex:buttonIndex],
+                  [actionSheet class],
+                  kBWSInterfaceEventDescriptionDismissed);
 }
 
 - (void)logPopoverControllerPresented:(UIPopoverController *)popoverController
 {
-    DDLogError(@"<TL>: %@[<-%@ (%@)] (%@), %@",
-               [[[popoverController contentViewController] view] accessibilityLabel],
-               [self accessibilityLabel],
-               [self class],
-               [popoverController class],
-               kBWSInterfaceEventDescriptionPresented);
+    DDLogBWSTouch(@"%@[<-%@ (%@)] (%@), %@",
+                  [[[popoverController contentViewController] view] accessibilityLabel],
+                  [self accessibilityLabel],
+                  [self class],
+                  [popoverController class],
+                  kBWSInterfaceEventDescriptionPresented);
 }
 
 - (void)logPopoverControllerPresented:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"<TL>: %@[<-%@ (%@)] (%@), %@ (%.0f, %.0f)",
-               [[[popoverController contentViewController] view] accessibilityLabel],
-               [self accessibilityLabel],
-               [self class],
-               [popoverController class],
-               kBWSInterfaceEventDescriptionPresented,
-               point.x,
-               point.y);
+    DDLogBWSTouch(@"%@[<-%@ (%@)] (%@), %@ (%.0f, %.0f)",
+                  [[[popoverController contentViewController] view] accessibilityLabel],
+                  [self accessibilityLabel],
+                  [self class],
+                  [popoverController class],
+                  kBWSInterfaceEventDescriptionPresented,
+                  point.x,
+                  point.y);
 }
 
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController
 {
-    DDLogError(@"<TL>: %@ (%@), %@",
-               [[[popoverController contentViewController] view] accessibilityLabel],
-               [popoverController class],
-               kBWSInterfaceEventDescriptionDismissed);
+    DDLogBWSTouch(@"%@ (%@), %@",
+                  [[[popoverController contentViewController] view] accessibilityLabel],
+                  [popoverController class],
+                  kBWSInterfaceEventDescriptionDismissed);
 }
 
 - (void)logPopoverControllerDismissed:(UIPopoverController *)popoverController viaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"<TL>: %@ (%@), %@ (%.0f, %.0f)",
-               [[[popoverController contentViewController] view] accessibilityLabel],
-               [popoverController class],
-               kBWSInterfaceEventDescriptionDismissed,
-               point.x,
-               point.y);
+    DDLogBWSTouch(@"%@ (%@), %@ (%.0f, %.0f)",
+                  [[[popoverController contentViewController] view] accessibilityLabel],
+                  [popoverController class],
+                  kBWSInterfaceEventDescriptionDismissed,
+                  point.x,
+                  point.y);
 }
 
 - (void)logViewPresented
 {
-    DDLogError(@"<TL>: %@ (%@), %@",
-               [self accessibilityLabel],
-               [self class],
-               kBWSInterfaceEventDescriptionPresented);
+    DDLogBWSTouch(@"%@ (%@), %@",
+                  [self accessibilityLabel],
+                  [self class],
+                  kBWSInterfaceEventDescriptionPresented);
 }
 
 - (void)logViewDismissed
 {
-    DDLogError(@"<TL>: %@ (%@), %@",
-               [self accessibilityLabel],
-               [self class],
-               kBWSInterfaceEventDescriptionDismissed);
+    DDLogBWSTouch(@"%@ (%@), %@",
+                  [self accessibilityLabel],
+                  [self class],
+                  kBWSInterfaceEventDescriptionDismissed);
 }
 
 - (void)logViewDismissedViaTapAtPoint:(CGPoint)point
 {
-    DDLogError(@"<TL>: %@ (%@), %@ (%.0f, %.0f)",
-               [self accessibilityLabel],
-               [self class],
-               kBWSInterfaceEventDescriptionDismissed,
-               point.x,
-               point.y);
+    DDLogBWSTouch(@"%@ (%@), %@ (%.0f, %.0f)",
+                  [self accessibilityLabel],
+                  [self class],
+                  kBWSInterfaceEventDescriptionDismissed,
+                  point.x,
+                  point.y);
 }
 
 #pragma mark - Text Entry Logging
 
 - (void)logTextEntryBegan
 {
-    DDLogError(@"<TL>: %@ (%@), %@",
-               [self accessibilityLabel],
-               [self class],
-               kBWSInterfaceEventDescriptionTextEntryBegan);
+    DDLogBWSTouch(@"%@ (%@), %@",
+                  [self accessibilityLabel],
+                  [self class],
+                  kBWSInterfaceEventDescriptionTextEntryBegan);
 }
 
 - (void)logTextEntryEnded
 {
-    DDLogError(@"<TL>: %@ (%@), %@",
-               [self accessibilityLabel],
-               [self class],
-               kBWSInterfaceEventDescriptionTextEntryEnded);
+    DDLogBWSTouch(@"%@ (%@), %@",
+                  [self accessibilityLabel],
+                  [self class],
+                  kBWSInterfaceEventDescriptionTextEntryEnded);
 }
 
 #pragma mark - Start/Stop
@@ -323,7 +324,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(BWSInterfaceEventPinchDetected:)];
             break;
         default:
-            DDLogError(@"%@ logging currently unsupported", [UIView stringForBWSInterfaceEventType:eventType]);
+            DDLogBWSTouch(@"%@ logging currently unsupported", [UIView stringForBWSInterfaceEventType:eventType]);
             break;
     }
     

@@ -70,6 +70,7 @@
 		0847AB7116960F9E003395BE /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6C16960F9E003395BE /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7816972045003395BE /* ELCTextFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
+		0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862BDB616CEADA40032C14F /* BWSDDLog.m */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
@@ -326,6 +327,8 @@
 		0847AB7816972045003395BE /* ELCTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCell.m; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/BWSDeviceLinkDelegate.h; sourceTree = "<group>"; };
+		0862BDB516CEA6BF0032C14F /* BWSDDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSDDLog.h; sourceTree = "<group>"; };
+		0862BDB616CEADA40032C14F /* BWSDDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSDDLog.m; sourceTree = "<group>"; };
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
@@ -1070,6 +1073,8 @@
 			isa = PBXGroup;
 			children = (
 				EA202D7314C74F6600776BF3 /* BWSConstants.h */,
+				0862BDB516CEA6BF0032C14F /* BWSDDLog.h */,
+				0862BDB616CEADA40032C14F /* BWSDDLog.m */,
 				EAF0F98514BC7B8C00544416 /* BWSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* BWSAppDelegate.m */,
 				EA8A051514C8936900199FF8 /* Categories */,
@@ -1346,6 +1351,7 @@
 				0806C13216B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */,
 				0806C13416B6F6F000842381 /* BWSDeviceLink.m in Sources */,
 				0840B17216BADC3700503071 /* NSURL+HTTP.m in Sources */,
+				0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
