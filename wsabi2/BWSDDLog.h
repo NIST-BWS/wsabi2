@@ -35,7 +35,7 @@
 /// Log network information
 #define DDLogBWSNetwork(frmt, ...)  REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_NETWORK, 0, ([NSString stringWithFormat:@"<NL> %@", frmt]), ##__VA_ARGS__)
 /// Log device-level sequence issues
-#define DDLogBWSDevice(frmt, ...)   REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_NETWORK, 0, ([NSString stringWithFormat:@"<DL> %@", frmt]), ##__VA_ARGS__)
+#define DDLogBWSDevice(frmt, ...)   REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_DEVICE, 0, ([NSString stringWithFormat:@"<DL> %@", frmt]), ##__VA_ARGS__)
 
 @interface BWSDDLog : NSObject
 
