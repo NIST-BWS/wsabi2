@@ -182,6 +182,10 @@ static const BOOL kSettingsLoggingPanelEnabledDefault = NO;
 static NSString * const kSettingsDeviceLoggingEnabled = @"deviceLoggingEnabled";
 /// Default value for device debug logging
 static const BOOL kSettingsDeviceLoggingEnabledDefault = YES;
+/// Key for enabling/disabling generic verbose logging
+static NSString * const kSettingsVerboseLoggingEnabled = @"verboseLoggingEnabled";
+/// Default value for generic verbose  logging
+static const BOOL kSettingsVerboseLoggingEnabledDefault = YES;
 
 
 #pragma mark - CoreData

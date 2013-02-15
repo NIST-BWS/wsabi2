@@ -240,6 +240,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [defaults setBool:kSettingsDeviceLoggingEnabledDefault forKey:kSettingsDeviceLoggingEnabled];
     if ([defaults objectForKey:kSettingsAdvancedOptionsEnabled] == nil)
         [defaults setBool:NO forKey:kSettingsAdvancedOptionsEnabled];
+    if ([defaults objectForKey:kSettingsVerboseLoggingEnabled] == nil)
+        [defaults setBool:kSettingsVerboseLoggingEnabledDefault forKey:kSettingsVerboseLoggingEnabled];
     
     // Show or hide the advanced settings button
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsAdvancedOptionsEnabled] == YES)

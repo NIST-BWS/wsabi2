@@ -21,6 +21,8 @@ static const NSUInteger kWSSettingsLoggingNetworkLoggingSwitchTag = 3;
 static const NSUInteger kWSSettingsLoggingDeviceLoggingSwitchTag = 4;
 /// Tag for the switch in the table for showing the logging panel
 static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 5;
+/// Tag for the switch in the table for verbose logging
+static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
 
 @interface BWSSettingsViewController ()
 
@@ -115,6 +117,14 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 5;
                     [settingSwitch setTag:kWSSettingsLoggingDeviceLoggingSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
+                case kWSSettingsLoggingVerboseLoggingRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingVerboseLoggingRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsVerboseLoggingEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingVerboseLoggingSwitchTag];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
                 case kWSSettingsLoggingShowLoggingPanelRow:
                     [[cell textLabel] setText:kWSSettingsLoggingShowLoggingPanelRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
@@ -201,6 +211,9 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 5;
             break;
         case kWSSettingsLoggingShowLoggingPanelSwitchTag:
             key = kSettingsLoggingPanelEnabled;
+            break;
+        case kWSSettingsLoggingVerboseLoggingSwitchTag:
+            key = kSettingsVerboseLoggingEnabled;
             break;
         default:
             return;

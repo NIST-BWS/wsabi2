@@ -25,6 +25,8 @@
         logLevel |= LOG_FLAG_BWS_NETWORK;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsDeviceLoggingEnabled])
         logLevel |= LOG_FLAG_BWS_DEVICE;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsVerboseLoggingEnabled])
+        logLevel |= LOG_FLAG_BWS_VERBOSE;
     
     // To quiesce unused variable warning
     ddLogLevel = logLevel;

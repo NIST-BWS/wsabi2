@@ -20,11 +20,13 @@
 #define LOG_FLAG_BWS_MOTION         (1 << 5)
 #define LOG_FLAG_BWS_NETWORK        (1 << 6)
 #define LOG_FLAG_BWS_DEVICE         (1 << 7)
+#define LOG_FLAG_BWS_VERBOSE        (1 << 8)
 
 #define LOG_BWS_TOUCH               (ddLogLevel & LOG_FLAG_BWS_TOUCH)
 #define LOG_BWS_MOTION              (ddLogLevel & LOG_FLAG_BWS_MOTION)
 #define LOG_BWS_NETWORK             (ddLogLevel & LOG_FLAG_BWS_NETWORK)
 #define LOG_BWS_DEVICE              (ddLogLevel & LOG_FLAG_BWS_DEVICE)
+#define LOG_BWS_VERBOSE             (ddLogLevel & LOG_FLAG_BWS_VERBOSE)
 
 #define REFRESH_DD_BWS_LOG_PREFS    (ddLogLevel = [BWSDDLog readBWSDDLogPreferenceLevel])
 
@@ -36,6 +38,9 @@
 #define DDLogBWSNetwork(frmt, ...)  REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_NETWORK, 0, ([NSString stringWithFormat:@"<NL> %@", frmt]), ##__VA_ARGS__)
 /// Log device-level sequence issues
 #define DDLogBWSDevice(frmt, ...)   REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_DEVICE, 0, ([NSString stringWithFormat:@"<DL> %@", frmt]), ##__VA_ARGS__)
+/// Kitchen-sink logging
+#define DDLogBWSVerbose(frmt, ...)  REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_VERBOSE, 0, ([NSString stringWithFormat:@"<VL> %@", frmt]), ##__VA_ARGS__)
+
 
 @interface BWSDDLog : NSObject
 
