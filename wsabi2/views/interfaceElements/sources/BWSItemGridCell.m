@@ -62,7 +62,6 @@
 
 -(void) configureView
 {
-    //NSLog(@"Configuring a cell with modality %@ and submodality %@",self.item.modality,self.item.submodality);
     //this may be called from inside the setItem method, so use the ivar, not the property.
     if (self.item.data) {
         self.imageView.image = [UIImage imageWithData:self.item.thumbnail];

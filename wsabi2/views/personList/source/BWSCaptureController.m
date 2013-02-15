@@ -6,6 +6,7 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSDDLog.h"
 #import "BWSCaptureController.h"
 
 #import "BWSLightboxViewController.h"
@@ -512,7 +513,7 @@
 {
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-    NSLog(@"userInfo for connect sequence is %@",info.description);
+    DDLogBWSNetwork(@"userInfo for connect sequence is %@",info.description);
     
     BWSDeviceLink *sourceLink = [info objectForKey:kDictKeySourceLink];
     

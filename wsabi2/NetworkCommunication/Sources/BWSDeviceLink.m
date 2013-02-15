@@ -8,6 +8,7 @@
 
 #import "BWSConstants.h"
 #import "BWSDeviceLinkConstants.h"
+#import "BWSDDLog.h"
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"
 #import "WSBDResult.h"
@@ -135,9 +136,9 @@
 
 - (void)setSensorOperationFailedWithResponse:(NSHTTPURLResponse *)response error:(NSError *)error userInfo:(NSDictionary *)userInfo
 {
-    NSLog(@"Sensor operation failed with message \"%@\" (HTTP %d)",
-          [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode],
-          response.statusCode);
+    DDLogBWSDevice(@"Sensor operation failed with message \"%@\" (HTTP %d)",
+                   [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode],
+                   response.statusCode);
     
     if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:deviceID:withError:)]) {
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
@@ -151,7 +152,7 @@
 
 - (void)failedToParseWithParser:(NSXMLParser *)parser userInfo:(NSDictionary *)userInfo
 {
-    NSLog(@"Failed to parse XML with error \"%@\"", parser.parserError.description);
+    DDLogBWSDevice(@"Failed to parse XML with error \"%@\"", parser.parserError.description);
     
     if ([[self delegate] respondsToSelector:@selector(sensorOperationDidFail:fromLink:deviceID:withError:)]) {
         [[self delegate] sensorOperationDidFail:[userInfo[kDictKeyOperation] intValue]
@@ -289,9 +290,6 @@
 	{
         
         if (self.currentWSBDResult.metadata && self.currentWSBDParameter) {
-            
-            //            NSLog(@"About to store %@ in the metadata dict under key %@",[self.currentWSBDParameter debugDescription], self.currentDictionaryKey);
-            
             //store that value in the dictionary
             [self.currentWSBDResult.metadata setObject:self.currentWSBDParameter forKey:self.currentDictionaryKey];
             self.currentDictionaryValue = self.currentWSBDParameter;
@@ -409,7 +407,7 @@
         
         //Get the converted object and store it.
         self.currentWSBDParameter.defaultValue = [BWSXMLMap objcObjectForXML:self.currentElementValue ofType:typeString];
-        NSLog(@"Parameter %@ has defaultValue %@",self.currentWSBDParameter.name, self.currentWSBDParameter.defaultValue);
+        DDLogBWSDevice(@"Parameter %@ has defaultValue %@",self.currentWSBDParameter.name, self.currentWSBDParameter.defaultValue);
     }
     
     else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"allowedValue"] == NSOrderedSame)
@@ -1245,7 +1243,7 @@
 
 - (void)attemptWSBDSequenceRecovery:(NSURL *)deviceID
 {
-    NSLog(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
+    DDLogBWSDevice(@"Attempting to recover from a WS-BD issue: %@",[WSBDResult stringForStatusValue:self.currentWSBDResult.status]);
     
     //If we got an unsuccessful result, and haven't already tried to recover, do so now.
     self.storedSequence = self.sequenceInProgress;

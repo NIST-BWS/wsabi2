@@ -11,6 +11,9 @@
 #import "BWSAppDelegate.h"
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSSettingsViewController.h"
+#import "DDLog.h"
+
+static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 @implementation BWSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -388,7 +391,6 @@
 //FIXME: This should be more flexible about different cell arrangements!
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"Index path for selected row is (%d,%d)",selectedIndex.section, selectedIndex.row);
     BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     //if there are 0 items, use 1 row. Otherwise, fit to the number of items.
@@ -396,8 +398,6 @@
     //are in a row.
     float itemsPerRow = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 5 : 7;
     int numRows = MAX(1, ceil([person.items count] / itemsPerRow));
-    
-    //NSLog(@"Row %d should have %d rows",indexPath.row, numRows);
     
     if ([indexPath compare:selectedIndex] == NSOrderedSame) {
         return 224 + ((kItemCellSize + kItemCellSizeVerticalAddition + kItemCellSpacing) * numRows);
@@ -461,38 +461,6 @@
     if (editingStyle ==  UITableViewCellEditingStyleDelete)
         [[aTableView cellForRowAtIndexPath:indexPath] stopLoggingBWSInterfaceEvents];
 }
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        // Delete the managed object for the given index path
-//        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-//
-//        // Save the context.
-//        NSError *error = nil;
-//        if (![context save:&error]) {
-//            /*
-//             Replace this implementation with code to handle the error appropriately.
-//
-//             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//             */
-//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//            abort();
-//        }
-//
-//
-//    }
-//}
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -558,7 +526,7 @@
          
 	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	     */
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
     
@@ -661,7 +629,7 @@
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
          */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 }

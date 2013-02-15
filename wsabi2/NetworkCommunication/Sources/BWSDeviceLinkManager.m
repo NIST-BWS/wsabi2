@@ -6,6 +6,8 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSDDLog.h"
+
 #import "BWSDeviceLinkManager.h"
 
 @implementation BWSDeviceLinkManager
@@ -24,7 +26,7 @@
 - (BWSDeviceLink *) deviceForUri:(NSString*)uri
 {
     if (!uri) {
-        NSLog(@"Tried to grab a device with no URI; ignoring request.");
+        DDLogBWSDevice(@"%@", @"Tried to grab a device with no URI; ignoring request.");
         return nil;
     }
     
@@ -54,12 +56,12 @@
         //attempt to connect this sensor, stealing the lock if necessary.
         BOOL sequenceStarted = [link beginConnectSequenceWithDeviceID:nil];
         if (!sequenceStarted) {
-            NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
+            DDLogBWSDevice(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
             //this failed.
             //[self sequenceDidFail:kSensorSequenceConnect fromLink:link withResult:nil sourceObjectID:nil];
         }
         else {
-            NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
+            DDLogBWSDevice(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
         }
         
     }
@@ -70,12 +72,12 @@
             //attempt to connect this sensor, stealing the lock if necessary.
             BOOL sequenceStarted = [link beginConnectSequenceWithDeviceID:nil];
             if (!sequenceStarted) {
-                NSLog(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
+                DDLogBWSDevice(@"NBCLDeviceLinkManager: Couldn't start sensor connect sequence for %@",uri);
                 //this failed.
                 //[self sequenceDidFail:kSensorSequenceConnect fromLink:link withResult:nil sourceObjectID:nil];
             }
             else {
-                NSLog(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
+                DDLogBWSDevice(@"NBCLDeviceLinkManager: Started sensor connect sequence for %@",uri);
             }
 
         }
@@ -100,7 +102,7 @@
 
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ had %@ fail: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [error description]);
+    DDLogBWSDevice(@"Link at %@ had %@ fail: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [error description]);
     
 }
 
@@ -117,7 +119,7 @@
     
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ cancelled operation: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType]);
+    DDLogBWSDevice(@"Link at %@ cancelled operation: %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType]);
 
 }
 
@@ -133,7 +135,7 @@
                                                         object:self
                                                       userInfo:userInfo];
 
-    NSLog(@"Link at %@ completed %@ with status %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [WSBDResult stringForStatusValue:result.status]);
+    DDLogBWSDevice(@"Link at %@ completed %@ with status %@", link.baseURI, [BWSDeviceLink stringForSensorOperationType:opType], [WSBDResult stringForStatusValue:result.status]);
     
 }
 
@@ -151,7 +153,7 @@
                                                       userInfo:userInfo];
 
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ changed status to %@", link.baseURI, connectedAndReady ? @"ready" : @"not ready");
+    DDLogBWSDevice(@"Link at %@ changed status to %@", link.baseURI, connectedAndReady ? @"ready" : @"not ready");
 
 }
 
@@ -176,7 +178,7 @@
                                                       userInfo:userInfo];
 
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its connect sequence", link.baseURI);
+    DDLogBWSDevice(@"Link at %@ completed its connect sequence", link.baseURI);
 }
 
 -(void) configureSequenceCompletedFromLink:(BWSDeviceLink*)link
@@ -196,7 +198,7 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its configure sequence", link.baseURI);
+    DDLogBWSDevice(@"Link at %@ completed its configure sequence", link.baseURI);
 
 }
 
@@ -217,14 +219,14 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its connect & configure sequence", link.baseURI);
+    DDLogBWSDevice(@"Link at %@ completed its connect & configure sequence", link.baseURI);
 
 }
 
 - (void) processDownloadResultsFromLink:(BWSDeviceLink*)link withResults:(NSMutableArray*)results deviceID:(NSURL *)deviceID
 {
     if (!results) {
-        NSLog(@"Link at %@ reached the end of a capture sequence, but had no results.",link.baseURI);
+        DDLogBWSDevice(@"Link at %@ reached the end of a capture sequence, but had no results.",link.baseURI);
     }
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -235,7 +237,7 @@
         WSBDResult *currentResult = [results objectAtIndex:i];
         
         if (currentResult.status != StatusSuccess) {
-            NSLog(@"Link at %@ had a failure: %@ %@",link.baseURI, [WSBDResult stringForStatusValue:currentResult.status], currentResult.message);
+            DDLogBWSDevice(@"Link at %@ had a failure: %@ %@",link.baseURI, [WSBDResult stringForStatusValue:currentResult.status], currentResult.message);
         }
         //FIXME: Post a notification containing this WSBDResult as attached data.
         //Post a notification about the status change containing the new value
@@ -250,7 +252,7 @@
                                                           userInfo:userInfo];
         
         //add this result to the WS-BD Result cache (at the top)
-        NSLog(@"Link at %@ completed downloading one capture result", link.baseURI);
+        DDLogBWSDevice(@"Link at %@ completed downloading one capture result", link.baseURI);
     }
 
 }
@@ -282,7 +284,7 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ completed its disconnect sequence", link.baseURI);
+    DDLogBWSDevice(@"Link at %@ completed its disconnect sequence", link.baseURI);
     
 }
 
@@ -312,7 +314,7 @@
                                                       userInfo:userInfo];
     
     //add this result to the WS-BD Result cache (at the top)
-    NSLog(@"Link at %@ failed to complete a series of operations", link.baseURI);    
+    DDLogBWSDevice(@"Link at %@ failed to complete a series of operations", link.baseURI);    
 }
 
 @end

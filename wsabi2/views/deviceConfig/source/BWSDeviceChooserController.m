@@ -6,6 +6,8 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSDDLog.h"
+
 #import "BWSDeviceChooserController.h"
 
 #import "BWSAppDelegate.h"
@@ -72,7 +74,7 @@
     NSArray *rawRecentSensors = [moc executeFetchRequest:request error:&error];
     if (rawRecentSensors == nil)
     {
-        NSLog(@"Couldn't get a list of recent sensors, error was: %@",[error description]);
+        DDLogBWSDevice(@"Couldn't get a list of recent sensors, error was: %@",[error description]);
     }
     
     //NOTE: Not speedy. O(n^2)ish.
@@ -91,7 +93,7 @@
         }
     }
     
-    NSLog(@"Found %d unique recent sensors matching these criteria",[recentSensors count]);
+    DDLogBWSDevice(@"Found %d unique recent sensors matching these criteria",[recentSensors count]);
     
     //Set up the current sensor button
     if (self.item.managedObjectContext && self.item.deviceConfig

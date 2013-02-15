@@ -6,6 +6,8 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSDDLog.h"
+
 #import "BWSPersonTableViewCell.h"
 
 #import "BWSAppDelegate.h"
@@ -298,7 +300,7 @@
         //(It's likely that these links will come back initialized.)
         for (BWSCDItem *item in self.person.items) {
             BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
-            NSLog(@"Created/grabbed sensor link %@",[link description]);
+            DDLogBWSDevice(@"Created/grabbed sensor link %@",[link description]);
         }
         [self setAppearDisabled:NO animated:NO];
     } else {
@@ -630,8 +632,6 @@
         return; //nothing to do if we don't have this item.
     }
     
-    //NSLog(@"Item %@ was changed",item.description);
-        
     //NOTE: it would be better just to reload the single cell, but for some reason,
     //even though all variables seem to be in place, reloading the single cell
     //results in the updated cell being deselected even when it ought to be selected.
