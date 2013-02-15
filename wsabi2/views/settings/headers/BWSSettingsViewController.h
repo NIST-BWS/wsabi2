@@ -30,11 +30,12 @@ typedef enum {
     kWSSettingsLoggingTouchLoggingRow = 0,
     kWSSettingsLoggingMotionLoggingRow = 1,
     kWSSettingsLoggingNetworkLoggingRow = 2,
-    kWSSettingsLoggingShowLoggingPanelRow = 3,
-    kWSSettingsLoggingShowSavedLogsRow = 4
+    kWSSettingsLoggingDeviceLoggingRow = 3,
+    kWSSettingsLoggingShowLoggingPanelRow = 4,
+    kWSSettingsLoggingShowSavedLogsRow = 5
 } kWSSettingsLoggingRows;
 /// Number of logging section rows
-static const NSUInteger kWSSettingsLoggingRowsCount = 5;
+static const NSUInteger kWSSettingsLoggingRowsCount = 6;
 
 /// Label for touch logging settings row
 static NSString * const kWSSettingsLoggingTouchLoggingRowLabel = @"Touch Logging";
@@ -42,6 +43,8 @@ static NSString * const kWSSettingsLoggingTouchLoggingRowLabel = @"Touch Logging
 static NSString * const kWSSettingsLoggingMotionLoggingRowLabel = @"Motion Logging";
 /// Label for network logging settings row
 static NSString * const kWSSettingsLoggingNetworkLoggingRowLabel = @"Network Logging";
+/// Label for device logging settings row
+static NSString * const kWSSettingsLoggingDeviceLoggingRowLabel = @"Device Event Logging";
 /// Label for showing the logging panel row
 static NSString * const kWSSettingsLoggingShowLoggingPanelRowLabel = @"Show Logging Panel";
 /// Label for showing saved logs row

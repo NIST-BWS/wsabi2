@@ -17,8 +17,10 @@ static const NSUInteger kWSSettingsLoggingTouchLoggingSwitchTag = 1;
 static const NSUInteger kWSSettingsLoggingMotionLoggingSwitchTag = 2;
 /// Tag for the switch in the table for network logging
 static const NSUInteger kWSSettingsLoggingNetworkLoggingSwitchTag = 3;
+/// Tag for the switch in the table for device debug logging
+static const NSUInteger kWSSettingsLoggingDeviceLoggingSwitchTag = 4;
 /// Tag for the switch in the table for showing the logging panel
-static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
+static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 5;
 
 @interface BWSSettingsViewController ()
 
@@ -105,6 +107,14 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
                     [settingSwitch setTag:kWSSettingsLoggingNetworkLoggingSwitchTag];
                     [cell setAccessoryView:settingSwitch];
                     break;
+                case kWSSettingsLoggingDeviceLoggingRow:
+                    [[cell textLabel] setText:kWSSettingsLoggingDeviceLoggingRowLabel];
+                    settingSwitch = [[UISwitch alloc] init];
+                    [settingSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kSettingsDeviceLoggingEnabled]];
+                    [settingSwitch addTarget:self action:@selector(switchToggledForSwitch:) forControlEvents:UIControlEventValueChanged];
+                    [settingSwitch setTag:kWSSettingsLoggingDeviceLoggingSwitchTag];
+                    [cell setAccessoryView:settingSwitch];
+                    break;
                 case kWSSettingsLoggingShowLoggingPanelRow:
                     [[cell textLabel] setText:kWSSettingsLoggingShowLoggingPanelRowLabel];
                     settingSwitch = [[UISwitch alloc] init];
@@ -185,6 +195,9 @@ static const NSUInteger kWSSettingsLoggingShowLoggingPanelSwitchTag = 4;
             break;
         case kWSSettingsLoggingNetworkLoggingSwitchTag:
             key = kSettingsNetworkLoggingEnabled;
+            break;
+        case kWSSettingsLoggingDeviceLoggingSwitchTag:
+            key = kSettingsDeviceLoggingEnabled;
             break;
         case kWSSettingsLoggingShowLoggingPanelSwitchTag:
             key = kSettingsLoggingPanelEnabled;

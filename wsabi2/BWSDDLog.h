@@ -19,10 +19,12 @@
 #define LOG_FLAG_BWS_TOUCH          (1 << 4)
 #define LOG_FLAG_BWS_MOTION         (1 << 5)
 #define LOG_FLAG_BWS_NETWORK        (1 << 6)
+#define LOG_FLAG_BWS_DEVICE         (1 << 7)
 
 #define LOG_BWS_TOUCH               (ddLogLevel & LOG_FLAG_BWS_TOUCH)
 #define LOG_BWS_MOTION              (ddLogLevel & LOG_FLAG_BWS_MOTION)
 #define LOG_BWS_NETWORK             (ddLogLevel & LOG_FLAG_BWS_NETWORK)
+#define LOG_BWS_DEVICE              (ddLogLevel & LOG_FLAG_BWS_DEVICE)
 
 #define REFRESH_DD_BWS_LOG_PREFS    (ddLogLevel = [BWSDDLog readBWSDDLogPreferenceLevel])
 
@@ -32,6 +34,8 @@
 #define DDLogBWSMotion(frmt, ...)   REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_MOTION, 0, ([NSString stringWithFormat:@"<ML> %@", frmt]), ##__VA_ARGS__)
 /// Log network information
 #define DDLogBWSNetwork(frmt, ...)  REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_NETWORK, 0, ([NSString stringWithFormat:@"<NL> %@", frmt]), ##__VA_ARGS__)
+/// Log device-level sequence issues
+#define DDLogBWSDevice(frmt, ...)   REFRESH_DD_BWS_LOG_PREFS; ASYNC_LOG_OBJC_MAYBE(ddLogLevel, LOG_FLAG_BWS_NETWORK, 0, ([NSString stringWithFormat:@"<DL> %@", frmt]), ##__VA_ARGS__)
 
 @interface BWSDDLog : NSObject
 

@@ -6,9 +6,13 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#include "DDLog.h"
+
 #import "BWSAppDelegate.h"
 
 #import "BWSViewController.h"
+
+static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 @interface BWSAppDelegate()
 - (void)initializeSettings;
@@ -193,7 +197,7 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
          
          */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    
     
@@ -210,7 +214,7 @@
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
          */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 
@@ -232,6 +236,8 @@
         [defaults setBool:kSettingsNetworkLoggingEnabledDefault forKey:kSettingsNetworkLoggingEnabled];
     if ([defaults objectForKey:kSettingsTouchLoggingEnabled] == nil)
         [defaults setBool:kSettingsTouchLoggingEnabledDefault forKey:kSettingsTouchLoggingEnabled];
+    if ([defaults objectForKey:kSettingsDeviceLoggingEnabled] == nil)
+        [defaults setBool:kSettingsDeviceLoggingEnabledDefault forKey:kSettingsDeviceLoggingEnabled];
     if ([defaults objectForKey:kSettingsAdvancedOptionsEnabled] == nil)
         [defaults setBool:NO forKey:kSettingsAdvancedOptionsEnabled];
     

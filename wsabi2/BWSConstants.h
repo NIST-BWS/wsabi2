@@ -172,12 +172,17 @@ static NSString * const kSettingsMotionLoggingEnabled = @"motionLoggingEnabled";
 static const BOOL kSettingsMotionLoggingEnabledDefault = YES;
 /// Key for enabling/disabling network logging
 static NSString * const kSettingsNetworkLoggingEnabled = @"networkLoggingEnabled";
-/// Default value for network loggin
+/// Default value for network logging
 static const BOOL kSettingsNetworkLoggingEnabledDefault = YES;
 /// Key for showing/hiding logging panel
 static NSString * const kSettingsLoggingPanelEnabled = @"loggingPanelEnabled";
 /// Default value for showing the logging panel
 static const BOOL kSettingsLoggingPanelEnabledDefault = NO;
+/// Key for enabling/disabling device debug logging
+static NSString * const kSettingsDeviceLoggingEnabled = @"deviceLoggingEnabled";
+/// Default value for device debug logging
+static const BOOL kSettingsDeviceLoggingEnabledDefault = YES;
+
 
 #pragma mark - CoreData
 

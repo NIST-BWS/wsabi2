@@ -23,6 +23,8 @@
         logLevel |= LOG_FLAG_BWS_MOTION;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsNetworkLoggingEnabled])
         logLevel |= LOG_FLAG_BWS_NETWORK;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsDeviceLoggingEnabled])
+        logLevel |= LOG_FLAG_BWS_DEVICE;
     
     // To quiesce unused variable warning
     ddLogLevel = logLevel;
