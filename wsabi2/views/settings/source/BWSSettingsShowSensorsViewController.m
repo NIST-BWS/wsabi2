@@ -13,11 +13,9 @@
 #import "BWSModalityMap.h"
 #import "BWSSettingsAddSensorViewController.h"
 #import "BWSConstants.h"
-#import "DDLog.h"
+#import "BWSDDLog.h"
 
 #import "BWSSettingsShowSensorsViewController.h"
-
-static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 @interface BWSSettingsShowSensorsViewController ()
 
@@ -177,7 +175,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSError *error = nil;
     NSArray *retrievedSensors = [moc executeFetchRequest:request error:&error];
     if (error != nil || retrievedSensors == nil)
-        DDLogError(@"%@", [error description]);
+        DDLogBWSVerbose(@"%@", [error description]);
     
     return (retrievedSensors);
 }

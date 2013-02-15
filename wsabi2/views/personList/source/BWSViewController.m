@@ -11,9 +11,7 @@
 #import "BWSAppDelegate.h"
 #import "NSManagedObject+DeepCopy.h"
 #import "BWSSettingsViewController.h"
-#import "DDLog.h"
-
-static const int ddLogLevel = LOG_LEVEL_ERROR;
+#import "BWSDDLog.h"
 
 @implementation BWSViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -526,7 +524,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          
 	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	     */
-	    DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+	    DDLogBWSVerbose(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
     
@@ -629,7 +627,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
          */
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogBWSVerbose(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 }
