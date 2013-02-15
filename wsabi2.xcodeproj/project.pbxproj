@@ -15,9 +15,9 @@
 		0816042E15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816042C15DEC5060055D27F /* BreadcrumbButtonEndCap@2x.png */; };
 		0816043A15DECB320055D27F /* annotate_pencil_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043815DECB320055D27F /* annotate_pencil_left.png */; };
 		0816043B15DECB320055D27F /* annotate_pencil_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0816043915DECB320055D27F /* annotate_pencil_left@2x.png */; };
-		082C8748163AD4930049AB59 /* WSSettingsAddSensorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8745163AD4930049AB59 /* WSSettingsAddSensorView.xib */; };
-		082C8749163AD4930049AB59 /* WSSettingsShowSensorsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8746163AD4930049AB59 /* WSSettingsShowSensorsView.xib */; };
-		082C874A163AD4930049AB59 /* WSSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8747163AD4930049AB59 /* WSSettingsView.xib */; };
+		082C8748163AD4930049AB59 /* BWSSettingsAddSensorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8745163AD4930049AB59 /* BWSSettingsAddSensorView.xib */; };
+		082C8749163AD4930049AB59 /* BWSSettingsShowSensorsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8746163AD4930049AB59 /* BWSSettingsShowSensorsView.xib */; };
+		082C874A163AD4930049AB59 /* BWSSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C8747163AD4930049AB59 /* BWSSettingsView.xib */; };
 		082C875F163AD56D0049AB59 /* BWSDeviceChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875B163AD56D0049AB59 /* BWSDeviceChooserController.xib */; };
 		082C8760163AD56D0049AB59 /* BWSDeviceSetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875C163AD56D0049AB59 /* BWSDeviceSetupController.xib */; };
 		082C8761163AD56D0049AB59 /* BWSModalityChooserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 082C875D163AD56D0049AB59 /* BWSModalityChooserController.xib */; };
@@ -228,9 +228,9 @@
 		082C8742163AD4840049AB59 /* BWSSettingsAddSensorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsAddSensorViewController.h; path = views/settings/headers/BWSSettingsAddSensorViewController.h; sourceTree = "<group>"; };
 		082C8743163AD4840049AB59 /* BWSSettingsShowSensorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsShowSensorsViewController.h; path = views/settings/headers/BWSSettingsShowSensorsViewController.h; sourceTree = "<group>"; };
 		082C8744163AD4840049AB59 /* BWSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsViewController.h; path = views/settings/headers/BWSSettingsViewController.h; sourceTree = "<group>"; };
-		082C8745163AD4930049AB59 /* WSSettingsAddSensorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsAddSensorView.xib; path = views/settings/nibs/WSSettingsAddSensorView.xib; sourceTree = "<group>"; };
-		082C8746163AD4930049AB59 /* WSSettingsShowSensorsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsShowSensorsView.xib; path = views/settings/nibs/WSSettingsShowSensorsView.xib; sourceTree = "<group>"; };
-		082C8747163AD4930049AB59 /* WSSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSSettingsView.xib; path = views/settings/nibs/WSSettingsView.xib; sourceTree = "<group>"; };
+		082C8745163AD4930049AB59 /* BWSSettingsAddSensorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSSettingsAddSensorView.xib; path = views/settings/nibs/BWSSettingsAddSensorView.xib; sourceTree = "<group>"; };
+		082C8746163AD4930049AB59 /* BWSSettingsShowSensorsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSSettingsShowSensorsView.xib; path = views/settings/nibs/BWSSettingsShowSensorsView.xib; sourceTree = "<group>"; };
+		082C8747163AD4930049AB59 /* BWSSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSSettingsView.xib; path = views/settings/nibs/BWSSettingsView.xib; sourceTree = "<group>"; };
 		082C875B163AD56D0049AB59 /* BWSDeviceChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSDeviceChooserController.xib; path = views/deviceConfig/nibs/BWSDeviceChooserController.xib; sourceTree = "<group>"; };
 		082C875C163AD56D0049AB59 /* BWSDeviceSetupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSDeviceSetupController.xib; path = views/deviceConfig/nibs/BWSDeviceSetupController.xib; sourceTree = "<group>"; };
 		082C875D163AD56D0049AB59 /* BWSModalityChooserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSModalityChooserController.xib; path = views/deviceConfig/nibs/BWSModalityChooserController.xib; sourceTree = "<group>"; };
@@ -543,9 +543,9 @@
 		082C8734163AD26D0049AB59 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				082C8745163AD4930049AB59 /* WSSettingsAddSensorView.xib */,
-				082C8746163AD4930049AB59 /* WSSettingsShowSensorsView.xib */,
-				082C8747163AD4930049AB59 /* WSSettingsView.xib */,
+				082C8745163AD4930049AB59 /* BWSSettingsAddSensorView.xib */,
+				082C8746163AD4930049AB59 /* BWSSettingsShowSensorsView.xib */,
+				082C8747163AD4930049AB59 /* BWSSettingsView.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -1257,9 +1257,9 @@
 				08C7D3E1161DFC6000A9AC04 /* blue_info_badge.png in Resources */,
 				08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */,
 				080C19371624747E00A8E1AD /* Settings.bundle in Resources */,
-				082C8748163AD4930049AB59 /* WSSettingsAddSensorView.xib in Resources */,
-				082C8749163AD4930049AB59 /* WSSettingsShowSensorsView.xib in Resources */,
-				082C874A163AD4930049AB59 /* WSSettingsView.xib in Resources */,
+				082C8748163AD4930049AB59 /* BWSSettingsAddSensorView.xib in Resources */,
+				082C8749163AD4930049AB59 /* BWSSettingsShowSensorsView.xib in Resources */,
+				082C874A163AD4930049AB59 /* BWSSettingsView.xib in Resources */,
 				082C875F163AD56D0049AB59 /* BWSDeviceChooserController.xib in Resources */,
 				082C8760163AD56D0049AB59 /* BWSDeviceSetupController.xib in Resources */,
 				082C8761163AD56D0049AB59 /* BWSModalityChooserController.xib in Resources */,
