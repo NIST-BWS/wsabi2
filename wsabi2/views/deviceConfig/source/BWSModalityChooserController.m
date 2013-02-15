@@ -7,6 +7,7 @@
 // about its quality, reliability, or any other characteristic.
 
 #import "BWSModalityChooserController.h"
+#import "BWSDDLog.h"
 
 @implementation BWSModalityChooserController
 @synthesize item;
@@ -211,7 +212,7 @@
     BWSSubmodalityChooserController *subChooser = [[BWSSubmodalityChooserController alloc] initWithNibName:@"BWSSubmodalityChooserController" bundle:nil];
     subChooser.modality = indexPath.row;
     
-    NSLog(@"Walkthrough setting modality to %@",[BWSModalityMap stringForModality:subChooser.modality]);
+    DDLogBWSVerbose(@"Walkthrough setting modality to %@",[BWSModalityMap stringForModality:subChooser.modality]);
 //    //set the item's modality string to match the chosen object
 //    self.item.modality = [WSModalityMap stringForModality:indexPath.row];
     

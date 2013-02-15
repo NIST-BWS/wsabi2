@@ -379,7 +379,7 @@
 {
     BWSCDItem *foundItem = [orderedItems objectAtIndex:deletableItem];
 	if (foundItem == nil) {
-        NSLog(@"Tried to remove a nonexistent item at index %d", deletableItem);
+        DDLogBWSVerbose(@"Tried to remove a nonexistent item at index %d", deletableItem);
         return;
     }
     
@@ -471,7 +471,7 @@
 -(IBAction)addItemButtonPressed:(id)sender
 {
     if (!self.person) {
-        NSLog(@"Tried to add a capture item to a nil WSCDPerson...ignoring.");
+        DDLogBWSVerbose(@"%@", @"Tried to add a capture item to a nil WSCDPerson...ignoring.");
         return;
     }
     
@@ -755,7 +755,7 @@
 
 -(void) showCapturePopoverAtIndex:(int) index
 {
-    NSLog(@"Asking to show popover for item at index %d",index);
+    DDLogBWSVerbose(@"Asking to show popover for item at index %d",index);
     ((UITableView*)self.superview).scrollEnabled = NO;
     
     // Force a redraw of the popover so that orientation is not reused
@@ -867,7 +867,7 @@
     }
     else
     {
-        NSLog(@"Tried to show capture popover for an invalid item index: %d",index);
+        DDLogBWSVerbose(@"Tried to show capture popover for an invalid item index: %d",index);
         ((UITableView*)self.superview).scrollEnabled = YES;
     }
 }

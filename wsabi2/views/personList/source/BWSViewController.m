@@ -220,7 +220,7 @@
     
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
-        NSLog(@"Asking current cell to show capture popover");
+        DDLogBWSVerbose(@"%@", @"Asking current cell to show capture popover");
         BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         
         [activeCell showCapturePopoverForItem:sourceItem];
@@ -256,17 +256,17 @@
     BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
     
     if (!item) {
-        NSLog(@"Requested capture for a nonexistant item. Ignoring...");
+        DDLogBWSVerbose(@"%@", @"Requested capture for a nonexistant item. Ignoring...");
         return;
     }
     
-    NSLog(@"Requested capture to start for item %@",item.description);
+    DDLogBWSVerbose(@"Requested capture to start for item %@",item.description);
     
     //Get a reference to this link
     BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
     
     if (!link) {
-        NSLog(@"startItemCapture couldn't find a sensor link for URI %@. Ignoring.",item.deviceConfig.uri);
+        DDLogBWSVerbose(@"startItemCapture couldn't find a sensor link for URI %@. Ignoring.",item.deviceConfig.uri);
         return;
     }
     
@@ -279,7 +279,7 @@
         startedOK = [link beginFullSequenceWithConfigurationParams:params
                                                        withMaxSize:kMaxImageSize deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
-            NSLog(@"BWSViewController::startItemCapture couldn't start the full sequence.");
+            DDLogBWSVerbose(@"%@", @"BWSViewController::startItemCapture couldn't start the full sequence.");
         }
         
     }
@@ -290,10 +290,10 @@
                                                  withMaxSize:kMaxImageSize
                                                     deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
         if (!startedOK) {
-            NSLog(@"BWSViewController::startItemCapture couldn't start the config-capture-download sequence.");
+            DDLogBWSVerbose(@"%@",@"BWSViewController::startItemCapture couldn't start the config-capture-download sequence.");
         }
         else {
-            NSLog(@"BWSViewController::startItemCapture started the config-capture-download sequence successfully.");
+            DDLogBWSVerbose(@"%@",@"BWSViewController::startItemCapture started the config-capture-download sequence successfully.");
         }
         
     }
@@ -303,7 +303,7 @@
 -(void) stopItemCapture:(NSNotification *)notification
 {
     BWSCDItem *item = [notification.userInfo objectForKey:kDictKeyTargetItem];
-    NSLog(@"Requested capture to stop for item %@",item.description);
+    DDLogBWSVerbose(@"Requested capture to stop for item %@",item.description);
     
     //Get a reference to this link
     BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];

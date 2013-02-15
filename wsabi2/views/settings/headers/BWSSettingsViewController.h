@@ -47,7 +47,7 @@ static NSString * const kWSSettingsLoggingNetworkLoggingRowLabel = @"Network Log
 /// Label for device logging settings row
 static NSString * const kWSSettingsLoggingDeviceLoggingRowLabel = @"Device Event Logging";
 /// Label for verbose logging settings row
-static NSString * const kWSSettingsLoggingVerboseLoggingRowLabel = @"Debug Logging";
+static NSString * const kWSSettingsLoggingVerboseLoggingRowLabel = @"Verbose Logging";
 /// Label for showing the logging panel row
 static NSString * const kWSSettingsLoggingShowLoggingPanelRowLabel = @"Show Logging Panel";
 /// Label for showing saved logs row

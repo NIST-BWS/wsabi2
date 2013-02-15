@@ -131,7 +131,6 @@
     }
     
     if (self.placeholderLabel.text.length > 11){
-        NSLog(@"%@", self.placeholderLabel.text);
         self.placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.placeholderLabel.numberOfLines = 2;    }
     else {

@@ -8,6 +8,7 @@
 
 #import "BWSDeviceSetupController.h"
 #import "BWSAppDelegate.h"
+#import "BWSDDLog.h"
 
 #define STATUS_CONTAINER_HEIGHT 95
 
@@ -294,7 +295,7 @@
     self.item.modality = [BWSModalityMap stringForModality:self.modality];
     self.item.submodality = [BWSModalityMap stringForCaptureType:self.submodality];
     
-    NSLog(@"About to store an item with modality %@ and submodality %@",[BWSModalityMap stringForModality:self.modality],[BWSModalityMap stringForCaptureType:self.submodality]);
+    DDLogBWSVerbose(@"About to store an item with modality %@ and submodality %@",[BWSModalityMap stringForModality:self.modality],[BWSModalityMap stringForCaptureType:self.submodality]);
     
     UITextField *networkField = (UITextField*)[self.tableView viewWithTag:TAG_NETWORK_ADDRESS];
     self.deviceDefinition.uri = networkField.text;
@@ -617,7 +618,7 @@
         [currentLink cancelAllOperations];
     }
     
-    NSLog(@"checkSensor gets incoming object %@",(NSString*)timer.userInfo);
+    DDLogBWSVerbose(@"checkSensor gets incoming object %@",(NSString*)timer.userInfo);
     
     // Don't pass a nil string to BaseURI
     if ((timer.userInfo == nil) || [(NSString *)timer.userInfo isEqualToString:@""])
@@ -660,10 +661,10 @@
     
     NSMutableDictionary *serviceMetadata = result.metadata;
 
-    NSLog(@"Service metadata is %@ of class %@",result.metadata.description, [result.metadata class]);
+    DDLogBWSVerbose(@"Service metadata is %@ of class %@",result.metadata.description, [result.metadata class]);
     
     //These parameters are described in Appendix A of NIST SP 500-288
-    NSLog(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
+    DDLogBWSVerbose(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
     WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
     WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
     BOOL isSensorOperationCompleted = false;
@@ -678,8 +679,8 @@
         {
             //This sensor doesn't support the requested modality. operation complete.
             self.sensorCheckStatus = kStatusBadModality;
-            NSLog(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
-                  serviceModalityDefault);
+            DDLogBWSVerbose(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
+                            serviceModalityDefault);
             isSensorOperationCompleted = true;
         }
         else {
@@ -694,8 +695,8 @@
         
         BOOL modalityOK = NO;
         for (NSString *mod in serviceModalityAllowed) {
-            NSLog(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
-                  mod);
+            DDLogBWSVerbose(@"Expected modality %@, got %@",[BWSModalityMap stringForModality:self.modality],
+                            mod);
 
             if ([mod localizedCaseInsensitiveCompare:
                  [BWSModalityMap stringForModality:self.modality]] 
@@ -725,7 +726,7 @@
             {
                 //This sensor doesn't support the requested submodality.
                 self.sensorCheckStatus = kStatusBadSubmodality;
-                NSLog(@"Expected submodality %@, got %@",[BWSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
+                DDLogBWSVerbose(@"Expected submodality %@, got %@",[BWSModalityMap parameterNameForCaptureType:self.submodality], serviceSubmodalityDefault);
             }
             else {
                 //We're good.
@@ -739,7 +740,7 @@
             
             BOOL submodalityOK = NO;
             for (NSString *smod in serviceSubmodalityAllowed) {
-                NSLog(@"Expected submodality %@, got %@", [BWSModalityMap parameterNameForCaptureType:self.submodality], smod);
+                DDLogBWSVerbose(@"Expected submodality %@, got %@", [BWSModalityMap parameterNameForCaptureType:self.submodality], smod);
                 if ([smod localizedCaseInsensitiveCompare:
                      [BWSModalityMap parameterNameForCaptureType:self.submodality]] 
                     == NSOrderedSame)
