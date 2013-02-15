@@ -467,7 +467,6 @@
             cell = [[ELCTextFieldCellWide alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
         }
         cell.indexPath = indexPath;
-        cell.delegate = self;
         //Disables UITableViewCell from accidentally becoming selected.
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
@@ -567,40 +566,6 @@
 	ELCTextFieldCellWide *cell = (ELCTextFieldCellWide *)[aTableView cellForRowAtIndexPath:indexPath];
 	if (cell != nil)
 		[cell.rightTextField becomeFirstResponder];
-}
-
-#pragma mark ELCTextfieldCellWideDelegate Methods
-
--(void)textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
-    
-    //	if(indexPath.row < [labels count]-1) {
-    //		NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-    //		[[(ELCTextfieldCellWide*)[self.tableView cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder];
-    //		[self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    //	}
-    //	
-    //	else {
-    //        
-    //		[[(ELCTextfieldCellWide*)[self.tableView cellForRowAtIndexPath:indexPath] rightTextField] resignFirstResponder];
-    //	}
-}
-
-- (void)updateTextLabelAtIndexPath:(NSIndexPath*)indexPath string:(NSString*)string {
-    
-//	//NSLog(@"See input: %@ from section: %d row: %d, should update models appropriately", string, indexPath.section, indexPath.row);
-//    
-//    if (indexPath.section == 0) {
-//        //These are all string cells
-//        if (indexPath.row == 0) {
-//            //update the uri
-//            if(self.deviceDefinition) self.deviceDefinition.uri = string;
-//        }
-//        else if (indexPath.row == 1) {
-//            //update the name and the window title.
-//            self.title = string;
-//            if(self.deviceDefinition) self.deviceDefinition.name = string;
-//        }
-//    }
 }
 
 #pragma mark - UITextField Delegate methods

@@ -193,8 +193,6 @@
             if (cell == nil) {
                 cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
-                //connect the text field delegate so we can log the text field itself.
-                //cell.rightTextField.delegate = self;
             }
             //Common setup for all text cells
             cell.indexPath = indexPath;
@@ -251,7 +249,6 @@
                     break;
             }
             [cell setAccessibilityLabel:cell.leftLabel.text];
-            [[cell rightTextField] setDelegate:self];
             [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
             return cell;
@@ -355,8 +352,7 @@
             if (cell == nil) {
                 cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
-                //connect the text field delegate so we can log the text field itself.
-                //cell.rightTextField.delegate = self;
+
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -382,8 +378,6 @@
             if (cell == nil) {
                 cell = [[ELCTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringCell];
                 [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
-                //connect the text field delegate so we can log the text field itself.
-                //cell.rightTextField.delegate = self;
             }
             cell.indexPath = indexPath;
             cell.delegate = self;
@@ -586,40 +580,35 @@
         [[textCell rightTextField] logTextEntryBegan];
 }
 
--(void) textFieldDidEndEditingWithIndexPath:(NSIndexPath *)indexPath
+- (void)textFieldCell:(ELCTextFieldCell *)inCell updateTextLabelAtIndexPath:(NSIndexPath *)inIndexPath string:(NSString *)inValue
 {
-    ELCTextFieldCell *textCell = (ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
-    
-    [self updateTextLabelAtIndexPath:indexPath string:[textCell.rightTextField text]];
-    
-    //Log this.
-    if (textCell)
-        [[textCell rightTextField] logTextEntryEnded];
+	[self updateTextLabelAtIndexPath:inIndexPath string:inValue];
 }
 
+- (BOOL)textFieldCell:(ELCTextFieldCell *)inCell shouldReturnForIndexPath:(NSIndexPath*)inIndexPath withValue:(NSString *)inValue
+{    
+    [self updateTextLabelAtIndexPath:inIndexPath string:inValue];
 
--(void) textFieldDidReturnWithIndexPath:(NSIndexPath*)indexPath {
-    
-    ELCTextFieldCell *textCell = (ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:indexPath];
-    
-//    //Log this.
-//    [[textCell rightTextField] logTextFieldEnded:indexPath];
-    
-    int rowIndex = indexPath.row;
-	while(rowIndex < [self tableView:self.bioDataTable numberOfRowsInSection:indexPath.section] - 1) {
-		NSIndexPath *path = [NSIndexPath indexPathForRow:rowIndex+1 inSection:indexPath.section];
+    // Select next row
+    int rowIndex = inIndexPath.row;
+	while(rowIndex < [self tableView:self.bioDataTable numberOfRowsInSection:inIndexPath.section] - 1) {
+		NSIndexPath *path = [NSIndexPath indexPathForRow:rowIndex+1 inSection:inIndexPath.section];
         //If there's another text field in this section, choose it.
         if([[self.bioDataTable cellForRowAtIndexPath:path] isKindOfClass:[ELCTextFieldCell class]])
         {    
             [[(ELCTextFieldCell*)[self.bioDataTable cellForRowAtIndexPath:path] rightTextField] becomeFirstResponder]; 
             [self.bioDataTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            return; //don't resign first responder.
+            return (YES); //don't resign first responder.
         }
         rowIndex++; //if we didn't find anything, keep going until we hit the end of the section.
 	}
 	//otherwise, just resign first responder.
-	[[textCell rightTextField] resignFirstResponder];
-        
+	[[inCell rightTextField] resignFirstResponder];
+    
+    //Log this.
+    if (inCell)
+        [[inCell rightTextField] logTextEntryEnded];
+    return (YES);
 }
 
 - (void)updateTextLabelAtIndexPath:(NSIndexPath*)indexPath string:(NSString*)string {
