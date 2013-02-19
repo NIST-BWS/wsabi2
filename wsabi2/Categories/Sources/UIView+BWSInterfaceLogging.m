@@ -122,14 +122,12 @@ static int ddLogLevel;
             logString = [[NSMutableString alloc] initWithString:[self logGenericBWSInterfaceEvent:kBWSInterfaceEventTypeScroll atPoint:[recognizer locationInView:self] withState:[UIView interfaceEventStateForGestureRecognizerState:[recognizer state]]]];
             CGPoint velocity = [recognizer velocityInView:self];
             [logString appendFormat:@" PPS:(%.0f, %.0f)", velocity.x, velocity.y];
+            DDLogBWSTouch(@"%@", logString);
             break;
         default:
             // Not interested
             break;
     }
-    
-    if (logString != nil)
-        DDLogBWSTouch(@"%@", logString);
 }
 
 - (void)BWSInterfaceEventLongPressDetected:(UILongPressGestureRecognizer *)recognizer
