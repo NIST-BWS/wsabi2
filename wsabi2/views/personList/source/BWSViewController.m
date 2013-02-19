@@ -31,6 +31,8 @@
 
 - (void)viewDidLoad
 {
+    keyboardShown = NO;
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
@@ -97,6 +99,9 @@
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self addFirstButton] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -106,6 +111,9 @@
     [[self tableView] stopLoggingBWSInterfaceEvents];
     [[self addFirstButton] stopLoggingBWSInterfaceEvents];
     [[self tableView] stopLoggingBWSInterfaceEvents];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
 
@@ -139,6 +147,10 @@
     if ([[self tableView] indexPathForSelectedRow] != nil)
         [[self tableView] scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
     
+    // Remove keyboard notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -157,6 +169,14 @@
     }
     if (wasBiographing)
         [cell biographicalDataButtonPressed:cell.biographicalDataButton];
+    
+    // Delay adding keyboard notifiers until keyboard has 
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardDidHideNotification object:nil];
+    });
 }
 
 #pragma mark - Notification action methods
@@ -701,6 +721,33 @@
     BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
     [self.view logPopoverControllerDismissed:aPopoverController];
+}
+
+#pragma mark - Keyboard Notifications
+
+- (void)keyboardWillAppear:(NSNotification *)notification
+{
+    // Shrink the tableview when showing keyboard in landscape mode
+    if (UIDeviceOrientationIsLandscape([self interfaceOrientation])) {
+        CGRect rect = self.tableView.frame;
+        rect.size.height -= 190;
+        [UIView animateWithDuration:0.3 animations:^(){ self.tableView.frame = rect; }];
+        [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+    }
+    keyboardShown = YES;
+}
+
+- (void)keyboardWillDisappear:(NSNotification *)notification
+{
+    NSLog(@"interfaceOrientation Orientation is %d", [self interfaceOrientation]);
+    if (UIDeviceOrientationIsLandscape([self interfaceOrientation])) {
+        NSLog(@"Landscape keyboardDisappear");
+        CGRect rect = self.tableView.frame;
+        rect.size.height += 190;
+        [UIView animateWithDuration:0.3 animations:^(){ self.tableView.frame = rect; }];
+        [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+    }
+    keyboardShown = NO;
 }
 
 @end
