@@ -69,6 +69,8 @@
 -(void) didChangeItem:(NSNotification*)notification;
 -(void) handleDownloadPosted:(NSNotification*)notification;
 
+- (void)dismissBiographicalPopover;
+
 @property (nonatomic, strong) BWSCDPerson *person;
 @property (nonatomic, strong) IBOutlet GMGridView *itemGridView;
 @property (nonatomic, strong) IBOutlet UIButton *biographicalDataButton;
@@ -92,6 +94,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *deletePersonOverlayViewDeleteButton;
 @property (nonatomic, strong) IBOutlet UIView *separatorView;
 
+@property (nonatomic, readonly) BOOL biographicalDataVisible;
 
 @property (nonatomic, unsafe_unretained) id<BWSPersonTableViewCellDelegate> delegate;
 

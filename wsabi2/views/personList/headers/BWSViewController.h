@@ -32,6 +32,7 @@ NSFetchedResultsControllerDelegate>
     BWSCDPerson* personBeingEdited;
     BOOL wasAnnotating;
     BOOL wasLightboxing;
+    BOOL wasBiographing;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;

@@ -426,6 +426,12 @@
     self.editing = YES;
 }
 
+- (void)dismissBiographicalPopover
+{
+    if (biographicalPopover != nil)
+        [biographicalPopover dismissPopoverAnimated:NO];
+}
+
 #pragma mark - Button Action Methods
 -(IBAction)biographicalDataButtonPressed:(id)sender
 {
@@ -464,7 +470,7 @@
                                        inView:self 
                      permittedArrowDirections:(UIPopoverArrowDirectionLeft) 
                                      animated:YES];
-
+    _biographicalDataVisible = YES;
     [self.biographicalDataButton logPopoverControllerPresented:biographicalPopover];
 }
 
@@ -1084,6 +1090,9 @@
 
     //make sure nothing is selected.
     [self selectItem:nil];
+    
+    if (_biographicalDataVisible)
+        _biographicalDataVisible = NO;
 }
 
 @end

@@ -130,7 +130,10 @@
     BWSPersonTableViewCell *cell = (BWSPersonTableViewCell *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]];
     wasAnnotating = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isAnnotating] == YES));
     wasLightboxing = ((cell != nil) && ([cell selectedIndex] != -1) && ([[cell captureController] isLightboxing] == YES));
+    wasBiographing = ((cell != nil) && [cell biographicalDataVisible]);
 
+    if (wasBiographing)
+        [cell dismissBiographicalPopover];
     
     // Scroll the row into visibility
     if ([[self tableView] indexPathForSelectedRow] != nil)
@@ -152,6 +155,8 @@
         if (wasLightboxing)
             [[cell captureController] showLightbox];
     }
+    if (wasBiographing)
+        [cell biographicalDataButtonPressed:cell.biographicalDataButton];
 }
 
 #pragma mark - Notification action methods
