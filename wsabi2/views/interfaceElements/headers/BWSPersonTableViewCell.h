@@ -16,8 +16,8 @@
 #import "BWSCaptureController.h"
 #import "BWSItemGridCell.h"
 #import "BWSModalityChooserController.h"
-#import "BWSPopoverBackgroundView.h"
 #import "BWSConstants.h"
+#import "GIKPopoverBackgroundView.h"
 
 @protocol BWSPersonTableViewCellDelegate <NSObject>
 

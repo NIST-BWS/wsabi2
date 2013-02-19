@@ -36,10 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    self.title = @"Biographical Info";
-    
+    [[self navigationController] setNavigationBarHidden:YES];
+        
     //Initialize the arrays to hold picker string values.
     genderStrings = [NSArray arrayWithObjects:@"",@"Male",@"Female",@"Unknown", nil];
     hairColorStrings = [NSArray arrayWithObjects:@"",@"Black",@"Brown",@"Blonde",@"Red",nil];

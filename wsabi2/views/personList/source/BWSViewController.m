@@ -50,7 +50,7 @@
     
     //initialize the popover controller that we're going to use for everything (use a dummy view controller to start)
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:[[UIViewController alloc] init]];
-    self.popoverController.popoverBackgroundViewClass = [BWSPopoverBackgroundView class];
+    self.popoverController.popoverBackgroundViewClass = [GIKPopoverBackgroundView class];
     self.popoverController.delegate = self;
     
     self.fetchedResultsController.delegate = self;
@@ -342,7 +342,7 @@
     
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsVC];
     popoverController = [[UIPopoverController alloc] initWithContentViewController:settingsNavigationController];
-    [popoverController setPopoverBackgroundViewClass:[BWSPopoverBackgroundView class]];
+    [popoverController setPopoverBackgroundViewClass:[GIKPopoverBackgroundView class]];
     [popoverController setDelegate:settingsVC];
     [popoverController presentPopoverFromBarButtonItem:[[self navigationItem] rightBarButtonItem] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     [[[self navigationItem] rightBarButtonItem] setStyle:UIBarButtonItemStyleDone];
