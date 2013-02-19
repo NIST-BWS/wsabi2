@@ -31,8 +31,6 @@
 
 - (void)viewDidLoad
 {
-    keyboardShown = NO;
-
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
@@ -734,20 +732,16 @@
         [UIView animateWithDuration:0.3 animations:^(){ self.tableView.frame = rect; }];
         [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
     }
-    keyboardShown = YES;
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
 {
-    NSLog(@"interfaceOrientation Orientation is %d", [self interfaceOrientation]);
     if (UIDeviceOrientationIsLandscape([self interfaceOrientation])) {
-        NSLog(@"Landscape keyboardDisappear");
         CGRect rect = self.tableView.frame;
         rect.size.height += 190;
         [UIView animateWithDuration:0.3 animations:^(){ self.tableView.frame = rect; }];
         [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
     }
-    keyboardShown = NO;
 }
 
 @end

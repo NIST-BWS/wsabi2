@@ -33,7 +33,6 @@ NSFetchedResultsControllerDelegate>
     BOOL wasAnnotating;
     BOOL wasLightboxing;
     BOOL wasBiographing;
-    BOOL keyboardShown;
 }
 
 -(void) presentSensorWalkthrough:(NSNotification*)notification;
