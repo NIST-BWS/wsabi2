@@ -214,10 +214,6 @@
     BWSCDPerson *person = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [person addItemsObject:sourceItem];
     
-    //FIXME: Unfortunately, launching the capture popover from here results in a popover that WILL NOT
-    //be dismissed when a grid cell is tapped. I have no idea why this is. To avoid it during testing,
-    //we're removing this call. Uncomment and fix whenever possible.
-    
     //If necessary, show the popover.
     if (shouldRestoreCapturePopover) {
         DDLogBWSVerbose(@"%@", @"Asking current cell to show capture popover");
@@ -230,10 +226,6 @@
     
     //save the context.
     [(BWSAppDelegate*)[[UIApplication sharedApplication] delegate] saveContext];
-    
-    
-    
-    
 }
 
 -(void) didCancelSensorWalkthrough:(NSNotification*)notification
