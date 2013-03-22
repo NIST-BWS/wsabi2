@@ -337,6 +337,8 @@
     
     NSString *titleString = nil;
     NSString *subtitleString = nil;
+    UIImage *greenCheckmark = [UIImage imageWithString:@"✅" font:[UIFont systemFontOfSize:30]];
+    [cell setIndentationWidth:greenCheckmark.size.width];
     [cell setIndentationLevel:0];
     [cell startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     
@@ -356,7 +358,7 @@
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
                             [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
-                            [[cell imageView] setImage:[UIImage imageWithString:@"✅" font:[UIFont systemFontOfSize:30]]];
+                            [[cell imageView] setImage:greenCheckmark];
                             [cell setIndentationLevel:0];
                         } else
                             [cell setIndentationLevel:1];
@@ -402,7 +404,7 @@
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
                             [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
-                            [[cell imageView] setImage:[UIImage imageWithString:@"✅" font:[UIFont systemFontOfSize:30]]];
+                            [[cell imageView] setImage:greenCheckmark];
                             [cell setIndentationLevel:0];
                         } else
                             [cell setIndentationLevel:1];
