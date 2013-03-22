@@ -114,7 +114,6 @@
 		EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA514DC3807002484CF /* CoreLocation.framework */; };
 		EA277AB314DC4092002484CF /* BWSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* BWSModalityMap.m */; };
-		EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AC414DC72C9002484CF /* checkmark-green.png */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
 		EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */; };
 		EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = EA277B0214EABF48002484CF /* PurchaseButtonBlue.png */; };
@@ -384,7 +383,6 @@
 		EA277AA514DC3807002484CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EA277AB114DC4092002484CF /* BWSModalityMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSModalityMap.h; path = NetworkCommunication/Headers/BWSModalityMap.h; sourceTree = "<group>"; };
 		EA277AB214DC4092002484CF /* BWSModalityMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSModalityMap.m; path = NetworkCommunication/Sources/BWSModalityMap.m; sourceTree = "<group>"; };
-		EA277AC414DC72C9002484CF /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark-green.png"; path = "Images/checkmark-green.png"; sourceTree = "<group>"; };
 		EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FirstResponder.h"; path = "Categories/Headers/UIView+FirstResponder.h"; sourceTree = "<group>"; };
 		EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FirstResponder.m"; path = "Categories/Sources/UIView+FirstResponder.m"; sourceTree = "<group>"; };
 		EA277AD014E1ACFD002484CF /* BreadcrumbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BreadcrumbButton.png; path = Images/BreadcrumbButton.png; sourceTree = "<group>"; };
@@ -929,7 +927,6 @@
 				EA939CEF153DDCA3005BDA47 /* cell-drop-shadow-down@2x.png */,
 				EA939CF0153DDCA3005BDA47 /* cell-drop-shadow-up.png */,
 				EA939CF1153DDCA3005BDA47 /* cell-drop-shadow-up@2x.png */,
-				EA277AC414DC72C9002484CF /* checkmark-green.png */,
 				EA939C71153C8ED3005BDA47 /* Delete.png */,
 				EA939C72153C8ED3005BDA47 /* Delete@2x.png */,
 				EA939C73153C8ED3005BDA47 /* DeleteRed.png */,
@@ -1182,7 +1179,6 @@
 				EA8A051214C877FE00199FF8 /* glossyButton-black-disabled.png in Resources */,
 				EA8A051314C877FE00199FF8 /* glossyButton-black-highlighted.png in Resources */,
 				EA8A051414C877FE00199FF8 /* glossyButton-black-normal.png in Resources */,
-				EA277AC514DC72C9002484CF /* checkmark-green.png in Resources */,
 				EA277AD114E1ACFD002484CF /* BreadcrumbButton.png in Resources */,
 				EA277B0414EABF48002484CF /* PurchaseButtonBlue.png in Resources */,
 				EA277B0514EABF48002484CF /* PurchaseButtonBluePressed.png in Resources */,

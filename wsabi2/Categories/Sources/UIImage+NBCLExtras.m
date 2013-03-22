@@ -47,4 +47,21 @@
     return scaledImage;
 }
 
++ (UIImage *)imageWithString:(NSString *)string font:(UIFont *)font
+{
+    CGSize frameSize = [string sizeWithFont:font];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frameSize.width, frameSize.height)];
+    [label setFont:font];
+    [label setOpaque:NO];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setText:string];
+    
+    UIGraphicsBeginImageContextWithOptions(frameSize, NO, 0.0);
+    [label.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *retVal = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return (retVal);
+}
+
 @end
