@@ -12,3 +12,6 @@ In addition to being a WS-BD reference implementation, wsabi collects touch logg
 Logs are saved as plain text files that can be retrieved from a device via iTunes File Sharing.  When connected to Xcode, logs are also printed to the console.
 
 The various types of logging can be toggled via the Settings popover, which is enabled via the system Settings app.
+
+##Bug Reporting
+Please report any and all bugs found as a [new GitHub Issue](https://github.com/NIST-BWS/wsabi2/issues/new) (after [checking that the issue has not already been added](https://github.com/NIST-BWS/wsabi2/issues?state=open)).  If the bug is a crash, please include the crash information logged in the most recent `Log-######.txt` file (retrieved via iTunes).
