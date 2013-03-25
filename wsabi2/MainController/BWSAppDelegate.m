@@ -10,6 +10,7 @@
 
 #import "BWSAppDelegate.h"
 
+#import "BWSCrashHandler.h"
 #import "BWSViewController.h"
 
 @interface BWSAppDelegate()
@@ -29,6 +30,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if !(TARGET_IPHONE_SIMULATOR)
+    [BWSCrashHandler setupCrashHandling];
+#endif
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[BWSViewController alloc] initWithNibName:@"BWSViewController" bundle:nil];

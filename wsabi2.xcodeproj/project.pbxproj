@@ -99,6 +99,7 @@
 		08CC85D015D43F1C0028890B /* modality-foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CA15D43F1C0028890B /* modality-foot@2x.png */; };
 		08CC85D115D43F1C0028890B /* modality-ear.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CB15D43F1C0028890B /* modality-ear.png */; };
 		08CC85D215D43F1C0028890B /* modality-ear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CC85CC15D43F1C0028890B /* modality-ear@2x.png */; };
+		08E4C8561700833A000DC32D /* BWSCrashHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4C855170082E2000DC32D /* BWSCrashHandler.m */; };
 		08F28AEC15C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */; };
 		08F28AED15C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */; };
 		08F28AEE15C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */; };
@@ -361,6 +362,8 @@
 		08CC85CA15D43F1C0028890B /* modality-foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-foot@2x.png"; path = "Images/Modalities/modality-foot@2x.png"; sourceTree = "<group>"; };
 		08CC85CB15D43F1C0028890B /* modality-ear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-ear.png"; path = "Images/Modalities/modality-ear.png"; sourceTree = "<group>"; };
 		08CC85CC15D43F1C0028890B /* modality-ear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modality-ear@2x.png"; path = "Images/Modalities/modality-ear@2x.png"; sourceTree = "<group>"; };
+		08E4C854170082E2000DC32D /* BWSCrashHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWSCrashHandler.h; sourceTree = "<group>"; };
+		08E4C855170082E2000DC32D /* BWSCrashHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWSCrashHandler.m; sourceTree = "<group>"; };
 		08F28AE615C01A3600025C3E /* UIAlertSheetDefaultCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultCancelButton.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultCancelButton.png; sourceTree = "<group>"; };
 		08F28AE715C01A3600025C3E /* UIAlertSheetDefaultCancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UIAlertSheetDefaultCancelButton@2x.png"; path = "Images/from_iOS_SDK/UIAlertSheetDefaultCancelButton@2x.png"; sourceTree = "<group>"; };
 		08F28AE815C01A3600025C3E /* UIAlertSheetDefaultDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UIAlertSheetDefaultDestroyButton.png; path = Images/from_iOS_SDK/UIAlertSheetDefaultDestroyButton.png; sourceTree = "<group>"; };
@@ -1102,6 +1105,8 @@
 				0862BDB616CEADA40032C14F /* BWSDDLog.m */,
 				EAF0F98514BC7B8C00544416 /* BWSAppDelegate.h */,
 				EAF0F98614BC7B8C00544416 /* BWSAppDelegate.m */,
+				08E4C854170082E2000DC32D /* BWSCrashHandler.h */,
+				08E4C855170082E2000DC32D /* BWSCrashHandler.m */,
 				EA8A051514C8936900199FF8 /* Categories */,
 				EA8E447214BC9C18007D9B43 /* Data Model */,
 				082C8733163AD2510049AB59 /* Views and ViewControllers */,
@@ -1379,6 +1384,7 @@
 				0806C13416B6F6F000842381 /* BWSDeviceLink.m in Sources */,
 				0840B17216BADC3700503071 /* NSURL+HTTP.m in Sources */,
 				0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */,
+				08E4C8561700833A000DC32D /* BWSCrashHandler.m in Sources */,
 				081293D716D3E61E0085B4D9 /* GIKPopoverBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
