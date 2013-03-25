@@ -573,6 +573,8 @@
 -(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     //allow the text change, and fire a delayed action to query the sensor about status.
+    if (textField.tag != TAG_NETWORK_ADDRESS)
+        return (YES);
     
     //If the timer is already running, cancel it.
     if (sensorCheckTimer.isValid) {
