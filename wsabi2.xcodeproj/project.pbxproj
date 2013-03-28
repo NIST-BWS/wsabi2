@@ -88,6 +88,7 @@
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
+		08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */; };
 		08B250FF168E2A6E00659E98 /* BWSLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */; };
 		08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B25100168E2A8600659E98 /* WSLightboxView.xib */; };
 		08BAA04315ED03110050FD88 /* BadgeBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */; };
@@ -350,6 +351,8 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+BWSUtilities.h"; path = "Categories/Sources/UITableView+BWSUtilities.h"; sourceTree = "<group>"; };
+		08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+BWSUtilities.m"; path = "Categories/Sources/UITableView+BWSUtilities.m"; sourceTree = "<group>"; };
 		08B250FD168E2A5C00659E98 /* BWSLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSLightboxViewController.h; path = views/personList/headers/BWSLightboxViewController.h; sourceTree = "<group>"; };
 		08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSLightboxViewController.m; path = views/personList/source/BWSLightboxViewController.m; sourceTree = "<group>"; };
 		08B25100168E2A8600659E98 /* WSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSLightboxView.xib; path = views/personList/nibs/WSLightboxView.xib; sourceTree = "<group>"; };
@@ -980,6 +983,8 @@
 				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
 				0840B17116BADC3700503071 /* NSURL+HTTP.m */,
+				08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */,
+				08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1386,6 +1391,7 @@
 				0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */,
 				08E4C8561700833A000DC32D /* BWSCrashHandler.m in Sources */,
 				081293D716D3E61E0085B4D9 /* GIKPopoverBackgroundView.m in Sources */,
+				08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

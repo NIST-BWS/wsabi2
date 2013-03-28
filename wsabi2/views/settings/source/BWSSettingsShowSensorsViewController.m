@@ -14,6 +14,7 @@
 #import "BWSSettingsAddSensorViewController.h"
 #import "BWSConstants.h"
 #import "BWSDDLog.h"
+#import "UITableView+BWSUtilities.h"
 
 #import "BWSSettingsShowSensorsViewController.h"
 
@@ -43,14 +44,19 @@
     
     UIBarButtonItem *addSensorButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSensor:)];
     [[self navigationItem] setRightBarButtonItem:addSensorButton];
+    
+    [self setSensors:[self retrieveAllSensors]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [self setSensors:[self retrieveAllSensors]];
     [[self tableView] reloadData];
     
-    [super viewWillAppear:animated];
+    self.navigationController.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    self.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - Events
@@ -130,16 +136,9 @@
         
         [tableView endUpdates];
     }
-}
-
-#pragma mark - Popover Settings
-
-- (CGSize)contentSizeForViewInPopover
-{
-    [[self view] sizeToFit];
     
-    // Ensure we don't make the popover taller than the screen
-    return (CGSizeMake([[self view] frame].size.width, MIN([[self view] frame].size.height, [[UIScreen mainScreen] bounds].size.height)));
+    self.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    self.navigationController.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
 }
 
 #pragma mark - CoreData Manipulation

@@ -10,6 +10,7 @@
 
 #import "BWSConstants.h"
 #import "BWSSettingsShowSensorsViewController.h"
+#import "UITableView+BWSUtilities.h"
 
 /// Tag for the switch in the table for touch logging
 static const NSUInteger kWSSettingsLoggingTouchLoggingSwitchTag = 1;
@@ -39,7 +40,18 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
 {
     [super viewDidLoad];
     
+    self.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    self.navigationController.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    
     [[self navigationItem] setTitle:NSLocalizedString(kWSSettingsLabel, nil)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    self.navigationController.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width, [self.tableView contentHeight]);
+    
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - TableView Delegate
@@ -136,6 +148,7 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
                 case kWSSettingsLoggingShowSavedLogsRow:
                     [[cell textLabel] setText:kWSSettingsLoggingShowSavedLogsRowLabel];
                     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    [cell setAccessoryView:nil];
                     break;
             }
             break;
@@ -145,6 +158,7 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
                 case kWSSettingsSensorsShowSensorsRow:
                     [[cell textLabel] setText:kWSSettingsSensorsShowSensorsRowLabel];
                     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    [cell setAccessoryView:nil];
                     break;
             }
             break;
@@ -180,14 +194,6 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
         default:
             return (@"");
     }
-}
-
-#pragma mark - Popover Settings
-
-- (CGSize)contentSizeForViewInPopover
-{
-    [[self view] sizeToFit];
-    return ([[self view] frame].size);
 }
 
 #pragma mark - Interface events

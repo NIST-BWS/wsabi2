@@ -41,6 +41,9 @@
     [self setSubmodalitiesForSelectedType:[[NSMutableArray alloc] init]];
     [[self submodalitiesForSelectedType] addObjectsFromArray:[BWSModalityMap captureTypesForModality:[[self pickerView] selectedRowInComponent:kWSSettingsAddSensorVCModalityComponent]]];
     [[self pickerView] reloadComponent:kWSSettingsAddSensorVCSubmodalityComponent];
+    
+    self.contentSizeForViewInPopover = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(self.pickerView.frame));
+    self.navigationController.contentSizeForViewInPopover = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(self.pickerView.frame));
 }
 
 #pragma mark - Events
@@ -116,13 +119,6 @@
         default:
             return (0);
     }
-}
-
-#pragma mark - Popover Settings
-
-- (CGSize)contentSizeForViewInPopover
-{
-    return (CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height));
 }
 
 #pragma mark - TextField Delegate
