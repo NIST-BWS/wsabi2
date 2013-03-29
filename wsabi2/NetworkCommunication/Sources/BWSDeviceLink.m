@@ -22,7 +22,6 @@
 
 @interface BWSDeviceLink ()
 
-@property (nonatomic, assign) NSInteger operationInProgress;
 @property (nonatomic, assign) NSInteger operationPendingCancellation;
 
 @property (nonatomic, assign) SensorSequenceType storedSequence;
@@ -147,7 +146,7 @@
                                       withError:error];
     }
     
-    [self setOperationInProgress:-1];
+    _operationInProgress = -1;
 }
 
 - (void)failedToParseWithParser:(NSXMLParser *)parser userInfo:(NSDictionary *)userInfo
@@ -161,7 +160,7 @@
                                       withError:[parser parserError]];
     }
     
-    [self setOperationInProgress:-1];
+    _operationInProgress = -1;
 }
 
 + (NSString *)stringForSensorOperationType:(SensorOperationType)opType
@@ -478,7 +477,7 @@
                                 sessionID:(NSString *)sessionID
                                parameters:(NSDictionary *)parameters
 {
-    [self setOperationInProgress:operation];
+    _operationInProgress = operation;
     return ([[self service] requestWithMethod:method
                                          path:[self pathForOperation:operation withSessionID:sessionID]
                                    parameters:parameters]);
@@ -520,7 +519,7 @@
         if (success != NULL)
             success(request, response, parser);
         
-        self.operationInProgress = -1;
+        _operationInProgress = -1;
     };
     
     void (^defaultFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) =

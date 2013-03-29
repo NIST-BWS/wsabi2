@@ -19,6 +19,9 @@
 @property (nonatomic, strong, readonly) NSURL *baseURI;
 /// Established Session ID with the service.
 @property (nonatomic, strong, readonly) NSString *currentSessionId;
+/// Operation currently being requested of a device by this client
+@property (nonatomic, assign, readonly) SensorOperationType operationInProgress;
+
 
 /// @brief
 /// Whether or not service registration procedure has completed.
