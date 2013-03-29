@@ -146,6 +146,7 @@
                                       withError:error];
     }
     
+    DDLogBWSDevice(@"Setting device state to NULL (was %@)", [BWSDeviceLink stringForSensorOperationType:self.operationInProgress]);
     _operationInProgress = -1;
 }
 
@@ -160,6 +161,7 @@
                                       withError:[parser parserError]];
     }
     
+    DDLogBWSDevice(@"Setting device state to NULL (was %@)", [BWSDeviceLink stringForSensorOperationType:self.operationInProgress]);
     _operationInProgress = -1;
 }
 
@@ -477,6 +479,7 @@
                                 sessionID:(NSString *)sessionID
                                parameters:(NSDictionary *)parameters
 {
+    DDLogBWSDevice(@"Setting device state to %@ (was %@)", [BWSDeviceLink stringForSensorOperationType:operation], [BWSDeviceLink stringForSensorOperationType:self.operationInProgress]);
     _operationInProgress = operation;
     return ([[self service] requestWithMethod:method
                                          path:[self pathForOperation:operation withSessionID:sessionID]
@@ -519,7 +522,10 @@
         if (success != NULL)
             success(request, response, parser);
         
-        _operationInProgress = -1;
+        if (_operationInProgress == operation) {
+            DDLogBWSDevice(@"Setting device state to NULL (was %@)", [BWSDeviceLink stringForSensorOperationType:self.operationInProgress]);
+            _operationInProgress = -1;
+        }
     };
     
     void (^defaultFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *parser) =
