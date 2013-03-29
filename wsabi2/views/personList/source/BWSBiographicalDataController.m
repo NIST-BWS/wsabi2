@@ -464,7 +464,7 @@
                                                                               target:self 
                                                                               action:@selector(dobSelected:element:) 
                                                                               origin:self.view];
-        
+        [self.view endEditing:YES];
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
         didShowActionSheet = YES;
@@ -478,6 +478,7 @@
                                                                             successAction:@selector(genderSelected:element:)
                                                                             cancelAction:nil 
                                                                                   origin:self.view];
+        [self.view endEditing:YES];
         picker.neverPresentInPopover = YES; //only show this in an action sheet.
         [picker showActionSheetPicker];
         didShowActionSheet = YES;
@@ -493,6 +494,7 @@
                                                                                 successAction:@selector(hairColorSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
+            [self.view endEditing:YES];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
             didShowActionSheet = YES;
@@ -506,6 +508,7 @@
                                                                                 successAction:@selector(raceSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
+            [self.view endEditing:YES];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
             didShowActionSheet = YES;
@@ -519,6 +522,7 @@
                                                                                 successAction:@selector(eyeColorSelected:element:)
                                                                                 cancelAction:nil 
                                                                                       origin:self.view];
+            [self.view endEditing:YES];
             picker.neverPresentInPopover = YES; //only show this in an action sheet.
             [picker showActionSheetPicker];
             didShowActionSheet = YES;
