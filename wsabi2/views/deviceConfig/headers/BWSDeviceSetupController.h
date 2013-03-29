@@ -49,8 +49,6 @@ typedef enum {
 -(IBAction)changeCaptureTypeButtonPressed:(id)sender;
 -(IBAction)tappedBehindView:(id)sender;
 
--(void) dismissKeyboard:(UITapGestureRecognizer*)recog;
-
 //Sensor interaction stuff
 -(void) checkSensor:(NSTimer*)timer;
 

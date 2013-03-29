@@ -89,6 +89,7 @@
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
 		08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */; };
+		08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */; };
 		08B250FF168E2A6E00659E98 /* BWSLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */; };
 		08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B25100168E2A8600659E98 /* WSLightboxView.xib */; };
 		08BAA04315ED03110050FD88 /* BadgeBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */; };
@@ -353,6 +354,8 @@
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
 		08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+BWSUtilities.h"; path = "Categories/Sources/UITableView+BWSUtilities.h"; sourceTree = "<group>"; };
 		08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+BWSUtilities.m"; path = "Categories/Sources/UITableView+BWSUtilities.m"; sourceTree = "<group>"; };
+		08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+BWSDismissKeyboard.h"; path = "Categories/Headers/UINavigationController+BWSDismissKeyboard.h"; sourceTree = "<group>"; };
+		08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+BWSDismissKeyboard.m"; path = "Categories/Sources/UINavigationController+BWSDismissKeyboard.m"; sourceTree = "<group>"; };
 		08B250FD168E2A5C00659E98 /* BWSLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSLightboxViewController.h; path = views/personList/headers/BWSLightboxViewController.h; sourceTree = "<group>"; };
 		08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSLightboxViewController.m; path = views/personList/source/BWSLightboxViewController.m; sourceTree = "<group>"; };
 		08B25100168E2A8600659E98 /* WSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSLightboxView.xib; path = views/personList/nibs/WSLightboxView.xib; sourceTree = "<group>"; };
@@ -705,6 +708,7 @@
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
 				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
 				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
+				08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */,
 				08FBD6441667F27200C01708 /* UIView+BWSInterfaceLogging.h */,
 				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
@@ -975,16 +979,17 @@
 				082C87A1163ADA6B0049AB59 /* headers */,
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
 				EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */,
+				0840B17116BADC3700503071 /* NSURL+HTTP.m */,
 				EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */,
 				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
+				08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */,
+				08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */,
+				08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */,
 				08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */,
 				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
 				EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */,
-				0840B17116BADC3700503071 /* NSURL+HTTP.m */,
-				08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */,
-				08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1392,6 +1397,7 @@
 				08E4C8561700833A000DC32D /* BWSCrashHandler.m in Sources */,
 				081293D716D3E61E0085B4D9 /* GIKPopoverBackgroundView.m in Sources */,
 				08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */,
+				08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

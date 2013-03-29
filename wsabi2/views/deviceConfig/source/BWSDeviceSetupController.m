@@ -6,6 +6,8 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "UINavigationController+BWSDismissKeyboard.h"
+
 #import "BWSDeviceSetupController.h"
 #import "BWSAppDelegate.h"
 #import "BWSDDLog.h"
@@ -96,12 +98,6 @@
                                     forState:UIControlStateNormal];
     [self.changeCaptureTypeButton setBackgroundImage:[[UIImage imageNamed:@"PurchaseButtonBluePressed"] stretchableImageWithLeftCapWidth:3 topCapHeight:0]
                                     forState:UIControlStateHighlighted];
-    
-    
-    //Add a gesture recognizer to dismiss the keyboard when tapping the table background
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
-    [self.tableView addGestureRecognizer:gestureRecognizer];
-    
     
     //Set up the basic sensor link.
     if (self.deviceDefinition && self.deviceDefinition.uri) {
@@ -421,16 +417,6 @@
     }
 }
 
--(void) dismissKeyboard:(UITapGestureRecognizer*)recog
-{
-    //find any active text field and make it resign the keyboard.
-    for (UITableViewCell *c in self.tableView.subviews) {
-        if ([c isKindOfClass:[ELCTextFieldCellWide class]]) {
-            [((ELCTextFieldCellWide*)c).rightTextField resignFirstResponder];
-        }
-    }
-
-}
 
 #pragma mark - Table view data source
 
@@ -484,6 +470,7 @@
             cell.rightTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             cell.rightTextField.autocorrectionType = UITextAutocorrectionTypeNo;
             cell.rightTextField.keyboardType = UIKeyboardTypeURL;
+            cell.rightTextField.returnKeyType = UIReturnKeyNext;
             cell.rightTextField.tag = TAG_NETWORK_ADDRESS;
         }
         else if (indexPath.row == 1) {
@@ -491,6 +478,7 @@
             if (self.deviceDefinition) {
                 cell.rightTextField.text = self.deviceDefinition.name;
                 cell.rightTextField.tag = TAG_NAME;
+                cell.rightTextField.returnKeyType = UIReturnKeyDone;
                 cell.rightTextField.keyboardType = UIKeyboardTypeAlphabet;
             }
         }
@@ -604,11 +592,21 @@
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
     [textField logTextEntryEnded];
-    [textField resignFirstResponder];
     
     // Apple removes gesture recognizers when resigning first responder
     [textField startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.tag == TAG_NETWORK_ADDRESS)
+        [[self.tableView viewWithTag:TAG_NAME] becomeFirstResponder];
+    else
+        [textField resignFirstResponder];
+    
+    return (YES);
+}
+
 
 #pragma mark - Sensor interaction stuff
 -(void) checkSensor:(NSTimer*)timer
