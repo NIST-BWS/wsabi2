@@ -136,8 +136,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     // "Next" button functionality
-    if (textField == self.nameField)
-        [self.addressField becomeFirstResponder];
+    if (textField == self.addressField)
+        [self.nameField becomeFirstResponder];
     else
         [textField resignFirstResponder];
     
