@@ -352,10 +352,10 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
-		08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+BWSUtilities.h"; path = "Categories/Sources/UITableView+BWSUtilities.h"; sourceTree = "<group>"; };
 		08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+BWSUtilities.m"; path = "Categories/Sources/UITableView+BWSUtilities.m"; sourceTree = "<group>"; };
 		08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+BWSDismissKeyboard.h"; path = "Categories/Headers/UINavigationController+BWSDismissKeyboard.h"; sourceTree = "<group>"; };
 		08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+BWSDismissKeyboard.m"; path = "Categories/Sources/UINavigationController+BWSDismissKeyboard.m"; sourceTree = "<group>"; };
+		08A54DA31705C31F005DBC96 /* UITableView+BWSUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+BWSUtilities.h"; path = "Categories/Headers/UITableView+BWSUtilities.h"; sourceTree = "<group>"; };
 		08B250FD168E2A5C00659E98 /* BWSLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSLightboxViewController.h; path = views/personList/headers/BWSLightboxViewController.h; sourceTree = "<group>"; };
 		08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSLightboxViewController.m; path = views/personList/source/BWSLightboxViewController.m; sourceTree = "<group>"; };
 		08B25100168E2A8600659E98 /* WSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSLightboxView.xib; path = views/personList/nibs/WSLightboxView.xib; sourceTree = "<group>"; };
@@ -709,6 +709,7 @@
 				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
 				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
 				08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */,
+				08A54DA31705C31F005DBC96 /* UITableView+BWSUtilities.h */,
 				08FBD6441667F27200C01708 /* UIView+BWSInterfaceLogging.h */,
 				EA8E9DA4150669D6005BB79F /* UIView+FindUIViewController.h */,
 				EA277AC614DC7B8E002484CF /* UIView+FirstResponder.h */,
@@ -985,7 +986,6 @@
 				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
 				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
 				08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */,
-				08A54D981704B0A4005DBC96 /* UITableView+BWSUtilities.h */,
 				08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */,
 				08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */,
 				EA8E9DA5150669D6005BB79F /* UIView+FindUIViewController.m */,
