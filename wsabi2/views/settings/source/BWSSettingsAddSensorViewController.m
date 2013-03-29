@@ -131,4 +131,15 @@
         [[[self navigationItem] rightBarButtonItem] setEnabled:NO];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // "Next" button functionality
+    if (textField == self.nameField)
+        [self.addressField becomeFirstResponder];
+    else
+        [textField resignFirstResponder];
+    
+    return (YES);
+}
+
 @end
