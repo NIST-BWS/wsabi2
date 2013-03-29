@@ -367,7 +367,6 @@
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             cell.accessibilityLabel = cell.leftLabel.text;
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
-            [[cell rightTextField] setDelegate:self];
             [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
             
             return cell;
@@ -392,7 +391,6 @@
             cell.rightTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             cell.accessibilityLabel = cell.leftLabel.text;
             [[cell rightTextField] setAccessibilityLabel:[cell accessibilityLabel]];
-            [[cell rightTextField] setDelegate:self];
             [[cell rightTextField] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
 
             return cell;
