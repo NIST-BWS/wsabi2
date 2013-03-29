@@ -125,10 +125,12 @@
 
 - (IBAction)textFieldContentsDidChange:(UITextField *)sender
 {
-    if (([[[self nameField] text] isEqualToString:@""] == NO) && ([[[self addressField] text] isEqualToString:@""] == NO))
-        [[[self navigationItem] rightBarButtonItem] setEnabled:YES];
-    else
-        [[[self navigationItem] rightBarButtonItem] setEnabled:NO];
+    if (sender == self.addressField) {
+	    if (([[sender text] isEqualToString:@""] == NO))
+	        [[[self navigationItem] rightBarButtonItem] setEnabled:YES];
+	    else
+	        [[[self navigationItem] rightBarButtonItem] setEnabled:NO];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

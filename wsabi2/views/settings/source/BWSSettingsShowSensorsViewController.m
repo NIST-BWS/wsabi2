@@ -85,7 +85,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     
     BWSCDDeviceDefinition *device = [[[self sensors] objectForKey:[NSNumber numberWithUnsignedInteger:indexPath.section]] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:[device name]];
+    if ((device.name == nil) || [device.name isEqualToString:@""])
+        [[cell textLabel] setText:@"<Unnamed>"];
+    else
+	    [[cell textLabel] setText:[device name]];
     if (device.item == NULL)
         [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@: %@", [device uri], NSLocalizedString(@"Unassociated", @"Not associated with any item")]];
     else
