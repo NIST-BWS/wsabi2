@@ -89,6 +89,7 @@
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
 		088530A915BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */; };
 		088530AC15BEC8120023102A /* UINavigationBarDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */; };
+		0891CD88170CBD26005DEE52 /* BWSPickerActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0891CD87170CBD26005DEE52 /* BWSPickerActionSheet.m */; };
 		08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */; };
 		08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */; };
 		08B250FF168E2A6E00659E98 /* BWSLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */; };
@@ -355,6 +356,8 @@
 		088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButtonPressed.png; path = Images/from_iOS_SDK/UINavigationBarDoneButtonPressed.png; sourceTree = "<group>"; };
 		088530A715BEC7F80023102A /* UINavigationBarDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UINavigationBarDoneButtonPressed@2x.png"; path = "Images/from_iOS_SDK/UINavigationBarDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		088530AB15BEC8120023102A /* UINavigationBarDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UINavigationBarDoneButton.png; path = Images/from_iOS_SDK/UINavigationBarDoneButton.png; sourceTree = "<group>"; };
+		0891CD86170CBD20005DEE52 /* BWSPickerActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSPickerActionSheet.h; path = views/interfaceElements/headers/BWSPickerActionSheet.h; sourceTree = "<group>"; };
+		0891CD87170CBD26005DEE52 /* BWSPickerActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSPickerActionSheet.m; path = views/interfaceElements/sources/BWSPickerActionSheet.m; sourceTree = "<group>"; };
 		08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+BWSUtilities.m"; path = "Categories/Sources/UITableView+BWSUtilities.m"; sourceTree = "<group>"; };
 		08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+BWSDismissKeyboard.h"; path = "Categories/Headers/UINavigationController+BWSDismissKeyboard.h"; sourceTree = "<group>"; };
 		08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+BWSDismissKeyboard.m"; path = "Categories/Sources/UINavigationController+BWSDismissKeyboard.m"; sourceTree = "<group>"; };
@@ -680,6 +683,7 @@
 				082C8798163AD9D70049AB59 /* BWSCaptureButton.m */,
 				082C8799163AD9D70049AB59 /* BWSItemGridCell.m */,
 				082C879A163AD9D70049AB59 /* BWSPersonTableViewCell.m */,
+				0891CD87170CBD26005DEE52 /* BWSPickerActionSheet.m */,
 			);
 			name = "Interface Elements";
 			sourceTree = "<group>";
@@ -699,6 +703,7 @@
 				082C8791163AD9C50049AB59 /* BWSCaptureButton.h */,
 				082C8792163AD9C50049AB59 /* BWSItemGridCell.h */,
 				082C8793163AD9C50049AB59 /* BWSPersonTableViewCell.h */,
+				0891CD86170CBD20005DEE52 /* BWSPickerActionSheet.h */,
 			);
 			name = headers;
 			sourceTree = "<group>";
@@ -1404,6 +1409,7 @@
 				08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */,
 				08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */,
 				084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */,
+				0891CD88170CBD26005DEE52 /* BWSPickerActionSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

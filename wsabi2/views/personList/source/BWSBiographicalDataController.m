@@ -6,7 +6,15 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSPickerActionSheet.h"
+
 #import "BWSBiographicalDataController.h"
+
+@interface BWSBiographicalDataController ()
+
+@property (nonatomic, strong) BWSPickerActionSheet *pickerActionSheet;
+
+@end
 
 @implementation BWSBiographicalDataController
 @synthesize bioDataTable;
@@ -51,6 +59,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) 
                                                  name:UIKeyboardDidShowNotification object:nil]; 
 
+    self.pickerActionSheet = [[BWSPickerActionSheet alloc] initInViewController:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -456,73 +465,64 @@
     //Certain cells need to respond to selection by displaying an additional chooser, etc.
     if (indexPath.section == kSectionBasic && indexPath.row == kRowDOB) {
         //For now, we're only allowing one date of birth.
-        ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:@"Date of Birth" 
-                                                                      datePickerMode:UIDatePickerModeDate 
-                                                                        selectedDate:[NSDate date] 
-                                                                              target:self 
-                                                                              action:@selector(dobSelected:element:) 
-                                                                              origin:self.view];
-        [self.view endEditing:YES];
-        picker.neverPresentInPopover = YES; //only show this in an action sheet.
-        [picker showActionSheetPicker];
+        [self.pickerActionSheet showDatePickerWithTitle:NSLocalizedString(@"Date of Birth", nil)
+                                            initialDate:([datesOfBirth count] > 0 ? [datesOfBirth objectAtIndex:0] : nil)
+                                           forIndexPath:indexPath
+                                                success:^(NSDate *date) {
+                                                    [self dobSelected:date element:nil];
+                                                }
+         ];
+
         didShowActionSheet = YES;
     }
     else if (indexPath.section == kSectionGender) {
         int initialPosition = self.person.gender ? [genderStrings indexOfObject:self.person.gender] : 0;
-        ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Gender"
-                                                                                    rows:genderStrings 
-                                                                        initialSelection:initialPosition
-                                                                                  target:self
-                                                                            successAction:@selector(genderSelected:element:)
-                                                                            cancelAction:nil 
-                                                                                  origin:self.view];
-        [self.view endEditing:YES];
-        picker.neverPresentInPopover = YES; //only show this in an action sheet.
-        [picker showActionSheetPicker];
+        [self.pickerActionSheet showPickerWithTitle:NSLocalizedString(@"Gender", nil)
+                                           captions:genderStrings
+                                       forIndexPath:indexPath
+                                     selectedValues:@[[NSIndexPath indexPathForRow:initialPosition inSection:0]]
+                                            success:^(NSArray *indexPaths, NSArray *captions) {
+                                                [self genderSelected:[NSNumber numberWithInteger:((NSIndexPath *)[indexPaths objectAtIndex:0]).row] element:nil];
+                                            }
+         ];
         didShowActionSheet = YES;
     }
     
     else if (indexPath.section == kSectionDescriptive) {
         if (indexPath.row == kRowHair) {
             int initialPosition = self.person.hairColor ? [hairColorStrings indexOfObject:self.person.hairColor] : 0;
-            ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Hair Color"
-                                                                                        rows:hairColorStrings 
-                                                                            initialSelection:initialPosition
-                                                                                      target:self
-                                                                                successAction:@selector(hairColorSelected:element:)
-                                                                                cancelAction:nil 
-                                                                                      origin:self.view];
-            [self.view endEditing:YES];
-            picker.neverPresentInPopover = YES; //only show this in an action sheet.
-            [picker showActionSheetPicker];
+            [self.pickerActionSheet showPickerWithTitle:NSLocalizedString(@"Hair Color", nil)
+                                               captions:hairColorStrings
+                                           forIndexPath:indexPath
+                                         selectedValues:@[[NSIndexPath indexPathForRow:initialPosition inSection:0]]
+                                                success:^(NSArray *indexPaths, NSArray *captions) {
+                                                    [self hairColorSelected:[NSNumber numberWithInteger:((NSIndexPath *)[indexPaths objectAtIndex:0]).row] element:nil];
+                                                }
+             ];
             didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowRace) {
             int initialPosition = self.person.race ? [raceStrings indexOfObject:self.person.race] : 0;
-            ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Race"
-                                                                                        rows:raceStrings 
-                                                                            initialSelection:initialPosition
-                                                                                      target:self
-                                                                                successAction:@selector(raceSelected:element:)
-                                                                                cancelAction:nil 
-                                                                                      origin:self.view];
-            [self.view endEditing:YES];
-            picker.neverPresentInPopover = YES; //only show this in an action sheet.
-            [picker showActionSheetPicker];
-            didShowActionSheet = YES;
+            [self.pickerActionSheet showPickerWithTitle:NSLocalizedString(@"Race", nil)
+                                               captions:raceStrings
+                                           forIndexPath:indexPath
+                                         selectedValues:@[[NSIndexPath indexPathForRow:initialPosition inSection:0]]
+                                                success:^(NSArray *indexPaths, NSArray *captions) {
+                                                    [self raceSelected:[NSNumber numberWithInteger:((NSIndexPath *)[indexPaths objectAtIndex:0]).row] element:nil];
+                                                }
+             ];
+             didShowActionSheet = YES;
          }
         else if (indexPath.row == kRowEyes) {
             int initialPosition = self.person.eyeColor ? [eyeColorStrings indexOfObject:self.person.eyeColor] : 0;
-            ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"Eye Color"
-                                                                                        rows:eyeColorStrings 
-                                                                            initialSelection:initialPosition
-                                                                                      target:self
-                                                                                successAction:@selector(eyeColorSelected:element:)
-                                                                                cancelAction:nil 
-                                                                                      origin:self.view];
-            [self.view endEditing:YES];
-            picker.neverPresentInPopover = YES; //only show this in an action sheet.
-            [picker showActionSheetPicker];
+            [self.pickerActionSheet showPickerWithTitle:NSLocalizedString(@"Eye Color", nil)
+                                               captions:eyeColorStrings
+                                           forIndexPath:indexPath
+                                         selectedValues:@[[NSIndexPath indexPathForRow:initialPosition inSection:0]]
+                                                success:^(NSArray *indexPaths, NSArray *captions) {
+                                                    [self eyeColorSelected:[NSNumber numberWithInteger:((NSIndexPath *)[indexPaths objectAtIndex:0]).row] element:nil];
+                                                }
+             ];
             didShowActionSheet = YES;
         }
         
@@ -693,11 +693,6 @@
     [self.bioDataTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:kRowEyes inSection:kSectionDescriptive]]
                              withRowAnimation:UITableViewRowAnimationFade];
 
-}
-
--(void) pickerDidCancel
-{
-    
 }
 
 #pragma mark - UITextField delegate
