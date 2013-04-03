@@ -55,13 +55,16 @@ static NSString * const kWSSettingsLoggingShowSavedLogsRowLabel = @"Show Saved L
 
 /// Rows within the sensors section
 typedef enum {
-    kWSSettingsSensorsShowSensorsRow = 0
+    kWSSettingsSensorsShowSensorsRow = 0,
+    kWSSettingsSensorsShowPendingOperationsRow = 1
 } kWSSettingsSensorsRows;
 /// Number of sensor section rows
-static const NSUInteger kWSSettingsSensorsRowsCount = 1;
+static const NSUInteger kWSSettingsSensorsRowsCount = 2;
 
 /// Label for showing sensors row
-static NSString *const kWSSettingsSensorsShowSensorsRowLabel = @"Show Sensors";
+static NSString * const kWSSettingsSensorsShowSensorsRowLabel = @"Show Sensors";
+/// Label for showing pending operations
+static NSString * const kWSSettingsSensorsShowPendingOperationsRowLabel = @"Show Pending Operations";
 
 @interface BWSSettingsViewController : UITableViewController <UIPopoverControllerDelegate>
 

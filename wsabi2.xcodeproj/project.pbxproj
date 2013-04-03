@@ -83,6 +83,7 @@
 		0847AB7016960F9E003395BE /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6A16960F9E003395BE /* ActionSheetStringPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7116960F9E003395BE /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6C16960F9E003395BE /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7816972045003395BE /* ELCTextFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862BDB616CEADA40032C14F /* BWSDDLog.m */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
@@ -345,6 +346,8 @@
 		0847AB6C16960F9E003395BE /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
 		0847AB7716972045003395BE /* ELCTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCell.h; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.h; sourceTree = "<group>"; };
 		0847AB7816972045003395BE /* ELCTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCell.m; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.m; sourceTree = "<group>"; };
+		084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSSettingsPendingOperationsViewController.m; path = views/settings/source/BWSSettingsPendingOperationsViewController.m; sourceTree = "<group>"; };
+		084893DD170AFDC100FD44A9 /* BWSSettingsPendingOperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsPendingOperationsViewController.h; path = views/settings/headers/BWSSettingsPendingOperationsViewController.h; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/BWSDeviceLinkDelegate.h; sourceTree = "<group>"; };
 		0862BDB516CEA6BF0032C14F /* BWSDDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSDDLog.h; sourceTree = "<group>"; };
@@ -572,6 +575,7 @@
 				082C8735163AD3030049AB59 /* headers */,
 				082C8734163AD26D0049AB59 /* NIBs */,
 				082C876F163AD5F80049AB59 /* BWSSettingsAddSensorViewController.m */,
+				084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */,
 				082C8770163AD5F80049AB59 /* BWSSettingsShowSensorsViewController.m */,
 				082C8771163AD5F80049AB59 /* BWSSettingsViewController.m */,
 			);
@@ -603,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				082C8742163AD4840049AB59 /* BWSSettingsAddSensorViewController.h */,
+				084893DD170AFDC100FD44A9 /* BWSSettingsPendingOperationsViewController.h */,
 				082C8743163AD4840049AB59 /* BWSSettingsShowSensorsViewController.h */,
 				082C8744163AD4840049AB59 /* BWSSettingsViewController.h */,
 			);
@@ -1398,6 +1403,7 @@
 				081293D716D3E61E0085B4D9 /* GIKPopoverBackgroundView.m in Sources */,
 				08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */,
 				08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */,
+				084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

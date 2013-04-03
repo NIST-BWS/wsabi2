@@ -9,6 +9,7 @@
 #import "BWSSettingsViewController.h"
 
 #import "BWSConstants.h"
+#import "BWSSettingsPendingOperationsViewController.h"
 #import "BWSSettingsShowSensorsViewController.h"
 #import "UITableView+BWSUtilities.h"
 
@@ -73,6 +74,11 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
                 case kWSSettingsSensorsShowSensorsRow: {
                     BWSSettingsShowSensorsViewController *sensorsVC = [[BWSSettingsShowSensorsViewController alloc] initWithNibName:@"BWSSettingsShowSensorsView" bundle:nil];
                     [[self navigationController] pushViewController:sensorsVC animated:YES];
+                    break;
+                }
+                case kWSSettingsSensorsShowPendingOperationsRow: {
+                    BWSSettingsPendingOperationsViewController *pendingVC = [[BWSSettingsPendingOperationsViewController alloc] initWithStyle:UITableViewStylePlain];
+                    [[self navigationController] pushViewController:pendingVC animated:YES];
                     break;
                 }
                 default:
@@ -157,6 +163,11 @@ static const NSUInteger kWSSettingsLoggingVerboseLoggingSwitchTag = 6;
             switch (indexPath.row) {
                 case kWSSettingsSensorsShowSensorsRow:
                     [[cell textLabel] setText:kWSSettingsSensorsShowSensorsRowLabel];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    [cell setAccessoryView:nil];
+                    break;
+                case kWSSettingsSensorsShowPendingOperationsRow:
+                    [[cell textLabel] setText:kWSSettingsSensorsShowPendingOperationsRowLabel];
                     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
                     [cell setAccessoryView:nil];
                     break;
