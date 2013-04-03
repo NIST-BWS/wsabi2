@@ -22,4 +22,6 @@
 //This will create a new link if one doesn't exist at the specified uri.
 - (BWSDeviceLink *) deviceForUri:(NSString*)uri;
 
+- (BOOL)isDeviceActiveWithUri:(NSString *)uri;
+
 @end

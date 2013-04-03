@@ -317,4 +317,9 @@
     DDLogBWSDevice(@"Link at %@ failed to complete a series of operations", link.baseURI);    
 }
 
+- (BOOL)isDeviceActiveWithUri:(NSString *)uri
+{
+    return ([devices objectForKey:uri] != nil);
+}
+
 @end
