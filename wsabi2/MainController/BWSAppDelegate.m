@@ -243,6 +243,8 @@
         [defaults setBool:kSettingsDeviceLoggingEnabledDefault forKey:kSettingsDeviceLoggingEnabled];
     if ([defaults objectForKey:kSettingsAdvancedOptionsEnabled] == nil)
         [defaults setBool:NO forKey:kSettingsAdvancedOptionsEnabled];
+    if ([defaults objectForKey:kSettingsCancelCaptureOnDismiss] == nil)
+        [defaults setBool:NO forKey:kSettingsCancelCaptureOnDismiss];
     if ([defaults objectForKey:kSettingsVerboseLoggingEnabled] == nil)
         [defaults setBool:kSettingsVerboseLoggingEnabledDefault forKey:kSettingsVerboseLoggingEnabled];
     

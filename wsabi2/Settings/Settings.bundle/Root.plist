@@ -5,6 +5,16 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>cancelCaptureOnDismiss</string>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>cancelCaptureOnDismiss</string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>

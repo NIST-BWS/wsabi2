@@ -161,6 +161,8 @@ typedef enum {
 
 /// Key for showing/hiding the advanced options button
 static NSString * const kSettingsAdvancedOptionsEnabled = @"advancedOptionsEnabled";
+/// Key for enabling/disabling auto-cancel of captures when capure card closed
+static NSString * kSettingsCancelCaptureOnDismiss = @"cancelCaptureOnDismiss";
 
 /// Key for enabling/disabling touch logging
 static NSString * const kSettingsTouchLoggingEnabled = @"touchLoggingEnabled";

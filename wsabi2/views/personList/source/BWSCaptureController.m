@@ -257,7 +257,17 @@
 {
     // Remove recognizer when view isn't visible
     [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-    
+
+
+    // Cancel existing capture requests
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingsCancelCaptureOnDismiss]) {
+        BWSDeviceLink *deviceLink = [[BWSDeviceLinkManager defaultManager] deviceForUri:item.deviceConfig.uri];
+        if ([deviceLink operationInProgress] == kOpTypeCapture) {
+            DDLogBWSVerbose(@"%@", @"CaptureController closing while Capture command active.  Attempting to cancel...");
+            [deviceLink cancel:deviceLink.currentSessionId deviceID:[item.objectID URIRepresentation]];
+        }
+    }
+
     [super viewWillDisappear:animated];
 }
 
