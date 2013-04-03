@@ -20,7 +20,6 @@
     NSMutableArray *recentSensors;
 }
 
--(IBAction) tappedBehindView:(id)sender;
 -(IBAction) currentButtonPressed:(id)sender;
 
 @property (nonatomic) BOOL autodiscoveryEnabled;
@@ -29,6 +28,5 @@
 
 @property (nonatomic, strong) BWSCDItem *item;
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
-@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 
 @end

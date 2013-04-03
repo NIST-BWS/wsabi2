@@ -14,12 +14,10 @@
 
 @interface BWSModalityChooserController : UITableViewController
 
--(IBAction) tappedBehindView:(id)sender;
 -(IBAction) currentButtonPressed:(id)sender;
 
 @property (nonatomic, strong) BWSCDItem *item;
 
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
-@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 
 @end

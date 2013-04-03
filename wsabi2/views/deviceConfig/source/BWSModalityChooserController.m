@@ -12,7 +12,6 @@
 @implementation BWSModalityChooserController
 @synthesize item;
 @synthesize currentButton;
-@synthesize tapBehindViewRecognizer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,33 +45,17 @@
                                                              target:self action:@selector(currentButtonPressed:)];
         self.navigationItem.rightBarButtonItem = self.currentButton;
     }
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    // Add recognizer to detect taps outside of the modal view
-    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
-    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
-    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
-    
     [self.view logViewPresented];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    // Remove recognizer when view isn't visible
-    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-    
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -89,31 +72,6 @@
 	return YES;
 }
 
-- (IBAction)tappedBehindView:(id)sender
-{
-    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        // Get coordinates in the window of tap
-        CGPoint location = [recognizer locationInView:nil];
-        
-        // Check if tap was within view
-        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
-            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-            
-            //post a notification to hide the device chooser and return to the previous state
-            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
-                                                                object:self
-                                                              userInfo:userInfo];
-            
-            [self.view logViewDismissedViaTapAtPoint:location];
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-    }
-}
-
 #pragma mark - Button action methods
 -(IBAction) currentButtonPressed:(id)sender
 {
@@ -125,6 +83,11 @@
     
     [self.navigationController pushViewController:subChooser animated:YES];
 
+}
+
+- (void)cancelButtonPressed:(id)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

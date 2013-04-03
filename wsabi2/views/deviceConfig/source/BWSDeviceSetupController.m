@@ -23,7 +23,6 @@
 @synthesize deviceDefinition;
 @synthesize modality;
 @synthesize submodality;
-@synthesize tapBehindViewRecognizer;
 
 //Status stuff
 @synthesize sensorCheckStatus;
@@ -118,11 +117,6 @@
 {
     [super viewDidAppear:animated];
     
-    // Add recognizer to detect taps outside of the modal view
-    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
-    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
-    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
-    
     [self.view logViewPresented];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
@@ -146,9 +140,6 @@
     //whatever the reason for disappearing, cancel all of our network operations
     [currentLink cancelAllOperations];    
     
-    // Remove recognizer when view isn't visible
-    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-    
     if ([sensorCheckTimer isValid])
         [sensorCheckTimer invalidate];
         
@@ -169,29 +160,9 @@
 	return YES;
 }
 
-- (IBAction)tappedBehindView:(id)sender
+- (void)closeView:(id)sender
 {
-    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        // Get coordinates in the window of tap
-        CGPoint location = [recognizer locationInView:nil];
-        
-        // Check if tap was within view
-        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
-            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-            
-            // Show popover controller that was hidden
-            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
-                                                                object:self
-                                                              userInfo:userInfo];
-            
-            [self.view logViewDismissedViaTapAtPoint:location];
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Property Getters/Setters
@@ -331,6 +302,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kCompleteWalkthroughNotification
                                                         object:self
                                                       userInfo:userInfo];
+}
+
+- (void)cancelButtonPressed:(id)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)cycleButtonPressed:(id)sender
@@ -767,5 +743,6 @@
 
 
 }
+
 
 @end

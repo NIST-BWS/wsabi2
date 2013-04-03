@@ -14,7 +14,6 @@
 @synthesize modality;
 @synthesize item;
 @synthesize currentButton;
-@synthesize tapBehindViewRecognizer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -42,11 +41,7 @@
     self.title = [BWSModalityMap stringForModality:self.modality];
     [self.view setAccessibilityLabel:@"Device Walkthrough -- Submodality View"];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)]];
     
     //If we have a valid stored modality and it matches, show the "keep it" button.
     if (self.item.managedObjectContext && self.item.submodality 
@@ -62,31 +57,13 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    // Add recognizer to detect taps outside of the modal view
-    [[self tapBehindViewRecognizer] setCancelsTouchesInView:NO];
-    [[self tapBehindViewRecognizer] setNumberOfTapsRequired:1];
-    [[[self view] window] addGestureRecognizer:[self tapBehindViewRecognizer]];
-    
     [self.view logViewPresented];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
     [[self tableView] startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeScroll];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    // Remove recognizer when view isn't visible
-    [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-    
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -122,29 +99,9 @@
     
 }
 
-- (IBAction)tappedBehindView:(id)sender
+- (void)cancelButtonPressed:(id)sender
 {
-    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer *)sender;
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        // Get coordinates in the window of tap
-        CGPoint location = [recognizer locationInView:nil];
-        
-        // Check if tap was within view
-        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
-            [[[self view] window] removeGestureRecognizer:[self tapBehindViewRecognizer]];
-         
-            // Show popover controller that was hidden
-            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:item forKey:kDictKeyTargetItem];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kCancelWalkthroughNotification
-                                                                object:self
-                                                              userInfo:userInfo];
-            
-            [self.view logViewDismissedViaTapAtPoint:location];
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

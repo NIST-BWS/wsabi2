@@ -22,8 +22,5 @@
 @property (nonatomic) WSSensorModalityType modality;
 @property (nonatomic, strong) BWSCDItem *item;
 @property (nonatomic, strong) UIBarButtonItem *currentButton;
-@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
-
-- (IBAction)tappedBehindView:(id)sender;
 
 @end
