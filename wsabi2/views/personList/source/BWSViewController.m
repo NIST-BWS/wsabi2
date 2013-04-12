@@ -88,6 +88,15 @@
                                                  name:kStopCaptureNotification
                                                object:nil];
     [[self tableView] setAccessibilityLabel:@"Person List"];
+
+    // Select last selected row
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSettingsLastSelectedRow] != nil) {
+        NSUInteger lastSelectedRow = [[[NSUserDefaults standardUserDefaults] objectForKey:kSettingsLastSelectedRow] unsignedIntegerValue];
+        if ([self.tableView numberOfRowsInSection:0] > lastSelectedRow) {
+	        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:lastSelectedRow inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+	        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:lastSelectedRow inSection:0]];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -485,6 +494,11 @@
 {
     selectedIndex = indexPath;
     
+    // Save the new selection
+    DDLogBWSVerbose(@"Setting last selected row as row %u.", indexPath.row);
+    [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row) forKey:kSettingsLastSelectedRow];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     [aTableView reloadData];
     
     //If this is a currently deselected row, scroll to it.

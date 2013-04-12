@@ -188,6 +188,8 @@ static const BOOL kSettingsDeviceLoggingEnabledDefault = YES;
 static NSString * const kSettingsVerboseLoggingEnabled = @"verboseLoggingEnabled";
 /// Default value for generic verbose  logging
 static const BOOL kSettingsVerboseLoggingEnabledDefault = YES;
+/// Last selected row
+static NSString * const kSettingsLastSelectedRow = @"kSettingsLastSelectedRow";
 
 
 #pragma mark - CoreData
