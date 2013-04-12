@@ -828,12 +828,12 @@
             //grab the lock and try to configure the sensor
             [link setConfiguration:link.currentSessionId
                      withParameters:params
-                           deviceID:[activeCell.item.objectID URIRepresentation]];
+                           deviceID:[targetItem.objectID URIRepresentation]];
         }
         else {
             //Something's up, and the sensor was not properly initialized. Try again, starting from reconnecting.
             [link beginConnectConfigureSequenceWithConfigurationParams:params
-                            deviceID:[activeCell.item.objectID URIRepresentation]];
+                            deviceID:[targetItem.objectID URIRepresentation]];
         }
         
         // No way to know the arrow direction until the popover is shown once,

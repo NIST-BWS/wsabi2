@@ -732,6 +732,7 @@
 {
     BWSPersonTableViewCell *activeCell = (BWSPersonTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     [activeCell selectItem:nil]; //clear selection
+    activeCell = nil;
     [self.view logPopoverControllerDismissed:aPopoverController];
 }
 
