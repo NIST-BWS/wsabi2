@@ -7,7 +7,6 @@
 // about its quality, reliability, or any other characteristic.
 
 #import <UIKit/UIKit.h>
-#import "UIImage+Resize.h"
 #import "BWSDeviceLinkManager.h"
 #import "GMGridView.h"
 #import "BWSCDPerson.h"

@@ -10,7 +10,12 @@
 
 
 @implementation UIImage (NBCLExtras)
-+ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize {
++ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
+{
+    return ([UIImage scaleImage:image toSize:targetSize withCornerRadius:0.0]);
+}
+
++ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize withCornerRadius:(CGFloat)cornerRadius {
     //If scaleFactor is not touched, no scaling will occur      
     CGFloat scaleFactor = 1.0;
     
@@ -36,6 +41,10 @@
     
     //Creating the rect where the scaled image is drawn in
     CGRect rect = CGRectMake(leftOffset, topOffset, newWidth, newHeight);
+
+    if (cornerRadius > 0.0)
+        // Clip on the maximum bounds, not the image size
+		[[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, targetSize.width, targetSize.height) cornerRadius:cornerRadius] addClip];
     
     //Draw the image into the rect
     [image drawInRect:rect];

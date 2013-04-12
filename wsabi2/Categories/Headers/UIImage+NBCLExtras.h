@@ -13,6 +13,7 @@
 @interface UIImage (NBCLExtras)
 
 + (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize;
++ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize withCornerRadius:(CGFloat)cornerRadius;
 + (UIImage *)imageWithString:(NSString *)string font:(UIFont *)font;
 
 @end

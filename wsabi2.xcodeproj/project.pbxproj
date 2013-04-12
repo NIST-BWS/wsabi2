@@ -114,9 +114,6 @@
 		EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */; };
 		EA0CEFE31558622500B838E3 /* plus-circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE11558622500B838E3 /* plus-circle-button.png */; };
 		EA0CEFE41558622500B838E3 /* plus-circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */; };
-		EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */; };
-		EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AD1536162000693D86 /* UIImage+Resize.m */; };
-		EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */; };
 		EA277AA614DC3807002484CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA277AA514DC3807002484CF /* CoreLocation.framework */; };
 		EA277AB314DC4092002484CF /* BWSModalityMap.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AB214DC4092002484CF /* BWSModalityMap.m */; };
 		EA277AC814DC7B8E002484CF /* UIView+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA277AC714DC7B8E002484CF /* UIView+FirstResponder.m */; };
@@ -387,12 +384,6 @@
 		EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+GCDBlocks.m"; path = "Categories/Sources/NSObject+GCDBlocks.m"; sourceTree = "<group>"; };
 		EA0CEFE11558622500B838E3 /* plus-circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button.png"; path = "Images/plus-circle-button.png"; sourceTree = "<group>"; };
 		EA0CEFE21558622500B838E3 /* plus-circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-circle-button@2x.png"; path = "Images/plus-circle-button@2x.png"; sourceTree = "<group>"; };
-		EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Alpha.h"; path = "Categories/Headers/UIImage+Alpha.h"; sourceTree = "<group>"; };
-		EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Alpha.m"; path = "Categories/Sources/UIImage+Alpha.m"; sourceTree = "<group>"; };
-		EA0DB8AC1536162000693D86 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "Categories/Headers/UIImage+Resize.h"; sourceTree = "<group>"; };
-		EA0DB8AD1536162000693D86 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "Categories/Sources/UIImage+Resize.m"; sourceTree = "<group>"; };
-		EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "Categories/Headers/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "Categories/Sources/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		EA202D7314C74F6600776BF3 /* BWSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSConstants.h; sourceTree = "<group>"; };
 		EA277AA314DC37FE002484CF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EA277AA514DC3807002484CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -714,10 +705,7 @@
 				0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */,
 				045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */,
 				0840B16E16BADC2300503071 /* NSURL+HTTP.h */,
-				EA0DB8AA1536162000693D86 /* UIImage+Alpha.h */,
 				EA2D1D7414FC1FB5007CB41F /* UIImage+NBCLExtras.h */,
-				EA0DB8AC1536162000693D86 /* UIImage+Resize.h */,
-				EA0DB8AE1536162000693D86 /* UIImage+RoundedCorner.h */,
 				08A54DA01705C0A4005DBC96 /* UINavigationController+BWSDismissKeyboard.h */,
 				08A54DA31705C31F005DBC96 /* UITableView+BWSUtilities.h */,
 				08FBD6441667F27200C01708 /* UIView+BWSInterfaceLogging.h */,
@@ -991,10 +979,7 @@
 				EA8A051714C8938A00199FF8 /* NSManagedObject+DeepCopy.m */,
 				EA045285154EBA63007577B6 /* NSObject+GCDBlocks.m */,
 				0840B17116BADC3700503071 /* NSURL+HTTP.m */,
-				EA0DB8AB1536162000693D86 /* UIImage+Alpha.m */,
 				EA2D1D7514FC1FB5007CB41F /* UIImage+NBCLExtras.m */,
-				EA0DB8AD1536162000693D86 /* UIImage+Resize.m */,
-				EA0DB8AF1536162000693D86 /* UIImage+RoundedCorner.m */,
 				08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */,
 				08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */,
 				08FBD6421667F24300C01708 /* UIView+BWSInterfaceLogging.m */,
@@ -1102,17 +1087,17 @@
 			children = (
 				EA2D1D7C14FC20C8007CB41F /* AssetsLibrary.framework */,
 				EA2D1D7A14FC20BC007CB41F /* AVFoundation.framework */,
-				EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */,
-				EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */,
 				EA2D1D5314FBF93F007CB41F /* CFNetwork.framework */,
-				EA277AA514DC3807002484CF /* CoreLocation.framework */,
-				EA277AA314DC37FE002484CF /* MapKit.framework */,
-				EA8A046614C752B000199FF8 /* QuartzCore.framework */,
 				EAF0F9FF14BC812900544416 /* CoreData.framework */,
-				EAF0F97614BC7B8C00544416 /* UIKit.framework */,
-				EAF0F97814BC7B8C00544416 /* Foundation.framework */,
 				EAF0F97A14BC7B8C00544416 /* CoreGraphics.framework */,
+				EA277AA514DC3807002484CF /* CoreLocation.framework */,
+				EAF0F97814BC7B8C00544416 /* Foundation.framework */,
+				EA277AA314DC37FE002484CF /* MapKit.framework */,
+				EA2D1D5714FBF954007CB41F /* MobileCoreServices.framework */,
+				EA8A046614C752B000199FF8 /* QuartzCore.framework */,
 				EAF0F99414BC7B8C00544416 /* SenTestingKit.framework */,
+				EA2D1D5514FBF948007CB41F /* SystemConfiguration.framework */,
+				EAF0F97614BC7B8C00544416 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1350,9 +1335,6 @@
 				EA8E9DA6150669D6005BB79F /* UIView+FindUIViewController.m in Sources */,
 				EA400E1D15110BCB006F2B5A /* BWSXMLMap.m in Sources */,
 				EAF981E11517AF5A00024A84 /* BWSDeviceLinkManager.m in Sources */,
-				EA0DB8B01536162000693D86 /* UIImage+Alpha.m in Sources */,
-				EA0DB8B21536162000693D86 /* UIImage+Resize.m in Sources */,
-				EA0DB8B41536162000693D86 /* UIImage+RoundedCorner.m in Sources */,
 				EA045286154EBA63007577B6 /* NSObject+GCDBlocks.m in Sources */,
 				EA8AA296156D142D007D213A /* BWSCDDeviceDefinition.m in Sources */,
 				EA8AA29A156D142E007D213A /* BWSCDItem.m in Sources */,

@@ -7,6 +7,7 @@
 // about its quality, reliability, or any other characteristic.
 
 #import "BWSDDLog.h"
+#import "UIImage+NBCLExtras.h"
 
 #import "BWSPersonTableViewCell.h"
 
@@ -658,9 +659,8 @@
     //If this item is ours, update it.
     NSData *imageData = [info objectForKey:@"data"]; //may be nil
     if (imageData && [orderedItems containsObject:targetItem]) {
-        targetItem.data = imageData; 
-        targetItem.thumbnail = UIImagePNGRepresentation([[UIImage imageWithData:imageData]
-                                       thumbnailImage:(2*kItemCellSize) transparentBorder:1 cornerRadius:2*kItemCellCornerRadius interpolationQuality:kCGInterpolationDefault]);
+        targetItem.data = imageData;
+		targetItem.thumbnail = UIImagePNGRepresentation([UIImage scaleImage:[UIImage imageWithData:imageData] toSize:CGSizeMake(2 * kItemCellSize, 2 * kItemCellSize) withCornerRadius:2.0 * kItemCellCornerRadius]);
         //FIXME: This needs to handle metadata coming back from the sensor!
     }
     
