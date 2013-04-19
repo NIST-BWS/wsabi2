@@ -1,0 +1,225 @@
+# WS-BD Operation State
+#
+# Since all error conditions for all service operations are known, we can 
+# outline ways for a client to recover.  This can define operational sequences
+# without prior knowledge.
+#
+# Assume all operations are on a stack (last operation added is first operation
+# performed).
+#
+# Definitions:
+# 	REPEAT		Push this operation on the stack
+#	CONTINUE	Pop current operation off the stack
+#	END		Clear stack (or just assume stack is clear/do nothing?)
+#
+# Format:
+#	operation:
+#		result1 [-> next action [-> next action [-> ...]]]
+#		result2:
+#			* possible action [-> next action [-> ...]]
+#			* possible action [-> next action [-> ...]]
+#			* possible action [-> next action [-> ...]]
+#			(where only one possible action is chosen)
+
+#
+# WS-BD Client 
+#
+
+# Display an error message
+client_displayMessage:
+	success -> END
+	failure -> END
+	
+#
+# WS-BD Service
+#
+
+register:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	
+unregister:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	sensorBusy:
+		* REPEAT
+		* client_displayMessage
+	badValue -> client_displayMessage
+	
+tryLock:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidID -> client_displayMessage
+	lockHeldByAnother:
+		* stealLock
+		* client_displayMessage
+	badValue -> client_displayMessage
+
+stealLock:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidID -> client_displayMessage
+	badValue -> client_displayMessage
+	
+unlock:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidId -> client_displayMessage
+	badValue -> client_displayMessage
+
+getServiceInfo:
+	success -> CONTINUE
+	failure:
+		* client_displayMessage
+		* CONTINUE
+	
+initialize:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidID:
+		* register -> REPEAT
+		* client_displayMessage
+	canceled -> END
+	canceledWithSensorFailure:
+		* client_displayMessage
+		* END
+	sensorFailure -> client_displayMessage
+	lockNotHeld:
+		* tryLock -> REPEAT
+	lockHeldByAnother:
+		* stealLock -> REPEAT
+		* END
+	sensorBusy:
+		* REPEAT
+		* client_displayMessage
+	sensorTimeout:
+		* REPEAT
+		* client_displayMessage
+	badValue -> client_displayMessage
+			
+getConfiguration:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidID:
+		* register -> REPEAT
+		* client_displayMessage
+	canceled -> END
+	canceledWithSensorFailure:
+		* client_displayMessage
+		* END
+	sensorFailure -> client_displayMessage
+	lockNotHeld -> tryLock -> REPEAT
+	lockHeldByAnother:
+		* stealLock -> REPEAT
+		* client_displayMessage
+	initializationNeeded -> initialize -> REPEAT
+	configurationNeeded:
+		* setConfiguration -> REPEAT
+		* client_displayMessage
+	sensorBusy:
+		* REPEAT
+		* client_displayMessage
+	sensorTimeout:
+		* REPEAT
+		* client_displayMessage
+	badValue -> client_displayMessage
+		
+setConfiguration:
+	success -> CONTINUE
+	failure -> client_displayMessage
+	invalidID:
+		* register -> REPEAT
+		* client_displayMessage
+	canceled -> END
+	canceledWithSensorFailure:
+		* client_displayMessage
+		* END
+	sensorFailure -> client_displayMessage
+	lockNotHeld -> tryLock -> REPEAT
+	lockHeldByAnother:
+		* stealLock -> REPEAT
+		* client_displayMessage
+	initializationNeeded -> initialize -> REPEAT
+	sensorBusy:
+		* REPEAT
+		* client_displayMessage
+	sensorTimeout:
+		* REPEAT
+		* client_displayMessage
+	unsupported -> client_displayMessage
+	badValue -> client_displayMessage
+	noSuchParameter -> client_displayMessage
+
+capture:
+	success:
+		* CONTINUE
+		* download
+		* thriftyDownload
+		* client_displayMessage
+		* END
+	failure -> client_displayMessage
+	invalidID:
+		* register -> REPEAT
+		* client_displayMessage
+	canceled -> END
+	canceledWithSensorFailure:
+		* client_displayMessage
+		* END
+	sensorFailure -> client_displayMessage
+	lockNotHeld -> ryLock -> REPEAT
+	lockHeldByAnother:
+		* stealLock -> REPAT
+		* client_displayMessage
+	initializationNeeded -> initialize -> REPEAT
+	configurationNeeded:
+		* setConfiguration -> CONTINUE
+		* client_displayMessage
+	sensorBusy:
+		* REPEAT
+		* client_displayMessage
+	sensorTimeout:
+		* REPEAT
+		* client_displayMessage
+	badValue -> client_displayMessage
+	
+download:
+	success -> END
+	failure -> client_displayMessage
+	invalidID -> client_displayMessage
+	badValue -> client_displayMessage
+	preparingDownload:
+		* client_displayMessage
+		* REPEAT
+	
+getDownloadInfo:
+	success:
+		* download
+		* thriftyDownload
+		* END
+	failure -> client_displayMessage
+	invalidID -> client_displayMessage
+	badValue -> client_displayMessage
+	preparingDownload:
+		* client_displayMessage
+		* REPEAT
+		
+thriftyDownload:
+	success -> END
+	failure -> client_displayMessage
+	invalidID -> client_displayMessage
+	badValue -> client_displayMessage
+	unsupported -> client_displayMessage
+	pareparingDownload:
+		* client_displayMessage
+		* REPEAT
+
+cancel:
+	success -> END
+ 	invalidId -> client_displayMessage
+ 	lockNotHeld:
+ 		* tryLock -> REPEAT (maybe?)
+ 		* client_displayMessage
+ 	lockHeldByAnother:
+ 		* stealLock -> REPEAT (maybe?)
+ 		* client_displayMessage
+ 	badValue -> client_displayMessage
