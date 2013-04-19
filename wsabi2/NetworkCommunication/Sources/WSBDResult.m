@@ -8,104 +8,46 @@
 
 #import "WSBDResult.h"
 
-
 @implementation WSBDResult
 
-@synthesize status, message;
-@synthesize sessionId, captureIds, metadata, config, resultCount, contentType, downloadData;
-
-+(NSString*)stringForStatusValue:(StatusValue)value
++ (NSString *)stringForStatusValue:(StatusValue)value
 {
-    NSString *result = nil;
-    /*
-     StatusSuccess=1,
-     StatusFailure=2,
-     StatusInvalidId=3,
-     StatusCancelled=4,
-     StatusCancelledWithSensorFailure=5,
-     StatusSensorFailure=6,
-     StatusLockNotHeld=7,
-     StatusLockHeldByAnother=8,
-     StatusSensorNeedsInitialization=9,
-     StatusSensorNeedsConfiguration=10,
-     StatusSensorBusy=11,
-     StatusSensorTimeout=12,
-     StatusUnsupported=13,
-     StatusBadValue=14,
-     StatusNoSuchParameter=15,
-     StatusPreparingDownload=16
-
-     */
     switch (value) {
         case StatusSuccess:
-            result = @"success";
-            break;
+            return (@"success");
         case StatusFailure:
-            result = @"failure";
-            break;
+            return (@"failure");
         case StatusInvalidId:
-            result = @"invalid ID";
-            break;
+            return (@"invalid ID");
         case StatusCancelled:
-            result = @"cancelled";
-            break;
+            return (@"cancelled");
         case StatusCancelledWithSensorFailure:
-            result = @"cancelled with sensor failure";
-            break;
+            return (@"cancelled with sensor failure");
         case StatusSensorFailure:
-            result = @"sensor failure";
-            break;
+            return (@"sensor failure");
         case StatusLockNotHeld:
-            result = @"lock not held";
-            break;
+            return (@"lock not held");
         case StatusLockHeldByAnother:
-            result = @"lock held by another";
-            break;
+            return (@"lock held by another");
         case StatusSensorNeedsInitialization:
-            result = @"sensor needs initialization";
-            break;
+            return (@"sensor needs initialization");
         case StatusSensorNeedsConfiguration:
-            result = @"sensor needs configuration";
-            break;
+            return (@"sensor needs configuration");
         case StatusSensorBusy:
-            result = @"sensor busy";
-            break;
+            return (@"sensor busy");
         case StatusSensorTimeout:
-            result = @"sensor timeout";
-            break;
+            return (@"sensor timeout");
         case StatusUnsupported:
-            result = @"unsupported";
-            break;
+            return (@"unsupported");
         case StatusBadValue:
-            result = @"bad value";
-            break;
+            return (@"bad value");
         case StatusNoSuchParameter:
-            result = @"no such parameter";
-            break;
+            return (@"no such parameter");
         case StatusPreparingDownload:
-            result = @"preparing download";
-            break;
+            return (@"preparing download");
         default:
-            break;
+            return (nil);
     }
-    return result;
 }
-
-//#pragma mark -
-//#pragma mark Memory management
-//
-//- (void)dealloc {
-//	[message release];
-//	
-//	[sessionId release];
-//	[captureIds release];
-//	[infoCommon release];
-//	[infoDetailed release];
-//	[config release];
-//	[contentType release];
-//	[downloadData release];
-//	
-//	[super dealloc];
-//}
 
 @end

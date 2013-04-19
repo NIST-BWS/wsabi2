@@ -6,47 +6,34 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
-
 #import <Foundation/Foundation.h>
 
-//Define an enum for possible status return values
-typedef enum {
-	StatusSuccess=1,
-	StatusFailure=2,
-	StatusInvalidId=3,
-	StatusCancelled=4,
-	StatusCancelledWithSensorFailure=5,
-	StatusSensorFailure=6,
-	StatusLockNotHeld=7,
-	StatusLockHeldByAnother=8,
-	StatusSensorNeedsInitialization=9,
-	StatusSensorNeedsConfiguration=10,
-	StatusSensorBusy=11,
-	StatusSensorTimeout=12,
-	StatusUnsupported=13,
-	StatusBadValue=14,
-	StatusNoSuchParameter=15,
-	StatusPreparingDownload=16
-} StatusValue;
+/// Possible status return values
+typedef NS_ENUM(NSUInteger, StatusValue)
+{
+	StatusSuccess = 1,
+	StatusFailure,
+	StatusInvalidId,
+	StatusCancelled,
+	StatusCancelledWithSensorFailure,
+	StatusSensorFailure,
+	StatusLockNotHeld,
+	StatusLockHeldByAnother,
+	StatusSensorNeedsInitialization,
+	StatusSensorNeedsConfiguration,
+	StatusSensorBusy,
+	StatusSensorTimeout,
+	StatusUnsupported,
+	StatusBadValue,
+	StatusNoSuchParameter,
+	StatusPreparingDownload
+};
 
+@interface WSBDResult : NSObject {}
 
-@interface WSBDResult : NSObject {
-	StatusValue status;
-	NSString *message;
++ (NSString *)stringForStatusValue:(StatusValue)value;
 
-	NSString *sessionId;
-	NSMutableArray *captureIds;
-	NSMutableDictionary *metadata;
-	NSMutableDictionary *config;
-	int resultCount;
-	NSString *contentType;
-	id downloadData;
-    
-}
-
-+(NSString*)stringForStatusValue:(StatusValue)value;
-
-@property (nonatomic) StatusValue status;
+@property (nonatomic, assign) StatusValue status;
 @property (nonatomic, strong) NSString *message;
 
 @property (nonatomic, strong) NSString *sessionId;
@@ -54,9 +41,8 @@ typedef enum {
 
 @property (nonatomic, strong) NSMutableDictionary *metadata;
 @property (nonatomic, strong) NSMutableDictionary *config;
-@property (nonatomic) int resultCount;
+@property (nonatomic, assign) NSInteger resultCount;
 @property (nonatomic, strong) NSString *contentType;
 @property (nonatomic, strong) id downloadData;
-
 
 @end
