@@ -50,4 +50,42 @@
     }
 }
 
++ (StatusValue)statusValueForStatusString:(NSString *)statusString
+{
+    if ([statusString caseInsensitiveCompare:@"Success"] == NSOrderedSame)
+        return (StatusSuccess);
+    else if ([statusString caseInsensitiveCompare:@"Failure"] == NSOrderedSame)
+        return (StatusFailure);
+    else if ([statusString caseInsensitiveCompare:@"InvalidId"] == NSOrderedSame)
+        return (StatusInvalidId);
+    else if ([statusString caseInsensitiveCompare:@"Canceled"] == NSOrderedSame)
+        return (StatusCanceled);
+    else if ([statusString caseInsensitiveCompare:@"CanceledWithSensorFailure"] == NSOrderedSame)
+        return (StatusCanceledWithSensorFailure);
+    else if ([statusString caseInsensitiveCompare:@"SensorFailure"] == NSOrderedSame)
+        return (StatusSensorFailure);
+    else if ([statusString caseInsensitiveCompare:@"LockNotHeld"] == NSOrderedSame)
+        return (StatusLockNotHeld);
+    else if ([statusString caseInsensitiveCompare:@"LockHeldByAnother"] == NSOrderedSame)
+        return (StatusLockHeldByAnother);
+    else if ([statusString caseInsensitiveCompare:@"initializationNeeded"] == NSOrderedSame)
+        return (StatusSensorNeedsInitialization);
+    else if ([statusString caseInsensitiveCompare:@"configurationNeeded"] == NSOrderedSame)
+        return (StatusSensorNeedsConfiguration);
+    else if ([statusString caseInsensitiveCompare:@"SensorBusy"] == NSOrderedSame)
+        return (StatusSensorBusy);
+    else if ([statusString caseInsensitiveCompare:@"SensorTimeout"] == NSOrderedSame)
+        return (StatusSensorTimeout);
+    else if ([statusString caseInsensitiveCompare:@"Unsupported"] == NSOrderedSame)
+        return (StatusUnsupported);
+    else if ([statusString caseInsensitiveCompare:@"BadValue"] == NSOrderedSame)
+        return (StatusBadValue);
+    else if ([statusString caseInsensitiveCompare:@"NoSuchParameter"] == NSOrderedSame)
+        return (StatusNoSuchParameter);
+    else if ([statusString caseInsensitiveCompare:@"PreparingDownload"] == NSOrderedSame)
+        return (StatusPreparingDownload);
+
+    return (StatusValueUnknownStatusValue);
+}
+
 @end

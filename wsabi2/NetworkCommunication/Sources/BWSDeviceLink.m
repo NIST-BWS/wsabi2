@@ -317,58 +317,7 @@
 	
 	else if ([elementName localizedCaseInsensitiveCompare:@"status"] == NSOrderedSame)
 	{
-		//create a StatusValue based on the string value of this element.
-		//NOTE: Pretty clumsy.  Fix?
-		StatusValue tempValue = -1;
-		if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Success"] == NSOrderedSame) {
-			tempValue = StatusSuccess;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Failure"] == NSOrderedSame) {
-			tempValue = StatusFailure;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"InvalidId"] == NSOrderedSame) {
-			tempValue = StatusInvalidId;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Canceled"] == NSOrderedSame) {
-			tempValue = StatusCanceled;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"CanceledWithSensorFailure"] == NSOrderedSame) {
-			tempValue = StatusCanceledWithSensorFailure;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorFailure"] == NSOrderedSame) {
-			tempValue = StatusSensorFailure;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"LockNotHeld"] == NSOrderedSame) {
-			tempValue = StatusLockNotHeld;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"LockHeldByAnother"] == NSOrderedSame) {
-			tempValue = StatusLockHeldByAnother;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"initializationNeeded"] == NSOrderedSame) {
-			tempValue = StatusSensorNeedsInitialization;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"configurationNeeded"] == NSOrderedSame) {
-			tempValue = StatusSensorNeedsConfiguration;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorBusy"] == NSOrderedSame) {
-			tempValue = StatusSensorBusy;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorTimeout"] == NSOrderedSame) {
-			tempValue = StatusSensorTimeout;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Unsupported"] == NSOrderedSame) {
-			tempValue = StatusUnsupported;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"BadValue"] == NSOrderedSame) {
-			tempValue = StatusBadValue;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"NoSuchParameter"] == NSOrderedSame) {
-			tempValue = StatusNoSuchParameter;
-		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"PreparingDownload"] == NSOrderedSame) {
-			tempValue = StatusPreparingDownload;
-		}
-		self.currentWSBDResult.status = tempValue;
+		self.currentWSBDResult.status = [WSBDResult statusValueForStatusString:self.currentElementValue];
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"sessionId"] == NSOrderedSame)
 	{

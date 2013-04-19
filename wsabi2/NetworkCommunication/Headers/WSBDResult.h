@@ -11,7 +11,8 @@
 /// Possible status return values
 typedef NS_ENUM(NSUInteger, StatusValue)
 {
-	StatusSuccess = 1,
+    StatusValueUnknownStatusValue,
+	StatusSuccess,
 	StatusFailure,
 	StatusInvalidId,
 	StatusCanceled,
@@ -31,7 +32,10 @@ typedef NS_ENUM(NSUInteger, StatusValue)
 
 @interface WSBDResult : NSObject {}
 
+/// @return Human-readable string representing the status
 + (NSString *)stringForStatusValue:(StatusValue)value;
+/// @param statusString Value of status of an XML Result
++ (StatusValue)statusValueForStatusString:(NSString *)statusString;
 
 @property (nonatomic, assign) StatusValue status;
 @property (nonatomic, strong) NSString *message;
