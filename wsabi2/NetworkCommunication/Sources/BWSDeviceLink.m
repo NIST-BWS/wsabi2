@@ -329,11 +329,11 @@
 		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"InvalidId"] == NSOrderedSame) {
 			tempValue = StatusInvalidId;
 		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Cancelled"] == NSOrderedSame) {
-			tempValue = StatusCancelled;
+		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"Canceled"] == NSOrderedSame) {
+			tempValue = StatusCanceled;
 		}
-		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"CancelledWithSensorFailure"] == NSOrderedSame) {
-			tempValue = StatusCancelledWithSensorFailure;
+		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"CanceledWithSensorFailure"] == NSOrderedSame) {
+			tempValue = StatusCanceledWithSensorFailure;
 		}
 		else if ([self.currentElementValue localizedCaseInsensitiveCompare:@"SensorFailure"] == NSOrderedSame) {
 			tempValue = StatusSensorFailure;

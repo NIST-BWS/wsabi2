@@ -19,10 +19,10 @@
             return (@"failure");
         case StatusInvalidId:
             return (@"invalid ID");
-        case StatusCancelled:
-            return (@"cancelled");
-        case StatusCancelledWithSensorFailure:
-            return (@"cancelled with sensor failure");
+        case StatusCanceled:
+            return (@"canceled");
+        case StatusCanceledWithSensorFailure:
+            return (@"canceled with sensor failure");
         case StatusSensorFailure:
             return (@"sensor failure");
         case StatusLockNotHeld:
