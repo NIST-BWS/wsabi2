@@ -528,6 +528,8 @@
                                                                 object:self
                                                               userInfo:userInfo];
             self.captureButton.state = WSCaptureButtonStateCapture;
+
+            [self startStream];
         }
     }
 }
