@@ -824,6 +824,7 @@
         BWSDeviceLink *link = [[BWSDeviceLinkManager defaultManager] deviceForUri:targetItem.deviceConfig.uri];
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
                                        [NSKeyedUnarchiver unarchiveObjectWithData:targetItem.deviceConfig.parameterDictionary]];
+        [params removeObjectForKey:kBWSDeviceDefinitionParameterKeyStream];
         if (link.initialized) {
             //grab the lock and try to configure the sensor
             [link setConfiguration:link.currentSessionId

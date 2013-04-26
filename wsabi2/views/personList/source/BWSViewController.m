@@ -299,6 +299,7 @@
     BOOL startedOK;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
                                    [NSKeyedUnarchiver unarchiveObjectWithData:item.deviceConfig.parameterDictionary]];
+    [params removeObjectForKey:kBWSDeviceDefinitionParameterKeyStream];
     if (!link.registered || !link.initialized) {
         startedOK = [link beginFullSequenceWithConfigurationParams:params
                                                        withMaxSize:kMaxImageSize deviceID:[notification.userInfo objectForKey:kDictKeyDeviceID]];
