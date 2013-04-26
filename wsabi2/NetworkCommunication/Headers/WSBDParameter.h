@@ -17,5 +17,6 @@
 @property (nonatomic) BOOL supportsMultiple;
 @property (nonatomic, strong) NSMutableArray *allowedValues;
 
+- (id)initWithParameter:(WSBDParameter *)parameter;
 
 @end

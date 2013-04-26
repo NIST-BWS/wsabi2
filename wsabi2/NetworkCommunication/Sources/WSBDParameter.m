@@ -6,6 +6,8 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "WSBDResource.h"
+
 #import "WSBDParameter.h"
 
 
@@ -24,6 +26,29 @@ static NSString * const kWSBDParamaterAttributeAllowedValues = @"allowedValues";
 @synthesize allowedValues;
 @synthesize readOnly;
 @synthesize supportsMultiple;
+
+- (id)initWithParameter:(WSBDParameter *)parameter
+{
+    self.name = [NSString stringWithString:parameter.name];
+    self.type = [NSString stringWithString:parameter.type];
+    // TODO: Must be a better way
+    if ([parameter.defaultValue isKindOfClass:[NSNumber class]])
+        self.defaultValue = [NSNumber numberWithDouble:[parameter.defaultValue doubleValue]];
+    if ([parameter.defaultValue isKindOfClass:[NSString class]])
+        self.defaultValue = [NSString stringWithString:parameter.defaultValue];
+    else if ([parameter.defaultValue isKindOfClass:[WSBDResource class]]) {
+        self.defaultValue = [[WSBDResource alloc] init];
+	((WSBDResource *)self.defaultValue).uri = ((WSBDResource *)parameter.defaultValue).uri;
+//        ((WSBDResource *)self.defaultValue).uri = [NSURL URLWithString:@"http://192.168.1.111:8000/Service/Stream"];
+	    ((WSBDResource *)self.defaultValue).contentType = ((WSBDResource *)parameter.defaultValue).contentType;
+        ((WSBDResource *)self.defaultValue).relationship = ((WSBDResource *)parameter.defaultValue).relationship;
+    }
+    self.readOnly = parameter.readOnly;
+    self.supportsMultiple = parameter.supportsMultiple;
+    self.allowedValues = [[NSMutableArray alloc] initWithArray:parameter.allowedValues copyItems:YES];
+
+    return (self);
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
