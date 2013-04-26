@@ -84,6 +84,7 @@
 		0847AB7116960F9E003395BE /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB6C16960F9E003395BE /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7816972045003395BE /* ELCTextFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */; };
+		084934AA1725B71500EC8D79 /* WSBDResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 084934A91725B71500EC8D79 /* WSBDResource.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862BDB616CEADA40032C14F /* BWSDDLog.m */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
@@ -346,6 +347,8 @@
 		0847AB7816972045003395BE /* ELCTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCell.m; path = vendor/ELCTextFieldCell/Classes/ELCTextFieldCell.m; sourceTree = "<group>"; };
 		084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSSettingsPendingOperationsViewController.m; path = views/settings/source/BWSSettingsPendingOperationsViewController.m; sourceTree = "<group>"; };
 		084893DD170AFDC100FD44A9 /* BWSSettingsPendingOperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsPendingOperationsViewController.h; path = views/settings/headers/BWSSettingsPendingOperationsViewController.h; sourceTree = "<group>"; };
+		084934A91725B71500EC8D79 /* WSBDResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDResource.m; path = NetworkCommunication/Sources/WSBDResource.m; sourceTree = "<group>"; };
+		084934AB1725B77600EC8D79 /* WSBDResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBDResource.h; path = NetworkCommunication/Headers/WSBDResource.h; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/BWSDeviceLinkDelegate.h; sourceTree = "<group>"; };
 		0862BDB516CEA6BF0032C14F /* BWSDDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSDDLog.h; sourceTree = "<group>"; };
@@ -813,6 +816,7 @@
 				EA400E1B15110BCB006F2B5A /* BWSXMLMap.h */,
 				0806C13616B6F6FD00842381 /* WSBDAFHTTPClient.h */,
 				EA2A895B1501563C0056E02C /* WSBDParameter.h */,
+				084934AB1725B77600EC8D79 /* WSBDResource.h */,
 				EA2D1D6914FC190C007CB41F /* WSBDResult.h */,
 			);
 			name = Headers;
@@ -896,6 +900,7 @@
 				EA400E1C15110BCB006F2B5A /* BWSXMLMap.m */,
 				0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */,
 				EA2A895C1501563C0056E02C /* WSBDParameter.m */,
+				084934A91725B71500EC8D79 /* WSBDResource.m */,
 				EA2D1D6A14FC190C007CB41F /* WSBDResult.m */,
 			);
 			name = "Network Communication";
@@ -1392,6 +1397,7 @@
 				08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */,
 				084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */,
 				0891CD88170CBD26005DEE52 /* BWSPickerActionSheet.m in Sources */,
+				084934AA1725B71500EC8D79 /* WSBDResource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -201,4 +201,11 @@ static NSString * const kBWSEntityPerson = @"BWSCDPerson";
 /// Device definition entity
 static NSString * const kBWSEntityDeviceDefinition = @"BWSCDDeviceDefinition";
 
+#pragma mark - XML Parser
+
+static NSString * const kWSBDTypeResource = @"Resource";
+static NSString * const kWSBDElementResourceURI = @"uri";
+static NSString * const KWSBDElementResourceContentType = @"contentType";
+static NSString * const kWSBDElementResourceRelationship = @"relationship";
+
 #endif

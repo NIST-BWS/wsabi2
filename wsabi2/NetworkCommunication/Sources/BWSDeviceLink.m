@@ -12,6 +12,7 @@
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"
 #import "WSBDResult.h"
+#import "WSBDResource.h"
 #import "BWSXMLMap.h"
 #import "BWSBase64Coder.h"
 #import "NSURL+HTTP.h"
@@ -31,6 +32,7 @@
 //
 @property (nonatomic, strong) WSBDResult *currentWSBDResult;
 @property (nonatomic, strong) WSBDParameter *currentWSBDParameter;
+@property (nonatomic, strong) WSBDResource *currentWSBDResource;
 @property (nonatomic, copy) NSString *currentElementName;
 @property (nonatomic, copy) NSString *currentElementValue;
 @property (nonatomic, strong) NSDictionary *currentElementAttributes;
@@ -220,6 +222,7 @@
 	self.currentDictionaryKey = nil;
 	self.currentDictionaryValue = nil;
     self.currentWSBDParameter = nil;
+    self.currentWSBDResource = nil;
     
 	self.currentElementName=@"";
 }
@@ -252,6 +255,7 @@
 		self.currentDictionaryKey = nil;
 		self.currentDictionaryValue = nil;
         self.currentWSBDParameter = nil;
+        self.currentWSBDResource = nil;
 	}
     
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
@@ -259,6 +263,12 @@
         //If we hit a Parameter-typed element, this is a WSBDParameter
         if ([[attributeDict objectForKey:@"i:type"] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame) {
             self.currentWSBDParameter = [[WSBDParameter alloc] init];
+        }
+    }
+
+    else if ([elementName localizedCaseInsensitiveCompare:@"defaultValue"] == NSOrderedSame) {
+        if ([[attributeDict objectForKey:@"i:type"] caseInsensitiveCompare:@"Resource"] == NSOrderedSame) {
+            self.currentWSBDResource = [[WSBDResource alloc] init];
         }
     }
 }
@@ -297,6 +307,7 @@
             
             //We also need to clear the current WSBDParameter value here.
             self.currentWSBDParameter = nil;
+            self.currentWSBDResource = nil;
         }
         else {
             //treat this as a normal element
@@ -329,7 +340,13 @@
 	}
 	else if ([elementName localizedCaseInsensitiveCompare:@"contentType"] == NSOrderedSame)
 	{
-		self.currentWSBDResult.contentType = self.currentElementValue;
+        // TODO: contentType is used twice in the WS-BD schema.  Poor design
+        //       choice to not use a fully qualified element name while parsing.
+        //       Now, since time is limited, let's just get this working.
+        if (self.currentWSBDResource != nil)
+            self.currentWSBDResource.contentType = self.currentElementValue;
+        else
+			self.currentWSBDResult.contentType = self.currentElementValue;
 	}
     
     /****Parameter values****/
@@ -345,7 +362,15 @@
     {
         self.currentWSBDParameter.readOnly = ([self.currentElementValue localizedCaseInsensitiveCompare:@"true"] == NSOrderedSame);
     }
-    
+
+    // Resource values
+    else if ((self.currentWSBDResource != nil) && ([elementName localizedCaseInsensitiveCompare:kWSBDElementResourceURI] == NSOrderedSame))
+        self.currentWSBDResource.uri = [NSURL URLWithString:self.currentElementValue];
+    else if ((self.currentWSBDResource != nil) && ([elementName localizedCaseInsensitiveCompare:KWSBDElementResourceContentType] == NSOrderedSame))
+        self.currentWSBDResource.contentType = self.currentElementValue;
+    else if ((self.currentWSBDResource != nil) && ([elementName localizedCaseInsensitiveCompare:kWSBDElementResourceRelationship] == NSOrderedSame))
+        self.currentWSBDResource.relationship = self.currentElementValue;
+
     else if (self.currentWSBDParameter && [elementName localizedCaseInsensitiveCompare:@"defaultValue"] == NSOrderedSame)
     {
         NSString *typeString = nil;
@@ -356,7 +381,11 @@
         }
         
         //Get the converted object and store it.
-        self.currentWSBDParameter.defaultValue = [BWSXMLMap objcObjectForXML:self.currentElementValue ofType:typeString];
+        if ([typeString caseInsensitiveCompare:kWSBDTypeResource] != NSOrderedSame)
+	        self.currentWSBDParameter.defaultValue = [BWSXMLMap objcObjectForXML:self.currentElementValue ofType:typeString];
+        else {
+            self.currentWSBDParameter.defaultValue = self.currentWSBDResource;
+        }
         DDLogBWSDevice(@"Parameter %@ has defaultValue %@",self.currentWSBDParameter.name, self.currentWSBDParameter.defaultValue);
     }
     
@@ -458,6 +487,7 @@
         }
         
         // Parse XML response
+        [parser setShouldProcessNamespaces:YES];
         [parser setDelegate:self];
         if ([parser parse] == NO) {
             [self failedToParseWithParser:parser userInfo:userInfo];
