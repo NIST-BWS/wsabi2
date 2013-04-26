@@ -11,11 +11,18 @@
 #import "BWSDeviceSetupController.h"
 #import "BWSAppDelegate.h"
 #import "BWSDDLog.h"
+#import "WSBDParameter.h"
 
 #define STATUS_CONTAINER_HEIGHT 95
 
 #define TAG_NETWORK_ADDRESS 1000
 #define TAG_NAME 1001
+
+@interface BWSDeviceSetupController ()
+
+@property(nonatomic, strong) WSBDParameter *streamingParameter;
+
+@end
 
 @implementation BWSDeviceSetupController
 
@@ -276,9 +283,13 @@
 
     //also store these in the parameter dictionary (this is probably something that should be resolved rather than duplicated)
     //NOTE: This uses the parameter form of the submodality, rather than the pretty-printed form.
+    // TODO: Store all information (GitHub #171)
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:2];
     [params setObject:self.item.modality forKey:@"modality"];
     [params setObject:[BWSModalityMap parameterNameForCaptureType:self.submodality] forKey:@"submodality"];
+    // Store streaming information, if available
+    if (self.streamingParameter != nil)
+	    [params setObject:self.streamingParameter forKey:kBWSDeviceDefinitionParameterKeyStream];
     self.deviceDefinition.parameterDictionary = [NSKeyedArchiver archivedDataWithRootObject:params];
     
     //If necessary, insert both the item and its device definition into the real context, which
@@ -643,6 +654,7 @@
     DDLogBWSVerbose(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
     WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
     WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
+    self.streamingParameter = [[WSBDParameter alloc] initWithParameter:[serviceMetadata objectForKey:kBWSDeviceDefinitionParameterKeyStream]];
     BOOL isSensorOperationCompleted = false;
     
     //Check modality
