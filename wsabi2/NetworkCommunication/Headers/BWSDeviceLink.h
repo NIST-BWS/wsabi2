@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "WSBDAFHTTPClient.h"
+#import "WSBDResource.h"
 #import "BWSDeviceLinkDelegate.h"
 #import "BWSDeviceLinkConstants.h"
 
@@ -176,6 +177,18 @@
 /// @param deviceID
 /// URL-representation of the backing managed WSCDDeviceDefinition object.
 - (void)download:(NSString *)captureId withMaxSize:(float)maxSize deviceID:(NSURL *)deviceID;
+
+/// @brief
+/// Stream images from a device.
+/// @param deviceID
+/// URL-representation of the backing managed WSCDDeviceDefinition object.
+/// @param newDataReceived
+/// Block controlling actions when new data is received from the stream.
+/// @param success
+/// Block dictating actions taken when the stream has completed successfully.
+/// @param failure
+/// Block dictating actions taken when the stream fails.
+- (NSOperation *)streamForDeviceID:(NSURL *)deviceID withResource:(WSBDResource *)resource newDataReceived:(void (^)(NSData *newData))newDataReceived success:(void (^)())success failure:(void (^)(NSError *error))failure;
 
 //
 // Predetermined operation sequences

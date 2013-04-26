@@ -208,4 +208,12 @@ static NSString * const kWSBDElementResourceURI = @"uri";
 static NSString * const KWSBDElementResourceContentType = @"contentType";
 static NSString * const kWSBDElementResourceRelationship = @"relationship";
 
+#pragma mark - BWSDeviceDefinition Parameter Keys
+
+static NSString * const kBWSDeviceDefinitionParameterKeyStream = @"stream";
+
+#pragma mark - Streaming 
+
+static NSString * const kBWSDeviceStreamingContentTypeMixedReplace = @"multipart/x-mixed-replace";
+
 #endif

@@ -6,9 +6,12 @@
 // its use by other parties, and makes no guarantees, expressed or implied,
 // about its quality, reliability, or any other characteristic.
 
+#import "BWSAppDelegate.h"
 #import "BWSConstants.h"
 #import "BWSDeviceLinkConstants.h"
 #import "BWSDDLog.h"
+#import "BWSMixedReplaceHTTPRequestOperation.h"
+#import "BWSCDDeviceDefinition.h"
 #import "WSBDAFHTTPClient.h"
 #import "WSBDParameter.h"
 #import "WSBDResult.h"
@@ -1160,6 +1163,43 @@
                           }
                           failure:NULL
      ];
+}
+
+- (NSOperation *)streamForDeviceID:(NSURL *)deviceID withResource:(WSBDResource *)resource newDataReceived:(void (^)(NSData *newData))newDataReceived success:(void (^)())success failure:(void (^)(NSError *error))failure
+{
+	if ([resource.contentType isEqualToString:kBWSDeviceStreamingContentTypeMixedReplace])
+    	return ([self mixedReplaceStreamForDeviceID:deviceID withResource:resource newDataReceived:newDataReceived success:success failure:failure]);
+    else {
+		DDLogBWSVerbose(@"Streaming contentType = '%@' is unsupported.", resource.contentType);
+        if (failure != nil)
+            failure([NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:nil]);
+        return (nil);
+    }
+}
+
+- (NSOperation *)mixedReplaceStreamForDeviceID:(NSURL *)deviceID withResource:(WSBDResource *)resource newDataReceived:(void (^)(NSData *newData))newDataReceived success:(void (^)())success failure:(void (^)(NSError *error))failure
+{
+    BWSMixedReplaceHTTPRequestOperation *operation =
+    [BWSMixedReplaceHTTPRequestOperation mixedReplaceOperationWithRequest:[NSURLRequest requestWithURL:resource.uri]
+                                                      replacementReceived:^(NSData *responseData) {
+                                                          if (newDataReceived != nil)
+                                                              newDataReceived(responseData);
+                                                      }
+                                                                  success:^(NSURLRequest *request, NSURLResponse *response) {
+                                                                      DDLogBWSVerbose(@"%@", @"Streaming ended successfully.");
+                                                                      if (success != nil)
+                                                                          success();
+                                                                  }
+                                                                  failure:^(NSURLRequest *request, NSError *error) {
+                                                                      DDLogError(@"Streaming device failed (%@).", error);
+                                                                      if (failure != nil)
+                                                                          failure(error);
+                                                                  }
+     ];
+
+    [self.service enqueueHTTPRequestOperation:operation];
+
+    return (operation);
 }
 
 #pragma mark - State Machine
