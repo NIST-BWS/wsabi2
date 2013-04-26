@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WSBDResource : NSObject
+@interface WSBDResource : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSURL *uri;
 @property (nonatomic, strong) NSString *contentType;

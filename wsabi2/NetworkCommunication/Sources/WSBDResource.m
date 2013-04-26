@@ -8,11 +8,35 @@
 
 #import "WSBDResource.h"
 
+static NSString * const kWSBDResourceAttributeURI = @"uri";
+static NSString * const kWSBDResourceAttributeContentType = @"contentType";
+static NSString * const kWSBDResourceAttributeRelationship = @"relationship";
+
 @implementation WSBDResource
 
 - (NSString *)description
 {
     return ([NSString stringWithFormat:@"URI: %@, Content-Type: %@, Relationship: %@", self.uri, self.contentType, self.relationship]);
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self == nil)
+        return (nil);
+
+	self.uri = [aDecoder decodeObjectForKey:kWSBDResourceAttributeURI];
+    self.contentType = [aDecoder decodeObjectForKey:kWSBDResourceAttributeContentType];
+    self.relationship = [aDecoder decodeObjectForKey:kWSBDResourceAttributeRelationship];
+
+    return (self);
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+	[aCoder encodeObject:self.uri forKey:kWSBDResourceAttributeURI];
+    [aCoder encodeObject:self.contentType forKey:kWSBDResourceAttributeContentType];
+    [aCoder encodeObject:self.relationship forKey:kWSBDResourceAttributeRelationship];
 }
 
 @end
