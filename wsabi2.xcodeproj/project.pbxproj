@@ -85,6 +85,7 @@
 		0847AB7916972045003395BE /* ELCTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847AB7816972045003395BE /* ELCTextFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084893DB170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m */; };
 		084934AA1725B71500EC8D79 /* WSBDResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 084934A91725B71500EC8D79 /* WSBDResource.m */; };
+		084934AF172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 084934AE172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m */; };
 		084CD4E915B70C9B00EAA76C /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 084CD4E815B70C9B00EAA76C /* BadgeBackground.png */; };
 		0862BDB716CEADA50032C14F /* BWSDDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862BDB616CEADA40032C14F /* BWSDDLog.m */; };
 		088530A815BEC7F80023102A /* UINavigationBarDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 088530A615BEC7F80023102A /* UINavigationBarDoneButtonPressed.png */; };
@@ -349,6 +350,8 @@
 		084893DD170AFDC100FD44A9 /* BWSSettingsPendingOperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSSettingsPendingOperationsViewController.h; path = views/settings/headers/BWSSettingsPendingOperationsViewController.h; sourceTree = "<group>"; };
 		084934A91725B71500EC8D79 /* WSBDResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDResource.m; path = NetworkCommunication/Sources/WSBDResource.m; sourceTree = "<group>"; };
 		084934AB1725B77600EC8D79 /* WSBDResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WSBDResource.h; path = NetworkCommunication/Headers/WSBDResource.h; sourceTree = "<group>"; };
+		084934AD172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSMixedReplaceHTTPRequestOperation.h; sourceTree = "<group>"; };
+		084934AE172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSMixedReplaceHTTPRequestOperation.m; sourceTree = "<group>"; };
 		084CD4E815B70C9B00EAA76C /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Images/BadgeBackground.png; sourceTree = "<group>"; };
 		0862BDAC16C03BFB0032C14F /* BWSDeviceLinkDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSDeviceLinkDelegate.h; path = NetworkCommunication/Headers/BWSDeviceLinkDelegate.h; sourceTree = "<group>"; };
 		0862BDB516CEA6BF0032C14F /* BWSDDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSDDLog.h; sourceTree = "<group>"; };
@@ -804,6 +807,16 @@
 			path = vendor/ActionSheetPicker/Pickers;
 			sourceTree = "<group>";
 		};
+		084934AC172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation */ = {
+			isa = PBXGroup;
+			children = (
+				084934AD172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.h */,
+				084934AE172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m */,
+			);
+			name = BWSMixedReplaceHTTPRequestOperation;
+			path = vendor/BWSMixedReplaceHTTPRequestOperation/BWSMixedReplaceHTTPRequestOperation;
+			sourceTree = "<group>";
+		};
 		0862BDAD16C040450032C14F /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1056,7 @@
 			children = (
 				EA2779C014DACD32002484CF /* ActionSheetPicker */,
 				084102B01697583500F95AF5 /* AFNetworking */,
+				084934AC172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation */,
 				EA26F6FF14D9720600BC54F5 /* ELCTextFieldCell */,
 				081293D416D3E6020085B4D9 /* GIKPopoverBackgroundView */,
 				EA8F482614D1A1BE00503E9C /* GMGridView */,
@@ -1398,6 +1412,7 @@
 				084893DC170AFDB200FD44A9 /* BWSSettingsPendingOperationsViewController.m in Sources */,
 				0891CD88170CBD26005DEE52 /* BWSPickerActionSheet.m in Sources */,
 				084934AA1725B71500EC8D79 /* WSBDResource.m in Sources */,
+				084934AF172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

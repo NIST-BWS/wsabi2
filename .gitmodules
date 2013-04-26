@@ -1,0 +1,3 @@
+[submodule "wsabi2/vendor/BWSMixedReplaceHTTPRequestOperation"]
+	path = wsabi2/vendor/BWSMixedReplaceHTTPRequestOperation
+	url = git://github.com/NIST-BWS/BWSMixedReplaceHTTPRequestOperation.git
