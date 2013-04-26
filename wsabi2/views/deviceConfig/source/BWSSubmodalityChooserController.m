@@ -150,7 +150,7 @@
     BWSDeviceChooserController *subChooser = [[BWSDeviceChooserController alloc] initWithNibName:@"BWSDeviceChooserController" bundle:nil];
     subChooser.modality = self.modality;
     subChooser.submodality = [[submodalities objectAtIndex:indexPath.row] intValue];
-    DDLogBWSVerbose(@"%@", @"Walkthrough setting submodality to %@",[BWSModalityMap stringForCaptureType:subChooser.submodality]);
+    DDLogBWSVerbose(@"Walkthrough setting submodality to %@",[BWSModalityMap stringForCaptureType:subChooser.submodality]);
 
 //    //set the item's submodality
 //    self.item.submodality = [WSModalityMap stringForCaptureType:[[submodalities objectAtIndex:indexPath.row] intValue]];
