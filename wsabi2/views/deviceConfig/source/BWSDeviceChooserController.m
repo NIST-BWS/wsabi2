@@ -323,7 +323,7 @@
                     if ([[self item] deviceConfig] != nil) {
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
-                            [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
+                            [[[[self item] deviceConfig] uri] isEqualToString:[((BWSCDDeviceDefinition *)[recentSensors objectAtIndex:indexPath.row]) uri]]) {
                             [[cell imageView] setImage:greenCheckmark];
                             [cell setIndentationLevel:0];
                         } else
@@ -369,7 +369,7 @@
                     if ([[self item] deviceConfig] != nil) {
                         // Cannot use isEquals because of the way the recentSensors array is built
                         if ([[[[self item] deviceConfig] name] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] name]] &&
-                            [[[[self item] deviceConfig] uri] isEqualToString:[[recentSensors objectAtIndex:indexPath.row] uri]]) {
+                            [[[[self item] deviceConfig] uri] isEqualToString:[((BWSCDDeviceDefinition *)[recentSensors objectAtIndex:indexPath.row]) uri]]) {
                             [[cell imageView] setImage:greenCheckmark];
                             [cell setIndentationLevel:0];
                         } else
