@@ -8,9 +8,19 @@
 
 #import "BWSDDLog.h"
 #import "BWSCaptureController.h"
+#import "BWSMixedReplaceHTTPRequestOperation.h"
+#import "WSBDParameter.h"
+#import "WSBDResource.h"
 
 #import "BWSLightboxViewController.h"
 #import "BWSAppDelegate.h"
+
+
+@interface BWSCaptureController ()
+
+@property (nonatomic, strong) NSOperation *streamingOperation;
+
+@end
 
 @implementation BWSCaptureController
 @synthesize item;
@@ -32,6 +42,7 @@
 @synthesize delegate;
 @synthesize lightboxing;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,10 +54,9 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+
+    [self stopStream];
 }
 
 #pragma mark - Internal convenience methods
@@ -167,7 +177,7 @@
      WSCaptureButtonStateWaiting,
      WSCaptureButtonStateWaitingRestartCapture,
      */
-    
+
 //    //add a mostly-opaque white background behind the capture button's label and image.
 //    UIView *capBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)]; //arbitrary size, this will be set later inside the button.
 //    capBG.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7]; 
@@ -251,6 +261,7 @@
                                                object:nil];
     lightboxing = NO;
 
+    [self startStream];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -267,6 +278,8 @@
             [deviceLink cancel:deviceLink.currentSessionId deviceID:[item.objectID URIRepresentation]];
         }
     }
+
+    [self stopStream];
 
     [super viewWillDisappear:animated];
 }
@@ -446,6 +459,7 @@
 
 -(IBAction)captureButtonPressed:(id)sender
 {    
+    [self stopStream];
 
     //Try to capture.
     //Post a notification to start capture, starting from this item
@@ -894,6 +908,43 @@
     
     // Apple removes gesture recognizers when resigning first responder
     [textView startLoggingBWSInterfaceEventType:kBWSInterfaceEventTypeTap];
+}
+
+#pragma mark - Streaming
+
+- (void)startStream
+{
+    if (self.item.data != nil)
+        return;
+
+    NSDictionary *parameters = (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithData:self.item.deviceConfig.parameterDictionary];
+    if (parameters == nil)
+        return;
+	WSBDParameter *streamingParameter = [parameters objectForKey:kBWSDeviceDefinitionParameterKeyStream];
+    if (streamingParameter == nil) {
+        DDLogBWSVerbose(@"Streaming not supported for device '%@'", self.item.deviceConfig.name);
+        NSLog(@"%@", parameters);
+        return;
+    }
+
+    if ([streamingParameter defaultValue] == nil) {
+        DDLogBWSVerbose(@"Streaming supported, but no default streaming configuration given for device '%@'", self.item.deviceConfig.name);
+        return;
+	}
+
+    BWSDeviceLink *deviceLink = [[BWSDeviceLinkManager defaultManager] deviceForUri:self.item.deviceConfig.uri];
+    self.streamingOperation = [deviceLink streamForDeviceID:[self.item.deviceConfig.objectID URIRepresentation]
+                                               withResource:[streamingParameter defaultValue]
+                                            newDataReceived:^(NSData *responseData) { self.itemDataView.image = [UIImage imageWithData:responseData]; }
+                                                    success:nil
+                                                    failure:nil];
+}
+
+- (void)stopStream
+{
+	if (self.streamingOperation != nil)
+		[self.streamingOperation cancel];
+    self.itemDataView.image = nil;
 }
 
 @end
