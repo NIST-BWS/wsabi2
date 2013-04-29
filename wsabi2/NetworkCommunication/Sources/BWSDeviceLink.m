@@ -1197,6 +1197,7 @@
                                                                   }
      ];
 
+    DDLogBWSVerbose(@"%@", @"Starting mixedReplace stream for device.");
     [self.service enqueueHTTPRequestOperation:operation];
 
     return (operation);
