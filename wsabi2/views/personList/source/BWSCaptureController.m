@@ -69,7 +69,7 @@
     if (!currentAnnotationArray) {
         return NO;
     }
-    
+
     for (NSNumber *val in currentAnnotationArray) {
         if ([val boolValue]) {
             return YES;
@@ -85,7 +85,7 @@
     //We may have to set our properties before everything is loaded, or after.
     //Encapsulate everything here.
 
-	[self setStatusViewHidden:YES animated:NO];
+	[self setStatusViewHidden:YES withError:NO animated:NO];
 
     if (!self.item) {
         //put the button in the inactive state.
@@ -621,7 +621,7 @@
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         self.captureButton.state = WSCaptureButtonStateWarning;
         self.captureButton.warningMessage = error.localizedDescription;
-        [self updateStatusText:error.localizedDescription];
+        [self updateStatusText:error.localizedDescription withError:YES];
     }
     else {
         //Log the error but don't change the UI
@@ -950,29 +950,43 @@
 
 #pragma mark -
 
-- (void)setStatusViewHidden:(BOOL)hidden animated:(BOOL)animated
+- (void)setStatusViewHidden:(BOOL)hidden withError:(BOOL)error animated:(BOOL)animated
 {
-    void (^showOrHideStatusViewAnimation)(void) = ^(){
+    void (^showOrHideStatusView)(void) = ^() {
+        static UIColor *errorColor = nil;
+        static UIColor *normalColor = nil;
+		if (errorColor == nil) {
+            errorColor = [UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.7];
+            normalColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.7];
+        }
+
 		if (hidden)
             [self.statusView setFrame:CGRectMake(0, CGRectGetMinY(self.modalityButton.frame), CGRectGetWidth(self.statusView.frame), CGRectGetHeight(self.statusView.frame))];
-        else
+        else {
             [self.statusView setFrame:CGRectMake(0, CGRectGetMinY(self.modalityButton.frame) - CGRectGetHeight(self.statusView.frame), CGRectGetWidth(self.statusView.frame), CGRectGetHeight(self.statusView.frame))];
+            [self.statusView setBackgroundColor:(error ? errorColor : normalColor)];
+        }
     };
 
     if (animated)
-        [UIView animateWithDuration:0.3 animations:showOrHideStatusViewAnimation];
+        [UIView animateWithDuration:0.3 animations:showOrHideStatusView];
     else
-        showOrHideStatusViewAnimation();
+        showOrHideStatusView();
+}
+
+- (void)updateStatusText:(NSString *)newStatus withError:(BOOL)error
+{
+    if ((newStatus == nil) || ([newStatus isEqualToString:@""]))
+        [self setStatusViewHidden:YES withError:error animated:YES];
+    else {
+    	[self setStatusViewHidden:NO withError:error animated:YES];
+	    self.statusLabel.text = newStatus;
+    }
 }
 
 - (void)updateStatusText:(NSString *)newStatus
 {
-    if ((newStatus == nil) || ([newStatus isEqualToString:@""]))
-        [self setStatusViewHidden:YES animated:YES];
-    else {
-    	[self setStatusViewHidden:NO animated:YES];
-	    self.statusLabel.text = newStatus;
-    }
+    [self updateStatusText:newStatus withError:NO];
 }
 
 @end
