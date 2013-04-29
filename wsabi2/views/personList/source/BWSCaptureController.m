@@ -84,10 +84,13 @@
 {
     //We may have to set our properties before everything is loaded, or after.
     //Encapsulate everything here.
-    
+
+	[self setStatusViewHidden:YES animated:NO];
+
     if (!self.item) {
         //put the button in the inactive state.
         self.captureButton.state = WSCaptureButtonStateInactive;
+        [self updateStatusText:nil];
 
         return; //nothing else to update.
     }
@@ -100,10 +103,18 @@
     if (currentLink.sequenceInProgress && !self.item.data) {
         //set the capture button to the waiting state
         self.captureButton.state = WSCaptureButtonStateWaiting;
+        [self updateStatusText:NSLocalizedString(@"Waiting for sensor", nil)];
     }
     else {
         //put the button in the correct normal state.
         self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+        if (self.item.data == nil) {
+            self.captureButton.state = WSCaptureButtonStateCapture;
+            [self updateStatusText:NSLocalizedString(@"Tap to capture", nil)];
+        } else {
+            self.captureButton.state = WSCaptureButtonStateInactive;
+            [self updateStatusText:nil];
+        }
     }
     
     //configure the annotation button and panel
@@ -164,25 +175,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     [self.modalityButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButton"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     [self.deviceButton setBackgroundImage:[[UIImage imageNamed:@"BreadcrumbButtonEndCap"] stretchableImageWithLeftCapWidth:18 topCapHeight:0] forState:UIControlStateNormal];
     
-    //Configure the capture button.
-    /*	WSCaptureButtonStateInactive,
-     WSCaptureButtonStateCapture,
-     WSCaptureButtonStateStop,
-     WSCaptureButtonStateWarning,
-     WSCaptureButtonStateWaiting,
-     WSCaptureButtonStateWaitingRestartCapture,
-     */
-
-//    //add a mostly-opaque white background behind the capture button's label and image.
-//    UIView *capBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)]; //arbitrary size, this will be set later inside the button.
-//    capBG.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7]; 
-//    self.captureButton.titleBackgroundView = capBG;
-
     self.captureButton.inactiveImage = [UIImage imageNamed:@"Blank"];
     self.captureButton.inactiveMessage = @"";
 
@@ -205,7 +201,6 @@
 //    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCaptureButton:)];
 //    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self.view addGestureRecognizer:swipeLeft];
-
 
     [[self annotationTableView] setAccessibilityLabel:@"Annotations"];
     
@@ -472,6 +467,7 @@
     //Update our state (temporarily, just cycle states).
     self.captureButton.state = fmod((self.captureButton.state + 1), WSCaptureButtonStateWaiting_COUNT);
     self.captureButton.state = WSCaptureButtonStateWaiting;
+    [self updateStatusText:NSLocalizedString(@"Waiting for sensor", nil)];
 }
                                        
 #pragma mark - Gesture recognizer handlers
@@ -528,6 +524,7 @@
                                                                 object:self
                                                               userInfo:userInfo];
             self.captureButton.state = WSCaptureButtonStateCapture;
+            [self updateStatusText:NSLocalizedString(@"Tap to capture", nil)];
 
             [self startStream];
         }
@@ -545,7 +542,13 @@
     
     //If this applies to us, change our capture state.
     if (currentLink == sourceLink) {
-        self.captureButton.state = self.item.data ? WSCaptureButtonStateInactive : WSCaptureButtonStateCapture;
+        if (self.item.data) {
+            self.captureButton.state = WSCaptureButtonStateCapture;
+	        [self updateStatusText:NSLocalizedString(@"Tap to capture", nil)];
+        } else {
+			self.captureButton.state = WSCaptureButtonStateInactive;
+            [self updateStatusText:nil];
+        }
     }
 }
 
@@ -591,10 +594,11 @@
     if(self.itemDataView.image)
     {
         self.captureButton.state = WSCaptureButtonStateInactive;
+        [self updateStatusText:nil];
     }
     else {
         self.captureButton.state = WSCaptureButtonStateCapture;
-
+        [self updateStatusText:NSLocalizedString(@"Tap to capture", nil)];
     }
 }
 
@@ -617,6 +621,7 @@
     if (self.captureButton.state != WSCaptureButtonStateInactive) {
         self.captureButton.state = WSCaptureButtonStateWarning;
         self.captureButton.warningMessage = error.localizedDescription;
+        [self updateStatusText:error.localizedDescription];
     }
     else {
         //Log the error but don't change the UI
@@ -627,14 +632,8 @@
 
 -(void) handleSensorSequenceFailed:(NSNotification *)notification
 {
-    //Do this in the most simpleminded way possible
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;
     
-//    WSCDItem *targetItem = (WSCDItem*) [self.item.managedObjectContext objectWithID:[self.item.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[info objectForKey:kDictKeyDeviceID]]];
-//
-//    //Make sure this applies to us.
-//    if (self.item == targetItem) {
-//        
     WSBDResult *result = (WSBDResult*)[info objectForKey:kDictKeyCurrentResult];
     NSString *resultString = [NSString stringWithFormat:@"Sensor problem: %@", result.message ? result.message : [WSBDResult stringForStatusValue:result.status]];   
         
@@ -653,15 +652,15 @@
         //This is a failed capture notification, so change our button state.
         self.captureButton.warningMessage = resultString;
         self.captureButton.state = WSCaptureButtonStateWarning;
+        [self updateStatusText:resultString];
     }
     else {
         //Log the error but don't change the UI
         DDLogBWSVerbose(@"Ran into a failed sensor sequence: %@",resultString);
     }
-
-//        }
-//    }
 }
+
+#pragma mark - Gestures
 
 - (IBAction)tappedBehindView:(UITapGestureRecognizer *)sender;
 {
@@ -947,6 +946,33 @@
 	if (self.streamingOperation != nil)
 		[self.streamingOperation cancel];
     self.itemDataView.image = nil;
+}
+
+#pragma mark -
+
+- (void)setStatusViewHidden:(BOOL)hidden animated:(BOOL)animated
+{
+    void (^showOrHideStatusViewAnimation)(void) = ^(){
+		if (hidden)
+            [self.statusView setFrame:CGRectMake(0, CGRectGetMinY(self.modalityButton.frame), CGRectGetWidth(self.statusView.frame), CGRectGetHeight(self.statusView.frame))];
+        else
+            [self.statusView setFrame:CGRectMake(0, CGRectGetMinY(self.modalityButton.frame) - CGRectGetHeight(self.statusView.frame), CGRectGetWidth(self.statusView.frame), CGRectGetHeight(self.statusView.frame))];
+    };
+
+    if (animated)
+        [UIView animateWithDuration:0.3 animations:showOrHideStatusViewAnimation];
+    else
+        showOrHideStatusViewAnimation();
+}
+
+- (void)updateStatusText:(NSString *)newStatus
+{
+    if ((newStatus == nil) || ([newStatus isEqualToString:@""]))
+        [self setStatusViewHidden:YES animated:YES];
+    else {
+    	[self setStatusViewHidden:NO animated:YES];
+	    self.statusLabel.text = newStatus;
+    }
 }
 
 @end
