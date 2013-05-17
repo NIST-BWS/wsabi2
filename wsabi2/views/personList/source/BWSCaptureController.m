@@ -237,6 +237,12 @@
                                                  name:kSensorLinkConnectSequenceCompleted
                                                object:nil];
     
+    //Catch operation completed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleOperationCompleted:)
+                                                 name:kSensorLinkOperationCompleted
+                                               object:nil];
+    
     //Catch a posted download
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleDownloadPosted:)
@@ -459,7 +465,7 @@
 
 -(IBAction)captureButtonPressed:(id)sender
 {    
-    [self stopStream];
+    //[self stopStream];
 
     //Try to capture.
     //Post a notification to start capture, starting from this item
@@ -533,6 +539,16 @@
 }
 
 #pragma mark - Notification handlers
+
+-(void) handleOperationCompleted:(NSNotification *)notification
+{
+    NSNumber *opType = [notification.userInfo objectForKey:kDictKeyOperation];
+    
+    if ([opType integerValue] == kOpTypeCapture)
+    {
+        [self stopStream];
+    }
+}
 -(void) handleConnectCompleted:(NSNotification *)notification
 {
     NSMutableDictionary *info = (NSMutableDictionary*)notification.userInfo;

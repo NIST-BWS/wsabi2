@@ -38,8 +38,11 @@ static NSString * const kWSBDParamaterAttributeAllowedValues = @"allowedValues";
         self.defaultValue = [NSString stringWithString:parameter.defaultValue];
     else if ([parameter.defaultValue isKindOfClass:[WSBDResource class]]) {
         self.defaultValue = [[WSBDResource alloc] init];
-	((WSBDResource *)self.defaultValue).uri = ((WSBDResource *)parameter.defaultValue).uri;
-//        ((WSBDResource *)self.defaultValue).uri = [NSURL URLWithString:@"http://192.168.1.111:8000/Service/Stream"];
+        ((WSBDResource *)self.defaultValue).uri = ((WSBDResource *)parameter.defaultValue).uri;
+        //((WSBDResource *)self.defaultValue).uri = [NSURL URLWithString:@"http://10.0.0.69/verifier/Stream"];
+        //((WSBDResource *)self.defaultValue).uri = [NSURL URLWithString:@"http://10.0.0.69/supremaservice/Stream"];
+        //((WSBDResource *)self.defaultValue).uri = [NSURL URLWithString:@"http://10.0.0.69:8000/Service/Stream"];
+	    
 	    ((WSBDResource *)self.defaultValue).contentType = ((WSBDResource *)parameter.defaultValue).contentType;
         ((WSBDResource *)self.defaultValue).relationship = ((WSBDResource *)parameter.defaultValue).relationship;
     }

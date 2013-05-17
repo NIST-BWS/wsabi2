@@ -129,6 +129,7 @@
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      deviceID, kDictKeyDeviceID,
                                      result, kDictKeyCurrentResult,
+                                     @(opType), kDictKeyOperation,
                                      nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kSensorLinkOperationCompleted
