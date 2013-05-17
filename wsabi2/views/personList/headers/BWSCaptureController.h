@@ -80,6 +80,8 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapBehindViewRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleTapRecognizer;
 @property (nonatomic, assign, readonly, getter=isLightboxing) BOOL lightboxing;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIView *statusView;
 
 
 @property (nonatomic, unsafe_unretained) id<BWSCaptureDelegate> delegate;
