@@ -654,7 +654,12 @@
     DDLogBWSVerbose(@"Modality param is actually of class %@",[[serviceMetadata objectForKey:@"modality"] class]);
     WSBDParameter *serviceModalityParam = [serviceMetadata objectForKey:@"modality"];
     WSBDParameter *serviceSubmodalityParam = [serviceMetadata objectForKey:@"submodality"];
-    self.streamingParameter = [[WSBDParameter alloc] initWithParameter:[serviceMetadata objectForKey:kBWSDeviceDefinitionParameterKeyStream]];
+    
+    //Check if streaming parameter exist.  Not every service support streaming.
+    WSBDParameter *streamingParameter = [serviceMetadata objectForKey:kBWSDeviceDefinitionParameterKeyStream];
+    if (streamingParameter != nil)
+        self.streamingParameter = [[WSBDParameter alloc] initWithParameter:streamingParameter];
+    
     BOOL isSensorOperationCompleted = false;
     
     //Check modality
