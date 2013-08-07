@@ -637,7 +637,8 @@
                                   }
                                   
                                   if (seq == kSensorSequenceFull ||
-                                      seq == kSensorSequenceConfigure) {
+                                      seq == kSensorSequenceConfigure ||
+                                      seq == kSensorSequenceConnectConfigure) {
                                       //If we're not done, continue to configuring the sensor.
                                       [self setConfiguration:self.currentSessionId withParameters:self.pendingConfiguration deviceID:deviceID];
                                   }
@@ -968,6 +969,8 @@
                                                                                  withResult:self.currentWSBDResult
                                                                                    deviceID:deviceID];
                                       }
+                                      _sequenceInProgress = kSensorSequenceNone; //stop the sequence, as we've got a failure.
+
                                   }
                                   else if(self.sequenceInProgress == kSensorSequenceConfigure)
                                   {
@@ -1222,7 +1225,7 @@
     // Don't start another sequence if one is in progress
     if (self.sequenceInProgress)
         return (NO);
-    
+    DDLogBWSVerbose(@"%@", @"Starting SequenceConnectConfigure");
     // Kick off the connection sequence
     _sequenceInProgress = kSensorSequenceConnectConfigure;
     self.pendingConfiguration = params;

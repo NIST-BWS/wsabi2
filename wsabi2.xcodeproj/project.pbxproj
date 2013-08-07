@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0486CE7F1796E33600336813 /* checkmark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0486CE7E1796E33600336813 /* checkmark-green.png */; };
+		0486CE82179715EC00336813 /* AFHTTPRequestOperationLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486CE81179715EC00336813 /* AFHTTPRequestOperationLogger.m */; };
 		0806C12E16B6F47500842381 /* ELCTextFieldCellWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */; };
 		0806C13216B6F6F000842381 /* WSBDAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */; };
 		0806C13416B6F6F000842381 /* BWSDeviceLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0806C13116B6F6F000842381 /* BWSDeviceLink.m */; };
@@ -222,6 +224,9 @@
 /* Begin PBXFileReference section */
 		0434003A1616395800A4386E /* NSManagedObject+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+DeepCopy.h"; path = "Categories/Headers/NSManagedObject+DeepCopy.h"; sourceTree = "<group>"; };
 		045B00F91619E3B400C086AB /* NSObject+GCDBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+GCDBlocks.h"; path = "Categories/Headers/NSObject+GCDBlocks.h"; sourceTree = "<group>"; };
+		0486CE7E1796E33600336813 /* checkmark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark-green.png"; path = "Images/checkmark-green.png"; sourceTree = "<group>"; };
+		0486CE80179715EC00336813 /* AFHTTPRequestOperationLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperationLogger.h; path = "../../../Downloads/AFHTTPRequestOperationLogger-master/AFHTTPRequestOperationLogger.h"; sourceTree = "<group>"; };
+		0486CE81179715EC00336813 /* AFHTTPRequestOperationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperationLogger.m; path = "../../../Downloads/AFHTTPRequestOperationLogger-master/AFHTTPRequestOperationLogger.m"; sourceTree = "<group>"; };
 		0806C12C16B6F46D00842381 /* ELCTextFieldCellWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCTextFieldCellWide.h; path = views/interfaceElements/headers/ELCTextFieldCellWide.h; sourceTree = "<group>"; };
 		0806C12D16B6F47500842381 /* ELCTextFieldCellWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ELCTextFieldCellWide.m; path = views/interfaceElements/sources/ELCTextFieldCellWide.m; sourceTree = "<group>"; };
 		0806C13016B6F6F000842381 /* WSBDAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WSBDAFHTTPClient.m; path = NetworkCommunication/Sources/WSBDAFHTTPClient.m; sourceTree = "<group>"; };
@@ -933,6 +938,7 @@
 		EA8A046814C7583A00199FF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0486CE7E1796E33600336813 /* checkmark-green.png */,
 				08C7D3DF161DFC6000A9AC04 /* blue_info_badge.png */,
 				08C7D3E0161DFC6000A9AC04 /* blue_info_badge@2x.png */,
 				0816043815DECB320055D27F /* annotate_pencil_left.png */,
@@ -1125,6 +1131,8 @@
 			isa = PBXGroup;
 			children = (
 				EA202D7314C74F6600776BF3 /* BWSConstants.h */,
+				0486CE80179715EC00336813 /* AFHTTPRequestOperationLogger.h */,
+				0486CE81179715EC00336813 /* AFHTTPRequestOperationLogger.m */,
 				0862BDB516CEA6BF0032C14F /* BWSDDLog.h */,
 				0862BDB616CEADA40032C14F /* BWSDDLog.m */,
 				EAF0F98514BC7B8C00544416 /* BWSAppDelegate.h */,
@@ -1331,6 +1339,7 @@
 				081293F216D3E63A0085B4D9 /* PopoverBackgroundArrowUp@2x.png in Resources */,
 				081293F316D3E63A0085B4D9 /* PopoverBackgroundArrowUpRight.png in Resources */,
 				081293F416D3E63A0085B4D9 /* PopoverBackgroundArrowUpRight@2x.png in Resources */,
+				0486CE7F1796E33600336813 /* checkmark-green.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1413,6 +1422,7 @@
 				0891CD88170CBD26005DEE52 /* BWSPickerActionSheet.m in Sources */,
 				084934AA1725B71500EC8D79 /* WSBDResource.m in Sources */,
 				084934AF172AA7B600EC8D79 /* BWSMixedReplaceHTTPRequestOperation.m in Sources */,
+				0486CE82179715EC00336813 /* AFHTTPRequestOperationLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

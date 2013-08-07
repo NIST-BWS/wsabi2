@@ -94,6 +94,9 @@
             case kModalityVein:
                 imageName = @"modality-vein";
                 break;
+            case kModalityMRTD:
+                imageName = @"modality-MRTD";
+                break;
             case kModalityOther:
                 /* FALLTHROUGH */
             default:

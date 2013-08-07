@@ -9,7 +9,7 @@
 #include "BWSDDLog.h"
 
 #import "BWSAppDelegate.h"
-
+#import "AFHTTPRequestOperationLogger.h"
 #import "BWSCrashHandler.h"
 #import "BWSViewController.h"
 
@@ -44,6 +44,9 @@
     self.window.rootViewController = nav;
 
     //Set up logging
+    [[AFHTTPRequestOperationLogger sharedLogger] setLevel:AFLoggerLevelDebug];
+    [[AFHTTPRequestOperationLogger sharedLogger] startLogging];
+
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     

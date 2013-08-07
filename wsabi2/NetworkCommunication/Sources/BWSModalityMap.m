@@ -190,7 +190,12 @@
         case kCaptureTypeSignatureSign:
             return @"Signature";
             break;
-            
+        case kCaptureTypeDrivers_License:
+            return @"Drivers License";
+            break;
+        case kCaptureTypePassbook:
+            return @"Passbook";
+            break;
         default:
             break;
     }
@@ -220,6 +225,9 @@
             break;
         case kModalityFoot:
             return @"Foot";
+            break;
+        case kModalityMRTD:
+            return @"MRTD";
             break;
         case kModalityOther:
             return @"Other";
@@ -408,7 +416,12 @@
         case kCaptureTypeSignatureSign:
             return @"Signature";
             break;
-            
+        case kCaptureTypeDrivers_License:
+            return @"Drivers License";
+            break;
+        case kCaptureTypePassbook:
+            return @"Passbook";
+            break;
         default:
             break;
     }
@@ -501,7 +514,12 @@
                     nil];
 
             break;
-
+        case kModalityMRTD:
+            return [NSArray arrayWithObjects:
+                    [NSNumber numberWithInt:kCaptureTypePassbook],
+                    [NSNumber numberWithInt:kCaptureTypeDrivers_License],
+                    nil];
+            
         case kModalityOther:
             //return all capture types for now.
             return [NSArray arrayWithObjects:
@@ -544,6 +562,9 @@
     }
     else if ([modalityName isEqualToString:@"Foot"]) {
         return kModalityFoot;
+    }
+    else if ([modalityName isEqualToString:@"MRTD"]){
+        return kModalityMRTD;
     }
     else if ([modalityName isEqualToString:@"Other"]) {
         return kModalityOther;
@@ -727,7 +748,12 @@
     else if ([captureTypeName isEqualToString:@"Signature"]) {
         return kCaptureTypeSignatureSign;
     }
-
+    else if([captureTypeName isEqualToString:@"Drivers License"]){
+        return kCaptureTypeDrivers_License;
+    }
+    else if ([captureTypeName isEqualToString:@"Passbook"]){
+        return kCaptureTypePassbook;
+    }
     else return kCaptureTypeNotSet;
 }
 

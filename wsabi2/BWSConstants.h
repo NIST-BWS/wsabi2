@@ -57,6 +57,7 @@ typedef enum {
     kModalityVein,
     kModalityRetina,
     kModalityFoot,
+    kModalityMRTD,
 	kModalityOther,
     kModality_COUNT
 } WSSensorModalityType;
@@ -134,6 +135,10 @@ typedef enum {
     kCaptureTypeKeystroke,
     kCaptureTypeLipMovement,
     kCaptureTypeSignatureSign,
+    
+    //MRTD Machine Readable Travel Document
+    kCaptureTypePassbook,
+    kCaptureTypeDrivers_License,
     
     kCaptureType_COUNT
 } WSSensorCaptureType;

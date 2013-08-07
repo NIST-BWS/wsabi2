@@ -665,7 +665,7 @@
     //Check modality
     if (serviceModalityParam.readOnly) {
         NSString *serviceModalityDefault = serviceModalityParam.defaultValue;
-        
+
         if([serviceModalityDefault localizedCaseInsensitiveCompare:
             [BWSModalityMap stringForModality:self.modality]] 
            != NSOrderedSame)
