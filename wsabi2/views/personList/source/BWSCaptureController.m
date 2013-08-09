@@ -558,7 +558,7 @@
     
     //If this applies to us, change our capture state.
     if (currentLink == sourceLink) {
-        if (self.item.data) {
+        if (self.item.data == nil) {
             self.captureButton.state = WSCaptureButtonStateCapture;
 	        [self updateStatusText:NSLocalizedString(@"Tap to capture", nil)];
         } else {
