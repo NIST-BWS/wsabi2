@@ -97,7 +97,7 @@
 		08A54D9A1704B0A4005DBC96 /* UITableView+BWSUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54D991704B0A4005DBC96 /* UITableView+BWSUtilities.m */; };
 		08A54DA21705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A54DA11705C0B7005DBC96 /* UINavigationController+BWSDismissKeyboard.m */; };
 		08B250FF168E2A6E00659E98 /* BWSLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */; };
-		08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B25100168E2A8600659E98 /* WSLightboxView.xib */; };
+		08B25101168E2A8600659E98 /* BWSLightboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B25100168E2A8600659E98 /* BWSLightboxView.xib */; };
 		08BAA04315ED03110050FD88 /* BadgeBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */; };
 		08C7D3E1161DFC6000A9AC04 /* blue_info_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 08C7D3DF161DFC6000A9AC04 /* blue_info_badge.png */; };
 		08C7D3E2161DFC6000A9AC04 /* blue_info_badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08C7D3E0161DFC6000A9AC04 /* blue_info_badge@2x.png */; };
@@ -372,7 +372,7 @@
 		08A54DA31705C31F005DBC96 /* UITableView+BWSUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+BWSUtilities.h"; path = "Categories/Headers/UITableView+BWSUtilities.h"; sourceTree = "<group>"; };
 		08B250FD168E2A5C00659E98 /* BWSLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSLightboxViewController.h; path = views/personList/headers/BWSLightboxViewController.h; sourceTree = "<group>"; };
 		08B250FE168E2A6E00659E98 /* BWSLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSLightboxViewController.m; path = views/personList/source/BWSLightboxViewController.m; sourceTree = "<group>"; };
-		08B25100168E2A8600659E98 /* WSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WSLightboxView.xib; path = views/personList/nibs/WSLightboxView.xib; sourceTree = "<group>"; };
+		08B25100168E2A8600659E98 /* BWSLightboxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWSLightboxView.xib; path = views/personList/nibs/BWSLightboxView.xib; sourceTree = "<group>"; };
 		08BAA04215ED03110050FD88 /* BadgeBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BadgeBackground@2x.png"; path = "Images/BadgeBackground@2x.png"; sourceTree = "<group>"; };
 		08C7D3DF161DFC6000A9AC04 /* blue_info_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_info_badge.png; path = Images/blue_info_badge.png; sourceTree = "<group>"; };
 		08C7D3E0161DFC6000A9AC04 /* blue_info_badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue_info_badge@2x.png"; path = "Images/blue_info_badge@2x.png"; sourceTree = "<group>"; };
@@ -670,7 +670,7 @@
 			children = (
 				082C8781163AD8260049AB59 /* BWSBiographicalDataController.xib */,
 				082C8782163AD8260049AB59 /* BWSCaptureController.xib */,
-				08B25100168E2A8600659E98 /* WSLightboxView.xib */,
+				08B25100168E2A8600659E98 /* BWSLightboxView.xib */,
 				082C8783163AD8260049AB59 /* BWSViewController.xib */,
 			);
 			name = NIBs;
@@ -1324,7 +1324,7 @@
 				082C8785163AD8260049AB59 /* BWSCaptureController.xib in Resources */,
 				082C8786163AD8260049AB59 /* BWSViewController.xib in Resources */,
 				082C8796163AD9CC0049AB59 /* BWSPersonTableViewCell.xib in Resources */,
-				08B25101168E2A8600659E98 /* WSLightboxView.xib in Resources */,
+				08B25101168E2A8600659E98 /* BWSLightboxView.xib in Resources */,
 				081293E716D3E63A0085B4D9 /* PopoverBackgroundArrowDown.png in Resources */,
 				081293E816D3E63A0085B4D9 /* PopoverBackgroundArrowDown@2x.png in Resources */,
 				081293E916D3E63A0085B4D9 /* PopoverBackgroundArrowDownRight.png in Resources */,
