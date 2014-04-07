@@ -658,9 +658,16 @@
     
     //If this item is ours, update it.
     NSData *imageData = [info objectForKey:@"data"]; //may be nil
+    
     if (imageData && [orderedItems containsObject:targetItem]) {
         targetItem.data = imageData;
 		targetItem.thumbnail = UIImagePNGRepresentation([UIImage scaleImage:[UIImage imageWithData:imageData] toSize:CGSizeMake(2 * kItemCellSize, 2 * kItemCellSize) withCornerRadius:2.0 * kItemCellCornerRadius]);
+//        targetItem.thumbnail = UIImageJPEGRepresentation([UIImage scaleImage:[UIImage imageWithData:imageData] toSize:CGSizeMake(2 * kItemCellSize, 2 * kItemCellSize) withCornerRadius:2.0 *kItemCellCornerRadius], 0.5 );
+//        NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.jpg"];
+//        
+//        [UIImageJPEGRepresentation([UIImage imageWithData:imageData], 0.5) writeToFile:jpgPath atomically:YES];
+        
+        //[targetItem.thumbnail writeToFile:jpgPath atomically:YES];
         //FIXME: This needs to handle metadata coming back from the sensor!
     }
     

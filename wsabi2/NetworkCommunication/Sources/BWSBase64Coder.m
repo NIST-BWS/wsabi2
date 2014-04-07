@@ -9,6 +9,7 @@
 #import "BWSBase64Coder.h"
 
 
+
 @implementation BWSBase64Coder
 static char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static char decodingTable[128];
@@ -55,6 +56,7 @@ static char decodingTable[128];
 
 
 + (NSData*) decode:(const char*) string length:(NSInteger) inputLength {
+    
 	if ((string == NULL) || (inputLength % 4 != 0)) {
 		return nil;
 	}
@@ -83,12 +85,18 @@ static char decodingTable[128];
 			output[outputPoint++] = ((decodingTable[i2] & 0x3) << 6) | decodingTable[i3];
 		}
 	}
-	
+
 	return data;
 }
 
 
 + (NSData*) decode:(NSString*) string {
-	return [self decode:[string cStringUsingEncoding:NSASCIIStringEncoding] length:string.length];
+    
+
+    NSString *newString = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    return [self decode:[newString cStringUsingEncoding:NSASCIIStringEncoding] length:newString.length];
+    
+//    Original Code
+//    	return [self decode:[string cStringUsingEncoding:NSASCIIStringEncoding] length:string.length];
 }
 @end

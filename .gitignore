@@ -20,3 +20,5 @@ profile
 *.moved-aside
 DerivedData
 wsabi2/.DS_Store
+
+wsabi2/vendor/BWSMixedReplaceHTTPRequestOperation

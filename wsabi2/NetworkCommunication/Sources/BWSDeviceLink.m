@@ -44,6 +44,7 @@
 @property (nonatomic, strong) id currentDictionaryKey;
 @property (nonatomic, strong) id currentDictionaryValue;
 @property (nonatomic, strong) NSXMLParser *XMLParser;
+@property (nonatomic, strong) NSString *prefixes;
 
 // Download properties
 @property (nonatomic, strong) NSMutableArray *downloadSequenceResults;
@@ -264,15 +265,41 @@
 	else if ([elementName localizedCaseInsensitiveCompare:@"value"] == NSOrderedSame)
 	{
         //If we hit a Parameter-typed element, this is a WSBDParameter
-        if ([[attributeDict objectForKey:@"i:type"] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame) {
-            self.currentWSBDParameter = [[WSBDParameter alloc] init];
+    
+//        if ([[attributeDict objectForKey:@"i:type"] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame) {
+//            self.currentWSBDParameter = [[WSBDParameter alloc] init];
+//        }
+        
+        //Kayee: test code to fix xml parse to read all styles of xml
+        for (NSString *key in attributeDict.keyEnumerator){
+            if ([key rangeOfString:@"type"].location != NSNotFound)
+            {
+                if ([[attributeDict objectForKey:key] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame)
+                {
+                    self.currentWSBDParameter = [[WSBDParameter alloc] init];
+                }
+            }
         }
+        //************************
     }
 
     else if ([elementName localizedCaseInsensitiveCompare:@"defaultValue"] == NSOrderedSame) {
-        if ([[attributeDict objectForKey:@"i:type"] caseInsensitiveCompare:@"Resource"] == NSOrderedSame) {
-            self.currentWSBDResource = [[WSBDResource alloc] init];
+//        if ([[attributeDict objectForKey:@"i:type"] caseInsensitiveCompare:@"Resource"] == NSOrderedSame) {
+//            self.currentWSBDResource = [[WSBDResource alloc] init];
+//        }
+        
+        //Kayee: test code to fix xml parse to read all styles of xml
+        for (NSString *key in attributeDict.keyEnumerator){
+            if ([key rangeOfString:@"type"].location != NSNotFound)
+            {
+                if ([[attributeDict objectForKey:key] localizedCaseInsensitiveCompare:@"Parameter"] == NSOrderedSame)
+                {
+                    self.currentWSBDResource = [[WSBDResource alloc] init];
+                }
+            }
         }
+        //************************
+
     }
 }
 
@@ -378,9 +405,17 @@
     {
         NSString *typeString = nil;
         for (NSString *key in self.currentElementAttributes.allKeys) {
-            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
+
+//            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
+//                typeString = [self.currentElementAttributes objectForKey:key];
+//            }
+            
+            if ([key rangeOfString:@"type"].location != NSNotFound)
+            {
                 typeString = [self.currentElementAttributes objectForKey:key];
+
             }
+
         }
         
         //Get the converted object and store it.
@@ -396,10 +431,16 @@
     {
         NSString *typeString = nil;
         for (NSString *key in self.currentElementAttributes.allKeys) {
-            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
+//            if ([key localizedCaseInsensitiveCompare:@"i:type"] == NSOrderedSame) {
+//                typeString = [self.currentElementAttributes objectForKey:key];
+//            }
+            if ([key rangeOfString:@"type"].location != NSNotFound)
+            {
                 typeString = [self.currentElementAttributes objectForKey:key];
             }
+
         }
+        
         
         //if necessary, create the array we're about to add to.
         if (!self.currentWSBDParameter.allowedValues) {
@@ -412,6 +453,16 @@
     
 	self.currentElementName=@"";
     self.currentElementAttributes = nil;
+}
+
+- (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
+{
+    
+}
+
+-(void)parser:(NSXMLParser *)parser didEndMappingPrefix:(NSString *)prefix
+{
+    
 }
 
 #pragma mark - Network Operations
@@ -491,6 +542,7 @@
         
         // Parse XML response
         [parser setShouldProcessNamespaces:YES];
+//        [parser setShouldReportNamespacePrefixes:YES];
         [parser setDelegate:self];
         if ([parser parse] == NO) {
             [self failedToParseWithParser:parser userInfo:userInfo];

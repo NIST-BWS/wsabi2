@@ -940,7 +940,7 @@
 	WSBDParameter *streamingParameter = [parameters objectForKey:kBWSDeviceDefinitionParameterKeyStream];
     if (streamingParameter == nil) {
         DDLogBWSVerbose(@"Streaming not supported for device '%@'", self.item.deviceConfig.name);
-        NSLog(@"%@", parameters);
+        //NSLog(@"%@", parameters);
         return;
     }
 
